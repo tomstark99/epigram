@@ -35,10 +35,10 @@ class ArticleActivity : AppCompatActivity() {
         Glide.with(this).load(post.image)
             .apply(RequestOptions.bitmapTransform(MultiTransformation(CenterCrop(), RoundedCorners(32))))
             .into(article_post_image)
-        //article_text.text = Html.fromHtml(post.html)
 
         val htmlTextView: HtmlTextView = html_text
         htmlTextView.setHtml(post.html, HtmlHttpImageGetter(htmlTextView, null, true))
+//      article_text.text = Html.fromHtml(post.html)
 
         article_post_title.text = post.title
         article_tag_text.text = post.tag

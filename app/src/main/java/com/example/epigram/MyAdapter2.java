@@ -2,7 +2,6 @@ package com.example.epigram;
 
 import android.graphics.Bitmap;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -14,9 +13,11 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.epigram.data.Post;
+import com.jakewharton.rxbinding.view.RxView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class MyAdapter2 extends RecyclerView.Adapter<MyAdapter2.MyViewHolder> {
 
@@ -47,12 +48,10 @@ public class MyAdapter2 extends RecyclerView.Adapter<MyAdapter2.MyViewHolder> {
             dateAlt = l.findViewById(R.id.post_date_alternate);
             titleImage = l.findViewById(R.id.post_image);
             this.linearLayout = l;
-            l.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    titleImage.setTransitionName("article_header");
-                    loadNextPage.onPostClicked(posts.get(getAdapterPosition()), titleImage);
-                }
+
+            RxView.clicks(l).throttleFirst(500, TimeUnit.MILLISECONDS).subscribe(empty ->{
+                titleImage.setTransitionName("article_header");
+                loadNextPage.onPostClicked(posts.get(getAdapterPosition()), titleImage);
             });
 
         }

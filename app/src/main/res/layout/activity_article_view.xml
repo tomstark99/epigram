@@ -113,14 +113,19 @@
                     tools:text="Article goes here"
                     android:textSize="20dp"
                     android:textColor="@color/black"
-                    android:fontFamily="sans-serif-condensed"/>
+                    android:fontFamily="sans-serif-condensed"
+                    android:textStyle="normal"/>
 
-            <!-- The font only changes depending on the tag in the html-->
+             <!--The font only changes depending on the tag in the html-->
             <!--<TextView-->
             <!--android:id="@+id/article_text"-->
             <!--android:layout_width="match_parent"-->
             <!--android:layout_height="wrap_content"-->
-            <!--tools:text="Article content"/>-->
+            <!--tools:text="Article content"-->
+            <!--android:textSize="20dp"-->
+            <!--android:textColor="@color/black"-->
+            <!--android:fontFamily="sans-serif-condensed"-->
+            <!--android:textStyle="normal"/>-->
         </LinearLayout>
     </ScrollView>
 
