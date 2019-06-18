@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">epigram</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="tab_text_1">HOME</string>
+    <string name="tab_text_2">NEWS</string>
+    <string name="tab_text_3">FEATURES</string>
+    <string name="tab_text_4">COMMENT</string>
+    <string name="empty"></string>
+    <string name="tag1">news</string>
+    <string name="tag2">features</string>
+    <string name="tag3">comment</string>
+
+
+    <string name="tab_1">RECENT NEWS</string>
+    <string name="tab_2">NEWS SECTION</string>
+    <string name="tab_3">FEATURES SECTION</string>
+    <string name="tab_4">COMMENT SECTION</string>
+
+</resources>

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/place_holders"
+        android:background="?android:selectableItemBackground"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+    <com.google.android.material.appbar.AppBarLayout
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:theme="@style/AppTheme.AppBarOverlay">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:contentScrim="?attr/colorPrimary"
+                app:expandedTitleGravity="top"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
+
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content">
+                <ImageView
+                        android:id="@+id/logo1"
+                        android:src="@drawable/layer_2"
+                        android:layout_width="@android:dimen/app_icon_size"
+                        android:layout_height="@android:dimen/app_icon_size"
+                        android:layout_gravity="center_vertical"
+                        android:paddingTop="5dp"
+                        android:paddingLeft="16dp"
+                        android:alpha="1"/>
+
+                <TextView
+                        android:id="@+id/title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical|start"
+                        android:minHeight="?actionBarSize"
+                        android:padding="@dimen/appbar_padding"
+                        android:text="@string/app_name"
+                        android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"/>
+
+            </LinearLayout>
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/small_padding"
+                android:paddingEnd="@dimen/small_padding"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/large_padding"
+                android:clipToPadding="false"
+                android:paddingTop="@dimen/small_padding">
+
+            <ImageView android:layout_width="match_parent" android:layout_height="150dp"
+                       android:id="@+id/article_post_image"
+                       android:src="@drawable/placeholder_background"
+                       android:adjustViewBounds="false"
+                       android:transitionName="article_header"
+                    android:paddingBottom="@dimen/tiny_padding"/>
+            <TextView
+                    android:id="@+id/article_post_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="25dp"
+                    tools:text="ARTICLE TITLE"
+                    android:fontFamily="sans-serif-condensed-medium"
+                    android:textColor="@color/black"/>
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="20dp">
+                <TextView
+                        android:id="@+id/article_tag_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/tag_background"
+                        tools:text="NEWS"
+                        android:padding="8dp"
+                        android:fontFamily="sans-serif-condensed-medium"
+                        android:textStyle="bold"
+                        android:textColor="@android:color/white"
+                        android:textSize="10dp"/>
+
+                <TextView
+                        android:id="@+id/article_post_date_alternate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="8dp"
+                        tools:text="June 10, 2019"
+                        android:textSize="12dp"
+                        android:fontFamily="sans-serif-condensed-medium"/>
+
+            </LinearLayout>
+
+            <org.sufficientlysecure.htmltextview.HtmlTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/html_text"
+                    tools:text="Article goes here"
+                    android:textSize="20dp"
+                    android:textColor="@color/black"
+                    android:fontFamily="sans-serif-condensed"/>
+
+            <!-- The font only changes depending on the tag in the html-->
+            <!--<TextView-->
+            <!--android:id="@+id/article_text"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--tools:text="Article content"/>-->
+        </LinearLayout>
+    </ScrollView>
+
+
+</LinearLayout>
