@@ -24,17 +24,28 @@ class ArticleActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val post = intent.getSerializableExtra(ARG_POST) as Post
-
         setContentView(R.layout.activity_article_view)
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        val post = intent.getSerializableExtra(ARG_POST) as Post
 
         val view = findViewById<TextView>(R.id.title)
         val typeFace = Typeface.createFromAsset(assets, "fonts/lora_regular.ttf")
         view.typeface = typeFace
 
-        Glide.with(this).load(post.image)
-            .apply(RequestOptions.bitmapTransform(MultiTransformation(CenterCrop(), RoundedCorners(32))))
-            .into(article_post_image)
+        if(post.image != null) {
+            Glide.with(this).load(post.image)
+                .apply(RequestOptions.bitmapTransform(MultiTransformation(CenterCrop(), RoundedCorners(32))))
+                .into(article_post_image)
+        }
+        else{
+            Glide.with(this).load(R.drawable.article_placeholder_image)
+                .apply(RequestOptions.bitmapTransform(MultiTransformation(CenterCrop(), RoundedCorners(32))))
+                .into(article_post_image)
+        }
 
         val htmlTextView: HtmlTextView = html_text
         htmlTextView.setHtml(post.html, HtmlHttpImageGetter(htmlTextView, null, true))
@@ -44,7 +55,6 @@ class ArticleActivity : AppCompatActivity() {
         article_tag_text.text = post.tag
         article_post_date_alternate.text = post.date.toString("MMM d, yyyy")
     }
-
 
     companion object {
 

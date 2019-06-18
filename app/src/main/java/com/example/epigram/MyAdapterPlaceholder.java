@@ -5,7 +5,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
+public class MyAdapterPlaceholder extends RecyclerView.Adapter<MyAdapterPlaceholder.MyViewHolder> {
 
     public static class MyViewHolder extends RecyclerView.ViewHolder{
         public LinearLayout linearLayout;
@@ -16,7 +16,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     }
 
     @Override
-    public MyAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
+    public MyAdapterPlaceholder.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
         LinearLayout l = (LinearLayout) LayoutInflater.from(parent.getContext()).inflate(R.layout.element_place_holder, parent, false);
         MyViewHolder vh = new MyViewHolder(l);
         return vh;

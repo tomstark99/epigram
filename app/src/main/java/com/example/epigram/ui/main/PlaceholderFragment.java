@@ -14,8 +14,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.example.epigram.ArticleActivity;
-import com.example.epigram.MyAdapter;
-import com.example.epigram.MyAdapter2;
+import com.example.epigram.MyAdapterPlaceholder;
+import com.example.epigram.MyAdapterArticles;
 import com.example.epigram.R;
 import com.example.epigram.data.Layout;
 import com.example.epigram.data.Post;
@@ -26,7 +26,7 @@ import io.reactivex.schedulers.Schedulers;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class PlaceholderFragment extends Fragment implements MyAdapter2.LoadNextPage {
+public class PlaceholderFragment extends Fragment implements MyAdapterArticles.LoadNextPage {
 
     private static final String ARG_SECTION_NUMBER = "section_number";
 
@@ -36,7 +36,7 @@ public class PlaceholderFragment extends Fragment implements MyAdapter2.LoadNext
 
     private PostManager pManager = new PostManager();
 
-    private MyAdapter2 adapter2 = null;
+    private MyAdapterArticles adapter2 = null;
     private int nextPage = FIRST_INDEX;
     private boolean loaded = false;
     private RecyclerView recyclerView;
@@ -73,7 +73,7 @@ public class PlaceholderFragment extends Fragment implements MyAdapter2.LoadNext
 
         if(recyclerView.getAdapter() == null) {
             if(adapter2 == null) {
-                recyclerView.setAdapter(new MyAdapter());
+                recyclerView.setAdapter(new MyAdapterPlaceholder());
             }
             else{
                 recyclerView.setAdapter(adapter2);
@@ -111,7 +111,7 @@ public class PlaceholderFragment extends Fragment implements MyAdapter2.LoadNext
                             swipeRefresh.setRefreshing(false);
                             nextPage++;
                             if (adapter2 == null) {
-                                adapter2 = new MyAdapter2(posts, PlaceholderFragment.this);
+                                adapter2 = new MyAdapterArticles(posts, PlaceholderFragment.this);
                                 recyclerView.setAdapter(adapter2);
                             }
                             else {

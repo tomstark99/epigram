@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.MultiTransformation;
@@ -13,13 +14,15 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.epigram.data.Post;
-import com.jakewharton.rxbinding.view.RxView;
+import com.jakewharton.rxbinding2.view.RxView;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-public class MyAdapter2 extends RecyclerView.Adapter<MyAdapter2.MyViewHolder> {
+public class MyAdapterArticles extends RecyclerView.Adapter<MyAdapterArticles.MyViewHolder> {
 
     private List<Post> posts = new ArrayList<>();
     private final MultiTransformation<Bitmap> multiTransformation;
@@ -40,6 +43,8 @@ public class MyAdapter2 extends RecyclerView.Adapter<MyAdapter2.MyViewHolder> {
         public TextView dateAlt;
         public TextView tabTitle;
 
+        private Disposable disposable = null;
+
         public MyViewHolder(LinearLayout l){
             super(l);
             title = l.findViewById(R.id.post_title);
@@ -49,27 +54,43 @@ public class MyAdapter2 extends RecyclerView.Adapter<MyAdapter2.MyViewHolder> {
             titleImage = l.findViewById(R.id.post_image);
             this.linearLayout = l;
 
-            RxView.clicks(l).throttleFirst(500, TimeUnit.MILLISECONDS).subscribe(empty ->{
-                titleImage.setTransitionName("article_header");
-                loadNextPage.onPostClicked(posts.get(getAdapterPosition()), titleImage);
-            });
-
         }
     }
 
-    public MyAdapter2(List<Post> posts, LoadNextPage loadNext) {
+    @Override
+    public void onViewDetachedFromWindow(@NonNull MyViewHolder holder) {
+        super.onViewDetachedFromWindow(holder);
+        if(holder.disposable != null) {
+            holder.disposable.dispose();
+        }
+    }
+
+    @Override
+    public void onViewAttachedToWindow(@NonNull MyViewHolder holder) {
+        super.onViewAttachedToWindow(holder);
+
+        if(holder.disposable != null) {
+            holder.disposable.dispose();
+        }
+        holder.disposable = RxView.clicks(holder.linearLayout).throttleFirst(500, TimeUnit.MILLISECONDS).observeOn(AndroidSchedulers.mainThread()).subscribe(empty -> {
+            holder.titleImage.setTransitionName("article_header");
+            loadNextPage.onPostClicked(posts.get(holder.getAdapterPosition()), holder.titleImage);
+        });
+    }
+
+    public MyAdapterArticles(List<Post> posts, LoadNextPage loadNext) {
         this.posts = posts;
         multiTransformation = new MultiTransformation<>(new CenterCrop(),new RoundedCorners(32));
         loadNextPage = loadNext;
     }
 
     public void addPosts(List<Post> postsNew){
-        posts.addAll(postsNew); // adds the posts so it loads the old ones each time?
+        posts.addAll(postsNew);
         notifyDataSetChanged();
     }
 
     @Override
-    public MyAdapter2.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
+    public MyAdapterArticles.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
         LinearLayout l = (LinearLayout) LayoutInflater.from(parent.getContext()).inflate(R.layout.element_news_article, parent, false);
         MyViewHolder vh = new MyViewHolder(l);
         return vh;
@@ -81,6 +102,14 @@ public class MyAdapter2 extends RecyclerView.Adapter<MyAdapter2.MyViewHolder> {
         holder.tag.setText(posts.get(position).getTag());
         //holder.date.setText(posts.get(position).getDate().toString("MMM d, yyyy")); // date for on top of image
         holder.dateAlt.setText(posts.get(position).getDate().toString("MMM d, yyyy"));
+
+        if(posts.get(position).getImage() != null) {
+            Glide.with(holder.titleImage).load(posts.get(position).getImage()).apply(RequestOptions.bitmapTransform(multiTransformation)).into(holder.titleImage);
+        }
+        else{
+            Glide.with(holder.titleImage).load(R.drawable.article_placeholder_image).apply(RequestOptions.bitmapTransform(multiTransformation)).into(holder.titleImage);
+        }
+
         Glide.with(holder.titleImage).load(posts.get(position).getImage()).apply(RequestOptions.bitmapTransform(multiTransformation)).into(holder.titleImage);
         if(position == getItemCount()-1) loadNextPage.bottomReached();
     }

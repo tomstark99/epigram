@@ -8,7 +8,7 @@ data class Post(
     val uuid: String,
     val title: String,
     val html: String,
-    val image: String,
+    val image: String?,
     val tag: String,
     val date: DateTime
 
@@ -33,7 +33,7 @@ data class PostTemplate(
     val uuid: String,
     val title: String,
     val html: String,
-    val feature_image: String,
+    val feature_image: String?,
     val primary_tag: Tags,
     val published_at: String
 )

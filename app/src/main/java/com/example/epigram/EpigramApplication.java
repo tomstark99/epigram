@@ -3,7 +3,7 @@ package com.example.epigram;
 import android.app.Application;
 import net.danlew.android.joda.JodaTimeAndroid;
 
-public class MyApp extends Application {
+public class EpigramApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
