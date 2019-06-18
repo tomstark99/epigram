@@ -49,4 +49,5 @@ dependencies {
     implementation "io.reactivex.rxjava2:rxkotlin:2.3.0"
     implementation 'com.jakewharton.rxbinding2:rxbinding:2.0.0'
     implementation 'org.sufficientlysecure:html-textview:3.6'
+    implementation 'com.android.support:design:26.1.0'
 }

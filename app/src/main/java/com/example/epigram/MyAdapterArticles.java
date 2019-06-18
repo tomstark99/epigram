@@ -1,18 +1,24 @@
 package com.example.epigram;
 
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.MultiTransformation;
+import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.Target;
 import com.example.epigram.data.Post;
 import com.jakewharton.rxbinding2.view.RxView;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -42,6 +48,8 @@ public class MyAdapterArticles extends RecyclerView.Adapter<MyAdapterArticles.My
         // public TextView date; // for date on top of image
         public TextView dateAlt;
         public TextView tabTitle;
+
+        public boolean imageLoaded = false;
 
         private Disposable disposable = null;
 
@@ -74,7 +82,8 @@ public class MyAdapterArticles extends RecyclerView.Adapter<MyAdapterArticles.My
         }
         holder.disposable = RxView.clicks(holder.linearLayout).throttleFirst(500, TimeUnit.MILLISECONDS).observeOn(AndroidSchedulers.mainThread()).subscribe(empty -> {
             holder.titleImage.setTransitionName("article_header");
-            loadNextPage.onPostClicked(posts.get(holder.getAdapterPosition()), holder.titleImage);
+
+            loadNextPage.onPostClicked(posts.get(holder.getAdapterPosition()), holder.imageLoaded?holder.titleImage:null);
         });
     }
 
@@ -103,14 +112,20 @@ public class MyAdapterArticles extends RecyclerView.Adapter<MyAdapterArticles.My
         //holder.date.setText(posts.get(position).getDate().toString("MMM d, yyyy")); // date for on top of image
         holder.dateAlt.setText(posts.get(position).getDate().toString("MMM d, yyyy"));
 
-        if(posts.get(position).getImage() != null) {
-            Glide.with(holder.titleImage).load(posts.get(position).getImage()).apply(RequestOptions.bitmapTransform(multiTransformation)).into(holder.titleImage);
-        }
-        else{
-            Glide.with(holder.titleImage).load(R.drawable.article_placeholder_image).apply(RequestOptions.bitmapTransform(multiTransformation)).into(holder.titleImage);
-        }
+        Glide.with(holder.titleImage).load(posts.get(position).getImage()).placeholder(R.drawable.placeholder_background).apply(RequestOptions.bitmapTransform(multiTransformation)).listener(new RequestListener<Drawable>() {
+            @Override
+            public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                holder.imageLoaded = false;
+                return false;
+            }
 
-        Glide.with(holder.titleImage).load(posts.get(position).getImage()).apply(RequestOptions.bitmapTransform(multiTransformation)).into(holder.titleImage);
+            @Override
+            public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                holder.imageLoaded = true;
+                return false;
+            }
+        }).into(holder.titleImage);
+
         if(position == getItemCount()-1) loadNextPage.bottomReached();
     }
 

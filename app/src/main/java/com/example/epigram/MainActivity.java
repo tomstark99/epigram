@@ -37,28 +37,6 @@ public class MainActivity extends AppCompatActivity{
             }
         });
 
-        // set tab header
-//        int position = tabs.getSelectedTabPosition();
-//
-//        System.out.println("Current position: "+ position);
-//
-//        if (position == 0){
-//            TextView tab = findViewById(R.id.tab_text);
-//            tab.setText(R.string.tab_1);
-//        }
-//        else if (position == 1){
-//            TextView tab = findViewById(R.id.tab_text);
-//            tab.setText(R.string.tab_2);
-//        }
-//        else if (position == 2){
-//            TextView tab = findViewById(R.id.tab_text);
-//            tab.setText(R.string.tab_3);
-//        }
-//        else {
-//            TextView tab = findViewById(R.id.tab_text);
-//            tab.setText(R.string.tab_4);
-        //}
-
         TextView view = findViewById(R.id.title);
         Typeface typeFace = Typeface.createFromAsset(getAssets(), "fonts/lora_regular.ttf");
         view.setTypeface(typeFace);

@@ -131,7 +131,12 @@ public class PlaceholderFragment extends Fragment implements MyAdapterArticles.L
 
     @Override
     public void onPostClicked(Post clicked, ImageView imageView) {
-        ArticleActivity.Companion.start(getActivity(), clicked, imageView);
+        if(imageView != null) {
+            ArticleActivity.Companion.start(getActivity(), clicked, imageView);
+        }
+        else{
+            ArticleActivity.Companion.start(getActivity(), clicked);
+        }
     }
 
     public void reselected() {

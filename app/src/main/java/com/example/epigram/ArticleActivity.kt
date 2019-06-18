@@ -36,16 +36,10 @@ class ArticleActivity : AppCompatActivity() {
         val typeFace = Typeface.createFromAsset(assets, "fonts/lora_regular.ttf")
         view.typeface = typeFace
 
-        if(post.image != null) {
-            Glide.with(this).load(post.image)
+        Glide.with(this).load(post.image)
+                .placeholder(R.drawable.placeholder_background)
                 .apply(RequestOptions.bitmapTransform(MultiTransformation(CenterCrop(), RoundedCorners(32))))
                 .into(article_post_image)
-        }
-        else{
-            Glide.with(this).load(R.drawable.article_placeholder_image)
-                .apply(RequestOptions.bitmapTransform(MultiTransformation(CenterCrop(), RoundedCorners(32))))
-                .into(article_post_image)
-        }
 
         val htmlTextView: HtmlTextView = html_text
         htmlTextView.setHtml(post.html, HtmlHttpImageGetter(htmlTextView, null, true))
@@ -67,6 +61,14 @@ class ArticleActivity : AppCompatActivity() {
             val options = ActivityOptions.makeSceneTransitionAnimation(context, imageView, "article_header")
 
             context.startActivity(intent, options.toBundle())
+
+        }
+
+        fun start(context: Activity, post: Post) {
+            val intent = Intent(context, ArticleActivity::class.java)
+            intent.putExtra(ARG_POST, post)
+
+            context.startActivity(intent)
 
         }
     }
