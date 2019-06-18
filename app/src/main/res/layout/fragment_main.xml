@@ -18,7 +18,7 @@
                 android:id="@+id/my_recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingTop="@dimen/post_side_padding"
+                android:paddingTop="@dimen/element_padding"
                 android:clipToPadding="false"
                 android:scrollbars="vertical"
                 android:verticalScrollbarPosition="right"/>
