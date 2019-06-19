@@ -2,6 +2,8 @@ package com.example.epigram;
 
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
@@ -40,8 +42,23 @@ public class MainActivity extends AppCompatActivity{
         TextView view = findViewById(R.id.title);
         Typeface typeFace = Typeface.createFromAsset(getAssets(), "fonts/lora_regular.ttf");
         view.setTypeface(typeFace);
+
+        ImageView search = findViewById(R.id.search_button);
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SearchActivity.start(MainActivity.this);
+            }
+        });
+
+
     }
 
+    @Override
+    public boolean onSearchRequested() {
+        return super.onSearchRequested();
+
+    }
 
 
 }

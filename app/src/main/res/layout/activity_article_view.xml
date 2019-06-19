@@ -111,7 +111,8 @@
                     android:textSize="20dp"
                     android:textColor="@color/black"
                     android:fontFamily="sans-serif-condensed"
-                    android:textStyle="normal"/>
+                    android:textStyle="normal"
+                    android:textColorLink="@color/colorPrimary"/>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

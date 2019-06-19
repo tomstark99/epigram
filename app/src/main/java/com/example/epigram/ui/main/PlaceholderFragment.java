@@ -32,8 +32,6 @@ public class PlaceholderFragment extends Fragment implements MyAdapterArticles.L
 
     private int FIRST_INDEX = 1;
 
-    private PageViewModel pageViewModel;
-
     private PostManager pManager = new PostManager();
 
     private MyAdapterArticles adapter2 = null;

@@ -38,11 +38,21 @@ data class PostTemplate(
     val published_at: String
 )
 
-data class postTemplateWrapper(
-    val posts: List<PostTemplate>
+data class Wrapper<T>(
+    val posts: List<T>
 )
 
 data class Tags(
     val id: String,
     val name: String
+)
+
+data class Authors(
+    val name: String
+)
+
+data class SearchResult(
+    val id: String,
+    val title: String,
+    val primary_author: Authors
 )
