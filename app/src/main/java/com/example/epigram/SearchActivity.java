@@ -35,6 +35,12 @@ public class SearchActivity extends AppCompatActivity implements MyAdapterArticl
 
     private EditText searchText = null;
 
+    private int FIRST_INDEX = 1;
+    private int nextPage = FIRST_INDEX;
+    private boolean loaded = false;
+
+    private String latestSearch;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,6 +76,7 @@ public class SearchActivity extends AppCompatActivity implements MyAdapterArticl
             @Override
             public void accept(Object o) throws Exception {
                 Utils.hideKeyboard(SearchActivity.this);
+                recyclerView.requestFocus();
             }
         });
 
@@ -77,6 +84,7 @@ public class SearchActivity extends AppCompatActivity implements MyAdapterArticl
             @Override
             public void accept(Object o) throws Exception {
                 Utils.hideKeyboard(SearchActivity.this);
+                recyclerView.requestFocus();
             }
         });
 
@@ -90,7 +98,7 @@ public class SearchActivity extends AppCompatActivity implements MyAdapterArticl
             public boolean test(String charSequence) throws Exception {
                 return charSequence.length() > 2;
             }
-        }).throttleFirst(200, TimeUnit.MILLISECONDS).observeOn(AndroidSchedulers.mainThread()).subscribe(new Consumer<String>() {
+        }).throttleFirst(500, TimeUnit.MILLISECONDS).observeOn(AndroidSchedulers.mainThread()).subscribe(new Consumer<String>() {
             @Override
             public void accept(String charSequence) throws Exception {
                 allPostTitles(charSequence);
@@ -101,12 +109,21 @@ public class SearchActivity extends AppCompatActivity implements MyAdapterArticl
 
 
     public void allPostTitles(String searchQuery){
-        pManager.getPostTitles(searchQuery)
+        if(!searchQuery.equals(latestSearch)){
+            adapterArticles.clear();
+            latestSearch = searchQuery;
+        }
+        pManager.getPostTitles(nextPage, latestSearch)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe( posts-> {
-                            adapterArticles.clear();
-                            adapterArticles.addPosts(posts);
+                .subscribe( pair -> {
+                            if(pair.getSecond().size() == 0){
+                                //findViewById(R.id.not_found).setAlpha(1f);
+                            }
+                            if(!pair.getFirst().equals(latestSearch)) return;
+                            loaded = true;
+                            nextPage++;
+                            adapterArticles.addPosts(pair.getSecond());
                         }
                         ,e-> Log.e("e", "e", e));
     }
@@ -119,7 +136,14 @@ public class SearchActivity extends AppCompatActivity implements MyAdapterArticl
 
     @Override
     public void bottomReached() {
-
+        if(!loaded) return;
+        loaded = false;
+        recyclerView.post(new Runnable() {
+                              @Override
+                              public void run() {
+                                  allPostTitles(searchText.getText().toString());
+                              }
+                          });
     }
 
     @Override

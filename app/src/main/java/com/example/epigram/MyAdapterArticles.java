@@ -95,6 +95,7 @@ public class MyAdapterArticles extends RecyclerView.Adapter<MyAdapterArticles.My
 
     public void addPosts(List<Post> postsNew){
         posts.addAll(postsNew);
+        //posts = new ListUtils().duplicatePost(new ArrayList<>(posts));
         notifyDataSetChanged();
     }
 
