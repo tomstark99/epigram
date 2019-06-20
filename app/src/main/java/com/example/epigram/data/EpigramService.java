@@ -11,6 +11,9 @@ public interface EpigramService {
     Single<Wrapper<PostTemplate>> getPostsFilter(@Query("key") String key, @Query("include") String include, @Nullable @Query("filter") String fiter, @Query("limit") String limit, @Query("page") int page, @Query("order") String order);
 
     @GET("ghost/api/v2/content/posts")
+    Single<Wrapper<PostTemplate>> getPostsBreak(@Query("key") String key, @Query("include") String include, @Nullable @Query("filter") String fiter, @Query("limit") String limit, @Query("order") String order);
+
+    @GET("ghost/api/v2/content/posts")
     Single<Wrapper<SearchResult>> getSearchIDs(@Query("key") String key, @Query("include") String include, @Query("limit") String theLimit, @Nullable @Query("fields") String fields, @Query("page") int page, @Query("order") String order);
 
 }

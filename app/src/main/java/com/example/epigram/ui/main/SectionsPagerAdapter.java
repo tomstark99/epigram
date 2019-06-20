@@ -37,7 +37,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         // getItem is called to instantiate the fragment for the given page.
         // Return a PlaceholderFragment (defined as a static inner class below).
         if(!fragmentMap.containsKey(position)){
-            fragmentMap.put(position, PlaceholderFragment.newInstance(FILTERS[position]));
+            fragmentMap.put(position, PlaceholderFragment.newInstance(FILTERS[position], position));
         }
         return fragmentMap.get(position);
     }

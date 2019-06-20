@@ -30,7 +30,7 @@ import java.util.concurrent.TimeUnit;
 public class SearchActivity extends AppCompatActivity implements MyAdapterArticles.LoadNextPage {
 
     private PostManager pManager = new PostManager();
-    private MyAdapterArticles adapterArticles = new MyAdapterArticles(new ArrayList<>(), this);
+    private MyAdapterArticles adapterArticles = new MyAdapterArticles(new ArrayList<>(), this, 10);
     private RecyclerView recyclerView;
 
     private EditText searchText = null;
