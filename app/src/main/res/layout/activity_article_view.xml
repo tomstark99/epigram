@@ -56,7 +56,7 @@
                 android:paddingStart="@dimen/small_padding"
                 android:paddingEnd="@dimen/small_padding"
                 android:orientation="vertical"
-                android:paddingBottom="@dimen/large_padding"
+                android:paddingBottom="@dimen/small_padding"
                 android:clipToPadding="false"
                 android:paddingTop="@dimen/small_padding">
 
@@ -112,7 +112,15 @@
                     android:textColor="@color/black"
                     android:fontFamily="sans-serif-condensed-light"
                     android:textStyle="normal"
-                    android:textColorLink="@color/colorPrimary"/>
+                    android:textColorLink="@color/colorPrimary"
+                    android:paddingBottom="@dimen/small_padding"/>
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="Copyright © 2018 epigram"
+                    android:textSize="10dp"/>
         </LinearLayout>
+
     </androidx.core.widget.NestedScrollView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
