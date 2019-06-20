@@ -20,6 +20,7 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
 import com.example.epigram.data.Post;
+import com.example.epigram.data.PostManager;
 import com.jakewharton.rxbinding2.view.RxView;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -34,6 +35,11 @@ public class MyAdapterArticles extends RecyclerView.Adapter<MyAdapterArticles.My
     private final MultiTransformation<Bitmap> multiTransformation;
     private LoadNextPage loadNextPage = null;
 
+    private PostManager pManager = new PostManager();
+    private List<Post> breaking = new ArrayList<>();
+
+    private int pageIndex; // 10 for search recycler view
+
     public void clear() {
         posts.clear();
         notifyDataSetChanged();
@@ -47,7 +53,7 @@ public class MyAdapterArticles extends RecyclerView.Adapter<MyAdapterArticles.My
         public TextView tag;
         // public TextView date; // for date on top of image
         public TextView dateAlt;
-        public TextView tabTitle;
+        //public TextView sectionTitle;
 
         public boolean imageLoaded = false;
 
@@ -61,7 +67,7 @@ public class MyAdapterArticles extends RecyclerView.Adapter<MyAdapterArticles.My
             dateAlt = l.findViewById(R.id.post_date_alternate);
             titleImage = l.findViewById(R.id.post_image);
             this.linearLayout = l;
-
+            //sectionTitle = l.findViewById(R.id.section_text);
         }
     }
 
@@ -87,10 +93,11 @@ public class MyAdapterArticles extends RecyclerView.Adapter<MyAdapterArticles.My
         });
     }
 
-    public MyAdapterArticles(List<Post> posts, LoadNextPage loadNext) {
+    public MyAdapterArticles(List<Post> posts, LoadNextPage loadNext, int position) {
         this.posts = posts;
         multiTransformation = new MultiTransformation<>(new CenterCrop(),new RoundedCorners(32));
         loadNextPage = loadNext;
+        pageIndex = position;
     }
 
     public void addPosts(List<Post> postsNew){
@@ -101,13 +108,30 @@ public class MyAdapterArticles extends RecyclerView.Adapter<MyAdapterArticles.My
 
     @Override
     public MyAdapterArticles.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
-        LinearLayout l = (LinearLayout) LayoutInflater.from(parent.getContext()).inflate(R.layout.element_news_article, parent, false);
-        MyViewHolder vh = new MyViewHolder(l);
-        return vh;
+        if(viewType == 1 && pageIndex == 0 && pageIndex != 10){
+            LinearLayout l = (LinearLayout) LayoutInflater.from(parent.getContext()).inflate(R.layout.element_news_article_breaking, parent, false);
+            MyViewHolder vh = new MyViewHolder(l);
+            return vh;
+        }
+        else {
+            LinearLayout l = (LinearLayout) LayoutInflater.from(parent.getContext()).inflate(R.layout.element_news_article, parent, false);
+            MyViewHolder vh = new MyViewHolder(l);
+            return vh;
+        }
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        if(position == 0) return 1;
+        else return 2;
     }
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position){
+        setPosts(holder, position);
+    }
+
+    public void setPosts(MyViewHolder holder, int position){
         holder.title.setText((posts.get(position).getTitle()));
         holder.tag.setText(posts.get(position).getTag());
         //holder.date.setText(posts.get(position).getDate().toString("MMM d, yyyy")); // date for on top of image
@@ -126,8 +150,9 @@ public class MyAdapterArticles extends RecyclerView.Adapter<MyAdapterArticles.My
                 return false;
             }
         }).into(holder.titleImage);
-
-        if(position == getItemCount()-1) loadNextPage.bottomReached();
+        if(position != 0) {
+            if (position + 1 == getItemCount() - 1) loadNextPage.bottomReached();
+        }
     }
 
     @Override

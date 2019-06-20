@@ -14,14 +14,17 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.example.epigram.ArticleActivity;
-import com.example.epigram.MyAdapterPlaceholder;
 import com.example.epigram.MyAdapterArticles;
+import com.example.epigram.MyAdapterPlaceholder;
 import com.example.epigram.R;
 import com.example.epigram.data.Layout;
 import com.example.epigram.data.Post;
 import com.example.epigram.data.PostManager;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -39,12 +42,16 @@ public class PlaceholderFragment extends Fragment implements MyAdapterArticles.L
     private boolean loaded = false;
     private RecyclerView recyclerView;
     private SwipeRefreshLayout swipeRefresh;
+    private List<Post> breaking = new ArrayList<>();
 
-    public static PlaceholderFragment newInstance(int index) {
+    private int pageIndex;
+
+    public static PlaceholderFragment newInstance(int index, int position) {
         PlaceholderFragment fragment = new PlaceholderFragment();
         Bundle bundle = new Bundle();
         bundle.putInt(ARG_SECTION_NUMBER, index);
         fragment.setArguments(bundle);
+        fragment.pageIndex = position;
         return fragment;
     }
 
@@ -101,15 +108,19 @@ public class PlaceholderFragment extends Fragment implements MyAdapterArticles.L
 
     public void loadPage(){
         int tag = getArguments().getInt(ARG_SECTION_NUMBER);
+        getBreaking();
         pManager.getPosts(nextPage, getString(tag))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe( posts-> {
                             loaded = true;
                             swipeRefresh.setRefreshing(false);
+                            if(pageIndex == 0 && nextPage == 1){
+                                posts.add(0, breaking.get(0));
+                            }
                             nextPage++;
                             if (adapter2 == null) {
-                                adapter2 = new MyAdapterArticles(posts, PlaceholderFragment.this);
+                                adapter2 = new MyAdapterArticles(posts, PlaceholderFragment.this, pageIndex);
                                 recyclerView.setAdapter(adapter2);
                             }
                             else {
@@ -117,6 +128,18 @@ public class PlaceholderFragment extends Fragment implements MyAdapterArticles.L
                             }
                         }
                         ,e-> Log.e("e", "e", e));
+    }
+
+    public void getBreaking(){
+        if(breaking.isEmpty()) {
+            pManager.getPostsBreaking()
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(posts -> {
+                                breaking = posts;
+                            }
+                            , e -> Log.e("e", "e", e));
+        }
     }
 
     @Override
