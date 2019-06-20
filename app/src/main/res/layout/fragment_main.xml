@@ -19,6 +19,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:paddingTop="@dimen/element_padding"
+                android:paddingBottom="@dimen/large_padding"
                 android:clipToPadding="false"
                 android:scrollbars="vertical"
                 android:verticalScrollbarPosition="right"/>

@@ -5,9 +5,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingLeft="@dimen/small_padding"
-        android:paddingRight="@dimen/small_padding"
-        android:paddingBottom="@dimen/element_padding"
+        android:paddingStart="@dimen/element_padding"
+        android:paddingEnd="@dimen/element_padding"
+        android:paddingBottom="@dimen/small_padding"
         android:paddingTop="@dimen/element_padding">
     <!--<TextView-->
         <!--android:layout_width="240dp"-->
@@ -16,7 +16,7 @@
         <!--android:layout_marginBottom="5dp"/>-->
     <TextView
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="128dp"
             android:background="@drawable/placeholder_background"
             android:layout_marginBottom="5dp"/>
     <TextView

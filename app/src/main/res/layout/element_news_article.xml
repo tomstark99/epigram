@@ -8,14 +8,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingTop="@dimen/element_padding"
-        android:paddingBottom="@dimen/element_padding"
-        android:paddingStart="@dimen/small_padding"
-        android:paddingEnd="@dimen/small_padding">
+        android:paddingBottom="@dimen/small_padding"
+        android:paddingStart="@dimen/element_padding"
+        android:paddingEnd="@dimen/element_padding">
     <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-        <ImageView android:layout_width="match_parent" android:layout_height="150dp"
+        <ImageView android:layout_width="match_parent" android:layout_height="128dp"
                    android:id="@+id/post_image"
                    android:src="@drawable/placeholder_background"
                    android:adjustViewBounds="false"/>
@@ -39,8 +38,9 @@
             android:id="@+id/post_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="25dp"
+            android:textSize="20dp"
             tools:text="ARTICLE TITLE"
+            android:textStyle="bold"
             android:textColor="@color/black"
             android:fontFamily="sans-serif-condensed-medium"/>
     <LinearLayout
