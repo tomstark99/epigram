@@ -21,7 +21,7 @@
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:layout_gravity="center"
-                    android:padding="10dp"
+                    android:padding="12dp"
                     android:background="?android:attr/selectableItemBackgroundBorderless"/>
 
             <EditText
@@ -46,7 +46,7 @@
                     android:id="@+id/search_button_in_search_activity"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
-                    android:padding="10dp"
+                    android:padding="12dp"
                     android:src="@drawable/ic_search_black_24dp"
                     android:layout_gravity="center"
                     android:background="?android:attr/selectableItemBackgroundBorderless"/>

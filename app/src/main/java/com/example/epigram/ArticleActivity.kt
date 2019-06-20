@@ -5,6 +5,7 @@ import android.app.ActivityOptions
 import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -25,7 +26,19 @@ class ArticleActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_article_view)
+
+        findViewById<View>(R.id.article_back).setOnClickListener { finish() }
+
+        val share = findViewById<ImageView>(R.id.article_share)
+        share.setOnClickListener { shareThis() }
     }
+
+    private fun shareThis() {
+        val sharingIntent = Intent(Intent.ACTION_SEND)
+        sharingIntent.type = "text/plain"
+        startActivity(Intent.createChooser(sharingIntent, "share via"))
+    }
+
 
     override fun onStart() {
         super.onStart()

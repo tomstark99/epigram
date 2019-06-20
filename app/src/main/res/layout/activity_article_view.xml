@@ -21,14 +21,13 @@
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
             <ImageView
-                    android:id="@+id/logo1"
-                    android:src="@drawable/layer_2"
-                    android:layout_width="@android:dimen/app_icon_size"
-                    android:layout_height="@android:dimen/app_icon_size"
-                    android:layout_gravity="center_vertical"
-                    android:paddingTop="5dp"
-                    android:paddingLeft="16dp"
-                    android:alpha="1"/>
+                    android:id="@+id/article_back"
+                    android:src="@drawable/ic_arrow_back_black_24dp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center"
+                    android:padding="12dp"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"/>
 
             <TextView
                     android:id="@+id/title"
@@ -37,9 +36,18 @@
                     android:gravity="center_vertical|start"
                     android:minHeight="?actionBarSize"
                     android:padding="@dimen/appbar_padding"
+                    android:layout_weight="1"
                     android:text="@string/app_name"
                     android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"/>
 
+            <ImageView
+                    android:id="@+id/article_share"
+                    android:src="@drawable/ic_share_black_24dp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center"
+                    android:padding="12dp"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"/>
         </LinearLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
