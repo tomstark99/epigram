@@ -10,7 +10,8 @@ data class Post(
     val html: String,
     val image: String?,
     val tag: String,
-    val date: DateTime
+    val date: DateTime,
+    val url : String
 
 ):Serializable{
     companion object{fun fromTemplate(template: PostTemplate): Post?{
@@ -24,7 +25,7 @@ data class Post(
             //System.out.println(x)
         //}
         //template.html.replace("<style>.+<\\/style>", "")
-        return Post(template.id,template.uuid,template.title,x,template.feature_image, template.primary_tag.name.toUpperCase(), DateTime.parse(template.published_at))
+        return Post(template.id,template.uuid,template.title,x,template.feature_image, template.primary_tag.name.toUpperCase(), DateTime.parse(template.published_at),template.url)
     }}
 }
 
@@ -35,7 +36,8 @@ data class PostTemplate(
     val html: String,
     val feature_image: String?,
     val primary_tag: Tags,
-    val published_at: String
+    val published_at: String,
+    val url: String
 )
 
 data class Wrapper<T>(

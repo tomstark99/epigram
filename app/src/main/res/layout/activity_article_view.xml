@@ -81,6 +81,7 @@
                     android:textSize="25dp"
                     tools:text="ARTICLE TITLE"
                     android:fontFamily="sans-serif-condensed-medium"
+                    android:textStyle="bold"
                     android:textColor="@color/black"/>
 
             <LinearLayout

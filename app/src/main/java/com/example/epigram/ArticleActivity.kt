@@ -9,6 +9,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ShareCompat
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.MultiTransformation
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
@@ -22,6 +23,8 @@ import org.sufficientlysecure.htmltextview.HtmlTextView
 
 class ArticleActivity : AppCompatActivity() {
 
+    var url: String = "https://epigram.org.uk/"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -34,9 +37,13 @@ class ArticleActivity : AppCompatActivity() {
     }
 
     private fun shareThis() {
-        val sharingIntent = Intent(Intent.ACTION_SEND)
-        sharingIntent.type = "text/plain"
-        startActivity(Intent.createChooser(sharingIntent, "share via"))
+        val shareIntent = ShareCompat.IntentBuilder.from(this@ArticleActivity)
+            .setType("text/plain")
+            .setText(url)
+            .intent
+        if (shareIntent.resolveActivity(packageManager) != null) {
+            startActivity(Intent.createChooser(shareIntent, "share via"))
+        }
     }
 
 
@@ -44,6 +51,8 @@ class ArticleActivity : AppCompatActivity() {
         super.onStart()
 
         val post = intent.getSerializableExtra(ARG_POST) as Post
+
+        url = post.url
 
         val view = findViewById<TextView>(R.id.title)
         val typeFace = Typeface.createFromAsset(assets, "fonts/lora_regular.ttf")
