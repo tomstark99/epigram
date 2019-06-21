@@ -10,6 +10,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ShareCompat
+import androidx.core.widget.NestedScrollView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.MultiTransformation
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
@@ -34,6 +35,8 @@ class ArticleActivity : AppCompatActivity() {
 
         val share = findViewById<ImageView>(R.id.article_share)
         share.setOnClickListener { shareThis() }
+
+        findViewById<TextView>(R.id.title).setOnClickListener{ findViewById<NestedScrollView>(R.id.article_scroll).smoothScrollTo(0,0) }
     }
 
     private fun shareThis() {

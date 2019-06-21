@@ -75,8 +75,15 @@ public class SearchActivity extends AppCompatActivity implements MyAdapterArticl
         Observable<Object> searchButtonPress = RxView.clicks(findViewById(R.id.search_button_in_search_activity)).doOnNext(new Consumer<Object>() {
             @Override
             public void accept(Object o) throws Exception {
-                Utils.hideKeyboard(SearchActivity.this);
-                recyclerView.requestFocus();
+                if(recyclerView.hasFocus()){
+                    //findViewById(R.id.search_query).requestFocus();
+                    recyclerView.smoothScrollToPosition(0);
+                    //Utils.showKeyboard(findViewById(R.id.search_query), SearchActivity.this);
+                }
+                else {
+                    Utils.hideKeyboard(SearchActivity.this);
+                    recyclerView.requestFocus();
+                }
             }
         });
 
@@ -111,6 +118,7 @@ public class SearchActivity extends AppCompatActivity implements MyAdapterArticl
     public void allPostTitles(String searchQuery){
         if(!searchQuery.equals(latestSearch)){
             adapterArticles.clear();
+            nextPage = 1;
             latestSearch = searchQuery;
         }
         pManager.getPostTitles(nextPage, latestSearch)

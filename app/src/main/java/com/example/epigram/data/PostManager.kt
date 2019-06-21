@@ -37,7 +37,7 @@ class PostManager {
     fun getPostTitles(page: Int, searchTerm: String): Single<Pair<String, List<Post>>> {
 
         return InternetModule.getEpigramService()  // if you dont get all t
-            .getSearchIDs("89c0bcf0d0e9935465c6e0f0cb", "authors", "all", "title,id,primary_author",page , "published_at desc").map { body ->
+            .getSearchIDs("89c0bcf0d0e9935465c6e0f0cb", "authors", "50", "title,id,primary_author",page , "published_at desc").map { body ->
 
                 body.posts.filter {
                     it.title.contains(searchTerm, true) || it.primary_author.name.contains(
@@ -53,7 +53,7 @@ class PostManager {
                             "89c0bcf0d0e9935465c6e0f0cb",
                             "tags",
                             "id:[${ids.joinToString(",")}]",
-                            "20"
+                            "50"
                         , 0, "published_at desc")
                         .map { body ->
                             val posts = ArrayList<Post>()

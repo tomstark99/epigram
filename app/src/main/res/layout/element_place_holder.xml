@@ -7,8 +7,7 @@
         android:orientation="vertical"
         android:paddingStart="@dimen/element_padding"
         android:paddingEnd="@dimen/element_padding"
-        android:paddingBottom="@dimen/small_padding"
-        android:paddingTop="@dimen/element_padding">
+        android:paddingBottom="@dimen/small_padding">
     <!--<TextView-->
         <!--android:layout_width="240dp"-->
         <!--android:layout_height="24dp"-->

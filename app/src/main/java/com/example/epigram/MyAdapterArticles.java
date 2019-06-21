@@ -28,6 +28,7 @@ import io.reactivex.disposables.Disposable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 public class MyAdapterArticles extends RecyclerView.Adapter<MyAdapterArticles.MyViewHolder> {
 
@@ -102,6 +103,7 @@ public class MyAdapterArticles extends RecyclerView.Adapter<MyAdapterArticles.My
 
     public void addPosts(List<Post> postsNew){
         posts.addAll(postsNew);
+        posts = posts.stream().distinct().collect(Collectors.toList()); // might be redundant as there should not be the same article twice
         //posts = new ListUtils().duplicatePost(new ArrayList<>(posts));
         notifyDataSetChanged();
     }
@@ -150,8 +152,11 @@ public class MyAdapterArticles extends RecyclerView.Adapter<MyAdapterArticles.My
                 return false;
             }
         }).into(holder.titleImage);
-        if(position != 0) {
+        if(position != 0 && pageIndex == 0) {
             if (position + 1 == getItemCount() - 1) loadNextPage.bottomReached();
+        }
+        else{
+            if(position == getItemCount() - 1) loadNextPage.bottomReached();
         }
     }
 
