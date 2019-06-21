@@ -8,6 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:paddingTop="@dimen/element_padding"
         android:paddingBottom="@dimen/small_padding"
         android:paddingStart="@dimen/element_padding"
         android:paddingEnd="@dimen/element_padding">

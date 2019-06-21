@@ -14,10 +14,12 @@
         <activity
                 android:name=".MainActivity"
                 android:label="@string/title_activity_main"
+                android:windowSoftInputMode="stateAlwaysHidden"
                 android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
                 android:name=".SplashActivity"
+                android:windowSoftInputMode="stateAlwaysHidden"
                 android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -27,9 +29,11 @@
         </activity>
         <activity
                 android:name=".ArticleActivity"
+                android:windowSoftInputMode="stateAlwaysHidden"
                 android:theme="@style/AppTheme.NoActionBar"/>
         <activity
                 android:name=".SearchActivity"
+                android:windowSoftInputMode="stateVisible"
                 android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 

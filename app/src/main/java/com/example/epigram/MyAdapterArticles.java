@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
@@ -28,11 +29,10 @@ import io.reactivex.disposables.Disposable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
 
 public class MyAdapterArticles extends RecyclerView.Adapter<MyAdapterArticles.MyViewHolder> {
 
-    private List<Post> posts = new ArrayList<>();
+    public List<Post> posts = new ArrayList<>();
     private final MultiTransformation<Bitmap> multiTransformation;
     private LoadNextPage loadNextPage = null;
 
@@ -44,6 +44,33 @@ public class MyAdapterArticles extends RecyclerView.Adapter<MyAdapterArticles.My
     public void clear() {
         posts.clear();
         notifyDataSetChanged();
+    }
+
+    public void setPostList(List<Post> checkSame) {
+
+        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new DiffUtil.Callback() {
+            @Override
+            public int getOldListSize() {
+                return posts.size();
+            }
+
+            @Override
+            public int getNewListSize() {
+                return checkSame.size();
+            }
+
+            @Override
+            public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
+                return posts.get(oldItemPosition) == checkSame.get(newItemPosition);
+            }
+
+            @Override
+            public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
+                return posts.get(oldItemPosition).getId().equals(checkSame.get(newItemPosition).getId());
+            }
+        });
+        posts = checkSame;
+        diffResult.dispatchUpdatesTo(this);
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder{
@@ -102,16 +129,47 @@ public class MyAdapterArticles extends RecyclerView.Adapter<MyAdapterArticles.My
     }
 
     public void addPosts(List<Post> postsNew){
-        posts.addAll(postsNew);
-        posts = posts.stream().distinct().collect(Collectors.toList()); // might be redundant as there should not be the same article twice
+
+        List<Post> checkSame = new ArrayList<>(posts);
+        checkSame.addAll(postsNew);
+
+        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new DiffUtil.Callback() {
+            @Override
+            public int getOldListSize() {
+                return posts.size();
+            }
+
+            @Override
+            public int getNewListSize() {
+                return checkSame.size();
+            }
+
+            @Override
+            public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
+                return posts.get(oldItemPosition) == checkSame.get(newItemPosition);
+            }
+
+            @Override
+            public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
+                return posts.get(oldItemPosition).getId().equals(checkSame.get(newItemPosition).getId());
+            }
+        });
+        posts = checkSame;
+
+        diffResult.dispatchUpdatesTo(this);
         //posts = new ListUtils().duplicatePost(new ArrayList<>(posts));
-        notifyDataSetChanged();
+        //notifyDataSetChanged();
     }
 
     @Override
     public MyAdapterArticles.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
         if(viewType == 1 && pageIndex == 0 && pageIndex != 10){
             LinearLayout l = (LinearLayout) LayoutInflater.from(parent.getContext()).inflate(R.layout.element_news_article_breaking, parent, false);
+            MyViewHolder vh = new MyViewHolder(l);
+            return vh;
+        }
+        else if(viewType == 1 && pageIndex == 10){
+            LinearLayout l = (LinearLayout) LayoutInflater.from(parent.getContext()).inflate(R.layout.element_news_article_first, parent, false);
             MyViewHolder vh = new MyViewHolder(l);
             return vh;
         }
@@ -152,12 +210,7 @@ public class MyAdapterArticles extends RecyclerView.Adapter<MyAdapterArticles.My
                 return false;
             }
         }).into(holder.titleImage);
-        if(position != 0 && pageIndex == 0) {
-            if (position + 1 == getItemCount() - 1) loadNextPage.bottomReached();
-        }
-        else{
-            if(position == getItemCount() - 1) loadNextPage.bottomReached();
-        }
+        if(position > getItemCount() - 2) loadNextPage.bottomReached();
     }
 
     @Override

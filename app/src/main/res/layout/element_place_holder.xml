@@ -5,9 +5,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingStart="@dimen/element_padding"
-        android:paddingEnd="@dimen/element_padding"
-        android:paddingBottom="@dimen/small_padding">
+        android:padding="@dimen/element_padding">
     <!--<TextView-->
         <!--android:layout_width="240dp"-->
         <!--android:layout_height="24dp"-->

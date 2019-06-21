@@ -110,6 +110,7 @@ public class PlaceholderFragment extends Fragment implements MyAdapterArticles.L
         int tag = getArguments().getInt(ARG_SECTION_NUMBER);
         getBreaking();
         pManager.getPosts(nextPage, getString(tag))
+                .retry()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe( posts-> {

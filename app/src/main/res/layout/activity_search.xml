@@ -32,10 +32,11 @@
                     android:minHeight="?actionBarSize"
                     android:padding="@dimen/appbar_padding"
                     android:layout_weight="1"
-                    android:hint="Search epigram"
+                    android:hint="Search by title or author"
+                    android:fontFamily="sans-serif-condensed"
                     android:textColorHint="@color/whitehint"
                     android:textColor="@color/white"
-                    android:backgroundTint="@color/whitehint"
+                    android:backgroundTint="@android:color/transparent"
                     android:lines="1"
                     android:inputType="text"
                     android:imeOptions="actionSearch">
@@ -53,18 +54,76 @@
 
         </LinearLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_view_search"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:paddingTop="@dimen/element_padding"
-            android:paddingBottom="@dimen/large_padding"
-            android:clipToPadding="false"
-            android:scrollbars="vertical"
-            android:verticalScrollbarPosition="right">
 
-    </androidx.recyclerview.widget.RecyclerView>
+
+    <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view_search"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:paddingTop="@dimen/element_padding"
+                android:paddingBottom="@dimen/large_padding"
+                android:clipToPadding="false"
+                android:scrollbars="vertical"
+                android:verticalScrollbarPosition="right">
+
+        </androidx.recyclerview.widget.RecyclerView>
+        <LinearLayout
+                android:id="@+id/search_placeholder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+            <TextView
+                    android:id="@+id/search_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Search epigram"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:fontFamily="sans-serif-condensed-medium"
+                    android:textSize="30dp"
+                    android:textColor="@color/black"
+                    android:layout_marginTop="50dp"
+                    android:layout_marginBottom="@dimen/element_padding"/>
+            <ImageView
+                    android:id="@+id/search_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:src="@drawable/ic_search_black_black_24dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+                android:id="@+id/search_no_result"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+            <TextView
+                    android:id="@+id/search_text_no_result"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="No results found"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:fontFamily="sans-serif-condensed-medium"
+                    android:textSize="30dp"
+                    android:textColor="@color/black"
+                    android:layout_marginTop="50dp"
+                    android:layout_marginBottom="@dimen/element_padding"/>
+            <ImageView
+                    android:id="@+id/search_image_no_result"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:src="@drawable/ic_close_black_24dp"/>
+        </LinearLayout>
+    </FrameLayout>
+
+
 
     <!--<TextView-->
             <!--android:id="@+id/not_found"-->

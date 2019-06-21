@@ -39,6 +39,8 @@ public class SearchActivity extends AppCompatActivity implements MyAdapterArticl
     private int nextPage = FIRST_INDEX;
     private boolean loaded = false;
 
+    private int retry = 0;
+
     private String latestSearch;
 
     @Override
@@ -76,7 +78,7 @@ public class SearchActivity extends AppCompatActivity implements MyAdapterArticl
             @Override
             public void accept(Object o) throws Exception {
                 if(recyclerView.hasFocus()){
-                    //findViewById(R.id.search_query).requestFocus();
+                    findViewById(R.id.search_query).requestFocus();
                     recyclerView.smoothScrollToPosition(0);
                     //Utils.showKeyboard(findViewById(R.id.search_query), SearchActivity.this);
                 }
@@ -103,11 +105,18 @@ public class SearchActivity extends AppCompatActivity implements MyAdapterArticl
         }).filter(new Predicate<String>() {
             @Override
             public boolean test(String charSequence) throws Exception {
+//                if(charSequence.length() == 0){
+//                    findViewById(R.id.search_no_result).setVisibility(View.GONE);
+//                    adapterArticles.clear();
+//                    findViewById(R.id.search_placeholder).setVisibility(View.VISIBLE);
+//                }
                 return charSequence.length() > 2;
             }
         }).throttleFirst(500, TimeUnit.MILLISECONDS).observeOn(AndroidSchedulers.mainThread()).subscribe(new Consumer<String>() {
             @Override
             public void accept(String charSequence) throws Exception {
+//                findViewById(R.id.search_no_result).setVisibility(View.GONE);
+//                findViewById(R.id.search_placeholder).setVisibility(View.GONE);
                 allPostTitles(charSequence);
             }
         });
@@ -116,22 +125,38 @@ public class SearchActivity extends AppCompatActivity implements MyAdapterArticl
 
 
     public void allPostTitles(String searchQuery){
+        retry++;
         if(!searchQuery.equals(latestSearch)){
-            adapterArticles.clear();
+
             nextPage = 1;
             latestSearch = searchQuery;
+            retry = 0;
         }
         pManager.getPostTitles(nextPage, latestSearch)
+                .retry()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe( pair -> {
-                            if(pair.getSecond().size() == 0){
-                                //findViewById(R.id.not_found).setAlpha(1f);
-                            }
                             if(!pair.getFirst().equals(latestSearch)) return;
                             loaded = true;
+                            if(pair.getSecond().size() == 0) {
+                                if(retry < 10) {
+                                    allPostTitles(searchQuery);
+                                }
+//                                if(retry == 10 && adapterArticles.posts.isEmpty()){
+//                                    findViewById(R.id.search_no_result).setVisibility(View.VISIBLE);
+//                                }
+                            }
+                            else {
+                                retry = 0;
+                                if(nextPage == 1){
+                                    adapterArticles.setPostList(pair.getSecond());
+                                }
+                                else {
+                                    adapterArticles.addPosts(pair.getSecond());
+                                }
+                            }
                             nextPage++;
-                            adapterArticles.addPosts(pair.getSecond());
                         }
                         ,e-> Log.e("e", "e", e));
     }
