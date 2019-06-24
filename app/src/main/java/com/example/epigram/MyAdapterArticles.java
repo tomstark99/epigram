@@ -82,6 +82,7 @@ public class MyAdapterArticles extends RecyclerView.Adapter<MyAdapterArticles.My
         // public TextView date; // for date on top of image
         public TextView dateAlt;
         //public TextView sectionTitle;
+        public TextView searchResults;
 
         public boolean imageLoaded = false;
 
@@ -89,6 +90,9 @@ public class MyAdapterArticles extends RecyclerView.Adapter<MyAdapterArticles.My
 
         public MyViewHolder(LinearLayout l){
             super(l);
+            if(pageIndex == 10){
+                searchResults = l.findViewById(R.id.search_results_number);
+            }
             title = l.findViewById(R.id.post_title);
             tag = l.findViewById(R.id.tag_text);
             // date = l.findViewById(R.id.post_date); // for top of image
@@ -192,6 +196,9 @@ public class MyAdapterArticles extends RecyclerView.Adapter<MyAdapterArticles.My
     }
 
     public void setPosts(MyViewHolder holder, int position){
+        if(pageIndex == 10 && position == 0){
+            holder.searchResults.setText(Integer.toString(posts.size()));
+        }
         holder.title.setText((posts.get(position).getTitle()));
         holder.tag.setText(posts.get(position).getTag());
         //holder.date.setText(posts.get(position).getDate().toString("MMM d, yyyy")); // date for on top of image

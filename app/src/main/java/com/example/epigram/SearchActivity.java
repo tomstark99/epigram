@@ -105,18 +105,18 @@ public class SearchActivity extends AppCompatActivity implements MyAdapterArticl
         }).filter(new Predicate<String>() {
             @Override
             public boolean test(String charSequence) throws Exception {
-//                if(charSequence.length() == 0){
-//                    findViewById(R.id.search_no_result).setVisibility(View.GONE);
-//                    adapterArticles.clear();
-//                    findViewById(R.id.search_placeholder).setVisibility(View.VISIBLE);
-//                }
+                if(charSequence.length() == 0){
+                    findViewById(R.id.search_no_result).setVisibility(View.GONE);
+                    adapterArticles.clear();
+                    findViewById(R.id.search_placeholder).setVisibility(View.VISIBLE);
+                }
                 return charSequence.length() > 2;
             }
         }).throttleFirst(500, TimeUnit.MILLISECONDS).observeOn(AndroidSchedulers.mainThread()).subscribe(new Consumer<String>() {
             @Override
             public void accept(String charSequence) throws Exception {
-//                findViewById(R.id.search_no_result).setVisibility(View.GONE);
-//                findViewById(R.id.search_placeholder).setVisibility(View.GONE);
+                findViewById(R.id.search_no_result).setVisibility(View.GONE);
+                findViewById(R.id.search_placeholder).setVisibility(View.GONE);
                 allPostTitles(charSequence);
             }
         });
@@ -143,9 +143,11 @@ public class SearchActivity extends AppCompatActivity implements MyAdapterArticl
                                 if(retry < 10) {
                                     allPostTitles(searchQuery);
                                 }
-//                                if(retry == 10 && adapterArticles.posts.isEmpty()){
-//                                    findViewById(R.id.search_no_result).setVisibility(View.VISIBLE);
-//                                }
+                                if(retry == 10 && adapterArticles.posts.isEmpty()){
+                                    if(!(findViewById(R.id.search_placeholder).getVisibility() == View.VISIBLE)) {
+                                        findViewById(R.id.search_no_result).setVisibility(View.VISIBLE);
+                                    }
+                                }
                             }
                             else {
                                 retry = 0;
