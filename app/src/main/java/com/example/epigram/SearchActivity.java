@@ -78,7 +78,7 @@ public class SearchActivity extends AppCompatActivity implements MyAdapterArticl
             @Override
             public void accept(Object o) throws Exception {
                 if(recyclerView.hasFocus()){
-                    findViewById(R.id.search_query).requestFocus();
+                    //findViewById(R.id.search_query).requestFocus();
                     recyclerView.smoothScrollToPosition(0);
                     //Utils.showKeyboard(findViewById(R.id.search_query), SearchActivity.this);
                 }
@@ -107,6 +107,7 @@ public class SearchActivity extends AppCompatActivity implements MyAdapterArticl
             public boolean test(String charSequence) throws Exception {
                 if(charSequence.length() == 0){
                     findViewById(R.id.search_no_result).setVisibility(View.GONE);
+                    findViewById(R.id.search_progress).setVisibility(View.GONE);
                     adapterArticles.clear();
                     findViewById(R.id.search_placeholder).setVisibility(View.VISIBLE);
                 }
@@ -117,6 +118,9 @@ public class SearchActivity extends AppCompatActivity implements MyAdapterArticl
             public void accept(String charSequence) throws Exception {
                 findViewById(R.id.search_no_result).setVisibility(View.GONE);
                 findViewById(R.id.search_placeholder).setVisibility(View.GONE);
+                if(adapterArticles.posts.isEmpty()) {
+                    findViewById(R.id.search_progress).setVisibility(View.VISIBLE);
+                }
                 allPostTitles(charSequence);
             }
         });
@@ -145,12 +149,14 @@ public class SearchActivity extends AppCompatActivity implements MyAdapterArticl
                                 }
                                 if(retry == 10 && adapterArticles.posts.isEmpty()){
                                     if(!(findViewById(R.id.search_placeholder).getVisibility() == View.VISIBLE)) {
+                                        findViewById(R.id.search_progress).setVisibility(View.GONE);
                                         findViewById(R.id.search_no_result).setVisibility(View.VISIBLE);
                                     }
                                 }
                             }
                             else {
                                 retry = 0;
+                                findViewById(R.id.search_progress).setVisibility(View.GONE);
                                 if(nextPage == 1){
                                     adapterArticles.setPostList(pair.getSecond());
                                 }
