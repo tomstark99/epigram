@@ -137,6 +137,7 @@ public class PlaceholderFragment extends Fragment implements MyAdapterArticles.L
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(posts -> {
+                                breaking.add(0, posts.get(0));
                                 breaking = posts;
                             }
                             , e -> Log.e("e", "e", e));

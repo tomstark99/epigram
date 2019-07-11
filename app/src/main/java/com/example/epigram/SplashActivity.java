@@ -45,9 +45,6 @@ public class SplashActivity extends AppCompatActivity {
 
                 findViewById(R.id.right_logo).setPadding(0,0,(int) paddingForCenter,0);
 
-                System.out.println(findViewById(R.id.right_logo).getLeft());
-                System.out.println(findViewById(R.id.right_logo).getRight());
-
                 //double translation = findViewById(R.id.left_logo).getRight() - findViewById(R.id.right_logo).getLeft();
 
 
