@@ -21,7 +21,6 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
 import com.example.epigram.data.Post;
-import com.example.epigram.data.PostManager;
 import com.jakewharton.rxbinding2.view.RxView;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -32,14 +31,16 @@ import java.util.concurrent.TimeUnit;
 
 public class MyAdapterArticles extends RecyclerView.Adapter<MyAdapterArticles.MyViewHolder> {
 
+    public static int SEARCH_PAGE_INDEX = 100;
+    public static int HOME_PAGE_INDEX = 0;
+
     public List<Post> posts = new ArrayList<>();
     private final MultiTransformation<Bitmap> multiTransformation;
     private LoadNextPage loadNextPage = null;
 
-    private PostManager pManager = new PostManager();
-    private List<Post> breaking = new ArrayList<>();
+    private int resultTotal = 0;
 
-    private int pageIndex; // 10 for search recycler view
+    private int pageIndex; // 100 for search recycler view
 
     public void clear() {
         posts.clear();
@@ -90,7 +91,7 @@ public class MyAdapterArticles extends RecyclerView.Adapter<MyAdapterArticles.My
 
         public MyViewHolder(LinearLayout l){
             super(l);
-            if(pageIndex == 10){
+            if(pageIndex == SEARCH_PAGE_INDEX){
                 searchResults = l.findViewById(R.id.search_results_number);
             }
             title = l.findViewById(R.id.post_title);
@@ -167,12 +168,12 @@ public class MyAdapterArticles extends RecyclerView.Adapter<MyAdapterArticles.My
 
     @Override
     public MyAdapterArticles.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
-        if(viewType == 1 && pageIndex == 0 && pageIndex != 10){
+        if(viewType == 1 && pageIndex == HOME_PAGE_INDEX){
             LinearLayout l = (LinearLayout) LayoutInflater.from(parent.getContext()).inflate(R.layout.element_news_article_breaking, parent, false);
             MyViewHolder vh = new MyViewHolder(l);
             return vh;
         }
-        else if(viewType == 1 && pageIndex == 10){
+        else if(viewType == 1 && pageIndex == SEARCH_PAGE_INDEX){
             LinearLayout l = (LinearLayout) LayoutInflater.from(parent.getContext()).inflate(R.layout.element_news_article_first, parent, false);
             MyViewHolder vh = new MyViewHolder(l);
             return vh;
@@ -186,7 +187,7 @@ public class MyAdapterArticles extends RecyclerView.Adapter<MyAdapterArticles.My
 
     @Override
     public int getItemViewType(int position) {
-        if(position == 0) return 1;
+        if(position == 0 && (pageIndex == HOME_PAGE_INDEX || pageIndex == SEARCH_PAGE_INDEX)) return 1;
         else return 2;
     }
 
@@ -196,8 +197,8 @@ public class MyAdapterArticles extends RecyclerView.Adapter<MyAdapterArticles.My
     }
 
     public void setPosts(MyViewHolder holder, int position){
-        if(pageIndex == 10 && position == 0){
-            holder.searchResults.setText(Integer.toString(posts.size()));
+        if(pageIndex == SEARCH_PAGE_INDEX && position == 0){
+            holder.searchResults.setText(Integer.toString(resultTotal));//Integer.toString(posts.size()));
         }
         holder.title.setText((posts.get(position).getTitle()));
         holder.tag.setText(posts.get(position).getTag());
@@ -229,6 +230,11 @@ public class MyAdapterArticles extends RecyclerView.Adapter<MyAdapterArticles.My
         public void bottomReached();
 
         public void onPostClicked(Post clicked, ImageView titleImage);
+    }
+
+    public void setResultTotal(int total){
+        resultTotal = total;
+        notifyItemChanged(0);
     }
 
 }

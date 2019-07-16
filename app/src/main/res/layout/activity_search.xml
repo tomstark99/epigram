@@ -113,7 +113,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:paddingTop="@dimen/element_padding"
                 android:paddingBottom="@dimen/large_padding"
                 android:clipToPadding="false"
                 android:scrollbars="vertical"
@@ -125,7 +124,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
+                android:layout_marginTop="50dp"
                 android:visibility="visible">
+            <ImageView
+                    android:id="@+id/search_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:src="@drawable/ic_search_black_black_24dp"/>
             <TextView
                     android:id="@+id/search_text"
                     android:layout_width="match_parent"
@@ -136,13 +141,7 @@
                     android:fontFamily="sans-serif-condensed-medium"
                     android:textSize="30dp"
                     android:textColor="@color/black"
-                    android:layout_marginTop="50dp"
                     android:layout_marginBottom="@dimen/element_padding"/>
-            <ImageView
-                    android:id="@+id/search_image"
-                    android:layout_width="match_parent"
-                    android:layout_height="36dp"
-                    android:src="@drawable/ic_search_black_black_24dp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -150,7 +149,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
+                android:layout_marginTop="50dp"
                 android:visibility="gone">
+            <ImageView
+                    android:id="@+id/search_image_no_result"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:src="@drawable/ic_close_black_24dp"/>
             <TextView
                     android:id="@+id/search_text_no_result"
                     android:layout_width="match_parent"
@@ -161,13 +166,7 @@
                     android:fontFamily="sans-serif-condensed-medium"
                     android:textSize="30dp"
                     android:textColor="@color/black"
-                    android:layout_marginTop="50dp"
                     android:layout_marginBottom="@dimen/element_padding"/>
-            <ImageView
-                    android:id="@+id/search_image_no_result"
-                    android:layout_width="match_parent"
-                    android:layout_height="36dp"
-                    android:src="@drawable/ic_close_black_24dp"/>
         </LinearLayout>
     </FrameLayout>
 

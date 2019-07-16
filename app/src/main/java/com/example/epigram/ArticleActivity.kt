@@ -2,6 +2,7 @@ package com.example.epigram
 
 import android.app.Activity
 import android.app.ActivityOptions
+import android.content.Context
 import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
@@ -9,6 +10,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.NavUtils
 import androidx.core.app.ShareCompat
 import androidx.core.widget.NestedScrollView
 import com.bumptech.glide.Glide
@@ -31,7 +33,13 @@ class ArticleActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_article_view)
 
-        findViewById<View>(R.id.article_back).setOnClickListener { finish() }
+        findViewById<View>(R.id.article_back).setOnClickListener {
+            if(!intent.getBooleanExtra(FROM_APP, false)){
+                val intent = NavUtils.getParentActivityIntent(this)
+                NavUtils.navigateUpTo(this, intent!!)
+            }
+            finishAfterTransition()
+        }
 
         val share = findViewById<ImageView>(R.id.article_share)
         share.setOnClickListener { shareThis() }
@@ -48,7 +56,6 @@ class ArticleActivity : AppCompatActivity() {
             startActivity(Intent.createChooser(shareIntent, "share via"))
         }
     }
-
 
     override fun onStart() {
         super.onStart()
@@ -69,7 +76,6 @@ class ArticleActivity : AppCompatActivity() {
         val htmlTextView: HtmlTextView = html_text
         htmlTextView.setHtml(post.html, HtmlHttpImageGetter(htmlTextView, null, true))
 //      article_text.text = Html.fromHtml(post.html)
-
         article_post_title.text = post.title
         article_tag_text.text = post.tag
         article_post_date_alternate.text = post.date.toString("MMM d, yyyy")
@@ -78,10 +84,12 @@ class ArticleActivity : AppCompatActivity() {
     companion object {
 
         const val ARG_POST = "post.object"
+        const val FROM_APP = "boolean"
 
         fun start(context: Activity, post: Post, imageView: ImageView) {
             val intent = Intent(context, ArticleActivity::class.java)
             intent.putExtra(ARG_POST, post)
+            intent.putExtra(FROM_APP, true)
 
             val options = ActivityOptions.makeSceneTransitionAnimation(context, imageView, "article_header")
 
@@ -92,9 +100,17 @@ class ArticleActivity : AppCompatActivity() {
         fun start(context: Activity, post: Post) {
             val intent = Intent(context, ArticleActivity::class.java)
             intent.putExtra(ARG_POST, post)
+            intent.putExtra(FROM_APP, true)
 
             context.startActivity(intent)
 
+        }
+
+        fun makeIntent(context: Context, post: Post): Intent{
+            val intent = Intent(context, ArticleActivity::class.java)
+            intent.putExtra(ARG_POST, post)
+            intent.putExtra(FROM_APP, false)
+            return intent
         }
     }
 }

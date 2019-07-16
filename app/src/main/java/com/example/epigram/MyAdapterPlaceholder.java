@@ -7,6 +7,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class MyAdapterPlaceholder extends RecyclerView.Adapter<MyAdapterPlaceholder.MyViewHolder> {
 
+    private int placeholderCount = 3;
+
+    public void clear() {
+        placeholderCount = 0;
+        notifyDataSetChanged();
+    }
+
     public static class MyViewHolder extends RecyclerView.ViewHolder{
         public LinearLayout linearLayout;
         public MyViewHolder(LinearLayout l){
@@ -28,6 +35,6 @@ public class MyAdapterPlaceholder extends RecyclerView.Adapter<MyAdapterPlacehol
 
     @Override
     public int getItemCount(){
-        return 3;
+        return placeholderCount;
     }
 }

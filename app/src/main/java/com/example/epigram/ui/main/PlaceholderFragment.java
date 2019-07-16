@@ -2,6 +2,7 @@ package com.example.epigram.ui.main;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,7 @@ import com.example.epigram.R;
 import com.example.epigram.data.Layout;
 import com.example.epigram.data.Post;
 import com.example.epigram.data.PostManager;
+import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
@@ -91,12 +93,12 @@ public class PlaceholderFragment extends Fragment implements MyAdapterArticles.L
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                if (adapter2 == null){
+                if (adapter2 == null && !(recyclerView.getAdapter() instanceof MyAdapterPlaceholder)){
                     // app crashes if there is no adapter e.g. if there is no internet connection
                 }
                 else {
                     nextPage = FIRST_INDEX;
-                    adapter2.clear();
+                    //if (adapter2 != null) adapter2.clear();
                     loadPage();
                 }
             }
@@ -107,41 +109,40 @@ public class PlaceholderFragment extends Fragment implements MyAdapterArticles.L
     }
 
     public void loadPage(){
+        getView().findViewById(R.id.tab_something_wrong).setVisibility(View.GONE);
         int tag = getArguments().getInt(ARG_SECTION_NUMBER);
-        getBreaking();
-        pManager.getPosts(nextPage, getString(tag))
-                .retry()
+        Single<Pair<List<Post>, List<Post>>> single = null;
+        if(pageIndex == 0 && nextPage == 1){
+            single = Single.zip(pManager.getPosts(nextPage, getString(tag)), pManager.getPostsBreaking(), (posts, posts2) -> new Pair<>(posts, posts2));
+        }
+        else {
+            single = pManager.getPosts(nextPage, getString(tag)).map( posts ->
+                new Pair<>(posts, new ArrayList<>())
+            );
+        }
+                single//.retry(1)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe( posts-> {
                             loaded = true;
                             swipeRefresh.setRefreshing(false);
-                            if(pageIndex == 0 && nextPage == 1){
-                                posts.add(0, breaking.get(0));
+                            if(!posts.second.isEmpty()){
+                                posts.first.add(0, posts.second.get(0));
                             }
                             nextPage++;
                             if (adapter2 == null) {
-                                adapter2 = new MyAdapterArticles(posts, PlaceholderFragment.this, pageIndex);
+                                adapter2 = new MyAdapterArticles(posts.first, PlaceholderFragment.this, pageIndex);
                                 recyclerView.setAdapter(adapter2);
                             }
                             else {
-                                adapter2.addPosts(posts);
+                                if(nextPage == FIRST_INDEX + 1) adapter2.clear();
+                                adapter2.addPosts(posts.first);
                             }
                         }
-                        ,e-> Log.e("e", "e", e));
-    }
-
-    public void getBreaking(){
-        if(breaking.isEmpty()) {
-            pManager.getPostsBreaking()
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(posts -> {
-                                breaking.add(0, posts.get(0));
-                                breaking = posts;
-                            }
-                            , e -> Log.e("e", "e", e));
-        }
+                        ,e-> {Log.e("e", "e", e);
+                            if(recyclerView.getAdapter() instanceof MyAdapterPlaceholder) ((MyAdapterPlaceholder) recyclerView.getAdapter()).clear();
+                            getView().findViewById(R.id.tab_something_wrong).setVisibility(View.VISIBLE);
+                            swipeRefresh.setRefreshing(false);});
     }
 
     @Override

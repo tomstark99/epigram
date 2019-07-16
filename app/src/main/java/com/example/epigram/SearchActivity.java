@@ -18,19 +18,23 @@ import com.example.epigram.data.PostManager;
 import com.jakewharton.rxbinding2.view.RxView;
 import com.jakewharton.rxbinding2.widget.RxTextView;
 import io.reactivex.Observable;
+import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.functions.Predicate;
 import io.reactivex.schedulers.Schedulers;
+import kotlin.Triple;
 
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
+import static com.example.epigram.MyAdapterArticles.SEARCH_PAGE_INDEX;
+
 public class SearchActivity extends AppCompatActivity implements MyAdapterArticles.LoadNextPage {
 
     private PostManager pManager = new PostManager();
-    private MyAdapterArticles adapterArticles = new MyAdapterArticles(new ArrayList<>(), this, 10);
+    private MyAdapterArticles adapterArticles = new MyAdapterArticles(new ArrayList<>(), this, SEARCH_PAGE_INDEX);
     private RecyclerView recyclerView;
 
     private EditText searchText = null;
@@ -136,14 +140,13 @@ public class SearchActivity extends AppCompatActivity implements MyAdapterArticl
             latestSearch = searchQuery;
             retry = 0;
         }
-        pManager.getPostTitles(nextPage, latestSearch)
-                .retry()
+        Single.zip(pManager.getPostTitles(nextPage, latestSearch), pManager.getSearchTotal(latestSearch), (stringListPair, integer) -> new Triple<>(integer, stringListPair.getFirst(), stringListPair.getSecond())).retry(1)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe( pair -> {
-                            if(!pair.getFirst().equals(latestSearch)) return;
+                .subscribe( triple -> {
+                            if(!triple.getSecond().equals(latestSearch)) return;
                             loaded = true;
-                            if(pair.getSecond().size() == 0) {
+                            if(triple.getThird().size() == 0) {
                                 if(retry < 10) {
                                     allPostTitles(searchQuery);
                                 }
@@ -156,12 +159,13 @@ public class SearchActivity extends AppCompatActivity implements MyAdapterArticl
                             }
                             else {
                                 retry = 0;
+                                adapterArticles.setResultTotal(triple.getFirst());
                                 findViewById(R.id.search_progress).setVisibility(View.GONE);
                                 if(nextPage == 1){
-                                    adapterArticles.setPostList(pair.getSecond());
+                                    adapterArticles.setPostList(triple.getThird());
                                 }
                                 else {
-                                    adapterArticles.addPosts(pair.getSecond());
+                                    adapterArticles.addPosts(triple.getThird());
                                 }
                             }
                             nextPage++;
