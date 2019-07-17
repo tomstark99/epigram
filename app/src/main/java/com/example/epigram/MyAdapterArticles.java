@@ -198,7 +198,7 @@ public class MyAdapterArticles extends RecyclerView.Adapter<MyAdapterArticles.My
 
     public void setPosts(MyViewHolder holder, int position){
         if(pageIndex == SEARCH_PAGE_INDEX && position == 0){
-            holder.searchResults.setText(Integer.toString(resultTotal));//Integer.toString(posts.size()));
+            holder.searchResults.setText(holder.searchResults.getResources().getQuantityString(R.plurals.results, resultTotal,resultTotal));//Integer.toString(posts.size()));
         }
         holder.title.setText((posts.get(position).getTitle()));
         holder.tag.setText(posts.get(position).getTag());

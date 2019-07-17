@@ -17,6 +17,7 @@
             android:layout_height="wrap_content">
         <ImageView android:layout_width="match_parent" android:layout_height="110dp"
                    android:id="@+id/post_image"
+                   android:scaleType="centerCrop"
                    android:src="@drawable/placeholder_background"
                    android:adjustViewBounds="false"/>
 
@@ -27,6 +28,7 @@
                 <!--android:layout_gravity="bottom|end"-->
                 <!--android:background="@drawable/date_background"-->
                 <!--android:layout_marginBottom="@dimen/small_padding"-->
+                <!--android:layout_marginEnd="@dimen/appbar_padding"-->
                 <!--android:layout_marginEnd="@dimen/appbar_padding"-->
                 <!--android:padding="8dp"-->
                 <!--android:textColor="@color/white"-->

@@ -74,15 +74,15 @@
                     android:layout_height="220dp"
                     android:id="@+id/article_post_image"
                     android:src="@drawable/placeholder_background"
-                    android:adjustViewBounds="false"
-                    android:transitionName="article_header"
-                    android:paddingBottom="@dimen/baby_padding"/>
+                    android:adjustViewBounds="true"
+                    android:transitionName="article_header"/>
             <TextView
                     android:id="@+id/article_post_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="22dp"
                     tools:text="ARTICLE TITLE"
+                    android:paddingTop="@dimen/baby_padding"
                     android:fontFamily="sans-serif-condensed-medium"
                     android:textStyle="bold"
                     android:textColor="@color/black"/>

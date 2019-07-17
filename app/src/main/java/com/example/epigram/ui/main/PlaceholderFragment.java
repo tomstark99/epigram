@@ -140,8 +140,11 @@ public class PlaceholderFragment extends Fragment implements MyAdapterArticles.L
                             }
                         }
                         ,e-> {Log.e("e", "e", e);
-                            if(recyclerView.getAdapter() instanceof MyAdapterPlaceholder) ((MyAdapterPlaceholder) recyclerView.getAdapter()).clear();
-                            getView().findViewById(R.id.tab_something_wrong).setVisibility(View.VISIBLE);
+                            if(recyclerView.getAdapter() instanceof MyAdapterPlaceholder) {
+                                ((MyAdapterPlaceholder) recyclerView.getAdapter()).clear();
+                                getView().findViewById(R.id.tab_something_wrong).setVisibility(View.VISIBLE);
+                            }
+
                             swipeRefresh.setRefreshing(false);});
     }
 

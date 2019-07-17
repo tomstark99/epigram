@@ -147,10 +147,10 @@ public class SearchActivity extends AppCompatActivity implements MyAdapterArticl
                             if(!triple.getSecond().equals(latestSearch)) return;
                             loaded = true;
                             if(triple.getThird().size() == 0) {
-                                if(retry < 10) {
+                                if(retry <= 10) {
                                     allPostTitles(searchQuery);
                                 }
-                                if(retry == 10 && adapterArticles.posts.isEmpty()){
+                                if(retry == 11 && adapterArticles.posts.isEmpty()){
                                     if(!(findViewById(R.id.search_placeholder).getVisibility() == View.VISIBLE)) {
                                         findViewById(R.id.search_progress).setVisibility(View.GONE);
                                         findViewById(R.id.search_no_result).setVisibility(View.VISIBLE);

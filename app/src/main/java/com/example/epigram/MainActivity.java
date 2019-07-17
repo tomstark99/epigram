@@ -71,6 +71,14 @@ public class MainActivity extends AppCompatActivity{
                     }
                 });
 
+        FirebaseMessaging.getInstance().subscribeToTopic("new_article_update")
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+
+                    }
+                });
+
     }
 
     @Override
