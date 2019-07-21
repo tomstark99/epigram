@@ -1,37 +1,21 @@
 package com.example.epigram.data.api
 
 import com.example.epigram.data.templates.PostTemplate
-import com.example.epigram.data.templates.SearchResult
-import com.example.epigram.data.templates.Wrapper
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Path
-import retrofit2.http.Query
 
 interface EpigramService {
 
-    @GET("ghost/api/v2/content/posts")
-    fun getPostsFilter(
-        @Query("key") key: String, @Query("include") include: String, @Query("filter") fiter: String?, @Query(
-            "limit"
-        ) limit: String, @Query("page") page: Int, @Query("order") order: String
-    ): Single<Wrapper<PostTemplate>>
+    @GET("/all/page/{page}")
+    fun all(@Path("page") page: Int): Single<List<PostTemplate>>
 
-    @GET("ghost/api/v2/content/posts")
-    fun getPostsBreak(
-        @Query("key") key: String, @Query("include") include: String, @Query("filter") fiter: String?, @Query(
-            "limit"
-        ) limit: String, @Query("order") order: String
-    ): Single<Wrapper<PostTemplate>>
+    @GET("/search/{searchTerm}")
+    fun search(@Path("searchTerm") searchTerm: String): Single<List<PostTemplate>>
 
-    @GET("ghost/api/v2/content/posts")
-    fun getSearchIDs(
-        @Query("key") key: String, @Query("include") include: String, @Query("limit") theLimit: String, @Query(
-            "fields"
-        ) fields: String?, @Query("page") page: Int, @Query("order") order: String
-    ): Single<Wrapper<SearchResult>>
+    @GET("/tag/{tag}")
+    fun tag(@Path("tag") tag: String): Single<List<PostTemplate>>
 
-    @GET("ghost/api/v2/content/posts/{id}")
-    fun getPostFromNotification(@Path("id") id: String, @Query("key") key: String, @Query("include") include: String): Single<Wrapper<PostTemplate>>
-
+    @GET("/article/{id}")
+    fun article(@Path("id") id: String): Single<PostTemplate>
 }

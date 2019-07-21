@@ -13,8 +13,8 @@ android {
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
-        buildConfigField "String", "API_BASE_URL", "\"https://epigram.ghost.io\""
-        buildConfigField "String", "API_KEY", "\"89c0bcf0d0e9935465c6e0f0cb\""
+        buildConfigField "String", "API_BASE_URL", "\"https://epigram-api.dokku-ray.app\""
+        buildConfigField "String", "API_KEY", "\"gfhfdsFDSDF_5464aD_\""
     }
 
     signingConfigs{

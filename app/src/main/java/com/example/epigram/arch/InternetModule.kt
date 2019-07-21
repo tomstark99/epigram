@@ -29,7 +29,16 @@ object InternetModule {
         val logging = HttpLoggingInterceptor()
         logging.level = HttpLoggingInterceptor.Level.BODY
 
-        OkHttpClient.Builder().addInterceptor(logging)
+        OkHttpClient.Builder()
+            .addNetworkInterceptor {chain ->
+                val request = chain.request()
+                    .newBuilder()
+                    .addHeader("x-api-key", BuildConfig.API_KEY)
+                    .build()
+
+                chain.proceed(request)
+            }
+            .addInterceptor(logging)
             .connectTimeout(10, TimeUnit.SECONDS)
             .readTimeout(1, TimeUnit.MINUTES)
             .build()
