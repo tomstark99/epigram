@@ -1,5 +1,6 @@
 package com.example.epigram.arch
 
+import com.example.epigram.BuildConfig
 import com.example.epigram.data.api.EpigramService
 import io.reactivex.schedulers.Schedulers
 import okhttp3.OkHttpClient
@@ -12,34 +13,25 @@ import java.util.concurrent.TimeUnit
 
 object InternetModule {
 
-    private var retrofit: Retrofit? = null
-    private var epigramService: EpigramService? = null
+    val epigramService by lazy {
+        retrofit.create(EpigramService::class.java)
+    }
 
+    private val retrofit by lazy {
+        Retrofit.Builder().client(okhttp)
+            .baseUrl(BuildConfig.API_BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io()))
+            .build()
+    }
 
-    fun getEpigramService(): EpigramService {
-
-
+    private val okhttp by lazy {
         val logging = HttpLoggingInterceptor()
         logging.level = HttpLoggingInterceptor.Level.BODY
 
-
-        val client = OkHttpClient.Builder().addInterceptor(logging)
+        OkHttpClient.Builder().addInterceptor(logging)
             .connectTimeout(10, TimeUnit.SECONDS)
             .readTimeout(1, TimeUnit.MINUTES)
             .build()
-
-        if (retrofit == null) {
-            retrofit = Retrofit.Builder().client(client)
-                .baseUrl("https://epigram.ghost.io")
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io()))
-                .build()
-        }
-        if (epigramService == null) {
-            epigramService = retrofit!!.create(EpigramService::class.java)
-        }
-
-        return epigramService
     }
-
 }
