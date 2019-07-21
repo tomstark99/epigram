@@ -14,13 +14,13 @@
             android:theme="@style/AppTheme"
             tools:ignore="GoogleAppIndexingWarning">
         <activity
-                android:name=".MainActivity"
+                android:name=".ui.main.MainActivity"
                 android:label="@string/title_activity_main"
                 android:windowSoftInputMode="stateAlwaysHidden"
                 android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
-                android:name=".SplashActivity"
+                android:name=".ui.splash.SplashActivity"
                 android:windowSoftInputMode="stateAlwaysHidden"
                 android:theme="@style/SplashTheme">
             <intent-filter>
@@ -30,16 +30,16 @@
             </intent-filter>
         </activity>
         <activity
-                android:name=".ArticleActivity"
-                android:parentActivityName=".MainActivity"
+                android:name=".ui.article.ArticleActivity"
+                android:parentActivityName=".ui.main.MainActivity"
                 android:windowSoftInputMode="stateAlwaysHidden"
                 android:theme="@style/AppTheme.NoActionBar"/>
         <activity
-                android:name=".SearchActivity"
+                android:name=".ui.search.SearchActivity"
                 android:windowSoftInputMode="stateVisible"
                 android:theme="@style/AppTheme.NoActionBar"/>
         <service
-                android:name=".data.NotificationService"
+                android:name=".data.notifications.NotificationService"
                 android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />

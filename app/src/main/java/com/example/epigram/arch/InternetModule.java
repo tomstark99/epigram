@@ -1,5 +1,6 @@
-package com.example.epigram.data;
+package com.example.epigram.arch;
 
+import com.example.epigram.data.api.EpigramService;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;

@@ -1,4 +1,4 @@
-package com.example.epigram;
+package com.example.epigram.ui.search;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,9 +12,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.example.epigram.data.Layout;
+import com.example.epigram.MyAdapterArticles;
+import com.example.epigram.R;
+import com.example.epigram.arch.android.Layout;
 import com.example.epigram.data.Post;
-import com.example.epigram.data.PostManager;
+import com.example.epigram.data.managers.PostManager;
+import com.example.epigram.ui.article.ArticleActivity;
 import com.jakewharton.rxbinding2.view.RxView;
 import com.jakewharton.rxbinding2.widget.RxTextView;
 import io.reactivex.Observable;

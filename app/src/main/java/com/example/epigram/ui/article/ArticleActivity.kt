@@ -1,4 +1,4 @@
-package com.example.epigram
+package com.example.epigram.ui.article
 
 import android.app.*
 import android.content.Context
@@ -21,7 +21,8 @@ import com.bumptech.glide.load.MultiTransformation
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
-import com.example.epigram.data.NotificationService
+import com.example.epigram.R
+import com.example.epigram.data.notifications.NotificationService
 import com.example.epigram.data.Post
 import com.google.firebase.messaging.FirebaseMessagingService
 import kotlinx.android.synthetic.main.activity_article_view.*
@@ -95,7 +96,7 @@ class ArticleActivity : AppCompatActivity() {
             notificationManager.createNotificationChannel(mChannel)
         }
         val managerCompat = NotificationManagerCompat.from(this)
-        val intent = ArticleActivity.makeIntent(this, post)
+        val intent = makeIntent(this, post)
         val pendingIntent = PendingIntent.getActivity(this, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT)
 
 //        val placeholder =

@@ -1,4 +1,4 @@
-package com.example.epigram;
+package com.example.epigram.ui.splash;
 
 import android.animation.Animator;
 import android.animation.AnimatorSet;
@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import androidx.appcompat.app.AppCompatActivity;
+import com.example.epigram.ui.main.MainActivity;
+import com.example.epigram.R;
 
 public class SplashActivity extends AppCompatActivity {
 

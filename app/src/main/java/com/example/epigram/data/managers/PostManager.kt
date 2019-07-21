@@ -1,5 +1,7 @@
-package com.example.epigram.data
+package com.example.epigram.data.managers
 
+import com.example.epigram.arch.InternetModule
+import com.example.epigram.data.Post
 import io.reactivex.Single
 import java.util.*
 

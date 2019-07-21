@@ -1,9 +1,10 @@
-package com.example.epigram;
+package com.example.epigram.ui.main;
 
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import androidx.recyclerview.widget.RecyclerView;
+import com.example.epigram.R;
 
 public class MyAdapterPlaceholder extends RecyclerView.Adapter<MyAdapterPlaceholder.MyViewHolder> {
 

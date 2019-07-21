@@ -7,7 +7,6 @@ import androidx.annotation.StringRes;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
-import com.example.epigram.MainActivity;
 import com.example.epigram.R;
 
 import java.util.HashMap;
