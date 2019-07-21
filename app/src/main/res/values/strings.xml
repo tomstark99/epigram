@@ -28,4 +28,17 @@
     <string name="tab_3">FEATURES SECTION</string>
     <string name="tab_4">COMMENT SECTION</string>
 
+    <string name="notification_channel_article_drafts_id">article_drafts</string>
+    <string name="notification_channel_article_drafts_name">Article drafted</string>
+    <string name="notification_channel_article_drafts_title">New article drafted</string>
+
+    <string name="notification_channel_article_created_id">article_created</string>
+    <string name="notification_channel_article_created_name">New article</string>
+    <string name="notification_channel_article_created_title">New article published</string>
+
+    <string name="notification_channel_article_updated_id">article_updated</string>
+    <string name="notification_channel_article_updated_name">Article updated</string>
+    <string name="notification_channel_article_updated_title">Draft article updated</string>
+    <string name="notification_channel_article_updated_body_only">Article \'%s\' contents updated</string>
+    <string name="notification_channel_article_updated_both" formatted="false">Article title change from \'%s\' to \'%s\'</string>
 </resources>
