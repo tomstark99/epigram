@@ -11,19 +11,22 @@
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:theme="@style/AppTheme.AppBarOverlay">
-        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
             <ImageView
-                    android:id="@+id/logo1"
+                    android:contentDescription="@null"
                     android:src="@drawable/layer_2"
                     android:layout_width="@android:dimen/app_icon_size"
                     android:layout_height="@android:dimen/app_icon_size"
                     android:layout_gravity="center_vertical"
                     android:paddingTop="5dp"
-                    android:paddingLeft="16dp"
-                    android:alpha="1"/>
+                    android:paddingStart="16dp"/>
 
             <TextView
-                    android:id="@+id/title"
+                    android:id="@+id/main_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical|start"
@@ -38,7 +41,8 @@
                     android:layout_weight="1"/>
 
             <ImageView
-                    android:id="@+id/search_button"
+                    android:contentDescription="@string/a11y_search"
+                    android:id="@+id/main_search_button"
                     android:layout_width="48dp"
                     android:layout_height="match_parent"
                     android:padding="12dp"
@@ -47,16 +51,18 @@
                     android:background="?android:attr/selectableItemBackgroundBorderless"/>
 
         </LinearLayout>
-            <com.google.android.material.tabs.TabLayout
-                    android:id="@+id/tabs"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="?attr/colorPrimary"
-                    app:tabMode="scrollable"
-                    app:tabRippleColor="@color/colorPrimaryDark"/>
+
+        <com.google.android.material.tabs.TabLayout
+                android:id="@+id/main_tabs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/colorPrimary"
+                app:tabMode="scrollable"
+                app:tabRippleColor="@color/colorPrimaryDark"/>
     </com.google.android.material.appbar.AppBarLayout>
+
     <androidx.viewpager.widget.ViewPager
-            android:id="@+id/view_pager"
+            android:id="@+id/main_view_pager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"/>

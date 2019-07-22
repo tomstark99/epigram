@@ -13,6 +13,7 @@ import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
 import com.google.android.material.tabs.TabLayout
 import com.google.firebase.messaging.FirebaseMessaging
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -20,12 +21,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val sectionsPagerAdapter = SectionsPagerAdapter(this, supportFragmentManager)
-        val viewPager = findViewById<ViewPager>(R.id.view_pager)
-        viewPager.adapter = sectionsPagerAdapter
-        val tabs = findViewById<TabLayout>(R.id.tabs)
-        tabs.setupWithViewPager(viewPager)
+        main_view_pager.adapter = sectionsPagerAdapter
+        main_tabs.setupWithViewPager(main_view_pager)
 
-        tabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+        main_tabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
 
             }
@@ -39,12 +38,10 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-        val view = findViewById<TextView>(R.id.title)
         val typeFace = Typeface.createFromAsset(assets, "fonts/lora_regular.ttf")
-        view.typeface = typeFace
+        main_title.typeface = typeFace
 
-        val search = findViewById<ImageView>(R.id.search_button)
-        search.setOnClickListener { SearchActivity.start(this@MainActivity) }
+        main_search_button.setOnClickListener { SearchActivity.start(this@MainActivity) }
 
         FirebaseMessaging.getInstance().subscribeToTopic("new_article")
             .addOnCompleteListener { }
@@ -56,11 +53,4 @@ class MainActivity : AppCompatActivity() {
             .addOnCompleteListener { }
 
     }
-
-    override fun onSearchRequested(): Boolean {
-        return super.onSearchRequested()
-
-    }
-
-
 }

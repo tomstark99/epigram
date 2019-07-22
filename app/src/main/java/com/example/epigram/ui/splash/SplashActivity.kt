@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import com.example.epigram.ui.main.MainActivity
 import com.example.epigram.R
+import kotlinx.android.synthetic.main.activity_splash_screen.*
 
 class SplashActivity : AppCompatActivity() {
 
@@ -17,43 +18,37 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
 
-
         setContentView(R.layout.activity_splash_screen)
-        findViewById<View>(R.id.left_logo).post {
-            val screen = findViewById<View>(R.id.splash_root)
-            val logoR = findViewById<View>(R.id.right_logo)
-            val logoL = findViewById<View>(R.id.left_logo)
+        splash_left_logo.post {
+            val layoutR = splash_right_logo.layoutParams
 
-            val layoutL = logoL.layoutParams
-            val layoutR = logoR.layoutParams
+            val screenWidth = splash_root.width.toDouble()
+            val logoRWidth = (screenWidth - (splash_root.paddingRight + splash_root.paddingLeft)) * 0.6
+            val touchingPos = screenWidth - (logoRWidth + splash_root.paddingRight)
+            val logoLWidth = splash_left_logo.width.toDouble()
 
-            val screenWidth = screen.width.toDouble()
-            val logoRWidth = (screenWidth - (screen.paddingRight + screen.paddingLeft)) * 0.6
-            val touchingPos = screenWidth - (logoRWidth + screen.paddingRight)
-            val logoLWidth = logoL.width.toDouble()
-
-            val logoLRight = logoL.right - logoLWidth / 4
+            val logoLRight = splash_left_logo.right - logoLWidth / 4
 
             val translation = logoLRight - touchingPos
-            val paddingForCenter = (screenWidth - (logoRWidth + logoLWidth * 0.5) - screen.paddingLeft * 0.5) * 0.5//;
+            val paddingForCenter = (screenWidth - (logoRWidth + logoLWidth * 0.5) - splash_root.paddingLeft * 0.5) * 0.5//;
 
             layoutR.width = logoRWidth.toInt()
-            findViewById<View>(R.id.right_logo).layoutParams = layoutR
+            splash_right_logo.layoutParams = layoutR
 
-            findViewById<View>(R.id.right_logo).setPadding(0, 0, paddingForCenter.toInt(), 0)
+            splash_right_logo.setPadding(0, 0, paddingForCenter.toInt(), 0)
 
             //double translation = findViewById(R.id.left_logo).getRight() - findViewById(R.id.right_logo).getLeft();
 
 
-            val alpha = ObjectAnimator.ofFloat(findViewById(R.id.splash_root), "alpha", 1f)
-            val scaleX = ObjectAnimator.ofFloat(findViewById(R.id.left_logo), "scaleX", 0.5f)
-            val scaleY = ObjectAnimator.ofFloat(findViewById(R.id.left_logo), "scaleY", 0.5f)
+            val alpha = ObjectAnimator.ofFloat(splash_root, "alpha", 1f)
+            val scaleX = ObjectAnimator.ofFloat(splash_left_logo, "scaleX", 0.5f)
+            val scaleY = ObjectAnimator.ofFloat(splash_left_logo, "scaleY", 0.5f)
             val translate = ObjectAnimator.ofFloat(
-                findViewById(R.id.left_logo),
+                splash_left_logo,
                 "translationX",
                 -translation.toFloat()
             ) // ((float) ((findViewById(R.id.right_logo).getLeft())))
-            val logo = ObjectAnimator.ofFloat(findViewById(R.id.right_logo), "alpha", 1f)
+            val logo = ObjectAnimator.ofFloat(splash_right_logo, "alpha", 1f)
 
             val animator = AnimatorSet()
             val animator2 = AnimatorSet()
@@ -83,8 +78,5 @@ class SplashActivity : AppCompatActivity() {
             })
             animator.start()
         }
-
-
-        //startActivity(new Intent(this, MainActivity.class));
     }
 }
