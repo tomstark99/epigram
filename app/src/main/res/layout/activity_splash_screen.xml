@@ -1,29 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout
-        android:id="@+id/splash_root"
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/splash_root"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:alpha="1"
         android:padding="32dp"
         android:background="@color/colorPrimary"
-        tools:context=".SplashScreen">
+        tools:context=".ui.splash.SplashActivity">
 
+    <ImageView
+            android:contentDescription="@null"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/splash_left_logo"
+            android:src="@drawable/layer_2"
+            android:layout_gravity="center"/>
 
-
-    <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"
-               android:id="@+id/left_logo"
-               android:src="@drawable/layer_2"
-               android:layout_gravity="center"/>
-
-    <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"
-               android:adjustViewBounds="true"
-               android:id="@+id/right_logo"
-               android:src="@drawable/layer_4"
-               android:layout_gravity="center_vertical|right"
-               android:alpha="0"
-    />
+    <ImageView
+            android:contentDescription="@null"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:id="@+id/splash_right_logo"
+            android:src="@drawable/layer_4"
+            android:layout_gravity="center_vertical|end"
+            android:alpha="0"/>
 
 </FrameLayout>

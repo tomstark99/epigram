@@ -1,6 +1,9 @@
 <resources>
+    <string name="a11y_share">Share</string>
+    <string name="a11y_close">Close</string>
+    <string name="a11y_search">Search</string>
+
     <string name="app_name">epigram</string>
-    <string name="title_activity_main">MainActivity</string>
     <string name="tab_text_1">HOME</string>
     <string name="tab_text_2">NEWS</string>
     <string name="tab_text_3">FEATURES</string>
@@ -29,4 +32,25 @@
     <string name="tab_3">FEATURES SECTION</string>
     <string name="tab_4">COMMENT SECTION</string>
 
+    <string name="notification_channel_article_drafts_id">article_drafts</string>
+    <string name="notification_channel_article_drafts_name">Article drafted</string>
+    <string name="notification_channel_article_drafts_title">New article drafted</string>
+
+    <string name="notification_channel_article_created_id">article_created</string>
+    <string name="notification_channel_article_created_name">New article</string>
+    <string name="notification_channel_article_created_title">New article published</string>
+
+    <string name="notification_channel_article_updated_id">article_updated</string>
+    <string name="notification_channel_article_updated_name">Article updated</string>
+    <string name="notification_channel_article_updated_title">Draft article updated</string>
+    <string name="notification_channel_article_updated_body_only">Article \'%s\' contents updated</string>
+    <string name="notification_channel_article_updated_both" formatted="false">Article title change from \'%s\' to \'%s\'</string>
+
+    <string name="article_footer">Copyright © 2018 epigram</string>
+
+    <string name="search_by_title_or_author">Search by title or author</string>
+    <string name="search_epigram">Search epigram</string>
+    <string name="no_results_found">No results found</string>
+
+    <string name="breaking_news">BREAKING NEWS</string>
 </resources>
