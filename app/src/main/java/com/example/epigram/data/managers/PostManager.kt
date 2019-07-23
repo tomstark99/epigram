@@ -27,8 +27,8 @@ class PostManager(private val service: EpigramService = InternetModule.epigramSe
         return service.tag("breaking-news").map(templateToModel)
     }
 
-    fun search(searchTerm: String): Single<List<Post>> {
-        return service.search(searchTerm).map(templateToModel)
+    fun search(searchTerm: String): Single<Pair<String, List<Post>>> {
+        return service.search(searchTerm).map(templateToModel).map { searchTerm to it }
     }
 
     fun getArticle(id: String): Maybe<Post> {

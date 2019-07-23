@@ -5,9 +5,8 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.epigram.R
-import com.example.epigram.ui.main.MyAdapterPlaceholder.MyViewHolder
 
-class MyAdapterPlaceholder : RecyclerView.Adapter<MyAdapterPlaceholder.MyViewHolder>() {
+class PlaceholderAdapter : RecyclerView.Adapter<PlaceholderAdapter.MyViewHolder>() {
 
     private var placeholderCount = 3
 
@@ -18,7 +17,7 @@ class MyAdapterPlaceholder : RecyclerView.Adapter<MyAdapterPlaceholder.MyViewHol
 
     class MyViewHolder(var linearLayout: LinearLayout) : RecyclerView.ViewHolder(linearLayout)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyAdapterPlaceholder.MyViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlaceholderAdapter.MyViewHolder {
         val l =
             LayoutInflater.from(parent.context).inflate(R.layout.element_place_holder, parent, false) as LinearLayout
         return MyViewHolder(l)

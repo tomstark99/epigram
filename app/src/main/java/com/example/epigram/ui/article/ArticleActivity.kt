@@ -38,8 +38,7 @@ class ArticleActivity : AppCompatActivity() {
             finishAfterTransition()
         }
 
-        val share = findViewById<ImageView>(R.id.article_share)
-        share.setOnClickListener { shareThis() }
+        article_share.setOnClickListener { shareThis() }
 
         article_title.setOnClickListener { article_scroll.smoothScrollTo(0, 0) }
     }

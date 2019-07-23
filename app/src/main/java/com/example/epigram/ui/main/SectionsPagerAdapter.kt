@@ -24,7 +24,7 @@ class SectionsPagerAdapter(private val mContext: Context, fm: FragmentManager) :
         if (!fragmentMap.containsKey(position)) {
             fragmentMap[position] = PlaceholderFragment.newInstance(FILTERS[position], position)
         }
-        return fragmentMap[position]
+        return fragmentMap[position]!!
     }
 
     override fun getPageTitle(position: Int): CharSequence? {
@@ -53,7 +53,7 @@ class SectionsPagerAdapter(private val mContext: Context, fm: FragmentManager) :
     }
 
     fun fragmentReselected(index: Int) {
-        fragmentMap[index].reselected()
+        fragmentMap[index]?.reselected()
     }
 
     companion object {

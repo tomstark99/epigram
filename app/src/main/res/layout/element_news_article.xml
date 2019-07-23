@@ -3,54 +3,54 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/place_holders"
         android:background="?android:selectableItemBackground"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingTop="@dimen/element_padding"
-        android:paddingBottom="@dimen/element_padding"
         android:paddingStart="@dimen/element_padding"
-        android:paddingEnd="@dimen/element_padding">
-    <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-        <ImageView android:layout_width="match_parent" android:layout_height="110dp"
-                   android:id="@+id/post_image"
-                   android:scaleType="centerCrop"
-                   android:src="@drawable/placeholder_background"
-                   android:adjustViewBounds="false"/>
+        android:paddingEnd="@dimen/element_padding"
+        android:paddingTop="@dimen/element_padding">
 
-        <!--<TextView-->
-                <!--android:id="@+id/post_date"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-                <!--android:layout_gravity="bottom|end"-->
-                <!--android:background="@drawable/date_background"-->
-                <!--android:layout_marginBottom="@dimen/small_padding"-->
-                <!--android:layout_marginEnd="@dimen/appbar_padding"-->
-                <!--android:layout_marginEnd="@dimen/appbar_padding"-->
-                <!--android:padding="8dp"-->
-                <!--android:textColor="@color/white"-->
-                <!--tools:text="JUNE 10, 2019"-->
-                <!--android:fontFamily="sans-serif-condensed-medium"-->
-                <!--android:textSize="12dp"/>-->
-    </FrameLayout>
+    <TextView
+            android:id="@+id/post_breaking"
+            android:background="@drawable/tab_background"
+            android:text="BREAKING NEWS"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_height="wrap_content"
+            android:paddingStart="16dp"
+            android:textColor="@color/black"
+            android:fontFamily="sans-serif-condensed-medium"
+            android:textStyle="bold"
+            android:textSize="20sp"/>
+
+    <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="175dp"
+            android:id="@+id/post_image"
+            android:scaleType="centerCrop"
+            android:src="@drawable/placeholder_background"
+            android:adjustViewBounds="false"
+            android:contentDescription="@null"/>
 
     <TextView
             android:id="@+id/post_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18dp"
+            android:textSize="22sp"
             tools:text="ARTICLE TITLE"
             android:textStyle="bold"
             android:textColor="@color/black"
             android:fontFamily="sans-serif-condensed-medium"/>
+
     <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/element_padding">
+
         <TextView
-                android:id="@+id/tag_text"
+                android:id="@+id/post_tag"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/tag_background"
@@ -60,24 +60,32 @@
                 android:paddingEnd="6dp"
                 android:paddingTop="4dp"
                 android:paddingBottom="4dp"
-                android:textSize="10dp"
+                android:textSize="12sp"
                 android:fontFamily="sans-serif-condensed-medium"
                 android:textStyle="bold"
                 android:textColor="@android:color/white"/>
-        <!--<ImageView-->
-                <!--android:layout_width="16dp"-->
-                <!--android:layout_height="16dp"-->
-                <!--android:layout_marginStart="@dimen/tiny_padding"-->
-                <!--android:layout_gravity="center"-->
-                <!--android:src="@drawable/ic_access_time_black_24dp"/>-->
+
         <TextView
-                android:id="@+id/post_date_alternate"
+                android:id="@+id/post_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="6dp"
                 tools:text="June 10, 2019"
-                android:textSize="12dp"
+                android:textSize="12sp"
                 android:fontFamily="sans-serif-condensed-medium"/>
     </LinearLayout>
+
+    <TextView
+            android:id="@+id/post_recent"
+            android:visibility="gone"
+            android:text="RECENT NEWS"
+            android:background="@drawable/tab_background"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="16dp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:fontFamily="sans-serif-condensed-medium"
+            android:textSize="20sp"/>
 
 </LinearLayout>

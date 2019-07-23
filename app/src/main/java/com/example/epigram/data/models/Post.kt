@@ -9,7 +9,9 @@ data class Post(
     val title: String,
     val html: String,
     val image: String?,
-    val date: DateTime
+    val date: DateTime,
+    val url: String,
+    val tag: String?
 ) : Serializable {
     companion object {
 
@@ -23,7 +25,9 @@ data class Post(
                 template.title,
                 html,
                 template.image,
-                DateTime.parse(template.published)
+                DateTime.parse(template.published),
+                template.url,
+                template.tag
             )
         }
     }

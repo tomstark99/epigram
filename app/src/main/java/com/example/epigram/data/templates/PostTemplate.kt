@@ -5,5 +5,7 @@ data class PostTemplate(
     val title: String,
     val html: String,
     val image: String?,
-    val published: String
+    val published: String,
+    val url: String,
+    val tag: String?
 )

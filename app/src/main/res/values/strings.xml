@@ -48,5 +48,9 @@
 
     <string name="article_footer">Copyright © 2018 epigram</string>
 
+    <string name="search_by_title_or_author">Search by title or author</string>
+    <string name="search_epigram">Search epigram</string>
+    <string name="no_results_found">No results found</string>
 
+    <string name="breaking_news">BREAKING NEWS</string>
 </resources>
