@@ -3,25 +3,29 @@
     <string name="title_activity_main">MainActivity</string>
     <string name="tab_text_1">HOME</string>
     <string name="tab_text_2">NEWS</string>
-    <string name="tab_text_3">FEATURES</string>
-    <string name="tab_text_4">COMMENT</string>
-    <string name="tab_text_5">SCIENCE</string>
-    <string name="tab_text_6">WELLBEING</string>
-    <string name="tab_text_7">LIFESTYLE</string>
-    <string name="tab_text_8">ENTERTAINMENT</string>
-    <string name="tab_text_9">SPORT</string>
-    <string name="tab_text_10">INTRAMURAL</string>
+    <string name="tab_text_3">THE CROFT</string>
+    <string name="tab_text_4">FEATURES</string>
+    <string name="tab_text_5">OPINION</string>
+    <!--<string name="tab_text_4">COMMENT</string>-->
+    <!--<string name="tab_text_5">SCIENCE</string>-->
+    <!--<string name="tab_text_6">WELLBEING</string>-->
+    <!--<string name="tab_text_7">LIFESTYLE</string>-->
+    <string name="tab_text_6">ENTERTAINMENT</string>
+    <string name="tab_text_7">SPORT</string>
+    <!--<string name="tab_text_10">INTRAMURAL</string>-->
 
     <string name="empty"></string>
     <string name="tag1">news</string>
-    <string name="tag2">features</string>
-    <string name="tag3">comment</string>
+    <string name="tag2">the-croft</string>
+    <string name="tag3">features</string>
+    <string name="tag4">opinion</string>
+    <!--<string name="tag3">comment</string>
     <string name="tag4">science</string>
     <string name="tag5">wellbeing</string>
-    <string name="tag6">lifestyle</string>
-    <string name="tag7">entertainment</string>
-    <string name="tag8">sport</string>
-    <string name="tag9">intramural</string>
+    <string name="tag6">lifestyle</string>-->
+    <string name="tag5">entertainment</string>
+    <string name="tag6">sport</string>
+    <!--<string name="tag9">intramural</string>-->
 
 
     <string name="tab_1">RECENT NEWS</string>

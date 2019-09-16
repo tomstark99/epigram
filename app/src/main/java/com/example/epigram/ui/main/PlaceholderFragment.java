@@ -127,6 +127,7 @@ public class PlaceholderFragment extends Fragment implements MyAdapterArticles.L
                             loaded = true;
                             swipeRefresh.setRefreshing(false);
                             if(!posts.second.isEmpty()){
+                                posts.first.removeAll(posts.second);
                                 posts.first.add(0, posts.second.get(0));
                             }
                             nextPage++;

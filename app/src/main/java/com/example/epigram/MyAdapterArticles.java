@@ -26,6 +26,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -128,7 +129,7 @@ public class MyAdapterArticles extends RecyclerView.Adapter<MyAdapterArticles.My
 
     public MyAdapterArticles(List<Post> posts, LoadNextPage loadNext, int position) {
         this.posts = posts;
-        multiTransformation = new MultiTransformation<>(new CenterCrop(),new RoundedCorners(32));
+        multiTransformation = new MultiTransformation<>(new CenterCrop(),new RoundedCorners(45));
         loadNextPage = loadNext;
         pageIndex = position;
     }
@@ -200,8 +201,10 @@ public class MyAdapterArticles extends RecyclerView.Adapter<MyAdapterArticles.My
         if(pageIndex == SEARCH_PAGE_INDEX && position == 0){
             holder.searchResults.setText(holder.searchResults.getResources().getQuantityString(R.plurals.results, resultTotal,resultTotal));//Integer.toString(posts.size()));
         }
+        List<String> tag = posts.get(position).getTags();
+        tag.removeAll(Arrays.asList("featured top", "carousel", "one sidebar"));
         holder.title.setText((posts.get(position).getTitle()));
-        holder.tag.setText(posts.get(position).getTag());
+        holder.tag.setText(tag.get(0).toUpperCase());//posts.get(position).getTag());
         //holder.date.setText(posts.get(position).getDate().toString("MMM d, yyyy")); // date for on top of image
         holder.dateAlt.setText(posts.get(position).getDate().toString("MMM d, yyyy"));
 

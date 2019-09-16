@@ -75,7 +75,7 @@ class ArticleActivity : AppCompatActivity() {
 
         Glide.with(this).load(post.image)
                 .placeholder(R.drawable.placeholder_background)
-                .apply(RequestOptions.bitmapTransform(MultiTransformation(CenterCrop(), RoundedCorners(32))))
+                .apply(RequestOptions.bitmapTransform(MultiTransformation(CenterCrop(), RoundedCorners(45))))
                 .into(article_post_image)
 
         val htmlTextView: HtmlTextView = html_text

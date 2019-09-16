@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingBottom="@dimen/element_padding"
+        android:paddingBottom="@dimen/inner_element_padding"
         android:paddingStart="@dimen/element_padding"
         android:paddingTop="@dimen/element_padding"
         android:paddingEnd="@dimen/element_padding">
@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:paddingBottom="@dimen/element_padding">
+            android:paddingBottom="@dimen/inner_element_padding">
         <TextView
                 android:id="@+id/section_text"
                 android:layout_width="wrap_content"
@@ -27,7 +27,7 @@
                 android:paddingRight="3dp"
                 android:layout_marginStart="2dp"
                 android:textStyle="bold"
-                android:textSize="20dp"
+                android:textSize="18dp"
                 android:textColor="@android:color/white"/>
         <TextView
                 tools:text="0"
@@ -39,7 +39,7 @@
                 android:fontFamily="sans-serif-condensed-medium"
                 android:textStyle="bold"
                 android:visibility="visible"
-                android:textSize="20dp"/>
+                android:textSize="18dp"/>
     </LinearLayout>
 
     <FrameLayout
@@ -70,7 +70,7 @@
             android:id="@+id/post_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18dp"
+            android:textSize="16dp"
             tools:text="ARTICLE TITLE"
             android:textStyle="bold"
             android:textColor="@color/black"
@@ -105,7 +105,7 @@
                 android:layout_height="wrap_content"
                 android:padding="6dp"
                 tools:text="June 10, 2019"
-                android:textSize="12dp"
+                android:textSize="10dp"
                 android:fontFamily="sans-serif-condensed-medium"/>
     </LinearLayout>
 

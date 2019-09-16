@@ -20,8 +20,8 @@ import java.util.Map;
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     @StringRes
-    private static final int[] TAB_TITLES = new int[]{R.string.tab_text_1, R.string.tab_text_2, R.string.tab_text_3, R.string.tab_text_4, R.string.tab_text_5, R.string.tab_text_6, R.string.tab_text_7, R.string.tab_text_8, R.string.tab_text_9, R.string.tab_text_10};
-    private static final int[] FILTERS = new int[]{R.string.empty, R.string.tag1, R.string.tag2, R.string.tag3, R.string.tag4, R.string.tag5, R.string.tag6, R.string.tag7, R.string.tag8, R.string.tag9};
+    private static final int[] TAB_TITLES = new int[]{R.string.tab_text_1, R.string.tab_text_2, R.string.tab_text_3, R.string.tab_text_4, R.string.tab_text_5, R.string.tab_text_6, R.string.tab_text_7};
+    private static final int[] FILTERS = new int[]{R.string.empty, R.string.tag1, R.string.tag2, R.string.tag3, R.string.tag4, R.string.tag5, R.string.tag6};
 
     private Map<Integer, PlaceholderFragment> fragmentMap= new HashMap<>();
 
@@ -51,7 +51,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     @Override
     public int getCount() {
         // Show 2 total pages.
-        return 10;
+        return 7;
     }
 
     public void setTabTitles(int position, MainActivity view){
