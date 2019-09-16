@@ -124,7 +124,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="80dp"
                 android:visibility="visible">
             <ImageView
                     android:id="@+id/search_image"
@@ -149,7 +149,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="80dp"
                 android:visibility="gone">
             <ImageView
                     android:id="@+id/search_image_no_result"
