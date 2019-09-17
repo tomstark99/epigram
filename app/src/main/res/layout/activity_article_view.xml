@@ -9,7 +9,7 @@
         android:layout_height="match_parent">
 
     <com.google.android.material.appbar.AppBarLayout
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
             android:layout_width="match_parent"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
@@ -27,17 +27,18 @@
                     android:layout_height="48dp"
                     android:layout_gravity="center"
                     android:padding="12dp"
-                    android:background="?android:attr/selectableItemBackgroundBorderless"/>
+                    style="@style/SelectableItemBackground"/>
 
             <TextView
                     android:id="@+id/title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical|start"
-                    android:minHeight="?actionBarSize"
-                    android:padding="@dimen/appbar_padding"
+                    android:layout_gravity="center_vertical"
+                    android:textAlignment="center"
                     android:layout_weight="1"
                     android:text="@string/app_name"
+                    android:textSize="24dp"
+                    android:textColor="@color/colorAccent"
                     android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"/>
 
             <ImageView
@@ -47,7 +48,7 @@
                     android:layout_height="48dp"
                     android:layout_gravity="center"
                     android:padding="12dp"
-                    android:background="?android:attr/selectableItemBackgroundBorderless"/>
+                    style="@style/SelectableItemBackground"/>
         </LinearLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
@@ -127,7 +128,7 @@
                     android:textColor="@color/black"
                     android:fontFamily="sans-serif-condensed-light"
                     android:textStyle="normal"
-                    android:textColorLink="@color/colorPrimary"
+                    android:textColorLink="@color/colorAccent"
                     android:paddingBottom="@dimen/small_padding"/>
             <TextView
                     android:layout_width="match_parent"

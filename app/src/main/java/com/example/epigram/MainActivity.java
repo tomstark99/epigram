@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity{
         });
 
         TextView view = findViewById(R.id.title);
-        Typeface typeFace = Typeface.createFromAsset(getAssets(), "fonts/lora_regular.ttf");
+        Typeface typeFace = Typeface.createFromAsset(getAssets(), "fonts/lora_bold.ttf");
         view.setTypeface(typeFace);
 
         ImageView search = findViewById(R.id.search_button);

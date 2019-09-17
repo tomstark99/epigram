@@ -70,12 +70,12 @@ class ArticleActivity : AppCompatActivity() {
         url = post.url
 
         val view = findViewById<TextView>(R.id.title)
-        val typeFace = Typeface.createFromAsset(assets, "fonts/lora_regular.ttf")
+        val typeFace = Typeface.createFromAsset(assets, "fonts/lora_bold.ttf")
         view.typeface = typeFace
 
         Glide.with(this).load(post.image)
                 .placeholder(R.drawable.placeholder_background)
-                .apply(RequestOptions.bitmapTransform(MultiTransformation(CenterCrop(), RoundedCorners(45))))
+                .apply(RequestOptions.bitmapTransform(MultiTransformation(CenterCrop(), RoundedCorners(40))))
                 .into(article_post_image)
 
         val htmlTextView: HtmlTextView = html_text

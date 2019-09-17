@@ -43,7 +43,7 @@
             android:layout_height="wrap_content"
             android:textSize="16dp"
             tools:text="ARTICLE TITLE"
-            android:textStyle="bold"
+            android:textStyle="normal"
             android:textColor="@color/black"
             android:fontFamily="sans-serif-condensed-medium"/>
     <LinearLayout

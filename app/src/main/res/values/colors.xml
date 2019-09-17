@@ -3,8 +3,10 @@
     <color name="white">#ffffff</color>
     <color name="whitehint">#88ffffff</color>
     <color name="black">#000</color>
-    <color name="colorPrimary">#c2262f</color>
-    <color name="colorPrimaryDark">#c2262f</color>
-    <color name="colorAccent">#fff</color>
+    <color name="blackhint">#88000000</color>
+    <color name="colorPrimary">#fafafa</color>
+    <color name="colorPrimaryDark">#fafafa</color>
+    <color name="colorAccent">#c2262f</color>
+    <color name="colorAccentHint">#88c2262f</color>
     <color name="placeholderProgress">#d6d6d6</color>
 </resources>

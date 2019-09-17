@@ -129,7 +129,7 @@ public class MyAdapterArticles extends RecyclerView.Adapter<MyAdapterArticles.My
 
     public MyAdapterArticles(List<Post> posts, LoadNextPage loadNext, int position) {
         this.posts = posts;
-        multiTransformation = new MultiTransformation<>(new CenterCrop(),new RoundedCorners(45));
+        multiTransformation = new MultiTransformation<>(new CenterCrop(),new RoundedCorners(40));
         loadNextPage = loadNext;
         pageIndex = position;
     }

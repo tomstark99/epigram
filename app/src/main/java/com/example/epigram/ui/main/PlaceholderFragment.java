@@ -89,7 +89,7 @@ public class PlaceholderFragment extends Fragment implements MyAdapterArticles.L
         loadPage();
 
         swipeRefresh = (SwipeRefreshLayout) view.findViewById(R.id.swipe_refresh);
-        swipeRefresh.setColorSchemeResources(R.color.colorPrimary, R.color.colorPrimaryDark);
+        swipeRefresh.setColorSchemeResources(R.color.colorAccent, R.color.colorAccentHint);
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
