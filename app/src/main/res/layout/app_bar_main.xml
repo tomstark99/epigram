@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MainActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:theme="@style/AppTheme.AppBarOverlay">
+        <LinearLayout android:layout_width="match_parent" android:layout_height="60dp"
+                      app:layout_scrollFlags="scroll|enterAlways"
+                      app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+            <ImageView
+                    android:id="@+id/open_nav"
+                    android:src="@drawable/ic_menu_black_24dp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center"
+                    android:padding="12dp"
+                    style="@style/SelectableItemBackground"/>
+            <!--<ImageView-->
+            <!--android:id="@+id/logo1"-->
+            <!--android:src="@drawable/layer_2"-->
+            <!--android:layout_width="@android:dimen/app_icon_size"-->
+            <!--android:layout_height="@android:dimen/app_icon_size"-->
+            <!--android:layout_gravity="bottom"-->
+            <!--android:paddingTop="5dp"-->
+            <!--android:alpha="1"/>-->
+
+            <TextView
+                    android:id="@+id/title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:textAlignment="center"
+                    android:layout_weight="1"
+                    android:text="@string/app_name"
+                    android:textSize="24dp"
+                    android:textColor="@color/colorAccent"
+                    android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"/>
+
+
+            <ImageView
+                    android:id="@+id/search_button"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:padding="12dp"
+                    android:src="@drawable/ic_search_black_24dp"
+                    android:layout_gravity="end|center_vertical"
+                    style="@style/SelectableItemBackground"/>
+
+        </LinearLayout>
+        <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/colorPrimary"
+                app:tabMode="scrollable"
+                app:tabTextColor="@color/colorAccent"
+                app:tabRippleColor="@color/colorAccent"/>
+    </com.google.android.material.appbar.AppBarLayout>
+    <androidx.viewpager.widget.ViewPager
+            android:id="@+id/view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

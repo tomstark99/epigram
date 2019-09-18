@@ -33,4 +33,20 @@
     <string name="tab_3">FEATURES SECTION</string>
     <string name="tab_4">COMMENT SECTION</string>
 
+    <string name="menu_news">NEWS</string>
+    <string name="menu_features">FEATURES</string>
+    <string name="menu_comment">COMMENT</string>
+    <string name="menu_the_croft">THE CROFT</string>
+    <string name="menu_opinion">OPINION</string>
+    <string name="menu_science">SCIENCE</string>
+    <string name="menu_wellbeing">WELLBEING</string>
+    <string name="menu_lifestyle">LIFESTYLE</string>
+    <string name="menu_entertainment">ENTERTAINMENT</string>
+    <string name="menu_sport">SPORT</string>
+    <string name="menu_intramural">INTRAMURAL</string>
+    <string name="menu_puzzles">PUZZLES</string>
+    <string name="menu_settings">SETTINGS</string>
+    <string name="menu_about">ABOUT</string>
+    <string name="menu_home">HOME</string>
+
 </resources>
