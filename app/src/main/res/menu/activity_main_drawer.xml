@@ -5,9 +5,9 @@
 
     <item android:title="ALL SECTIONS">
         <menu>
-            <item
-                    android:id="@+id/nav_home"
-                    android:title="@string/menu_home"/>
+            <!--<item-->
+                    <!--android:id="@+id/nav_home"-->
+                    <!--android:title="@string/menu_home"/>-->
             <item
                     android:id="@+id/nav_news"
                     android:title="@string/menu_news"/>
@@ -16,13 +16,13 @@
                     android:title="@string/menu_features"/>
             <item
                     android:id="@+id/nav_comment"
-                    android:title="@string/menu_comment"/>
+                    android:title="@string/menu_opinion"/>
             <item
                     android:id="@+id/nav_the_croft"
                     android:title="@string/menu_the_croft"/>
-            <item
-                    android:id="@+id/nav_opinion"
-                    android:title="@string/menu_opinion"/>
+            <!--<item-->
+                    <!--android:id="@+id/nav_opinion"-->
+                    <!--android:title="@string/menu_opinion"/>-->
             <item
                     android:id="@+id/nav_science"
                     android:title="@string/menu_science"/>

@@ -1,5 +1,6 @@
 <resources>
-    <string name="app_name">epigram</string>
+    <string name="app_name">Epigram</string>
+    <string name="app_name_title">epigram</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="tab_text_1">HOME</string>
     <string name="tab_text_2">NEWS</string>
@@ -18,7 +19,7 @@
     <string name="tag1">news</string>
     <string name="tag2">the-croft</string>
     <string name="tag3">features</string>
-    <string name="tag4">opinion</string>
+    <string name="tag4">comment</string>
     <!--<string name="tag3">comment</string>
     <string name="tag4">science</string>
     <string name="tag5">wellbeing</string>
@@ -48,5 +49,21 @@
     <string name="menu_settings">SETTINGS</string>
     <string name="menu_about">ABOUT</string>
     <string name="menu_home">HOME</string>
+
+    <string name="menu_news_tag">news</string>
+    <string name="menu_features_tag">features</string>
+    <string name="menu_comment_tag">comment</string>
+    <string name="menu_the_croft_tag">the-croft</string>
+    <string name="menu_opinion_tag">opinion</string>
+    <string name="menu_science_tag">science</string>
+    <string name="menu_wellbeing_tag">wellbeing</string>
+    <string name="menu_lifestyle_tag">lifestyle</string>
+    <string name="menu_entertainment_tag">entertainment</string>
+    <string name="menu_sport_tag">sport</string>
+    <string name="menu_intramural_tag">intramural</string>
+    <string name="menu_puzzles_tag">puzzles</string>
+    <string name="menu_settings_tag">settings</string>
+    <string name="menu_about_tag">about</string>
+    <string name="menu_home_tag">home</string>
 
 </resources>

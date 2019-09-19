@@ -16,11 +16,15 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.app.ShareCompat
 import androidx.core.widget.NestedScrollView
+import androidx.recyclerview.widget.DefaultItemAnimator
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.MultiTransformation
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
+import com.example.epigram.data.Layout
 import com.example.epigram.data.NotificationService
 import com.example.epigram.data.Post
 import com.google.firebase.messaging.FirebaseMessagingService
@@ -32,6 +36,7 @@ import org.sufficientlysecure.htmltextview.HtmlTextView
 class ArticleActivity : AppCompatActivity() {
 
     var url: String = "https://epigram.org.uk/"
+    private var recyclerView: RecyclerView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,6 +55,7 @@ class ArticleActivity : AppCompatActivity() {
         share.setOnClickListener { shareThis() }
 
         findViewById<TextView>(R.id.title).setOnClickListener{ findViewById<NestedScrollView>(R.id.article_scroll).smoothScrollTo(0,0) }
+
     }
 
     private fun shareThis() {
@@ -67,6 +73,13 @@ class ArticleActivity : AppCompatActivity() {
 
         val post = intent.getSerializableExtra(ARG_POST) as Post
 
+        recyclerView = findViewById(R.id.recycler_view_tag)
+        val layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        recyclerView!!.layoutManager = layoutManager
+        recyclerView!!.itemAnimator = DefaultItemAnimator()
+        //recyclerView!!.isNestedScrollingEnabled = false
+        recyclerView!!.adapter = MyAdapterTag(post.tags!!.toMutableList())
+
         url = post.url
 
         val view = findViewById<TextView>(R.id.title)
@@ -82,7 +95,7 @@ class ArticleActivity : AppCompatActivity() {
         htmlTextView.setHtml(post.html, HtmlHttpImageGetter(htmlTextView, null, true))
 //      article_text.text = Html.fromHtml(post.html)
         article_post_title.text = post.title
-        article_tag_text.text = post.tag
+        //article_tag_text.text = post.tag
         article_post_date_alternate.text = post.date.toString("MMM d, yyyy")
     }
 

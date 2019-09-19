@@ -27,7 +27,7 @@
                 android:textAlignment="center"
                 android:layout_weight="1"
                 android:paddingStart="@dimen/tiny_padding"
-                android:text="@string/app_name"
+                android:text="@string/app_name_title"
                 android:textSize="32dp"
                 android:textColor="@color/colorAccent"
                 android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"/>

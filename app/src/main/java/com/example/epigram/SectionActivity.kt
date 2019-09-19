@@ -1,5 +1,7 @@
 package com.example.epigram
 
+import android.app.Activity
+import android.app.ActivityOptions
 import android.content.Context
 import android.content.Intent
 import android.graphics.Typeface
@@ -33,11 +35,11 @@ import io.reactivex.schedulers.Schedulers
 import java.util.ArrayList
 import java.util.concurrent.TimeUnit
 
-class SectionActivity : AppCompatActivity(), MyAdapterArticles.LoadNextPage, NavigationView.OnNavigationItemSelectedListener {
+class SectionActivity : AppCompatActivity(), MyAdapterSection.LoadNextPage, NavigationView.OnNavigationItemSelectedListener {
 
     private val pManager = PostManager()
     //private val adapter2 = MyAdapterArticles(ArrayList(), this, SEARCH_PAGE_INDEX)
-    private var adapter2: MyAdapterArticles? = null
+    private var adapter2: MyAdapterSection? = null
     private var recyclerView: RecyclerView? = null
 
     private val FIRST_INDEX = 1
@@ -45,22 +47,26 @@ class SectionActivity : AppCompatActivity(), MyAdapterArticles.LoadNextPage, Nav
     private var loaded = false
 
     private var retry = 0
-
-    private var section: String? = null
+    private var section: String = ""
+    private var tag: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_section)
+        setContentView(R.layout.app_bar_section)
+
+        section = intent.getSerializableExtra(ARG_SECTION) as String
+        tag = intent.getSerializableExtra(ARG_SECTION_TAG) as String
 
         val title = findViewById<TextView>(R.id.title)
         val typeFace = Typeface.createFromAsset(assets, "fonts/lora_bold.ttf")
+        title.setText(section.toLowerCase())
         title.setTypeface(typeFace)
-        val navView = findViewById<NavigationView>(R.id.nav_view)
-        val headerView = navView.getHeaderView(0)
-        val titleNav = headerView.findViewById<TextView>(R.id.nav_title)
-        titleNav.setTypeface(typeFace)
 
-        navView.setNavigationItemSelectedListener(this)
+        //val navView = findViewById<NavigationView>(R.id.nav_view)
+        //val headerView = navView.getHeaderView(0)
+        //val titleNav = headerView.findViewById<TextView>(R.id.nav_title)
+        //titleNav.setTypeface(typeFace)
+        //navView.setNavigationItemSelectedListener(this)
 
         recyclerView = findViewById<RecyclerView>(R.id.recycler_view_section)
 
@@ -77,31 +83,32 @@ class SectionActivity : AppCompatActivity(), MyAdapterArticles.LoadNextPage, Nav
         }
 
         findViewById<View>(R.id.section_back).setOnClickListener(View.OnClickListener { finish() })
-
         findViewById<View>(R.id.search_button_in_section).setOnClickListener(View.OnClickListener {
             startActivity(Intent(this, SearchActivity::class.java))
         })
 
-
-
+        loadPage(tag)
     }
 
-//    fun loadPage() {
-//        getView()!!.findViewById(R.id.tab_something_wrong).setVisibility(View.GONE)
-//        val tag = getArguments()!!.getInt(ARG_SECTION_NUMBER)
-//        var single: Single<Pair<List<Post>, List<Post>>>? = null
-//        if (pageIndex == 0 && nextPage == 1) {
-//            single = Single.zip(
-//                pManager.getPosts(nextPage, getString(tag)),
-//                pManager.getPostsBreaking(),
-//                { posts, posts2 -> Pair<List<Post>, List<Post>>(posts, posts2) })
-//        } else {
-//            single = pManager.getPosts(nextPage, getString(tag))
-//                .map { posts -> Pair<List<Post>, List<Post>>(posts, ArrayList()) }
-//        }
+    fun loadPage(tag: String) {
+        pManager.getPosts(nextPage, tag)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({ posts ->
+                loaded = true
+                nextPage++
+                if(adapter2 == null){
+                    adapter2 = MyAdapterSection(posts, this, section)
+                    recyclerView!!.adapter = adapter2
+                }
+                else{
+                    //if (nextPage == FIRST_INDEX + 1) adapter2!!.clear()
+                    adapter2!!.addPosts(posts)
+                }
+            }, { e -> Log.e("error", "soemthing went wrong loading section posts", e)})
+
 //        single//.retry(1)
-//        !!
-//        .subscribeOn(Schedulers.io())
+//        !!.subscribeOn(Schedulers.io())
 //            .observeOn(AndroidSchedulers.mainThread())
 //            .subscribe({ posts ->
 //                loaded = true
@@ -127,12 +134,12 @@ class SectionActivity : AppCompatActivity(), MyAdapterArticles.LoadNextPage, Nav
 //
 //                swipeRefresh.setRefreshing(false)
 //            })
-//    }
+    }
 
     override fun onNavigationItemSelected(menuItem: MenuItem): Boolean {
         val drawerLayout = findViewById<DrawerLayout>(R.id.drawer_layout)
         when (menuItem.itemId) {
-            R.id.nav_home -> finish()
+            //R.id.nav_home -> finish()
             R.id.nav_news -> startActivity(Intent(this, SectionActivity::class.java))
             R.id.nav_features -> {
             }
@@ -140,8 +147,7 @@ class SectionActivity : AppCompatActivity(), MyAdapterArticles.LoadNextPage, Nav
             }
             R.id.nav_the_croft -> {
             }
-            R.id.nav_opinion -> {
-            }
+//            R.id.nav_opinion -> { }
             R.id.nav_science -> {
             }
             R.id.nav_wellbeing -> {
@@ -177,6 +183,7 @@ class SectionActivity : AppCompatActivity(), MyAdapterArticles.LoadNextPage, Nav
     override fun bottomReached() {
         if (!loaded) return
         loaded = false
+        loadPage(tag)
         //recyclerView!!.post { allPostTitles(searchText!!.text.toString()) }
     }
 
@@ -185,6 +192,26 @@ class SectionActivity : AppCompatActivity(), MyAdapterArticles.LoadNextPage, Nav
             ArticleActivity.start(this, clicked, titleImage)
         } else {
             ArticleActivity.start(this, clicked)
+        }
+    }
+
+    companion object {
+
+        const val ARG_SECTION = "section.object"
+        const val ARG_SECTION_TAG = "tag.object"
+
+        fun start(context: Activity, section: String, tag: String) {
+            val intent = Intent(context, SectionActivity::class.java)
+            intent.putExtra(ARG_SECTION, section)
+            intent.putExtra(ARG_SECTION_TAG, tag)
+            context.startActivity(intent)
+
+        }
+
+        fun makeIntent(context: Context, section: String): Intent{
+            val intent = Intent(context, SectionActivity::class.java)
+            intent.putExtra(ARG_SECTION, section)
+            return intent
         }
     }
 }

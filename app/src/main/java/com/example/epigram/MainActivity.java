@@ -23,6 +23,8 @@ import com.google.firebase.messaging.FirebaseMessaging;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
+    static String ARG_SECTION = "section.object";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -128,32 +130,43 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
         switch (menuItem.getItemId()){
-            case R.id.nav_home :
-                break;
+            //case R.id.nav_home :
+            //    break;
             case R.id.nav_news :
-                startActivity(new Intent(MainActivity.this, SectionActivity.class));
+                SectionActivity.Companion.start(this, menuItem.toString(), getString(R.string.menu_news_tag));
                 break;
             case R.id.nav_features :
+                SectionActivity.Companion.start(this, menuItem.toString(), getString(R.string.menu_features_tag));
                 break;
             case R.id.nav_comment :
+                SectionActivity.Companion.start(this, menuItem.toString(), getString(R.string.menu_comment_tag));
                 break;
             case R.id.nav_the_croft:
+                SectionActivity.Companion.start(this, menuItem.toString(), getString(R.string.menu_the_croft_tag));
                 break;
-            case R.id.nav_opinion:
-                break;
+//            case R.id.nav_opinion:
+//                SectionActivity.Companion.start(this, menuItem.toString(), getString(R.string.menu_opinion_tag));
+//                break;
             case R.id.nav_science:
+                SectionActivity.Companion.start(this, menuItem.toString(), getString(R.string.menu_science_tag));
                 break;
             case R.id.nav_wellbeing:
+                SectionActivity.Companion.start(this, menuItem.toString(), getString(R.string.menu_wellbeing_tag));
                 break;
             case R.id.nav_lifestyle:
+                SectionActivity.Companion.start(this, menuItem.toString(), getString(R.string.menu_lifestyle_tag));
                 break;
             case R.id.nav_entertainment:
+                SectionActivity.Companion.start(this, menuItem.toString(), getString(R.string.menu_entertainment_tag));
                 break;
             case R.id.nav_sport:
+                SectionActivity.Companion.start(this, menuItem.toString(), getString(R.string.menu_sport_tag));
                 break;
             case R.id.nav_intramural:
+                SectionActivity.Companion.start(this, menuItem.toString(), getString(R.string.menu_intramural_tag));
                 break;
             case R.id.nav_puzzles:
+                SectionActivity.Companion.start(this, menuItem.toString(), getString(R.string.menu_puzzles_tag));
                 break;
             case R.id.nav_settings:
                 break;
