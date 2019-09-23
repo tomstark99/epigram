@@ -169,8 +169,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 SectionActivity.Companion.start(this, menuItem.toString(), getString(R.string.menu_puzzles_tag));
                 break;
             case R.id.nav_settings:
+                startActivity(new Intent(this, SettingsActivity.class));
                 break;
             case R.id.nav_about:
+                startActivity(new Intent(this, AboutActivity.class));
                 break;
                 default:
 

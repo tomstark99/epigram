@@ -73,13 +73,6 @@ class MyAdapterTag(tags: MutableList<String>) :
         return MyViewHolder(l)
     }
 
-    override fun getItemViewType(position: Int): Int {
-        return if (position == 0)
-            1
-        else
-            2
-    }
-
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         setTag(holder, position)
     }

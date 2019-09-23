@@ -120,7 +120,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/html_text"
                     tools:text="Article goes here"
-                    android:textSize="16dp"
+                    android:textSize="18dp"
                     android:textColor="@color/black"
                     android:fontFamily="sans-serif-condensed-light"
                     android:textStyle="normal"

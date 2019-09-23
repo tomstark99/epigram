@@ -1,5 +1,6 @@
 package com.example.epigram;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
@@ -9,7 +10,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.DiffUtil;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
@@ -32,21 +35,11 @@ import java.util.concurrent.TimeUnit;
 
 public class MyAdapterSection extends RecyclerView.Adapter<MyAdapterSection.MyViewHolder> {
 
-    public static int SEARCH_PAGE_INDEX = 100;
-    public static int HOME_PAGE_INDEX = 0;
-
-    public List<Post> posts = new ArrayList<>();
+    public List<Post> posts;
     private final MultiTransformation<Bitmap> multiTransformation;
-    private LoadNextPage loadNextPage = null;
-
-    private int resultTotal = 0;
-
+    private LoadNextPage loadNextPage;
+    private Context context;
     private String section;
-
-    public void clear() {
-        posts.clear();
-        notifyDataSetChanged();
-    }
 
     public void setPostList(List<Post> checkSame) {
 
@@ -80,11 +73,8 @@ public class MyAdapterSection extends RecyclerView.Adapter<MyAdapterSection.MyVi
         public TextView title;
         public ImageView titleImage;
         public LinearLayout linearLayout;
-        public TextView tag;
-        // public TextView date; // for date on top of image
+        public RecyclerView tags;
         public TextView dateAlt;
-        //public TextView sectionTitle;
-        public TextView sectionName;
 
         public boolean imageLoaded = false;
 
@@ -92,14 +82,11 @@ public class MyAdapterSection extends RecyclerView.Adapter<MyAdapterSection.MyVi
 
         public MyViewHolder(LinearLayout l){
             super(l);
-            //sectionName = l.findViewById(R.id.search_results_number);
             title = l.findViewById(R.id.post_title);
-            tag = l.findViewById(R.id.tag_text);
-            // date = l.findViewById(R.id.post_date); // for top of image
+            tags = l.findViewById(R.id.recycler_view_tag);
             dateAlt = l.findViewById(R.id.post_date_alternate);
             titleImage = l.findViewById(R.id.post_image);
             this.linearLayout = l;
-            //sectionTitle = l.findViewById(R.id.section_text);
         }
     }
 
@@ -125,7 +112,8 @@ public class MyAdapterSection extends RecyclerView.Adapter<MyAdapterSection.MyVi
         });
     }
 
-    public MyAdapterSection(List<Post> posts, LoadNextPage loadNext, String section) {
+    public MyAdapterSection(Context context, List<Post> posts, LoadNextPage loadNext, String section) {
+        this.context = context;
         this.posts = posts;
         multiTransformation = new MultiTransformation<>(new CenterCrop(),new RoundedCorners(40));
         loadNextPage = loadNext;
@@ -159,48 +147,29 @@ public class MyAdapterSection extends RecyclerView.Adapter<MyAdapterSection.MyVi
             }
         });
         posts = checkSame;
-
         diffResult.dispatchUpdatesTo(this);
-        //posts = new ListUtils().duplicatePost(new ArrayList<>(posts));
-        //notifyDataSetChanged();
     }
 
     @Override
     public MyAdapterSection.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
-//        if(viewType == 1){
-//            LinearLayout l = (LinearLayout) LayoutInflater.from(parent.getContext()).inflate(R.layout.element_news_article_first, parent, false);
-//            MyViewHolder vh = new MyViewHolder(l);
-//            return vh;
-//        }
-//        else {
             LinearLayout l = (LinearLayout) LayoutInflater.from(parent.getContext()).inflate(R.layout.element_news_article, parent, false);
             MyViewHolder vh = new MyViewHolder(l);
             return vh;
-//        }
-    }
-
-    @Override
-    public int getItemViewType(int position) {
-        if(position == 0) return 1;
-        else return 2;
     }
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position){
+        holder.tags.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
+        holder.tags.setItemAnimator(new DefaultItemAnimator());
+        holder.tags.setAdapter(new MyAdapterTag(posts.get(position).getTags()));
         setPosts(holder, position);
     }
 
     public void setPosts(MyViewHolder holder, int position){
-        if(position == 0){
-            //holder.sectionName.setText(section);//Integer.toString(posts.size()));
-        }
+        holder.title.setText((posts.get(position).getTitle()));
+        holder.dateAlt.setText(posts.get(position).getDate().toString("MMM d, yyyy"));
         List<String> tag = posts.get(position).getTags();
         tag.removeAll(Arrays.asList("featured top", "carousel", "one sidebar"));
-        holder.title.setText((posts.get(position).getTitle()));
-        holder.tag.setText(tag.get(0).toUpperCase());//posts.get(position).getTag());
-        //holder.date.setText(posts.get(position).getDate().toString("MMM d, yyyy")); // date for on top of image
-        holder.dateAlt.setText(posts.get(position).getDate().toString("MMM d, yyyy"));
-
         Glide.with(holder.titleImage).load(posts.get(position).getImage()).placeholder(R.drawable.placeholder_background).apply(RequestOptions.bitmapTransform(multiTransformation)).listener(new RequestListener<Drawable>() {
             @Override
             public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
@@ -223,16 +192,9 @@ public class MyAdapterSection extends RecyclerView.Adapter<MyAdapterSection.MyVi
     }
 
     public interface LoadNextPage{
-        public void bottomReached();
-
-        public void onPostClicked(Post clicked, ImageView titleImage);
+        void bottomReached();
+        void onPostClicked(Post clicked, ImageView titleImage);
     }
-
-    public void setResultTotal(int total){
-        resultTotal = total;
-        notifyItemChanged(0);
-    }
-
 }
 
 

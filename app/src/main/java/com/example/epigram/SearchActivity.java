@@ -34,7 +34,7 @@ import static com.example.epigram.MyAdapterArticles.SEARCH_PAGE_INDEX;
 public class SearchActivity extends AppCompatActivity implements MyAdapterArticles.LoadNextPage {
 
     private PostManager pManager = new PostManager();
-    private MyAdapterArticles adapterArticles = new MyAdapterArticles(new ArrayList<>(), this, SEARCH_PAGE_INDEX);
+    private MyAdapterArticles adapterArticles = new MyAdapterArticles(this, new ArrayList<>(), this, SEARCH_PAGE_INDEX);
     private RecyclerView recyclerView;
 
     private EditText searchText = null;

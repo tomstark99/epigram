@@ -1,5 +1,7 @@
 package com.example.epigram;
 
+import android.app.Activity;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
@@ -9,7 +11,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.DiffUtil;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
@@ -38,8 +42,8 @@ public class MyAdapterArticles extends RecyclerView.Adapter<MyAdapterArticles.My
     public List<Post> posts = new ArrayList<>();
     private final MultiTransformation<Bitmap> multiTransformation;
     private LoadNextPage loadNextPage = null;
-
     private int resultTotal = 0;
+    private Context context;
 
     private int pageIndex; // 100 for search recycler view
 
@@ -80,12 +84,12 @@ public class MyAdapterArticles extends RecyclerView.Adapter<MyAdapterArticles.My
         public TextView title;
         public ImageView titleImage;
         public LinearLayout linearLayout;
-        public TextView tag;
+        //public TextView tag;
+        public RecyclerView tags;
         // public TextView date; // for date on top of image
         public TextView dateAlt;
         //public TextView sectionTitle;
         public TextView searchResults;
-
         public boolean imageLoaded = false;
 
         private Disposable disposable = null;
@@ -96,7 +100,8 @@ public class MyAdapterArticles extends RecyclerView.Adapter<MyAdapterArticles.My
                 searchResults = l.findViewById(R.id.search_results_number);
             }
             title = l.findViewById(R.id.post_title);
-            tag = l.findViewById(R.id.tag_text);
+            //tag = l.findViewById(R.id.tag_text);
+            tags = l.findViewById(R.id.recycler_view_tag);
             // date = l.findViewById(R.id.post_date); // for top of image
             dateAlt = l.findViewById(R.id.post_date_alternate);
             titleImage = l.findViewById(R.id.post_image);
@@ -127,7 +132,8 @@ public class MyAdapterArticles extends RecyclerView.Adapter<MyAdapterArticles.My
         });
     }
 
-    public MyAdapterArticles(List<Post> posts, LoadNextPage loadNext, int position) {
+    public MyAdapterArticles(Context context, List<Post> posts, LoadNextPage loadNext, int position) {
+        this.context = context;
         this.posts = posts;
         multiTransformation = new MultiTransformation<>(new CenterCrop(),new RoundedCorners(40));
         loadNextPage = loadNext;
@@ -194,6 +200,9 @@ public class MyAdapterArticles extends RecyclerView.Adapter<MyAdapterArticles.My
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position){
+        holder.tags.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
+        holder.tags.setItemAnimator(new DefaultItemAnimator());
+        holder.tags.setAdapter(new MyAdapterTag(posts.get(position).getTags()));
         setPosts(holder, position);
     }
 
@@ -204,8 +213,7 @@ public class MyAdapterArticles extends RecyclerView.Adapter<MyAdapterArticles.My
         List<String> tag = posts.get(position).getTags();
         tag.removeAll(Arrays.asList("featured top", "carousel", "one sidebar"));
         holder.title.setText((posts.get(position).getTitle()));
-        holder.tag.setText(tag.get(0).toUpperCase());//posts.get(position).getTag());
-        //holder.date.setText(posts.get(position).getDate().toString("MMM d, yyyy")); // date for on top of image
+        //holder.tag.setText(tag.get(0).toUpperCase());//posts.get(position).getTag());
         holder.dateAlt.setText(posts.get(position).getDate().toString("MMM d, yyyy"));
 
         Glide.with(holder.titleImage).load(posts.get(position).getImage()).placeholder(R.drawable.placeholder_background).apply(RequestOptions.bitmapTransform(multiTransformation)).listener(new RequestListener<Drawable>() {

@@ -132,7 +132,7 @@ public class PlaceholderFragment extends Fragment implements MyAdapterArticles.L
                             }
                             nextPage++;
                             if (adapter2 == null) {
-                                adapter2 = new MyAdapterArticles(posts.first, PlaceholderFragment.this, pageIndex);
+                                adapter2 = new MyAdapterArticles(this.getContext(), posts.first, PlaceholderFragment.this, pageIndex);
                                 recyclerView.setAdapter(adapter2);
                             }
                             else {

@@ -1,44 +1,29 @@
 package com.example.epigram
 
 import android.app.Activity
-import android.app.ActivityOptions
-import android.content.Context
 import android.content.Intent
 import android.graphics.Typeface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.util.Pair
 import android.view.MenuItem
 import android.view.View
-import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.RecyclerView
-import com.example.epigram.MyAdapterArticles.SEARCH_PAGE_INDEX
 import com.example.epigram.data.Layout
 import com.example.epigram.data.Post
 import com.example.epigram.data.PostManager
 import com.google.android.material.navigation.NavigationView
-import com.jakewharton.rxbinding2.view.RxView
-import com.jakewharton.rxbinding2.widget.RxTextView
-import io.reactivex.Observable
-import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.functions.Consumer
-import io.reactivex.functions.Function
-import io.reactivex.functions.Predicate
 import io.reactivex.schedulers.Schedulers
-import java.util.ArrayList
-import java.util.concurrent.TimeUnit
 
 class SectionActivity : AppCompatActivity(), MyAdapterSection.LoadNextPage, NavigationView.OnNavigationItemSelectedListener {
 
     private val pManager = PostManager()
-    //private val adapter2 = MyAdapterArticles(ArrayList(), this, SEARCH_PAGE_INDEX)
     private var adapter2: MyAdapterSection? = null
     private var recyclerView: RecyclerView? = null
 
@@ -46,7 +31,6 @@ class SectionActivity : AppCompatActivity(), MyAdapterSection.LoadNextPage, Navi
     private var nextPage = FIRST_INDEX
     private var loaded = false
 
-    private var retry = 0
     private var section: String = ""
     private var tag: String = ""
 
@@ -98,42 +82,13 @@ class SectionActivity : AppCompatActivity(), MyAdapterSection.LoadNextPage, Navi
                 loaded = true
                 nextPage++
                 if(adapter2 == null){
-                    adapter2 = MyAdapterSection(posts, this, section)
+                    adapter2 = MyAdapterSection(this, posts, this, section)
                     recyclerView!!.adapter = adapter2
                 }
                 else{
-                    //if (nextPage == FIRST_INDEX + 1) adapter2!!.clear()
                     adapter2!!.addPosts(posts)
                 }
             }, { e -> Log.e("error", "soemthing went wrong loading section posts", e)})
-
-//        single//.retry(1)
-//        !!.subscribeOn(Schedulers.io())
-//            .observeOn(AndroidSchedulers.mainThread())
-//            .subscribe({ posts ->
-//                loaded = true
-//                swipeRefresh.setRefreshing(false)
-//                if (!posts.second.isEmpty()) {
-//                    posts.first.removeAll(posts.second)
-//                    posts.first.add(0, posts.second.get(0))
-//                }
-//                nextPage++
-//                if (adapter2 == null) {
-//                    adapter2 = MyAdapterArticles(posts.first, this@PlaceholderFragment, pageIndex)
-//                    recyclerView.setAdapter(adapter2)
-//                } else {
-//                    if (nextPage == FIRST_INDEX + 1) adapter2.clear()
-//                    adapter2.addPosts(posts.first)
-//                }
-//            }, { e ->
-//                Log.e("e", "e", e)
-//                if (recyclerView.getAdapter() is MyAdapterPlaceholder) {
-//                    (recyclerView.getAdapter() as MyAdapterPlaceholder).clear()
-//                    getView()!!.findViewById(R.id.tab_something_wrong).setVisibility(View.VISIBLE)
-//                }
-//
-//                swipeRefresh.setRefreshing(false)
-//            })
     }
 
     override fun onNavigationItemSelected(menuItem: MenuItem): Boolean {
@@ -174,17 +129,10 @@ class SectionActivity : AppCompatActivity(), MyAdapterSection.LoadNextPage, Navi
         return true
     }
 
-
-    fun start(context: Context) {
-        val intent = Intent(context, SearchActivity::class.java)
-        context.startActivity(intent)
-    }
-
     override fun bottomReached() {
         if (!loaded) return
         loaded = false
         loadPage(tag)
-        //recyclerView!!.post { allPostTitles(searchText!!.text.toString()) }
     }
 
     override fun onPostClicked(clicked: Post, titleImage: ImageView?) {
@@ -206,12 +154,6 @@ class SectionActivity : AppCompatActivity(), MyAdapterSection.LoadNextPage, Navi
             intent.putExtra(ARG_SECTION_TAG, tag)
             context.startActivity(intent)
 
-        }
-
-        fun makeIntent(context: Context, section: String): Intent{
-            val intent = Intent(context, SectionActivity::class.java)
-            intent.putExtra(ARG_SECTION, section)
-            return intent
         }
     }
 }
