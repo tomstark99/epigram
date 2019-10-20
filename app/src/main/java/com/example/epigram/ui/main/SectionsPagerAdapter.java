@@ -54,25 +54,6 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         return 7;
     }
 
-    public void setTabTitles(int position, MainActivity view){
-        if (position == 0){
-            TextView tab = view.findViewById(R.id.tab_text);
-            tab.setText("RECENT NEWS");
-        }
-        else if (position == 1){
-            TextView tab = view.findViewById(R.id.tab_text);
-            tab.setText("NEWS SECTION");
-        }
-        else if (position == 2){
-            TextView tab = view.findViewById(R.id.tab_text);
-            tab.setText("FEATURES SECTION");
-        }
-        else{
-            TextView tab = view.findViewById(R.id.tab_text);
-            tab.setText("COMMENT SECTION");
-        }
-    }
-
     public void fragmentReselected(int index){
         fragmentMap.get(index).reselected();
     }

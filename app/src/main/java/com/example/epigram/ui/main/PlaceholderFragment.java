@@ -47,6 +47,11 @@ public class PlaceholderFragment extends Fragment implements AdapterArticles.Loa
 
     private int pageIndex;
 
+    public enum Adapters{
+        PAGE_HOME(),
+        PAGE_ALLO()
+    }
+
 
     public static PlaceholderFragment newInstance(int index, int position) {
         PlaceholderFragment fragment = new PlaceholderFragment();

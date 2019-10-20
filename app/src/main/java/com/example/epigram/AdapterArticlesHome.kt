@@ -31,7 +31,7 @@ import java.util.*
 import java.util.concurrent.TimeUnit
 import kotlin.collections.ArrayList
 
-class AdapterArticles(context: Context, posts: MutableList<Post>, loadNext: LoadNextPage, position: Int) : RecyclerView.Adapter<AdapterArticles.MyViewHolder>(){
+class AdapterArticlesHome(context: Context, posts: MutableList<Post>, loadNext: LoadNextPage, position: Int) : RecyclerView.Adapter<AdapterArticlesHome.MyViewHolder>(){
 
     var posts: MutableList<Post> = ArrayList()
     var context: Context
@@ -50,6 +50,13 @@ class AdapterArticles(context: Context, posts: MutableList<Post>, loadNext: Load
 
 
 
+    enum class Inflater(val id: Int, @LayoutRes val element: Int){
+        POSITION_ONE(0, R.layout.element_news_article_breaking),
+        POSITION_MRE(1, R.layout.element_news_article)
+    }
+
+
+
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         holder.tags.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
         holder.tags.itemAnimator = DefaultItemAnimator()
@@ -60,9 +67,14 @@ class AdapterArticles(context: Context, posts: MutableList<Post>, loadNext: Load
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        val l = LayoutInflater.from(parent.context).inflate(R.layout.element_news_article, parent, false) as LinearLayout
+        val l = LayoutInflater.from(parent.context).inflate(Inflater.values()[viewType].element, parent, false) as LinearLayout
         return MyViewHolder(l)
 
+    }
+
+
+    override fun getItemViewType(position: Int): Int {
+        return if(position == 0) 0 else 1
     }
 
 
@@ -143,7 +155,7 @@ class AdapterArticles(context: Context, posts: MutableList<Post>, loadNext: Load
                         return false
                     }
 
-                    override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
+                    override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource, isFirstResource: Boolean): Boolean {
                         holder.imageLoaded = true
                         return false
                     }

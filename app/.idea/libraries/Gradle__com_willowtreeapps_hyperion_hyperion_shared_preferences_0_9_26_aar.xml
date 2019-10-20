@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: com.willowtreeapps.hyperion:hyperion-shared-preferences:0.9.26@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/e240712ef09a4331f9e81726a9202e9f/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/e240712ef09a4331f9e81726a9202e9f/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.willowtreeapps.hyperion/hyperion-shared-preferences/0.9.26/cfe3f3bf83096658e5a5746f70f70e879b5e1d58/hyperion-shared-preferences-0.9.26-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

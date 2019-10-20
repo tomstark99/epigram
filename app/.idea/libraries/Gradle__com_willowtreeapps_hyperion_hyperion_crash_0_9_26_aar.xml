@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: com.willowtreeapps.hyperion:hyperion-crash:0.9.26@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/e1a9055d62ffa2183df0ca61db5da242/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/e1a9055d62ffa2183df0ca61db5da242/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.willowtreeapps.hyperion/hyperion-crash/0.9.26/9dffd1923ad462f7f14ff5d3294557489780da30/hyperion-crash-0.9.26-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
