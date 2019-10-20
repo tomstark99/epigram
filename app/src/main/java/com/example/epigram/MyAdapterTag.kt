@@ -27,7 +27,7 @@ import java.util.ArrayList
 import java.util.Arrays
 import java.util.concurrent.TimeUnit
 
-class MyAdapterTag(tags: MutableList<String>) :
+class MyAdapterTag(tags: List<String>) :
     RecyclerView.Adapter<MyAdapterTag.MyViewHolder>() {
 
     var tags: MutableList<String> = ArrayList()
@@ -64,7 +64,8 @@ class MyAdapterTag(tags: MutableList<String>) :
     }
 
     init {
-        this.tags = tags
+        this.tags = tags.toMutableList()
+        this.tags.removeAll(Arrays.asList("featured top", "carousel", "one sidebar"))
     }
 
 
@@ -78,7 +79,7 @@ class MyAdapterTag(tags: MutableList<String>) :
     }
 
     fun setTag(holder: MyViewHolder, position: Int) {
-        tags.removeAll(Arrays.asList("featured top", "carousel", "one sidebar"))
+        //tags.removeAll(Arrays.asList("featured top", "carousel", "one sidebar"))
         holder.tag.text = tags[position].toUpperCase()
     }
 

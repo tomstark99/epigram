@@ -28,6 +28,8 @@ import com.example.epigram.data.Post;
 import com.jakewharton.rxbinding2.view.RxView;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+import kotlin.random.Random;
+import org.joda.time.DateTime;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -38,6 +40,9 @@ public class MyAdapterArticles extends RecyclerView.Adapter<MyAdapterArticles.My
 
     public static int SEARCH_PAGE_INDEX = 100;
     public static int HOME_PAGE_INDEX = 0;
+
+    private Post vcars = new Post("advert", "advert-vcars", "Get 20% off vcars as a student: download the app now", "", "https://www.v-cars.com/wp-content/uploads/2019/05/VCarsLogo-Resized.png", "ADVERT", Arrays.asList("ADVERT"), DateTime.now(), "");
+    private boolean advertTime = true;
 
     public List<Post> posts = new ArrayList<>();
     private final MultiTransformation<Bitmap> multiTransformation;
@@ -142,7 +147,9 @@ public class MyAdapterArticles extends RecyclerView.Adapter<MyAdapterArticles.My
 
     public void addPosts(List<Post> postsNew){
 
+
         List<Post> checkSame = new ArrayList<>(posts);
+
         checkSame.addAll(postsNew);
 
         DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new DiffUtil.Callback() {
@@ -166,7 +173,17 @@ public class MyAdapterArticles extends RecyclerView.Adapter<MyAdapterArticles.My
                 return posts.get(oldItemPosition).getId().equals(checkSame.get(newItemPosition).getId());
             }
         });
+
+        if(advertTime) {
+            checkSame.add(vcars);
+        }
+        advertTime = !advertTime;
+
         posts = checkSame;
+
+        if(posts.get(0).getDate().plusWeeks(1).isBeforeNow()) posts.remove(0);
+
+
 
         diffResult.dispatchUpdatesTo(this);
         //posts = new ListUtils().duplicatePost(new ArrayList<>(posts));
@@ -175,10 +192,20 @@ public class MyAdapterArticles extends RecyclerView.Adapter<MyAdapterArticles.My
 
     @Override
     public MyAdapterArticles.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
-        if(viewType == 1 && pageIndex == HOME_PAGE_INDEX){
-            LinearLayout l = (LinearLayout) LayoutInflater.from(parent.getContext()).inflate(R.layout.element_news_article_breaking, parent, false);
-            MyViewHolder vh = new MyViewHolder(l);
-            return vh;
+        if(pageIndex == HOME_PAGE_INDEX && viewType == 1){
+            if(posts.get(0).getDate().plusWeeks(1).isBeforeNow() && posts.get(0).getTags().contains("breaking-news")){ //
+                posts.remove(0);
+                LinearLayout l = (LinearLayout) LayoutInflater.from(parent.getContext()).inflate(R.layout.element_news_article_first, parent, false);
+                MyViewHolder vh = new MyViewHolder(l);
+                return vh;
+
+            }
+            else{
+                //if(posts.get(0).getTags().contains("breaking-news")) posts.remove(0);
+                LinearLayout l = (LinearLayout) LayoutInflater.from(parent.getContext()).inflate(R.layout.element_news_article_breaking, parent, false);
+                MyViewHolder vh = new MyViewHolder(l);
+                return vh;
+            }
         }
         else if(viewType == 1 && pageIndex == SEARCH_PAGE_INDEX){
             LinearLayout l = (LinearLayout) LayoutInflater.from(parent.getContext()).inflate(R.layout.element_news_article_first, parent, false);

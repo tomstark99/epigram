@@ -1,5 +1,7 @@
 package com.example.epigram.ui.main;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Pair;
@@ -14,10 +16,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-import com.example.epigram.ArticleActivity;
-import com.example.epigram.MyAdapterArticles;
-import com.example.epigram.MyAdapterPlaceholder;
-import com.example.epigram.R;
+import com.example.epigram.*;
 import com.example.epigram.data.Layout;
 import com.example.epigram.data.Post;
 import com.example.epigram.data.PostManager;
@@ -31,7 +30,7 @@ import java.util.List;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class PlaceholderFragment extends Fragment implements MyAdapterArticles.LoadNextPage {
+public class PlaceholderFragment extends Fragment implements AdapterArticles.LoadNextPage {
 
     private static final String ARG_SECTION_NUMBER = "section_number";
 
@@ -39,7 +38,7 @@ public class PlaceholderFragment extends Fragment implements MyAdapterArticles.L
 
     private PostManager pManager = new PostManager();
 
-    private MyAdapterArticles adapter2 = null;
+    private AdapterArticles adapter2 = null;
     private int nextPage = FIRST_INDEX;
     private boolean loaded = false;
     private RecyclerView recyclerView;
@@ -47,6 +46,7 @@ public class PlaceholderFragment extends Fragment implements MyAdapterArticles.L
     private List<Post> breaking = new ArrayList<>();
 
     private int pageIndex;
+
 
     public static PlaceholderFragment newInstance(int index, int position) {
         PlaceholderFragment fragment = new PlaceholderFragment();
@@ -86,7 +86,7 @@ public class PlaceholderFragment extends Fragment implements MyAdapterArticles.L
                 recyclerView.setAdapter(adapter2);
             }
         }
-        loadPage();
+        load();
 
         swipeRefresh = (SwipeRefreshLayout) view.findViewById(R.id.swipe_refresh);
         swipeRefresh.setColorSchemeResources(R.color.colorAccent, R.color.colorAccentHint);
@@ -99,7 +99,7 @@ public class PlaceholderFragment extends Fragment implements MyAdapterArticles.L
                 else {
                     nextPage = FIRST_INDEX;
                     //if (adapter2 != null) adapter2.clear();
-                    loadPage();
+                    load();
                 }
             }
         });
@@ -132,7 +132,7 @@ public class PlaceholderFragment extends Fragment implements MyAdapterArticles.L
                             }
                             nextPage++;
                             if (adapter2 == null) {
-                                adapter2 = new MyAdapterArticles(this.getContext(), posts.first, PlaceholderFragment.this, pageIndex);
+                                //adapter2 = new MyAdapterArticles(this.getContext(), posts.first, PlaceholderFragment.this, pageIndex);
                                 recyclerView.setAdapter(adapter2);
                             }
                             else {
@@ -149,21 +149,73 @@ public class PlaceholderFragment extends Fragment implements MyAdapterArticles.L
                             swipeRefresh.setRefreshing(false);});
     }
 
+
+
+    public void load(){
+        getView().findViewById(R.id.tab_something_wrong).setVisibility(View.GONE);
+        int tag = getArguments().getInt(ARG_SECTION_NUMBER);
+        Single<Pair<List<Post>, List<Post>>> single = null;
+        if(pageIndex == 0 && nextPage == 1){
+            single = Single.zip(pManager.getPosts(nextPage, getString(tag)), pManager.getPostsBreaking(), (posts, posts2) -> new Pair<>(posts, posts2));
+        }
+        else {
+            single = pManager.getPosts(nextPage, getString(tag)).map( posts ->
+                    new Pair<>(posts, new ArrayList<>())
+            );
+        }
+        single//.retry(1)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe( posts-> {
+                            loaded = true;
+                            swipeRefresh.setRefreshing(false);
+                            if(!posts.second.isEmpty()){
+                                posts.first.removeAll(posts.second);
+                                posts.first.add(0, posts.second.get(0));
+                            }
+                            nextPage++;
+                            if (adapter2 == null) {
+                                adapter2 = new AdapterArticles(this.getContext(), posts.first, PlaceholderFragment.this, pageIndex);
+                                recyclerView.setAdapter(adapter2);
+                            }
+                            else {
+                                if(nextPage == FIRST_INDEX + 1) adapter2.clear();
+                                adapter2.addPosts(posts.first);
+                            }
+                        }
+                        ,e-> {Log.e("e", "e", e);
+                            if(recyclerView.getAdapter() instanceof MyAdapterPlaceholder) {
+                                ((MyAdapterPlaceholder) recyclerView.getAdapter()).clear();
+                                getView().findViewById(R.id.tab_something_wrong).setVisibility(View.VISIBLE);
+                            }
+
+                            swipeRefresh.setRefreshing(false);});
+    }
+
+
+
     @Override
     public void bottomReached() {
         if(!loaded) return;
         loaded = false;
-        loadPage();
+        load();
 
     }
 
     @Override
     public void onPostClicked(Post clicked, ImageView imageView) {
-        if(imageView != null) {
-            ArticleActivity.Companion.start(getActivity(), clicked, imageView);
+        if (!clicked.getTags().isEmpty() && clicked.getTags().get(0).equals("ADVERT")){
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(
+                    "https://play.google.com/store/apps/details?id=co.uk.vcars.bristol"));
+            //intent.setData(Uri.parse("https://play.google.com/store/apps/details?id=co.uk.vcars.bristol"));
+            startActivity(intent);
         }
-        else{
-            ArticleActivity.Companion.start(getActivity(), clicked);
+        else {
+            if (imageView != null) {
+                ArticleActivity.Companion.start(getActivity(), clicked, imageView);
+            } else {
+                ArticleActivity.Companion.start(getActivity(), clicked);
+            }
         }
     }
 
