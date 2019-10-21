@@ -48,8 +48,8 @@ public class PlaceholderFragment extends Fragment implements AdapterArticles.Loa
     private int pageIndex;
 
     public enum Adapters{
-        PAGE_HOME(),
-        PAGE_ALLO()
+        PAGE_HOME(AdapterArticles),
+        PAGE_ALLO(AdapterArticlesHome())
     }
 
 
