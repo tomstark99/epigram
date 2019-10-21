@@ -130,7 +130,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
-                    android:text="Copyright © 2018 epigram"
+                    android:text="@string/copyright_text"
                     android:textSize="10dp"/>
         </LinearLayout>
 

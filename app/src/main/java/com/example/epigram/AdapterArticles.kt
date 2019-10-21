@@ -31,13 +31,14 @@ import java.util.*
 import java.util.concurrent.TimeUnit
 import kotlin.collections.ArrayList
 
-class AdapterArticles(context: Context, posts: MutableList<Post>, loadNext: LoadNextPage, position: Int) : RecyclerView.Adapter<AdapterArticles.MyViewHolder>(){
+class AdapterArticles(context: Context, posts: MutableList<Post>, loadNext: LoadNextPage, position: Int, home: Boolean) : RecyclerView.Adapter<AdapterArticles.MyViewHolder>(){
 
     var posts: MutableList<Post> = ArrayList()
     var context: Context
     var loadNextPage: LoadNextPage
     var multiTransformation = MultiTransformation(CenterCrop(), RoundedCorners(40))
     var pageIndex: Int = 0
+    var isHome: Boolean
 
 
 
@@ -46,6 +47,14 @@ class AdapterArticles(context: Context, posts: MutableList<Post>, loadNext: Load
         this.context = context
         this.loadNextPage = loadNext
         this.pageIndex = position
+        this.isHome = home
+    }
+
+
+
+    enum class Inflater(val id: Int, @LayoutRes val element: Int){
+        POSITION_ONE(0, R.layout.element_news_article_breaking),
+        POSITION_MRE(1, R.layout.element_news_article)
     }
 
 
@@ -60,9 +69,16 @@ class AdapterArticles(context: Context, posts: MutableList<Post>, loadNext: Load
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        val l = LayoutInflater.from(parent.context).inflate(R.layout.element_news_article, parent, false) as LinearLayout
+
+        val l = if(isHome) LayoutInflater.from(parent.context).inflate(AdapterArticlesHome.Inflater.values()[viewType].element, parent, false) as LinearLayout else LayoutInflater.from(parent.context).inflate(R.layout.element_news_article, parent, false) as LinearLayout
         return MyViewHolder(l)
 
+    }
+
+
+
+    override fun getItemViewType(position: Int): Int {
+        return if(position == 0) 0 else 1
     }
 
 

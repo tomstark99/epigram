@@ -45,6 +45,13 @@
                         android:textColor="@color/colorAccent"
                         android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"/>
             </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|bottom"
+                android:paddingTop="@dimen/small_padding"
+                android:text="@string/copyright_text"
+                android:textSize="10dp"/>
             <TextView android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
                       android:paddingTop="@dimen/element_padding"
@@ -55,6 +62,7 @@
                       android:textSize="16dp"
                       android:text="@string/app_about"
                       android:textAlignment="center"/>
+
             <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -84,12 +92,13 @@
             </LinearLayout>
             <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
                       android:fontFamily="sans-serif-condensed"
+                        android:textSize="16dp"
                       android:text="@string/app_about_about_us"/>
             <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:paddingTop="50dp"
+                    android:paddingTop="25dp"
                     android:paddingBottom="@dimen/inner_element_padding">
                 <TextView
                         android:layout_width="wrap_content"
@@ -114,14 +123,9 @@
             </LinearLayout>
             <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
                       android:fontFamily="sans-serif-condensed"
+                        android:textSize="16dp"
+                        android:paddingBottom="@dimen/medium_padding"
                       android:text="@string/app_about_redactions"/>
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal|bottom"
-                    android:paddingTop="@dimen/large_padding"
-                    android:text="Copyright © 2018 epigram"
-                    android:textSize="10dp"/>
         </LinearLayout>
 
 

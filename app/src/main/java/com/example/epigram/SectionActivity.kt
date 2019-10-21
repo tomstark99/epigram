@@ -66,10 +66,12 @@ class SectionActivity : AppCompatActivity(), MyAdapterSection.LoadNextPage, Navi
             }
         }
 
-        findViewById<View>(R.id.section_back).setOnClickListener(View.OnClickListener { finish() })
-        findViewById<View>(R.id.search_button_in_section).setOnClickListener(View.OnClickListener {
+        title.setOnClickListener { recyclerView!!.smoothScrollToPosition(0) }
+
+        findViewById<View>(R.id.section_back).setOnClickListener{ finish() }
+        findViewById<View>(R.id.search_button_in_section).setOnClickListener{
             startActivity(Intent(this, SearchActivity::class.java))
-        })
+        }
 
         loadPage(tag)
     }

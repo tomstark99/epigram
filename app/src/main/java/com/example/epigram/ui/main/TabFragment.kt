@@ -48,7 +48,7 @@ class TabFragment : Fragment() , AdapterArticles.LoadNextPage{
             var bundle = Bundle()
             bundle.putInt(ARG_SECTION_NUMBER, index)
             fragment.arguments = bundle
-            fragment.pageIndex = position
+            //fragment.pageIndex = position
             return fragment
         }
     }

@@ -30,9 +30,10 @@ import java.util.List;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class PlaceholderFragment extends Fragment implements AdapterArticles.LoadNextPage {
+public class PlaceholderFragment extends Fragment implements AdapterArticles.LoadNextPage{
 
     private static final String ARG_SECTION_NUMBER = "section_number";
+    private static final String ARG_HAS_BREAKING = "has_breaking.bool";
 
     private int FIRST_INDEX = 1;
 
@@ -47,16 +48,12 @@ public class PlaceholderFragment extends Fragment implements AdapterArticles.Loa
 
     private int pageIndex;
 
-    public enum Adapters{
-        PAGE_HOME(AdapterArticles),
-        PAGE_ALLO(AdapterArticlesHome())
-    }
-
 
     public static PlaceholderFragment newInstance(int index, int position) {
         PlaceholderFragment fragment = new PlaceholderFragment();
         Bundle bundle = new Bundle();
         bundle.putInt(ARG_SECTION_NUMBER, index);
+        bundle.putBoolean(ARG_HAS_BREAKING, position == 0);
         fragment.setArguments(bundle);
         fragment.pageIndex = position;
         return fragment;
@@ -180,7 +177,7 @@ public class PlaceholderFragment extends Fragment implements AdapterArticles.Loa
                             }
                             nextPage++;
                             if (adapter2 == null) {
-                                adapter2 = new AdapterArticles(this.getContext(), posts.first, PlaceholderFragment.this, pageIndex);
+                                adapter2 = new AdapterArticles(this.getContext(), posts.first, PlaceholderFragment.this, pageIndex, getArguments().getBoolean(ARG_HAS_BREAKING));
                                 recyclerView.setAdapter(adapter2);
                             }
                             else {
@@ -196,7 +193,6 @@ public class PlaceholderFragment extends Fragment implements AdapterArticles.Loa
 
                             swipeRefresh.setRefreshing(false);});
     }
-
 
 
     @Override
