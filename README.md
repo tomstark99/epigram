@@ -1,7 +1,28 @@
 # epigram
+---
+# Update 1.04
+This update brings a fresh look to epigram, the red has been changed to a white to give a cleaner and modern look with to match the current direction of android development
+## Post model
+- the post model now has a list of tags rather than singular tags to be able to display them all in the post
+- small changes
+## Added navigation drawer
+- removed some firebase notification subscriptions
+- added simple navigation drawer to main activity
+- added a section activity to be used when clicking on a navigation drawer item
+- new strings and dimensions
+## Functional sections
+sections are now functional
+- the section you are in will be displayed in place of epigram in the app-bar
+- tags within the article view now display all the tags added to the article not just one
+- (beta) article list to do the same
+## Fixed issues
+- fixed various issues and app crashes
+- added settings page
+- added about page
+## Post adapter refactor
+- fixed an issue where the breaking news element would show up on multiple tabs on the main activity. This issue would be random from only the next tab to sometimes all of them adding in the breaking news element. This update completely refactors the code to break any contact the other tabs have with the breaking news element.
 
-
-# Update 1.5
+# Update 0.9
 ## search
 - introduced a new way for updating the list using DiffUtil, gives smoother transition between searches
 - search results now load faster (changed limit from 50 to 200)
@@ -19,7 +40,7 @@
 - getting error 403 errors
 - added icons for search placeholders
 
-# Update 1.4
+# Update 0.8
 ## Search
 - search now finds correct posts
 - fixed an issue where posts would disappear when typing out your search term
