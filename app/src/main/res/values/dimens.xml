@@ -11,6 +11,9 @@
     <dimen name="small_padding">16dp</dimen>
     <dimen name="medium_padding">24dp</dimen>
     <dimen name="large_padding">32dp</dimen>
+    <dimen name="larger_padding">48dp</dimen>
+    <dimen name="largest_padding">64dp</dimen>
+    <dimen name="huge_padding">72dp</dimen>
     <dimen name="element_padding">12dp</dimen>
     <dimen name="inner_element_padding">8dp</dimen>
 

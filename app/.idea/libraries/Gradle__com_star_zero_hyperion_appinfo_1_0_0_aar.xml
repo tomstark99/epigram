@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: com.star_zero:hyperion-appinfo:1.0.0@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/97227d6c43452129a9d853b164a14c10/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/97227d6c43452129a9d853b164a14c10/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.star_zero/hyperion-appinfo/1.0.0/a38961ec3e16ea34e8e47d34c1b30664f91a8d/hyperion-appinfo-1.0.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

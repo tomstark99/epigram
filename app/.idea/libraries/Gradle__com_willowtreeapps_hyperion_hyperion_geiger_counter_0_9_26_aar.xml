@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: com.willowtreeapps.hyperion:hyperion-geiger-counter:0.9.26@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/f5fff96ea404110dc24a6e07bd91acf6/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/f5fff96ea404110dc24a6e07bd91acf6/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.willowtreeapps.hyperion/hyperion-geiger-counter/0.9.26/2e7466ff281b77ce2ee29bcc022dc78143add873/hyperion-geiger-counter-0.9.26-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

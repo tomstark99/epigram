@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:tools="http://schemas.android.com/tools"
+      tools:showIn="navigation_view">
+
+    <item android:title="ALL SECTIONS">
+        <menu>
+            <!--<item-->
+                    <!--android:id="@+id/nav_home"-->
+                    <!--android:title="@string/menu_home"/>-->
+            <item
+                    android:id="@+id/nav_news"
+                    android:title="@string/menu_news"/>
+            <item
+                    android:id="@+id/nav_features"
+                    android:title="@string/menu_features"/>
+            <item
+                    android:id="@+id/nav_comment"
+                    android:title="@string/menu_opinion"/>
+            <item
+                    android:id="@+id/nav_the_croft"
+                    android:title="@string/menu_the_croft"/>
+            <!--<item-->
+                    <!--android:id="@+id/nav_opinion"-->
+                    <!--android:title="@string/menu_opinion"/>-->
+            <item
+                    android:id="@+id/nav_science"
+                    android:title="@string/menu_science"/>
+            <item
+                    android:id="@+id/nav_wellbeing"
+                    android:title="@string/menu_wellbeing"/>
+            <item
+                    android:id="@+id/nav_lifestyle"
+                    android:title="@string/menu_lifestyle"/>
+            <item
+                    android:id="@+id/nav_entertainment"
+                    android:title="@string/menu_entertainment"/>
+            <item
+                    android:id="@+id/nav_sport"
+                    android:title="@string/menu_sport"/>
+            <item
+                    android:id="@+id/nav_intramural"
+                    android:title="@string/menu_intramural"/>
+            <item
+                    android:id="@+id/nav_puzzles"
+                    android:title="@string/menu_puzzles"/>
+        </menu>
+    </item>
+
+
+    <group android:checkableBehavior="none">
+        <item
+                android:id="@+id/nav_settings"
+                android:icon="@drawable/ic_settings_outline"
+                android:title="@string/menu_settings"/>
+        <item
+                android:id="@+id/nav_about"
+                android:icon="@drawable/ic_info_outline_black_24dp"
+                android:title="@string/menu_about"/>
+    </group>
+
+</menu>
