@@ -86,5 +86,7 @@
         provide independent mediation for the issue to seek a resolution.
     </string>
     <string name="copyright_text">Copyright © 2018 epigram</string>
+    <string name="section_article">RECENT NEWS</string>
+    <string name="section_breaking">BREAKING NEWS</string>
 
 </resources>

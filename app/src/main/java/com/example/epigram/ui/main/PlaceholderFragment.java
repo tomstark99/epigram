@@ -177,7 +177,7 @@ public class PlaceholderFragment extends Fragment implements AdapterArticles.Loa
                             }
                             nextPage++;
                             if (adapter2 == null) {
-                                adapter2 = new AdapterArticles(this.getContext(), posts.first, PlaceholderFragment.this, pageIndex, getArguments().getBoolean(ARG_HAS_BREAKING));
+                                adapter2 = new AdapterArticles(this.getContext(), posts.first, PlaceholderFragment.this, pageIndex); //getArguments().getBoolean(ARG_HAS_BREAKING)
                                 recyclerView.setAdapter(adapter2);
                             }
                             else {

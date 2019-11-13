@@ -31,22 +31,9 @@ import java.util.*
 import java.util.concurrent.TimeUnit
 import kotlin.collections.ArrayList
 
-class AdapterArticles(context: Context, posts: MutableList<Post>, loadNext: LoadNextPage, position: Int) : RecyclerView.Adapter<AdapterArticles.MyViewHolder>(){
+class AdapterArticlesBreaking(var context: Context,var  posts: MutableList<Post>, var loadNextPage: AdapterArticles.LoadNextPage, var pageIndex: Int) : RecyclerView.Adapter<AdapterArticlesBreaking.MyViewHolder>(){
 
-    var posts: MutableList<Post> = ArrayList()
-    var context: Context
-    var loadNextPage: LoadNextPage
     var multiTransformation = MultiTransformation(CenterCrop(), RoundedCorners(40))
-    var pageIndex: Int = 0
-
-
-
-    init {
-        this.posts = posts
-        this.context = context
-        this.loadNextPage = loadNext
-        this.pageIndex = position
-    }
 
 
 
@@ -60,7 +47,7 @@ class AdapterArticles(context: Context, posts: MutableList<Post>, loadNext: Load
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        return MyViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.element_news_article, parent, false) as LinearLayout)
+        return MyViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.element_news_article_breaking, parent, false) as LinearLayout)
     }
 
 
@@ -148,8 +135,6 @@ class AdapterArticles(context: Context, posts: MutableList<Post>, loadNext: Load
                 }
             ).into(holder.articleImage)
 
-        if(position > itemCount - 2) loadNextPage.bottomReached()
-
     }
 
 
@@ -157,12 +142,5 @@ class AdapterArticles(context: Context, posts: MutableList<Post>, loadNext: Load
     fun clear(){
         posts.clear()
         notifyDataSetChanged()
-    }
-
-
-
-    interface LoadNextPage {
-        fun bottomReached()
-        fun onPostClicked(clicked: Post, titleImage: ImageView?)
     }
 }
