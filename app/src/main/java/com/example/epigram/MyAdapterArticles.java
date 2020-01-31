@@ -175,7 +175,7 @@ public class MyAdapterArticles extends RecyclerView.Adapter<MyAdapterArticles.My
         });
 
         if(advertTime) {
-            checkSame.add(vcars);
+            //checkSame.add(vcars);
         }
         advertTime = !advertTime;
 

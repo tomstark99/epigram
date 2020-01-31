@@ -141,6 +141,7 @@ class AdapterArticles(context: Context, posts: MutableList<Post>, loadNext: Load
 
     fun addPosts(newPosts: List<Post>){
         posts.addAll(newPosts)
+        notifyDataSetChanged()
     }
 
 
