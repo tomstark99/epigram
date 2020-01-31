@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/place_holders"
+        android:background="?android:selectableItemBackground"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+    <LinearLayout
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:elevation="4dp"
+            android:background="@color/colorPrimary">
+
+
+        <!--<ImageView-->
+        <!--android:id="@+id/open_nav"-->
+        <!--android:src="@drawable/ic_menu_black_24dp"-->
+        <!--android:layout_width="48dp"-->
+        <!--android:layout_height="48dp"-->
+        <!--android:layout_gravity="center"-->
+        <!--android:padding="12dp"-->
+        <!--style="@style/SelectableItemBackground"/>-->
+        <ImageView
+                android:id="@+id/settings_back"
+                android:src="@drawable/ic_arrow_back_black_24dp"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_gravity="center"
+                android:padding="12dp"
+                style="@style/SelectableItemBackground"/>
+        <!--<ImageView-->
+        <!--android:id="@+id/logo1"-->
+        <!--android:src="@drawable/layer_2"-->
+        <!--android:layout_width="@android:dimen/app_icon_size"-->
+        <!--android:layout_height="@android:dimen/app_icon_size"-->
+        <!--android:layout_gravity="bottom"-->
+        <!--android:paddingTop="5dp"-->
+        <!--android:alpha="1"/>-->
+
+        <TextView
+                android:id="@+id/settings_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:textAlignment="center"
+                android:layout_weight="1"
+                android:text="@string/menu_settings_tag"
+                android:textSize="24dp"
+                android:textColor="@color/colorAccent"
+                android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"/>
+
+        <!--<ImageView-->
+        <!--android:layout_width="48dp"-->
+        <!--android:layout_height="48dp"-->
+        <!--android:padding="12dp"-->
+        <!--android:visibility="invisible"-->
+        <!--android:src="@drawable/ic_search_black_24dp"-->
+        <!--android:layout_gravity="center"-->
+        <!--style="@style/SelectableItemBackground"/>-->
+
+        <ImageView
+                android:id="@+id/search_button_in_section"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:padding="12dp"
+                android:visibility="invisible"
+                android:src="@drawable/ic_search_black_24dp"
+                android:layout_gravity="center"
+                style="@style/SelectableItemBackground"/>
+    </LinearLayout>
+
+    <androidx.cardview.widget.CardView android:layout_width="match_parent"
+                                       android:layout_height="70dp"
+    style="@style/SettingsCard">
+        <LinearLayout android:id="@+id/settings_dark_card"
+                android:layout_width="match_parent" android:layout_height="match_parent"
+                        style="@style/SelectableItemBackground">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:layout_gravity="center_vertical"
+                      android:padding="@dimen/medium_padding"
+                      android:textColor="@color/black"
+                      android:textSize="16dp"
+                      android:fontFamily="sans-serif-condensed-medium"
+                      android:text="Dark mode (BETA)"
+            android:layout_weight="1"/>
+            <CheckBox
+                    android:id="@+id/dark_mode_tick"
+                    android:paddingEnd="@dimen/medium_padding"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"/>
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>

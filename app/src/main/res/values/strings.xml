@@ -1,0 +1,90 @@
+<resources>
+    <string name="app_name">Epigram</string>
+    <string name="app_name_title">epigram</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="tab_text_1">HOME</string>
+    <string name="tab_text_2">NEWS</string>
+    <string name="tab_text_3">THE CROFT</string>
+    <string name="tab_text_4">FEATURES</string>
+    <string name="tab_text_5">OPINION</string>
+    <!--<string name="tab_text_4">COMMENT</string>-->
+    <!--<string name="tab_text_5">SCIENCE</string>-->
+    <!--<string name="tab_text_6">WELLBEING</string>-->
+    <!--<string name="tab_text_7">LIFESTYLE</string>-->
+    <string name="tab_text_6">ENTERTAINMENT</string>
+    <string name="tab_text_7">SPORT</string>
+    <!--<string name="tab_text_10">INTRAMURAL</string>-->
+
+    <string name="empty"></string>
+    <string name="tag1">news</string>
+    <string name="tag2">the-croft</string>
+    <string name="tag3">features</string>
+    <string name="tag4">comment</string>
+    <!--<string name="tag3">comment</string>
+    <string name="tag4">science</string>
+    <string name="tag5">wellbeing</string>
+    <string name="tag6">lifestyle</string>-->
+    <string name="tag5">entertainment</string>
+    <string name="tag6">sport</string>
+    <!--<string name="tag9">intramural</string>-->
+
+
+    <string name="tab_1">RECENT NEWS</string>
+    <string name="tab_2">NEWS SECTION</string>
+    <string name="tab_3">FEATURES SECTION</string>
+    <string name="tab_4">COMMENT SECTION</string>
+
+    <string name="menu_news">NEWS</string>
+    <string name="menu_features">FEATURES</string>
+    <string name="menu_comment">COMMENT</string>
+    <string name="menu_the_croft">THE CROFT</string>
+    <string name="menu_opinion">OPINION</string>
+    <string name="menu_science">SCIENCE</string>
+    <string name="menu_wellbeing">WELLBEING</string>
+    <string name="menu_lifestyle">LIFESTYLE</string>
+    <string name="menu_entertainment">ENTERTAINMENT</string>
+    <string name="menu_sport">SPORT</string>
+    <string name="menu_intramural">INTRAMURAL</string>
+    <string name="menu_puzzles">PUZZLES</string>
+    <string name="menu_settings">SETTINGS</string>
+    <string name="menu_about">ABOUT</string>
+    <string name="menu_home">HOME</string>
+
+    <string name="menu_news_tag">news</string>
+    <string name="menu_features_tag">features</string>
+    <string name="menu_comment_tag">comment</string>
+    <string name="menu_the_croft_tag">the-croft</string>
+    <string name="menu_opinion_tag">opinion</string>
+    <string name="menu_science_tag">science</string>
+    <string name="menu_wellbeing_tag">wellbeing</string>
+    <string name="menu_lifestyle_tag">lifestyle</string>
+    <string name="menu_entertainment_tag">entertainment</string>
+    <string name="menu_sport_tag">sport</string>
+    <string name="menu_intramural_tag">intramural</string>
+    <string name="menu_puzzles_tag">puzzles</string>
+    <string name="menu_settings_tag">settings</string>
+    <string name="menu_about_tag">about</string>
+    <string name="menu_home_tag">home</string>
+
+    <string name="app_about">EPIGRAM\nVERSION: 1.0</string>
+    <string name="app_about_about_us">There has long been a student newspaper presence at the University of Bristol. The
+        Bristol Nonesuch was launched in 1911 (the name is now used for the University of Bristol’s alumni magazine) and
+        it continued into the 1960s.\n\nBACCUS followed Nonesuch, but as it was denounced as NUS propaganda, the Union
+        withdrew their funding in the late 1980s.\n\nIn its place, Epigram was set up. James Landale, now Diplomatic
+        Editor at BBC news, was the first editor and the first issue was printed in 1988.\n\nEpigram has changed a lot
+        since 1988. Our logo has changed numerous times, the number of pages has increased from 8 to 48 and an online
+        presence has developed.\n\nMore than 300 issues and various epi-puns later, this year we will celebrate our 30th
+        year.
+    </string>
+    <string name="app_about_redactions">Epigram strive to be as accurate and impartial on student news as possible.
+        However, should you wish to raise any editorial, commercial or legal issues please email editor@epigram.org.uk
+        with the problem, addressed to the Editors-in-Chief. Please be sure to include the issue number and article
+        headline if the article was in print, or the URL if the article was online. We endeavour to correct any
+        inaccuracies as soon as they are raised with us.\n\nIn the first instance, we will investigate and look to seek an
+        informal resolution. However, if the complainant is not satisfied with the response, we will bring it to the
+        Students\' Union (with whom we are an affiliated media product, but remain editorially independent) who can
+        provide independent mediation for the issue to seek a resolution.
+    </string>
+    <string name="copyright_text">Copyright © 2018 epigram</string>
+
+</resources>
