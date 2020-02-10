@@ -7,6 +7,7 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.os.Build
+import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.bumptech.glide.Glide
@@ -57,14 +58,14 @@ class NotificationService : FirebaseMessagingService() {
                     else{
                         createNotificationArticle(p0, post, null)
                     }
-                })
+                }, { e -> Log.e("error", "There was a problem loading notification post", e)})
         }
-        else if(!p0.data.get("titleNew").isNullOrEmpty()){
-            createNotificationUpdate(p0)
-        }
-        else {
-            createNotificationDraft(p0)
-        }
+//        else if(!p0.data.get("titleNew").isNullOrEmpty()){
+//            createNotificationUpdate(p0)
+//        }
+//        else {
+//            createNotificationDraft(p0)
+//        }
     }
 
 

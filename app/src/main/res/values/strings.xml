@@ -85,6 +85,12 @@
         Students\' Union (with whom we are an affiliated media product, but remain editorially independent) who can
         provide independent mediation for the issue to seek a resolution.
     </string>
+    <string name="welcome_text">
+        As a thank you for installing our android app we would like to offer you a... for a limited time only
+    </string>
+    <string name="welcome_terms">
+        Terms and conditions apply, visit www.dominoes.co.uk for more information
+    </string>
     <string name="copyright_text">Copyright © 2018 epigram</string>
 
 </resources>
