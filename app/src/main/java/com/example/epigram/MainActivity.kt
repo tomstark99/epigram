@@ -72,6 +72,9 @@ class MainActivity : BaseActivity<MainActivityMvp.Presenter>(),
         FirebaseMessaging.getInstance().subscribeToTopic("new_article")
             .addOnCompleteListener { }
 
+        FirebaseMessaging.getInstance().subscribeToTopic("new_article_draft")
+            .addOnCompleteListener { }
+
         //        FirebaseMessaging.getInstance().subscribeToTopic("new_article_draft")
         //                .addOnCompleteListener(new OnCompleteListener<Void>() {
         //                    @Override

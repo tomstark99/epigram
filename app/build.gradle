@@ -14,6 +14,11 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField "String", "API_KEY", "\"89c0bcf0d0e9935465c6e0f0cb\""
+        buildConfigField "String", "API_KEY_LOCAL", "\"e1d04b772de9afe657708c5630\""
+        buildConfigField "String", "URL", "\"https://epigram.ghost.io\""
+        buildConfigField "String", "URL_LOCAL", "\"http://localhost:2368\""
     }
 
     signingConfigs {
