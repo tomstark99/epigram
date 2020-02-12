@@ -60,12 +60,12 @@ class NotificationService : FirebaseMessagingService() {
                     }
                 }, { e -> Log.e("error", "There was a problem loading notification post", e)})
         }
-//        else if(!p0.data.get("titleNew").isNullOrEmpty()){
-//            createNotificationUpdate(p0)
-//        }
-//        else {
-//            createNotificationDraft(p0)
-//        }
+        else if(!p0.data.get("titleNew").isNullOrEmpty()){
+            createNotificationUpdate(p0)
+        }
+        else {
+            createNotificationDraft(p0)
+        }
     }
 
 

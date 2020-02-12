@@ -1,5 +1,7 @@
 package com.example.epigram.data;
 
+import com.example.epigram.BuildConfig;
+
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -13,6 +15,7 @@ public class InternetModule {
 
     private static Retrofit retrofit;
     private static EpigramService epigramService;
+    private static String URL = BuildConfig.URL;
 
 
     public static EpigramService getEpigramService(){
@@ -31,7 +34,7 @@ public class InternetModule {
 
         if(retrofit == null) {
             retrofit = new Retrofit.Builder().client(client)
-                    .baseUrl("https://epigram.ghost.io")
+                    .baseUrl(URL)
                     .addConverterFactory(GsonConverterFactory.create())
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io()))
                     .build();
