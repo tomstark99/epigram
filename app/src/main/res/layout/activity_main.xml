@@ -23,6 +23,14 @@
             android:fitsSystemWindows="true"
             app:headerLayout="@layout/nav_header_main"
             app:itemHorizontalPadding="@dimen/large_padding"
-            app:menu="@menu/activity_main_drawer"/>
+            app:menu="@menu/activity_main_drawer">
+        <ExpandableListView
+            android:id="@+id/nav_list_view"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:layout_marginTop="192dp"/>
+    </com.google.android.material.navigation.NavigationView>
+<!--    app:menu="@menu/activity_main_drawer"-->
 
 </androidx.drawerlayout.widget.DrawerLayout>

@@ -3,6 +3,7 @@ package com.example.epigram
 import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
+import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
@@ -19,9 +20,25 @@ import com.google.android.gms.tasks.Task
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.tabs.TabLayout
 import com.google.firebase.messaging.FirebaseMessaging
+import android.widget.ExpandableListView
+import com.example.epigram.data.ExpandedMenuModel
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.app_bar_main.*
+import androidx.core.app.ComponentActivity.ExtraData
+import androidx.core.content.ContextCompat.getSystemService
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+import com.example.epigram.ui.main.ExpandableListAdapter
+import kotlinx.android.synthetic.main.nav_header_main.*
+
 
 class MainActivity : BaseActivity<MainActivityMvp.Presenter>(),
     NavigationView.OnNavigationItemSelectedListener, MainActivityMvp.View {
+
+    private var drawerLayout: DrawerLayout? = null
+    var menuAdapter: ExpandableListAdapter? = null
+    var expandableList: ExpandableListView? = null
+    var listHeader = mutableListOf<ExpandedMenuModel>()
+    var listChild = HashMap<ExpandedMenuModel, List<String>>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,11 +46,9 @@ class MainActivity : BaseActivity<MainActivityMvp.Presenter>(),
         presenter = MainActivityPresenter(this)
         presenter.onCreate()
         val sectionsPagerAdapter = SectionsPagerAdapter(this, supportFragmentManager)
-        val viewPager = findViewById<ViewPager>(R.id.view_pager)
-        viewPager.adapter = sectionsPagerAdapter
-        val tabs = findViewById<TabLayout>(R.id.tabs)
-        tabs.setupWithViewPager(viewPager)
 
+        view_pager.adapter = sectionsPagerAdapter
+        tabs.setupWithViewPager(view_pager)
         tabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
 
@@ -50,22 +65,21 @@ class MainActivity : BaseActivity<MainActivityMvp.Presenter>(),
 
         val title = findViewById<TextView>(R.id.title)
         val typeFace = Typeface.createFromAsset(assets, "fonts/lora_bold.ttf")
+
         title.typeface = typeFace
-        val navView = findViewById<NavigationView>(R.id.nav_view)
-        val headerView = navView.getHeaderView(0)
+//        val navView = findViewById<NavigationView>(R.id.nav_view)
+        val headerView = nav_view.getHeaderView(0)
         val titleNav = headerView.findViewById<TextView>(R.id.nav_title)
         titleNav.typeface = typeFace
+//        navView.setNavigationItemSelectedListener(this)
 
-        navView.setNavigationItemSelectedListener(this)
+        search_button.setOnClickListener { SearchActivity.start(this@MainActivity) }
 
-        val search = findViewById<ImageView>(R.id.search_button)
-        search.setOnClickListener { SearchActivity.start(this@MainActivity) }
-
-        val drawerLayout = findViewById<DrawerLayout>(R.id.drawer_layout)
-        val nav = findViewById<ImageView>(R.id.open_nav)
-        nav.setOnClickListener {
-            if (!drawerLayout.isDrawerOpen(GravityCompat.START)) {
-                drawerLayout.openDrawer(GravityCompat.START)
+//        val drawerLayout = findViewById<DrawerLayout>(R.id.drawer_layout)
+//        val nav = findViewById<ImageView>(R.id.open_nav)
+        open_nav.setOnClickListener {
+            if (!drawer_layout.isDrawerOpen(GravityCompat.START)) {
+                drawer_layout.openDrawer(GravityCompat.START)
             }
         }
 
@@ -91,6 +105,53 @@ class MainActivity : BaseActivity<MainActivityMvp.Presenter>(),
         //                    }
         //                });
 
+
+        if(nav_view != null) setupDrawerContent(nav_view)
+        prepareListData()
+        menuAdapter = ExpandableListAdapter(this, listHeader, listChild, nav_list_view)
+        nav_list_view.setAdapter(menuAdapter)
+        nav_list_view.setOnChildClickListener { expandableListView, view, i, i2, l ->
+            false
+        }
+        nav_list_view.setOnGroupClickListener { expandableListView, view, i, l ->
+            false
+        }
+        nav_list_view.setGroupIndicator(null)
+        nav_list_view.setChildIndicator(null)
+    }
+
+    fun setupDrawerContent(nav: NavigationView) {
+        nav.setNavigationItemSelectedListener {
+            it.setChecked(true)
+            drawer_layout.closeDrawers()
+            true
+        }
+    }
+
+    fun prepareListData() {
+        var item1 = ExpandedMenuModel()
+        item1.setIconName("heading1")
+        item1.setIconImg(R.drawable.ic_arrow_drop_down_black_24dp)
+        var item2 = ExpandedMenuModel()
+        item2.setIconName("heading2")
+        item2.setIconImg(R.drawable.ic_arrow_drop_down_black_24dp)
+        var item3 = ExpandedMenuModel()
+        item3.setIconName("heading3")
+        item3.setIconImg(R.drawable.ic_arrow_drop_down_black_24dp)
+        listHeader.add(item1)
+        listHeader.add(item2)
+        listHeader.add(item3)
+
+        var heading1 = mutableListOf<String>()
+        heading1.add("Submenu of item 1")
+
+        var heading2 = mutableListOf<String>()
+        heading2.add("submenu of item 2")
+        heading2.add("submenu of item 2")
+        heading2.add("submenu of item 2")
+
+        listChild.put(listHeader[0], heading1)
+        listChild.put(listHeader[1], heading2)
     }
 
     override fun load(showWelcome: Boolean) {
@@ -105,16 +166,14 @@ class MainActivity : BaseActivity<MainActivityMvp.Presenter>(),
     }
 
     override fun onBackPressed() {
-        val drawerLayout = findViewById<DrawerLayout>(R.id.drawer_layout)
-        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            drawerLayout.closeDrawer(GravityCompat.START)
+        if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
+            drawer_layout.closeDrawer(GravityCompat.START)
         } else {
             super.onBackPressed()
         }
     }
 
     override fun onNavigationItemSelected(menuItem: MenuItem): Boolean {
-        val drawerLayout = findViewById<DrawerLayout>(R.id.drawer_layout)
         when (menuItem.itemId) {
             //case R.id.nav_home :
             //    break;
@@ -180,10 +239,24 @@ class MainActivity : BaseActivity<MainActivityMvp.Presenter>(),
             R.id.nav_about -> startActivity(Intent(this, AboutActivity::class.java))
             else ->
 
-                drawerLayout.closeDrawer(GravityCompat.START)
+                drawer_layout.closeDrawer(GravityCompat.START)
         }
-        drawerLayout.closeDrawer(GravityCompat.START)
+        drawer_layout.closeDrawer(GravityCompat.START)
         return true
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            android.R.id.home -> {
+                drawer_layout.openDrawer(GravityCompat.START)
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     companion object {
