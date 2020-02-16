@@ -1,4 +1,4 @@
-package com.example.epigram
+package com.example.epigram.ui.article
 
 import android.app.*
 import android.content.Context
@@ -24,7 +24,8 @@ import com.bumptech.glide.load.MultiTransformation
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
-import com.example.epigram.data.Layout
+import com.example.epigram.ui.adapters.MyAdapterTag
+import com.example.epigram.R
 import com.example.epigram.data.NotificationService
 import com.example.epigram.data.Post
 import com.google.firebase.messaging.FirebaseMessagingService
@@ -54,7 +55,9 @@ class ArticleActivity : AppCompatActivity() {
         val share = findViewById<ImageView>(R.id.article_share)
         share.setOnClickListener { shareThis() }
 
-        findViewById<TextView>(R.id.title).setOnClickListener{ findViewById<NestedScrollView>(R.id.article_scroll).smoothScrollTo(0,0) }
+        findViewById<TextView>(R.id.title).setOnClickListener{ findViewById<NestedScrollView>(
+            R.id.article_scroll
+        ).smoothScrollTo(0,0) }
 
     }
 
@@ -78,7 +81,8 @@ class ArticleActivity : AppCompatActivity() {
         recyclerView!!.layoutManager = layoutManager
         recyclerView!!.itemAnimator = DefaultItemAnimator()
         //recyclerView!!.isNestedScrollingEnabled = false
-        recyclerView!!.adapter = MyAdapterTag(post.tags!!.toMutableList())
+        recyclerView!!.adapter =
+            MyAdapterTag(post.tags!!.toMutableList())
 
         url = post.url
 
@@ -108,7 +112,7 @@ class ArticleActivity : AppCompatActivity() {
             notificationManager.createNotificationChannel(mChannel)
         }
         val managerCompat = NotificationManagerCompat.from(this)
-        val intent = ArticleActivity.makeIntent(this, post)
+        val intent = makeIntent(this, post)
         val pendingIntent = PendingIntent.getActivity(this, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT)
 
 //        val placeholder =

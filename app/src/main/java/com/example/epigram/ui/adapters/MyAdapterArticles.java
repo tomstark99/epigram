@@ -1,6 +1,5 @@
-package com.example.epigram;
+package com.example.epigram.ui.adapters;
 
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
@@ -24,11 +23,15 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
+import com.example.epigram.R;
 import com.example.epigram.data.Post;
 import com.jakewharton.rxbinding2.view.RxView;
+
+import io.reactivex.Observable;
+import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
-import kotlin.random.Random;
+
 import org.joda.time.DateTime;
 
 import java.util.ArrayList;
@@ -41,8 +44,8 @@ public class MyAdapterArticles extends RecyclerView.Adapter<MyAdapterArticles.My
     public static int SEARCH_PAGE_INDEX = 100;
     public static int HOME_PAGE_INDEX = 0;
 
-    private Post vcars = new Post("advert", "advert-vcars", "Get 20% off vcars as a student: download the app now", "", "https://www.v-cars.com/wp-content/uploads/2019/05/VCarsLogo-Resized.png", "ADVERT", Arrays.asList("ADVERT"), DateTime.now(), "");
-    private boolean advertTime = true;
+    //private Post vcars = new Post("advert", "advert-vcars", "Get 20% off vcars as a student: download the app now", "", "https://www.v-cars.com/wp-content/uploads/2019/05/VCarsLogo-Resized.png", "ADVERT", Arrays.asList("ADVERT"), DateTime.now(), "");
+    //private boolean advertTime = true;
 
     public List<Post> posts = new ArrayList<>();
     private final MultiTransformation<Bitmap> multiTransformation;
@@ -57,7 +60,7 @@ public class MyAdapterArticles extends RecyclerView.Adapter<MyAdapterArticles.My
         notifyDataSetChanged();
     }
 
-    public void setPostList(List<Post> checkSame) {
+    public void initPosts(List<Post> checkSame) {
 
         DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new DiffUtil.Callback() {
             @Override
@@ -80,7 +83,10 @@ public class MyAdapterArticles extends RecyclerView.Adapter<MyAdapterArticles.My
                 return posts.get(oldItemPosition).getId().equals(checkSame.get(newItemPosition).getId());
             }
         });
-        posts = checkSame;
+        Observable.fromIterable(checkSame)
+                .distinct(it -> it.getId())
+                .toList()
+                .subscribe(it -> posts = it);
         diffResult.dispatchUpdatesTo(this);
     }
 
@@ -174,14 +180,18 @@ public class MyAdapterArticles extends RecyclerView.Adapter<MyAdapterArticles.My
             }
         });
 
-        if(advertTime) {
-            //checkSame.add(vcars);
-        }
-        advertTime = !advertTime;
+//        if(advertTime) {
+//            //checkSame.add(vcars);
+//        }
+//        advertTime = !advertTime;
+        Observable.fromIterable(checkSame)
+                .distinct(it -> it.getId())
+                .toList()
+                .subscribe(it -> posts = it);
 
-        posts = checkSame;
+        //posts = checkSame;
 
-        if(posts.get(0).getDate().plusWeeks(1).isBeforeNow()) posts.remove(0);
+        //if(posts.get(0).getDate().plusWeeks(1).isBeforeNow()) posts.remove(0);
 
 
 

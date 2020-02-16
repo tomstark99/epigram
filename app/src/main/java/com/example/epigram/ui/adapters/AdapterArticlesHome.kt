@@ -1,7 +1,6 @@
-package com.example.epigram
+package com.example.epigram.ui.adapters
 
 import android.content.Context
-import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -9,7 +8,6 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.annotation.LayoutRes
-import androidx.annotation.StringRes
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -22,12 +20,11 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
+import com.example.epigram.R
 import com.example.epigram.data.Post
 import com.jakewharton.rxbinding2.view.RxView
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
-import org.w3c.dom.Text
-import java.util.*
 import java.util.concurrent.TimeUnit
 import kotlin.collections.ArrayList
 
@@ -60,7 +57,8 @@ class AdapterArticlesHome(context: Context, posts: MutableList<Post>, loadNext: 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         holder.tags.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
         holder.tags.itemAnimator = DefaultItemAnimator()
-        holder.tags.adapter = MyAdapterTag(posts[position].tags.orEmpty())
+        holder.tags.adapter =
+            MyAdapterTag(posts[position].tags.orEmpty())
         setPost(holder, position)
     }
 

@@ -1,4 +1,4 @@
-package com.example.epigram
+package com.example.epigram.ui.section
 
 import android.app.Activity
 import android.content.Intent
@@ -14,9 +14,14 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.RecyclerView
+import com.example.epigram.ui.article.ArticleActivity
+import com.example.epigram.ui.adapters.MyAdapterPlaceholder
+import com.example.epigram.ui.adapters.MyAdapterSection
+import com.example.epigram.R
 import com.example.epigram.data.Layout
 import com.example.epigram.data.Post
 import com.example.epigram.data.PostManager
+import com.example.epigram.ui.search.SearchActivity
 import com.google.android.material.navigation.NavigationView
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -84,7 +89,8 @@ class SectionActivity : AppCompatActivity(), MyAdapterSection.LoadNextPage, Navi
                 loaded = true
                 nextPage++
                 if(adapter2 == null){
-                    adapter2 = MyAdapterSection(this, posts, this, section)
+                    adapter2 =
+                        MyAdapterSection(this, posts, this, section)
                     recyclerView!!.adapter = adapter2
                 }
                 else{
@@ -119,8 +125,8 @@ class SectionActivity : AppCompatActivity(), MyAdapterSection.LoadNextPage, Navi
             }
             R.id.nav_puzzles -> {
             }
-            R.id.nav_settings -> {
-            }
+//            R.id.nav_settings -> {
+//            }
             R.id.nav_about -> {
             }
             else ->

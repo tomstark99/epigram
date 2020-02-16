@@ -1,8 +1,11 @@
-package com.example.epigram
+package com.example.epigram.ui.settings
 
 import android.graphics.Typeface
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.epigram.BuildConfig
+import com.example.epigram.R
 import kotlinx.android.synthetic.main.activity_settings.*
 
 class SettingsActivity : AppCompatActivity() {
@@ -15,8 +18,8 @@ class SettingsActivity : AppCompatActivity() {
 
         val typeFace = Typeface.createFromAsset(getAssets(), "fonts/lora_bold.ttf")
         settings_title.typeface = typeFace
+        build.text = getString(R.string.build, BuildConfig.VERSION_NAME, Build.VERSION.RELEASE, BuildConfig.BUILD_TIME.toString())
         settings_back.setOnClickListener{ finish() }
-        
         settings_dark_card.setOnClickListener{ dark_mode_tick.isChecked = !dark_mode_tick.isChecked}
     }
 

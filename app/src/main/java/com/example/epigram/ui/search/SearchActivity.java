@@ -1,4 +1,4 @@
-package com.example.epigram;
+package com.example.epigram.ui.search;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,6 +12,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.epigram.ui.adapters.AdapterSearch;
+import com.example.epigram.ui.article.ArticleActivity;
+import com.example.epigram.ui.adapters.MyAdapterArticles;
+import com.example.epigram.R;
+import com.example.epigram.arch.utils.Utils;
 import com.example.epigram.data.Layout;
 import com.example.epigram.data.Post;
 import com.example.epigram.data.PostManager;
@@ -29,12 +35,13 @@ import kotlin.Triple;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
-import static com.example.epigram.MyAdapterArticles.SEARCH_PAGE_INDEX;
+import static com.example.epigram.ui.adapters.MyAdapterArticles.SEARCH_PAGE_INDEX;
 
 public class SearchActivity extends AppCompatActivity implements MyAdapterArticles.LoadNextPage {
 
     private PostManager pManager = new PostManager();
     private MyAdapterArticles adapterArticles = new MyAdapterArticles(this, new ArrayList<>(), this, SEARCH_PAGE_INDEX);
+    //private AdapterSearch adapterArticles = new AdapterSearch(this, new ArrayList<>(), this);
     private RecyclerView recyclerView;
 
     private EditText searchText = null;
@@ -162,7 +169,7 @@ public class SearchActivity extends AppCompatActivity implements MyAdapterArticl
                                 adapterArticles.setResultTotal(triple.getFirst());
                                 findViewById(R.id.search_progress).setVisibility(View.GONE);
                                 if(nextPage == 1){
-                                    adapterArticles.setPostList(triple.getThird());
+                                    adapterArticles.initPosts(triple.getThird());
                                 }
                                 else {
                                     adapterArticles.addPosts(triple.getThird());
