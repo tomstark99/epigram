@@ -1,10 +1,11 @@
-package com.example.epigram
+package com.example.epigram.ui
 
 import android.app.Activity
 import android.content.Intent
 import android.graphics.Typeface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.epigram.R
 import kotlinx.android.synthetic.main.activity_welcome.*
 
 class WelcomeActivity : AppCompatActivity() {

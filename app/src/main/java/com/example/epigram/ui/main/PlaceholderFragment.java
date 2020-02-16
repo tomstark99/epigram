@@ -20,6 +20,10 @@ import com.example.epigram.*;
 import com.example.epigram.data.Layout;
 import com.example.epigram.data.Post;
 import com.example.epigram.data.PostManager;
+import com.example.epigram.ui.adapters.AdapterArticles;
+import com.example.epigram.ui.adapters.MyAdapterPlaceholder;
+import com.example.epigram.ui.article.ArticleActivity;
+
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;

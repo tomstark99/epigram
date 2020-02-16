@@ -1,4 +1,4 @@
-package com.example.epigram
+package com.example.epigram.arch.utils
 
 class ListUtils{
 

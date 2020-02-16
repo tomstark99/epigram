@@ -1,4 +1,4 @@
-package com.example.epigram;
+package com.example.epigram.ui;
 
 import android.animation.Animator;
 import android.animation.AnimatorSet;
@@ -9,13 +9,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.epigram.R;
+
+import org.joda.time.DateTime;
+
 public class SplashActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
-
 
         setContentView(R.layout.activity_splash_screen);
         findViewById(R.id.left_logo).post(new Runnable() {

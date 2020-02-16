@@ -1,21 +1,23 @@
-package com.example.epigram
+package com.example.epigram.ui
 
 import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
 import android.view.MenuItem
-import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.viewpager.widget.ViewPager
+import com.example.epigram.R
 
 import com.example.epigram.arch.android.BaseActivity
+import com.example.epigram.ui.about.AboutActivity
 import com.example.epigram.ui.main.SectionsPagerAdapter
-import com.google.android.gms.tasks.OnCompleteListener
-import com.google.android.gms.tasks.Task
+import com.example.epigram.ui.search.SearchActivity
+import com.example.epigram.ui.search.SearchActivity1
+import com.example.epigram.ui.section.SectionActivity
+import com.example.epigram.ui.settings.SettingsActivity
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.tabs.TabLayout
 import com.google.firebase.messaging.FirebaseMessaging
@@ -176,7 +178,7 @@ class MainActivity : BaseActivity<MainActivityMvp.Presenter>(),
                 menuItem.toString(),
                 getString(R.string.menu_puzzles_tag)
             )
-            R.id.nav_settings -> startActivity(Intent(this, SettingsActivity::class.java))
+            //R.id.nav_settings -> startActivity(Intent(this, SettingsActivity::class.java))
             R.id.nav_about -> startActivity(Intent(this, AboutActivity::class.java))
             else ->
 

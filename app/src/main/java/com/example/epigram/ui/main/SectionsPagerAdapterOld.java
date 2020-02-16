@@ -1,13 +1,13 @@
 package com.example.epigram.ui.main;
 
 import android.content.Context;
-import android.widget.TextView;
+
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
-import com.example.epigram.MainActivity;
+
 import com.example.epigram.R;
 
 import java.util.HashMap;

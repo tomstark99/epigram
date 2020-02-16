@@ -1,4 +1,4 @@
-package com.example.epigram
+package com.example.epigram.ui
 
 import com.example.epigram.arch.android.BaseMvp
 
