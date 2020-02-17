@@ -98,4 +98,13 @@
 
     </androidx.cardview.widget.CardView>
 
+    <TextView
+        android:id="@+id/build"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|bottom"
+        android:paddingTop="@dimen/small_padding"
+        android:text="@string/build"
+        android:textSize="10dp"/>
+
 </LinearLayout>

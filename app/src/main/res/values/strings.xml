@@ -66,7 +66,7 @@
     <string name="menu_about_tag">about</string>
     <string name="menu_home_tag">home</string>
 
-    <string name="app_about">EPIGRAM\nVERSION: 1.0</string>
+    <string name="app_about">EPIGRAM\nVERSION: %s</string>
     <string name="app_about_about_us">There has long been a student newspaper presence at the University of Bristol. The
         Bristol Nonesuch was launched in 1911 (the name is now used for the University of Bristol’s alumni magazine) and
         it continued into the 1960s.\n\nBACCUS followed Nonesuch, but as it was denounced as NUS propaganda, the Union
@@ -91,6 +91,7 @@
     <string name="welcome_terms">
         Terms and conditions apply, visit www.dominoes.co.uk for more information
     </string>
-    <string name="copyright_text">Copyright © 2018 epigram</string>
+    <string name="build">Build: %s [%s] %s</string>
+    <string name="copyright_text">Copyright © 2019 epigram</string>
 
 </resources>

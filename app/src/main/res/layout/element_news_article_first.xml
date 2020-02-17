@@ -8,9 +8,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:paddingTop="@dimen/inner_element_padding"
         android:paddingBottom="@dimen/inner_element_padding"
         android:paddingStart="@dimen/element_padding"
-        android:paddingTop="@dimen/element_padding"
         android:paddingEnd="@dimen/element_padding">
 
     <LinearLayout
@@ -30,7 +30,7 @@
                 android:textSize="20dp"
                 android:textColor="@android:color/white"/>
         <TextView
-                tools:text="0"
+                android:text="RECENT NEWS"
                 android:id="@+id/search_results_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -112,7 +112,7 @@
                 android:layout_height="wrap_content"
                 android:padding="6dp"
                 tools:text="June 10, 2019"
-                android:textSize="10dp"
+                android:textSize="11dp"
                 android:fontFamily="sans-serif-condensed-medium"/>
     </LinearLayout>
 
