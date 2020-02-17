@@ -26,11 +26,16 @@ import android.widget.ExpandableListView
 import com.example.epigram.data.ExpandedMenuModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
-import androidx.core.app.ComponentActivity.ExtraData
 import androidx.core.content.ContextCompat.getSystemService
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
-import com.example.epigram.ui.main.ExpandableListAdapter
+import android.widget.ListAdapter
+import com.example.epigram.data.model.MenuModel
+import com.example.epigram.ui.adapters.ExpandableListAdapter
 import kotlinx.android.synthetic.main.nav_header_main.*
+import androidx.core.content.ContextCompat.getSystemService
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+
+
 
 
 class MainActivity : BaseActivity<MainActivityMvp.Presenter>(),
@@ -39,8 +44,8 @@ class MainActivity : BaseActivity<MainActivityMvp.Presenter>(),
     private var drawerLayout: DrawerLayout? = null
     var menuAdapter: ExpandableListAdapter? = null
     var expandableList: ExpandableListView? = null
-    var listHeader = mutableListOf<ExpandedMenuModel>()
-    var listChild = HashMap<ExpandedMenuModel, List<String>>()
+    var listHeader = mutableListOf<MenuModel>()
+    var listChild = HashMap<MenuModel, List<MenuModel>?>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,18 +72,12 @@ class MainActivity : BaseActivity<MainActivityMvp.Presenter>(),
 
         val title = findViewById<TextView>(R.id.title)
         val typeFace = Typeface.createFromAsset(assets, "fonts/lora_bold.ttf")
-
         title.typeface = typeFace
-//        val navView = findViewById<NavigationView>(R.id.nav_view)
         val headerView = nav_view.getHeaderView(0)
         val titleNav = headerView.findViewById<TextView>(R.id.nav_title)
         titleNav.typeface = typeFace
-//        navView.setNavigationItemSelectedListener(this)
 
         search_button.setOnClickListener { SearchActivity.start(this@MainActivity) }
-
-//        val drawerLayout = findViewById<DrawerLayout>(R.id.drawer_layout)
-//        val nav = findViewById<ImageView>(R.id.open_nav)
         open_nav.setOnClickListener {
             if (!drawer_layout.isDrawerOpen(GravityCompat.START)) {
                 drawer_layout.openDrawer(GravityCompat.START)
@@ -108,52 +107,43 @@ class MainActivity : BaseActivity<MainActivityMvp.Presenter>(),
         //                });
 
 
-        if(nav_view != null) setupDrawerContent(nav_view)
-        prepareListData()
-        menuAdapter = ExpandableListAdapter(this, listHeader, listChild, nav_list_view)
-        nav_list_view.setAdapter(menuAdapter)
-        nav_list_view.setOnChildClickListener { expandableListView, view, i, i2, l ->
-            false
-        }
-        nav_list_view.setOnGroupClickListener { expandableListView, view, i, l ->
-            false
-        }
-        nav_list_view.setGroupIndicator(null)
-        nav_list_view.setChildIndicator(null)
-    }
 
-    fun setupDrawerContent(nav: NavigationView) {
-        nav.setNavigationItemSelectedListener {
-            it.setChecked(true)
-            drawer_layout.closeDrawers()
-            true
-        }
+        expandableList = nav_list_view
+        prepareListData()
+        populateList()
+        nav_view.setNavigationItemSelectedListener(this)
     }
 
     fun prepareListData() {
-        var item1 = ExpandedMenuModel()
-        item1.setIconName("heading1")
-        item1.setIconImg(R.drawable.ic_arrow_drop_down_black_24dp)
-        var item2 = ExpandedMenuModel()
-        item2.setIconName("heading2")
-        item2.setIconImg(R.drawable.ic_arrow_drop_down_black_24dp)
-        var item3 = ExpandedMenuModel()
-        item3.setIconName("heading3")
-        item3.setIconImg(R.drawable.ic_arrow_drop_down_black_24dp)
-        listHeader.add(item1)
-        listHeader.add(item2)
-        listHeader.add(item3)
+        var childList = mutableListOf<MenuModel>()
+        var menuModel = MenuModel("news", false, false)
+        listHeader.add(menuModel)
+        listChild.put(menuModel, null)
+        menuModel = MenuModel("the croft", true, true)
+        listHeader.add(menuModel)
 
-        var heading1 = mutableListOf<String>()
-        heading1.add("Submenu of item 1")
+        var childModel = MenuModel("arts", false, false)
+        childList.add(childModel)
+        childModel = MenuModel("entertainment", false, false)
+        childList.add(childModel)
+        listChild.put(menuModel, childList)
+    }
 
-        var heading2 = mutableListOf<String>()
-        heading2.add("submenu of item 2")
-        heading2.add("submenu of item 2")
-        heading2.add("submenu of item 2")
+    fun populateList(){
+        menuAdapter = ExpandableListAdapter(this, listHeader, listChild)
+        expandableList!!.setAdapter(menuAdapter)
+        expandableList!!.setOnGroupClickListener { expandableListView, view, i, l ->
+            if(listHeader[i].isGroup){
+                if(!listHeader[i].hasChildren){
 
-        listChild.put(listHeader[0], heading1)
-        listChild.put(listHeader[1], heading2)
+                }
+            }
+            false
+        }
+        expandableList!!.setOnChildClickListener { expandableListView, view, i, i2, l ->
+
+            false
+        }
     }
 
     override fun load(showWelcome: Boolean) {
@@ -248,13 +238,13 @@ class MainActivity : BaseActivity<MainActivityMvp.Presenter>(),
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.activity_main_drawer, menu)
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
             android.R.id.home -> {
-                drawer_layout.openDrawer(GravityCompat.START)
                 return true
             }
         }

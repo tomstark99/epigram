@@ -19,7 +19,7 @@ import com.example.epigram.ui.adapters.MyAdapterPlaceholder
 import com.example.epigram.ui.adapters.MyAdapterSection
 import com.example.epigram.R
 import com.example.epigram.data.Layout
-import com.example.epigram.data.Post
+import com.example.epigram.data.model.Post
 import com.example.epigram.data.PostManager
 import com.example.epigram.ui.search.SearchActivity
 import com.google.android.material.navigation.NavigationView

@@ -1,6 +1,7 @@
 package com.example.epigram.data
 
 import com.example.epigram.BuildConfig
+import com.example.epigram.data.model.Post
 import io.reactivex.Single
 import java.util.*
 

@@ -8,7 +8,7 @@ import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import com.example.epigram.ui.adapters.AdapterArticles
 import com.example.epigram.ui.article.ArticleActivity
-import com.example.epigram.data.Post
+import com.example.epigram.data.model.Post
 
 class TabFragment : Fragment() , AdapterArticles.LoadNextPage{
 

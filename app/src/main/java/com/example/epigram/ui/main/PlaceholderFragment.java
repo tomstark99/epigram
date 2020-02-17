@@ -18,7 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.example.epigram.*;
 import com.example.epigram.data.Layout;
-import com.example.epigram.data.Post;
+import com.example.epigram.data.model.Post;
 import com.example.epigram.data.PostManager;
 import com.example.epigram.ui.adapters.AdapterArticles;
 import com.example.epigram.ui.adapters.MyAdapterPlaceholder;

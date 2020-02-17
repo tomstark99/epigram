@@ -22,8 +22,7 @@
             android:clipToPadding="false"
             android:fitsSystemWindows="true"
             app:headerLayout="@layout/nav_header_main"
-            app:itemHorizontalPadding="@dimen/large_padding"
-            app:menu="@menu/activity_main_drawer">
+            app:itemHorizontalPadding="@dimen/large_padding">
         <ExpandableListView
             android:id="@+id/nav_list_view"
             android:layout_width="wrap_content"

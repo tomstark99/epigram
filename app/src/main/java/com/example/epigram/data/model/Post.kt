@@ -1,4 +1,4 @@
-package com.example.epigram.data
+package com.example.epigram.data.model
 
 import org.joda.time.DateTime
 import java.io.Serializable
@@ -28,7 +28,17 @@ data class Post(
             //System.out.println(x)
         //}
         //template.html.replace("<style>.+<\\/style>", "")
-        return Post(template.id,template.uuid,template.title,x,template.feature_image, template.primary_tag?.name?.toUpperCase(), template.tags?.map { tags -> tags.name }, DateTime.parse(template.published_at),template.url)
+        return Post(
+            template.id,
+            template.uuid,
+            template.title,
+            x,
+            template.feature_image,
+            template.primary_tag?.name?.toUpperCase(),
+            template.tags?.map { tags -> tags.name },
+            DateTime.parse(template.published_at),
+            template.url
+        )
         }
     }
 }

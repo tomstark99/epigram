@@ -2,47 +2,29 @@ package com.example.epigram.ui.search
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.Typeface
 import android.os.Bundle
 import android.util.Log
-import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
-import android.widget.TextView
-import androidx.core.view.GravityCompat
-import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.viewpager.widget.ViewPager
 import com.example.epigram.R
 
 import com.example.epigram.arch.android.BaseActivity
 import com.example.epigram.arch.utils.Utils
-import com.example.epigram.data.Post
+import com.example.epigram.data.model.Post
 import com.example.epigram.data.PostManager
-import com.example.epigram.ui.about.AboutActivity
 import com.example.epigram.ui.adapters.AdapterSearch
 import com.example.epigram.ui.article.ArticleActivity
-import com.example.epigram.ui.main.SectionsPagerAdapter
-import com.example.epigram.ui.search.SearchActivity
-import com.example.epigram.ui.section.SectionActivity
-import com.example.epigram.ui.settings.SettingsActivity
-import com.google.android.material.navigation.NavigationView
-import com.google.android.material.tabs.TabLayout
-import com.google.firebase.messaging.FirebaseMessaging
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxbinding2.widget.RxTextView
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.functions.BiFunction
-import io.reactivex.functions.Consumer
 import io.reactivex.functions.Function
-import io.reactivex.functions.Function3
-import io.reactivex.functions.Predicate
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_search.*
-import java.util.*
 import java.util.concurrent.TimeUnit
 
 class SearchActivity1 : BaseActivity<SearchMvp.Presenter>(), SearchMvp.View, AdapterSearch.LoadNextPage {

@@ -13,13 +13,12 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.epigram.ui.adapters.AdapterSearch;
 import com.example.epigram.ui.article.ArticleActivity;
 import com.example.epigram.ui.adapters.MyAdapterArticles;
 import com.example.epigram.R;
 import com.example.epigram.arch.utils.Utils;
 import com.example.epigram.data.Layout;
-import com.example.epigram.data.Post;
+import com.example.epigram.data.model.Post;
 import com.example.epigram.data.PostManager;
 import com.jakewharton.rxbinding2.view.RxView;
 import com.jakewharton.rxbinding2.widget.RxTextView;

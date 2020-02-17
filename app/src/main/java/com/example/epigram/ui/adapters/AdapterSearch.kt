@@ -23,14 +23,11 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
 import com.example.epigram.R
-import com.example.epigram.data.Post
+import com.example.epigram.data.model.Post
 import com.jakewharton.rxbinding2.view.RxView
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
-import io.reactivex.rxkotlin.toObservable
-import java.sql.Time
-import java.util.*
 import java.util.concurrent.TimeUnit
 
 class AdapterSearch (var context: Context, posts: List<Post>, var loadNext: LoadNextPage) : RecyclerView.Adapter<AdapterSearch.ViewHolder>() {

@@ -18,6 +18,7 @@ import com.bumptech.glide.request.transition.Transition
 import com.example.epigram.ui.article.ArticleActivity
 import com.example.epigram.ui.MainActivity
 import com.example.epigram.R
+import com.example.epigram.data.model.Post
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import io.reactivex.android.schedulers.AndroidSchedulers

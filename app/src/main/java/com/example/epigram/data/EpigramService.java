@@ -1,6 +1,11 @@
 package com.example.epigram.data;
 
 import androidx.annotation.Nullable;
+
+import com.example.epigram.data.model.PostTemplate;
+import com.example.epigram.data.model.SearchResult;
+import com.example.epigram.data.model.Wrapper;
+
 import io.reactivex.Single;
 import retrofit2.http.GET;
 import retrofit2.http.Path;

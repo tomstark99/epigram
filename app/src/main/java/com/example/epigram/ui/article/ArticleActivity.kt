@@ -27,7 +27,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.example.epigram.ui.adapters.MyAdapterTag
 import com.example.epigram.R
 import com.example.epigram.data.NotificationService
-import com.example.epigram.data.Post
+import com.example.epigram.data.model.Post
 import com.google.firebase.messaging.FirebaseMessagingService
 import kotlinx.android.synthetic.main.activity_article_view.*
 import org.sufficientlysecure.htmltextview.HtmlHttpImageGetter
