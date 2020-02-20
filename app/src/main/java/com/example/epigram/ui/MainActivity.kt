@@ -71,8 +71,9 @@ class MainActivity : BaseActivity<MainActivityMvp.Presenter>(),
             }
         }
 
-        FirebaseMessaging.getInstance().subscribeToTopic("new_article")
-            .addOnCompleteListener { }
+        // notifications disabled
+//        FirebaseMessaging.getInstance().subscribeToTopic("new_article")
+//            .addOnCompleteListener { }
 
 //        FirebaseMessaging.getInstance().subscribeToTopic("new_article_draft")
 //            .addOnCompleteListener { }
@@ -172,12 +173,6 @@ class MainActivity : BaseActivity<MainActivityMvp.Presenter>(),
                 this,
                 menuItem.toString(),
                 getString(R.string.menu_science_tag)
-            )
-
-            R.id.nav_lifestyle -> SectionActivity.start(
-                this,
-                menuItem.toString(),
-                getString(R.string.menu_lifestyle_tag)
             )
             R.id.nav_entertainment -> SectionActivity.start(
                 this,

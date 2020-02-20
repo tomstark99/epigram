@@ -39,9 +39,6 @@
                     android:id="@+id/nav_science"
                     android:title="@string/menu_science"/>
             <item
-                    android:id="@+id/nav_lifestyle"
-                    android:title="@string/menu_lifestyle"/>
-            <item
                     android:id="@+id/nav_entertainment"
                     android:title="@string/menu_entertainment"/>
             <item

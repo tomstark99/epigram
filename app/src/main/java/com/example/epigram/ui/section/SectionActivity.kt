@@ -132,8 +132,6 @@ class SectionActivity : AppCompatActivity(), MyAdapterSection.LoadNextPage, Navi
             }
             R.id.nav_wellbeing -> {
             }
-            R.id.nav_lifestyle -> {
-            }
             R.id.nav_entertainment -> {
             }
             R.id.nav_sport -> {

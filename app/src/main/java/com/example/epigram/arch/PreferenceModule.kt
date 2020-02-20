@@ -6,7 +6,7 @@ import com.f2prateek.rx.preferences2.RxSharedPreferences
 object PreferenceModule {
 
     val isFirstUse by lazy {
-        rxSharedPrefs.getBoolean("is_first_use.bool", true)
+        rxSharedPrefs.getBoolean("is_first_use.bool", false)
     }
 
     val counter by lazy {
