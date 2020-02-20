@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.epigram.ui.adapters.AdapterSearch;
 import com.example.epigram.ui.article.ArticleActivity;
@@ -45,6 +46,7 @@ public class SearchActivity extends AppCompatActivity implements MyAdapterArticl
     private RecyclerView recyclerView;
 
     private EditText searchText = null;
+    private SwipeRefreshLayout ref = null;
 
     private int FIRST_INDEX = 1;
     private int nextPage = FIRST_INDEX;
@@ -84,6 +86,18 @@ public class SearchActivity extends AppCompatActivity implements MyAdapterArticl
                 }
             }
         });
+        ref = findViewById(R.id.swipe_refresh);
+        ref.setColorSchemeResources(R.color.colorAccent, R.color.colorAccentHint);
+        ref.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                if(searchText.getText().length() > 2) {
+                    allPostTitles(searchText.getText().toString());
+                } else {
+                    ref.setRefreshing(false);
+                }
+            }
+        });
 
         Observable<Object> searchButtonPress = RxView.clicks(findViewById(R.id.search_button_in_search_activity)).doOnNext(new Consumer<Object>() {
             @Override
@@ -119,6 +133,7 @@ public class SearchActivity extends AppCompatActivity implements MyAdapterArticl
                 if(charSequence.length() == 0){
                     findViewById(R.id.search_no_result).setVisibility(View.GONE);
                     findViewById(R.id.search_progress).setVisibility(View.GONE);
+                    findViewById(R.id.search_something_wrong).setVisibility(View.GONE);
                     adapterArticles.clear();
                     findViewById(R.id.search_placeholder).setVisibility(View.VISIBLE);
                 }
@@ -129,6 +144,7 @@ public class SearchActivity extends AppCompatActivity implements MyAdapterArticl
             public void accept(String charSequence) throws Exception {
                 findViewById(R.id.search_no_result).setVisibility(View.GONE);
                 findViewById(R.id.search_placeholder).setVisibility(View.GONE);
+                findViewById(R.id.search_something_wrong).setVisibility(View.GONE);
                 if(adapterArticles.posts.isEmpty()) {
                     findViewById(R.id.search_progress).setVisibility(View.VISIBLE);
                 }
@@ -140,6 +156,7 @@ public class SearchActivity extends AppCompatActivity implements MyAdapterArticl
 
 
     public void allPostTitles(String searchQuery){
+        findViewById(R.id.search_something_wrong).setVisibility(View.GONE);
         retry++;
         if(!searchQuery.equals(latestSearch)){
 
@@ -153,6 +170,7 @@ public class SearchActivity extends AppCompatActivity implements MyAdapterArticl
                 .subscribe( triple -> {
                             if(!triple.getSecond().equals(latestSearch)) return;
                             loaded = true;
+                            ref.setRefreshing(false);
                             if(triple.getThird().size() == 0) {
                                 if(retry <= 10) {
                                     allPostTitles(searchQuery);
@@ -177,7 +195,11 @@ public class SearchActivity extends AppCompatActivity implements MyAdapterArticl
                             }
                             nextPage++;
                         }
-                        ,e-> Log.e("e", "e", e));
+                        ,e-> {
+                                findViewById(R.id.search_something_wrong).setVisibility(View.VISIBLE);
+                                findViewById(R.id.search_progress).setVisibility(View.GONE);
+                                Log.e("e", "e", e);
+                });
     }
 
 

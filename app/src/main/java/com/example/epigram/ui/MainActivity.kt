@@ -120,6 +120,11 @@ class MainActivity : BaseActivity<MainActivityMvp.Presenter>(),
         when (menuItem.itemId) {
             //case R.id.nav_home :
             //    break;
+            R.id.nav_most_read -> SectionActivity.start(
+                this,
+                menuItem.toString(),
+                getString(R.string.menu_most_read_tag)
+            )
             R.id.nav_news -> SectionActivity.start(
                 this,
                 menuItem.toString(),
@@ -140,6 +145,26 @@ class MainActivity : BaseActivity<MainActivityMvp.Presenter>(),
                 menuItem.toString(),
                 getString(R.string.menu_the_croft_tag)
             )
+            R.id.nav_wellbeing -> SectionActivity.start(
+                this,
+                menuItem.toString(),
+                getString(R.string.menu_wellbeing_tag)
+            )
+            R.id.nav_food -> SectionActivity.start(
+                this,
+                menuItem.toString(),
+                getString(R.string.menu_food_tag)
+            )
+            R.id.nav_travel -> SectionActivity.start(
+                this,
+                menuItem.toString(),
+                getString(R.string.menu_travel_tag)
+            )
+            R.id.nav_style -> SectionActivity.start(
+                this,
+                menuItem.toString(),
+                getString(R.string.menu_style_tag)
+            )
             //            case R.id.nav_opinion:
             //                SectionActivity.Companion.start(this, menuItem.toString(), getString(R.string.menu_opinion_tag));
             //                break;
@@ -148,11 +173,7 @@ class MainActivity : BaseActivity<MainActivityMvp.Presenter>(),
                 menuItem.toString(),
                 getString(R.string.menu_science_tag)
             )
-            R.id.nav_wellbeing -> SectionActivity.start(
-                this,
-                menuItem.toString(),
-                getString(R.string.menu_wellbeing_tag)
-            )
+
             R.id.nav_lifestyle -> SectionActivity.start(
                 this,
                 menuItem.toString(),
@@ -162,6 +183,21 @@ class MainActivity : BaseActivity<MainActivityMvp.Presenter>(),
                 this,
                 menuItem.toString(),
                 getString(R.string.menu_entertainment_tag)
+            )
+            R.id.nav_film_tv -> SectionActivity.start(
+                this,
+                menuItem.toString(),
+                getString(R.string.menu_film_tv_tag)
+            )
+            R.id.nav_arts -> SectionActivity.start(
+                this,
+                menuItem.toString(),
+                getString(R.string.menu_arts_tag)
+            )
+            R.id.nav_music -> SectionActivity.start(
+                this,
+                menuItem.toString(),
+                getString(R.string.menu_music_tag)
             )
             R.id.nav_sport -> SectionActivity.start(
                 this,

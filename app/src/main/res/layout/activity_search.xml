@@ -118,8 +118,13 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:theme="@style/search_progress"/>
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/swipe_refresh"
+            android:elevation="1dp">
 
-        <androidx.recyclerview.widget.RecyclerView
+            <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_view_search"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -127,16 +132,17 @@
                 android:paddingBottom="@dimen/large_padding"
                 android:clipToPadding="false"
                 android:scrollbars="vertical"
-                android:verticalScrollbarPosition="right">
+                android:verticalScrollbarPosition="right"/>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-        </androidx.recyclerview.widget.RecyclerView>
         <LinearLayout
                 android:id="@+id/search_placeholder"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_marginTop="80dp"
-                android:visibility="visible">
+                android:visibility="visible"
+                android:elevation="0dp">
             <ImageView
                     android:id="@+id/search_image"
                     android:layout_width="match_parent"
@@ -146,7 +152,7 @@
                     android:id="@+id/search_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Search epigram"
+                    android:text="Search Epigram"
                     android:gravity="center"
                     android:textStyle="bold"
                     android:fontFamily="sans-serif-condensed-medium"
@@ -178,6 +184,31 @@
                     android:textSize="30dp"
                     android:textColor="@color/black"
                     android:layout_marginBottom="@dimen/element_padding"/>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/search_something_wrong"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="80dp"
+            android:visibility="gone">
+            <ImageView
+                android:id="@+id/tab_image_something_wrong"
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:src="@drawable/ic_cloud_off_black_24dp"/>
+
+            <TextView
+                android:id="@+id/tab_text_something_wrong"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Something went wrong"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:fontFamily="sans-serif-condensed-medium"
+                android:textSize="30dp"
+                android:textColor="@color/black"
+                android:layout_marginBottom="@dimen/element_padding"/>
         </LinearLayout>
     </FrameLayout>
 

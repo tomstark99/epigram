@@ -24,5 +24,4 @@
             app:headerLayout="@layout/nav_header_main"
             app:itemHorizontalPadding="@dimen/large_padding"
             app:menu="@menu/activity_main_drawer"/>
-
 </androidx.drawerlayout.widget.DrawerLayout>

@@ -34,15 +34,22 @@
     <string name="tab_3">FEATURES SECTION</string>
     <string name="tab_4">COMMENT SECTION</string>
 
+    <string name="menu_most_read">MOST READ</string>
     <string name="menu_news">NEWS</string>
     <string name="menu_features">FEATURES</string>
     <string name="menu_comment">COMMENT</string>
     <string name="menu_the_croft">THE CROFT</string>
+    <string name="menu_wellbeing">WELLBEING</string>
+    <string name="menu_food">FOOD</string>
+    <string name="menu_travel">TRAVEL</string>
+    <string name="menu_style">STYLE</string>
     <string name="menu_opinion">OPINION</string>
     <string name="menu_science">SCIENCE</string>
-    <string name="menu_wellbeing">WELLBEING</string>
     <string name="menu_lifestyle">LIFESTYLE</string>
     <string name="menu_entertainment">ENTERTAINMENT</string>
+    <string name="menu_film_tv">FILM &amp; TV</string>
+    <string name="menu_arts">ARTS</string>
+    <string name="menu_music">MUSIC</string>
     <string name="menu_sport">SPORT</string>
     <string name="menu_intramural">INTRAMURAL</string>
     <string name="menu_puzzles">PUZZLES</string>
@@ -50,15 +57,22 @@
     <string name="menu_about">ABOUT</string>
     <string name="menu_home">HOME</string>
 
+    <string name="menu_most_read_tag">weeklytop</string>
     <string name="menu_news_tag">news</string>
     <string name="menu_features_tag">features</string>
     <string name="menu_comment_tag">comment</string>
     <string name="menu_the_croft_tag">the-croft</string>
+    <string name="menu_wellbeing_tag">wellbeing</string>
+    <string name="menu_food_tag">food</string>
+    <string name="menu_travel_tag">travel</string>
+    <string name="menu_style_tag">style</string>
     <string name="menu_opinion_tag">opinion</string>
     <string name="menu_science_tag">science</string>
-    <string name="menu_wellbeing_tag">wellbeing</string>
     <string name="menu_lifestyle_tag">lifestyle</string>
     <string name="menu_entertainment_tag">entertainment</string>
+    <string name="menu_film_tv_tag">film-tv</string>
+    <string name="menu_arts_tag">arts</string>
+    <string name="menu_music_tag">music</string>
     <string name="menu_sport_tag">sport</string>
     <string name="menu_intramural_tag">intramural</string>
     <string name="menu_puzzles_tag">puzzles</string>
@@ -88,6 +102,7 @@
     <string name="welcome_text">
         As a thank you for installing our android app we would like to offer you a... for a limited time only
     </string>
+    <string name="welcome_left">{0,choice,0#Final chance to claim|1#This screen will show {0} more time|1&lt;This screen will show {0} more times}</string>
     <string name="welcome_terms">
         Terms and conditions apply, visit www.dominoes.co.uk for more information
     </string>

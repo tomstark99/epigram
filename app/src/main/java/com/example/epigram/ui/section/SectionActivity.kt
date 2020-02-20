@@ -25,6 +25,7 @@ import com.example.epigram.ui.search.SearchActivity
 import com.google.android.material.navigation.NavigationView
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.app_bar_section.*
 
 class SectionActivity : AppCompatActivity(), MyAdapterSection.LoadNextPage, NavigationView.OnNavigationItemSelectedListener {
 
@@ -71,6 +72,17 @@ class SectionActivity : AppCompatActivity(), MyAdapterSection.LoadNextPage, Navi
             }
         }
 
+        swipe_refresh.setColorSchemeResources(R.color.colorAccent, R.color.colorAccentHint)
+        swipe_refresh.setOnRefreshListener {
+            if (adapter2 == null && recyclerView!!.adapter !is MyAdapterPlaceholder) {
+                // app crashes if there is no adapter e.g. if there is no internet connection
+            } else {
+                nextPage = FIRST_INDEX
+                //if (adapter2 != null) adapter2.clear();
+                loadPage(tag)
+            }
+        }
+
         title.setOnClickListener { recyclerView!!.smoothScrollToPosition(0) }
 
         findViewById<View>(R.id.section_back).setOnClickListener{ finish() }
@@ -82,11 +94,13 @@ class SectionActivity : AppCompatActivity(), MyAdapterSection.LoadNextPage, Navi
     }
 
     fun loadPage(tag: String) {
+        section_something_wrong.visibility = View.GONE
         pManager.getPosts(nextPage, tag)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ posts ->
                 loaded = true
+                swipe_refresh.isRefreshing = false
                 nextPage++
                 if(adapter2 == null){
                     adapter2 =
@@ -96,7 +110,10 @@ class SectionActivity : AppCompatActivity(), MyAdapterSection.LoadNextPage, Navi
                 else{
                     adapter2!!.addPosts(posts)
                 }
-            }, { e -> Log.e("error", "soemthing went wrong loading section posts", e)})
+            }, { e ->
+                (recyclerView!!.getAdapter() as MyAdapterPlaceholder).clear()
+                section_something_wrong.visibility = View.VISIBLE
+                Log.e("error", "soemthing went wrong loading section posts", e)})
     }
 
     override fun onNavigationItemSelected(menuItem: MenuItem): Boolean {

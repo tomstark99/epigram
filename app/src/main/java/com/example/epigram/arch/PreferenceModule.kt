@@ -9,6 +9,10 @@ object PreferenceModule {
         rxSharedPrefs.getBoolean("is_first_use.bool", true)
     }
 
+    val counter by lazy {
+        rxSharedPrefs.getInteger("five_counter.int", 3)
+    }
+
     private val sharedPrefs by lazy {
         PreferenceManager.getDefaultSharedPreferences(AppModule.application)
     }
