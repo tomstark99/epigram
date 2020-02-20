@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "460813948682-elg11ag8toi7mbvpui64a7vkbngo1gt6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.epigram",
+            "certificate_hash": "65b92432b9758cfba0f3ad471f7a060808259c1d"
+          }
+        },
+        {
           "client_id": "460813948682-15jk6hkss4u589bnmjv0jh8j880p55j7.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

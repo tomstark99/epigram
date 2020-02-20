@@ -5,4 +5,10 @@
         <item quantity="one">%d RESULT FOUND</item>
         <item quantity="other">%d RESULTS FOUND</item>
     </plurals>
+
+    <plurals name="welcome_left">
+        <item quantity="zero">Final chance to claim</item>
+        <item quantity="one">This screen will show %d more time</item>
+        <item quantity="other">This screen will show %d more times</item>
+    </plurals>
 </resources>

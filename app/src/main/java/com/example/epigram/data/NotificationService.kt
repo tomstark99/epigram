@@ -15,8 +15,8 @@ import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
-import com.example.epigram.ArticleActivity
-import com.example.epigram.MainActivity
+import com.example.epigram.ui.article.ArticleActivity
+import com.example.epigram.ui.MainActivity
 import com.example.epigram.R
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
@@ -60,12 +60,12 @@ class NotificationService : FirebaseMessagingService() {
                     }
                 }, { e -> Log.e("error", "There was a problem loading notification post", e)})
         }
-//        else if(!p0.data.get("titleNew").isNullOrEmpty()){
-//            createNotificationUpdate(p0)
-//        }
-//        else {
-//            createNotificationDraft(p0)
-//        }
+        else if(!p0.data.get("titleNew").isNullOrEmpty()){
+            createNotificationUpdate(p0)
+        }
+        else {
+            createNotificationDraft(p0)
+        }
     }
 
 

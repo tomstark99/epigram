@@ -84,7 +84,7 @@
                 android:layout_height="wrap_content"
                 android:padding="6dp"
                 tools:text="June 10, 2019"
-                android:textSize="10dp"
+                android:textSize="11dp"
                 android:fontFamily="sans-serif-condensed-medium"/>
     </LinearLayout>
 

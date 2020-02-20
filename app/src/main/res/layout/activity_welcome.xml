@@ -5,7 +5,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".WelcomeActivity">
+        tools:context=".ui.WelcomeActivity">
         <LinearLayout
                 android:layout_width="match_parent" android:layout_height="60dp"
         android:elevation="10dp">
@@ -87,5 +87,13 @@
 
 
     </androidx.core.widget.NestedScrollView>
-
+    <TextView
+        android:id="@+id/welcome_left"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="10dp"
+        tools:text="This screen will appear 3 more times"
+        android:padding="@dimen/small_padding"
+        android:textAlignment="center"
+        android:layout_gravity="bottom"/>
 </FrameLayout>

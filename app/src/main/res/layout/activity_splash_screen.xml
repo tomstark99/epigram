@@ -9,7 +9,7 @@
         android:alpha="1"
         android:padding="32dp"
         android:background="@color/colorPrimary"
-        tools:context=".SplashActivity">
+        tools:context=".ui.SplashActivity">
 
 
 
