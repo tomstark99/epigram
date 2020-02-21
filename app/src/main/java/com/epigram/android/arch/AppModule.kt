@@ -1,4 +1,4 @@
-package com.example.epigram.arch
+package com.epigram.android.arch
 
 import android.app.Application
 

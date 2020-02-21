@@ -1,4 +1,4 @@
-package com.example.epigram.arch.utils
+package com.epigram.android.arch.utils
 
 class ListUtils{
 

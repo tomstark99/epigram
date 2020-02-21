@@ -1,6 +1,6 @@
-package com.example.epigram.ui.search
+package com.epigram.android.ui.search
 
-import com.example.epigram.arch.android.BaseMvp
+import com.epigram.android.arch.android.BaseMvp
 
 interface SearchMvp : BaseMvp {
     interface View : BaseMvp.View {

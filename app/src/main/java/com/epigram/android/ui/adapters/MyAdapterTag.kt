@@ -1,11 +1,11 @@
-package com.example.epigram.ui.adapters
+package com.epigram.android.ui.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.epigram.R
+import com.epigram.android.R
 import io.reactivex.disposables.Disposable
 
 import java.util.ArrayList

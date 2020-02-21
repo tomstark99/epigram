@@ -1,4 +1,4 @@
-package com.example.epigram.ui.main
+package com.epigram.android.ui.main
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,9 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
-import com.example.epigram.ui.adapters.AdapterArticles
-import com.example.epigram.ui.article.ArticleActivity
-import com.example.epigram.data.Post
+import com.epigram.android.ui.adapters.AdapterArticles
+import com.epigram.android.ui.article.ArticleActivity
+import com.epigram.android.data.Post
 
 class TabFragment : Fragment() , AdapterArticles.LoadNextPage{
 

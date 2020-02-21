@@ -1,4 +1,4 @@
-package com.example.epigram.ui.main;
+package com.epigram.android.ui.main;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -16,13 +16,14 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-import com.example.epigram.*;
-import com.example.epigram.data.Layout;
-import com.example.epigram.data.Post;
-import com.example.epigram.data.PostManager;
-import com.example.epigram.ui.adapters.AdapterArticles;
-import com.example.epigram.ui.adapters.MyAdapterPlaceholder;
-import com.example.epigram.ui.article.ArticleActivity;
+
+import com.epigram.android.data.Layout;
+import com.epigram.android.data.Post;
+import com.epigram.android.data.PostManager;
+import com.epigram.android.ui.adapters.AdapterArticles;
+import com.epigram.android.ui.adapters.MyAdapterPlaceholder;
+import com.epigram.android.ui.article.ArticleActivity;
+import com.epigram.android.R;
 
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;

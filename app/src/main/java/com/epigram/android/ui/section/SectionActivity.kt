@@ -1,4 +1,4 @@
-package com.example.epigram.ui.section
+package com.epigram.android.ui.section
 
 import android.app.Activity
 import android.content.Intent
@@ -14,14 +14,14 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.RecyclerView
-import com.example.epigram.ui.article.ArticleActivity
-import com.example.epigram.ui.adapters.MyAdapterPlaceholder
-import com.example.epigram.ui.adapters.MyAdapterSection
-import com.example.epigram.R
-import com.example.epigram.data.Layout
-import com.example.epigram.data.Post
-import com.example.epigram.data.PostManager
-import com.example.epigram.ui.search.SearchActivity
+import com.epigram.android.ui.article.ArticleActivity
+import com.epigram.android.ui.adapters.MyAdapterPlaceholder
+import com.epigram.android.ui.adapters.MyAdapterSection
+import com.epigram.android.R
+import com.epigram.android.data.Layout
+import com.epigram.android.data.Post
+import com.epigram.android.data.PostManager
+import com.epigram.android.ui.search.SearchActivity
 import com.google.android.material.navigation.NavigationView
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers

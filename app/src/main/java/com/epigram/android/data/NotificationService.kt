@@ -1,4 +1,4 @@
-package com.example.epigram.data
+package com.epigram.android.data
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -15,9 +15,9 @@ import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
-import com.example.epigram.ui.article.ArticleActivity
-import com.example.epigram.ui.MainActivity
-import com.example.epigram.R
+import com.epigram.android.ui.article.ArticleActivity
+import com.epigram.android.ui.MainActivity
+import com.epigram.android.R
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import io.reactivex.android.schedulers.AndroidSchedulers

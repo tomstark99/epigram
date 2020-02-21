@@ -1,4 +1,4 @@
-package com.example.epigram.arch.android
+package com.epigram.android.arch.android
 
 import io.reactivex.disposables.CompositeDisposable
 

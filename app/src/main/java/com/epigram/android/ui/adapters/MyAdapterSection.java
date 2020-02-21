@@ -1,4 +1,4 @@
-package com.example.epigram.ui.adapters;
+package com.epigram.android.ui.adapters;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -23,8 +23,8 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
-import com.example.epigram.R;
-import com.example.epigram.data.Post;
+import com.epigram.android.R;
+import com.epigram.android.data.Post;
 import com.jakewharton.rxbinding2.view.RxView;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;

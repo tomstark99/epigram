@@ -1,4 +1,4 @@
-package com.example.epigram.data;
+package com.epigram.android.data;
 
 import android.content.Context;
 import android.util.DisplayMetrics;

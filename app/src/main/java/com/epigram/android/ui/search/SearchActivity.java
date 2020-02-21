@@ -1,4 +1,4 @@
-package com.example.epigram.ui.search;
+package com.epigram.android.ui.search;
 
 import android.content.Context;
 import android.content.Intent;
@@ -14,14 +14,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.example.epigram.ui.adapters.AdapterSearch;
-import com.example.epigram.ui.article.ArticleActivity;
-import com.example.epigram.ui.adapters.MyAdapterArticles;
-import com.example.epigram.R;
-import com.example.epigram.arch.utils.Utils;
-import com.example.epigram.data.Layout;
-import com.example.epigram.data.Post;
-import com.example.epigram.data.PostManager;
+import com.epigram.android.ui.article.ArticleActivity;
+import com.epigram.android.ui.adapters.MyAdapterArticles;
+import com.epigram.android.R;
+import com.epigram.android.arch.utils.Utils;
+import com.epigram.android.data.Layout;
+import com.epigram.android.data.Post;
+import com.epigram.android.data.PostManager;
 import com.jakewharton.rxbinding2.view.RxView;
 import com.jakewharton.rxbinding2.widget.RxTextView;
 import io.reactivex.Observable;
@@ -36,7 +35,7 @@ import kotlin.Triple;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
-import static com.example.epigram.ui.adapters.MyAdapterArticles.SEARCH_PAGE_INDEX;
+import static com.epigram.android.ui.adapters.MyAdapterArticles.SEARCH_PAGE_INDEX;
 
 public class SearchActivity extends AppCompatActivity implements MyAdapterArticles.LoadNextPage {
 

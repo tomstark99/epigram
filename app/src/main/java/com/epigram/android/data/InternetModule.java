@@ -1,6 +1,6 @@
-package com.example.epigram.data;
+package com.epigram.android.data;
 
-import com.example.epigram.BuildConfig;
+import com.epigram.android.BuildConfig;
 
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.OkHttpClient;

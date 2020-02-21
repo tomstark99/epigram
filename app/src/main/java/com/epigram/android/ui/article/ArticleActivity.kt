@@ -1,4 +1,4 @@
-package com.example.epigram.ui.article
+package com.epigram.android.ui.article
 
 import android.app.*
 import android.content.Context
@@ -24,10 +24,10 @@ import com.bumptech.glide.load.MultiTransformation
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
-import com.example.epigram.ui.adapters.MyAdapterTag
-import com.example.epigram.R
-import com.example.epigram.data.NotificationService
-import com.example.epigram.data.Post
+import com.epigram.android.ui.adapters.MyAdapterTag
+import com.epigram.android.R
+import com.epigram.android.data.NotificationService
+import com.epigram.android.data.Post
 import com.google.firebase.messaging.FirebaseMessagingService
 import kotlinx.android.synthetic.main.activity_article_view.*
 import org.sufficientlysecure.htmltextview.HtmlHttpImageGetter

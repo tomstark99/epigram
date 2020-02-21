@@ -1,4 +1,4 @@
-package com.example.epigram.data
+package com.epigram.android.data
 
 import org.joda.time.DateTime
 import java.io.Serializable

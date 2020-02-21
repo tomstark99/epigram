@@ -1,4 +1,4 @@
-package com.example.epigram.ui.main;
+package com.epigram.android.ui.main;
 
 import android.content.Context;
 
@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import com.example.epigram.R;
+import com.epigram.android.R;
 
 import java.util.HashMap;
 import java.util.Map;

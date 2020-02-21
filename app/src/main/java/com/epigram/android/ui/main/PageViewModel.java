@@ -1,4 +1,4 @@
-package com.example.epigram.ui.main;
+package com.epigram.android.ui.main;
 
 import androidx.arch.core.util.Function;
 import androidx.lifecycle.LiveData;

@@ -1,14 +1,13 @@
-package com.example.epigram.ui.about
+package com.epigram.android.ui.about
 
 import android.graphics.Typeface
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.epigram.BuildConfig
-import com.example.epigram.R
+import com.epigram.android.BuildConfig
+import com.epigram.android.R
 import kotlinx.android.synthetic.main.activity_about.*
 import kotlinx.android.synthetic.main.activity_about.build
-import kotlinx.android.synthetic.main.activity_settings.*
 
 class AboutActivity : AppCompatActivity() {
 
