@@ -1,0 +1,56 @@
+{
+  "project_info": {
+    "project_number": "460813948682",
+    "firebase_url": "https://epigramapp-9fbf8.firebaseio.com",
+    "project_id": "epigramapp-9fbf8",
+    "storage_bucket": "epigramapp-9fbf8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:460813948682:android:bd9ba70c29b93740",
+        "android_client_info": {
+          "package_name": "com.example.epigram"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "460813948682-elg11ag8toi7mbvpui64a7vkbngo1gt6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.epigram",
+            "certificate_hash": "65b92432b9758cfba0f3ad471f7a060808259c1d"
+          }
+        },
+        {
+          "client_id": "460813948682-15jk6hkss4u589bnmjv0jh8j880p55j7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.epigram",
+            "certificate_hash": "6806dbbed777a91df1417645ab57ff04ab371ee0"
+          }
+        },
+        {
+          "client_id": "460813948682-9stus12bnu2uin8teivf6rb2apbeqt3a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBQ-z2dJmYGGny9qj0nVccp-JaPMnmTbh8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "460813948682-9stus12bnu2uin8teivf6rb2apbeqt3a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
