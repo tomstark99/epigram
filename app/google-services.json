@@ -8,6 +8,35 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:460813948682:android:25296d233eb5d0d89b8cf3",
+        "android_client_info": {
+          "package_name": "com.epigram.android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "460813948682-9stus12bnu2uin8teivf6rb2apbeqt3a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBQ-z2dJmYGGny9qj0nVccp-JaPMnmTbh8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "460813948682-9stus12bnu2uin8teivf6rb2apbeqt3a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:460813948682:android:bd9ba70c29b93740",
         "android_client_info": {
           "package_name": "com.example.epigram"
