@@ -49,7 +49,7 @@ class MyAdapterTag(tags: List<String>) :
 
     init {
         this.tags = tags.toMutableList()
-        this.tags.removeAll(Arrays.asList("featured top", "carousel", "one sidebar", "weeklytop"))
+        this.tags.removeAll(Arrays.asList("featured top", "carousel", "one sidebar", "weeklytop", "no sidebar"))
     }
 
 
