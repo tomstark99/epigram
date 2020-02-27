@@ -18,7 +18,8 @@
         </LinearLayout>
     <androidx.core.widget.NestedScrollView android:layout_width="match_parent"
                                            android:layout_height="match_parent"
-                                           android:elevation="0dp">
+                                           android:elevation="0dp"
+                                            android:paddingBottom="@dimen/medium_padding">
         <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                       android:padding="@dimen/element_padding"
                       android:orientation="vertical"
@@ -85,6 +86,23 @@
                 android:fontFamily="sans-serif-condensed-light"
                 android:textSize="16dp"
                 android:text="@string/welcome_text_2"/>
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/cropped_icon"/>
+
+            <TextView
+                android:id="@+id/welcome_terms"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="10dp"
+                android:text="@string/welcome_terms"
+                android:padding="@dimen/small_padding"
+                android:gravity="bottom"
+                android:layout_gravity="bottom"
+                android:textAlignment="center"/>
         </LinearLayout>
 
 
@@ -94,14 +112,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:orientation="vertical">
-        <TextView
-            android:id="@+id/welcome_terms"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="10dp"
-            android:text="@string/welcome_terms"
-            android:padding="@dimen/small_padding"
-            android:textAlignment="center"/>
         <TextView
             android:id="@+id/welcome_left"
             android:layout_width="match_parent"
