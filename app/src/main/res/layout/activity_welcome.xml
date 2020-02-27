@@ -52,7 +52,7 @@
                     android:gravity="center"
                     android:orientation="vertical"
                     android:paddingTop="30dp"
-                    android:paddingBottom="@dimen/element_padding">
+                    android:paddingBottom="@dimen/large_padding">
                 <TextView
                         android:text="Thank you for installing Epigram"
                         android:layout_width="wrap_content"
@@ -69,12 +69,14 @@
                         android:textSize="16dp"
                       android:text="@string/welcome_text"/>
             <TextView
-                android:text="ABC - 123"
-                android:layout_width="wrap_content"
+                android:text="epigramburgerjoint20"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/element_padding"
+                android:layout_marginBottom="@dimen/element_padding"
                 android:textColor="@color/black"
                 android:gravity="center"
-                android:padding="@dimen/medium_padding"
+                android:padding="@dimen/small_padding"
                 android:fontFamily="sans-serif-condensed-medium"
                 android:textStyle="bold"
                 android:visibility="visible"
@@ -82,18 +84,31 @@
             <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-condensed-light"
                 android:textSize="16dp"
-                android:text="@string/welcome_terms"/>
+                android:text="@string/welcome_text_2"/>
         </LinearLayout>
 
 
     </androidx.core.widget.NestedScrollView>
-    <TextView
-        android:id="@+id/welcome_left"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="10dp"
-        tools:text="This screen will appear 3 more times"
-        android:padding="@dimen/small_padding"
-        android:textAlignment="center"
-        android:layout_gravity="bottom"/>
+        android:layout_gravity="bottom"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/welcome_terms"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="10dp"
+            android:text="@string/welcome_terms"
+            android:padding="@dimen/small_padding"
+            android:textAlignment="center"/>
+        <TextView
+            android:id="@+id/welcome_left"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="10dp"
+            tools:text="This screen will appear 3 more times"
+            android:padding="@dimen/small_padding"
+            android:textAlignment="center"/>
+    </LinearLayout>
 </FrameLayout>

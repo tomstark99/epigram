@@ -3,6 +3,7 @@ package com.epigram.android.ui
 import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.widget.ImageView
 import android.widget.TextView
@@ -14,17 +15,19 @@ import com.epigram.android.R
 import com.epigram.android.arch.android.BaseActivity
 import com.epigram.android.ui.about.AboutActivity
 import com.epigram.android.ui.main.SectionsPagerAdapter
+import com.epigram.android.ui.promo.PromoActivity
 import com.epigram.android.ui.search.SearchActivity
 import com.epigram.android.ui.section.SectionActivity
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.tabs.TabLayout
+import org.joda.time.DateTime
 
 class MainActivity : BaseActivity<MainActivityMvp.Presenter>(),
     NavigationView.OnNavigationItemSelectedListener, MainActivityMvp.View {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        if(DateTime("2020-03-16T00:00:00.000").isAfterNow) setContentView(R.layout.activity_main_p) else setContentView(R.layout.activity_main)
         presenter = MainActivityPresenter(this)
         presenter.onCreate()
         val sectionsPagerAdapter = SectionsPagerAdapter(this, supportFragmentManager)
@@ -94,7 +97,7 @@ class MainActivity : BaseActivity<MainActivityMvp.Presenter>(),
     }
 
     override fun load(showWelcome: Boolean) {
-        if (showWelcome) {
+        if (showWelcome && DateTime("2020-03-16T00:00:00.000").isAfterNow) {
             WelcomeActivity.start(this)
         }
     }
@@ -206,7 +209,7 @@ class MainActivity : BaseActivity<MainActivityMvp.Presenter>(),
                 menuItem.toString(),
                 getString(R.string.menu_puzzles_tag)
             )
-            //R.id.nav_settings -> startActivity(Intent(this, SettingsActivity::class.java))
+            R.id.nav_promo -> startActivity(Intent(this, PromoActivity::class.java))
             R.id.nav_about -> startActivity(Intent(this, AboutActivity::class.java))
             else ->
 
