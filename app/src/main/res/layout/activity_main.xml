@@ -21,6 +21,7 @@
             android:layout_gravity="start"
             android:clipToPadding="false"
             android:fitsSystemWindows="true"
+            app:itemTextColor="@color/black"
             app:headerLayout="@layout/nav_header_main"
             app:itemHorizontalPadding="@dimen/large_padding"
             app:menu="@menu/activity_main_drawer"/>

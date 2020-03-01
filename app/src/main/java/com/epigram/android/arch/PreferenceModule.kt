@@ -13,6 +13,10 @@ object PreferenceModule {
         rxSharedPrefs.getInteger("five_counter.int", 3)
     }
 
+    val darkMode by lazy {
+        rxSharedPrefs.getBoolean("dark_mode.bool", false)
+    }
+
     private val sharedPrefs by lazy {
         PreferenceManager.getDefaultSharedPreferences(AppModule.application)
     }
