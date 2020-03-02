@@ -10,6 +10,9 @@
     <color name="colorAccentHint">#88c2262f</color>
     <color name="placeholder_background">#e6e6e6</color>
     <color name="placeholderProgress">#d6d6d6</color>
+    <color name="button_tint">#80000000</color>
+
+    <color name="progress_background">#fff</color>
 
     <color name="nearly_black">#262626</color>
     <color name="dark_grey">#2d2d2d</color>

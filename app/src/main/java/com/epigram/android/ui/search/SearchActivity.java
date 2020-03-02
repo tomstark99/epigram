@@ -87,6 +87,7 @@ public class SearchActivity extends AppCompatActivity implements MyAdapterArticl
         });
         ref = findViewById(R.id.swipe_refresh);
         ref.setColorSchemeResources(R.color.colorAccent, R.color.colorAccentHint);
+        ref.setProgressBackgroundColorSchemeResource(R.color.progress_background);
         ref.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {

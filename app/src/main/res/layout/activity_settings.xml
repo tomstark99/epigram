@@ -74,37 +74,111 @@
                 style="@style/SelectableItemBackground"/>
     </LinearLayout>
 
-    <androidx.cardview.widget.CardView android:layout_width="match_parent"
-                                       android:layout_height="70dp"
-    style="@style/SettingsCard">
-        <LinearLayout android:id="@+id/settings_dark_card"
-                android:layout_width="match_parent" android:layout_height="match_parent"
-                        style="@style/SelectableItemBackground">
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                      android:layout_gravity="center_vertical"
-                      android:padding="@dimen/medium_padding"
-                      android:textColor="@color/black"
-                      android:textSize="16dp"
-                      android:fontFamily="sans-serif-condensed-medium"
-                      android:text="Dark mode (BETA)"
-            android:layout_weight="1"/>
-            <CheckBox
-                    android:id="@+id/dark_mode_tick"
-                    android:paddingEnd="@dimen/medium_padding"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"/>
-        </LinearLayout>
+<!--    <androidx.cardview.widget.CardView android:layout_width="match_parent"-->
+<!--                                       android:layout_height="70dp"-->
+<!--    style="@style/SettingsCard">-->
+<!--        <LinearLayout android:id="@+id/settings_dark_card"-->
+<!--                android:layout_width="match_parent" android:layout_height="match_parent"-->
+<!--                        style="@style/SelectableItemBackground">-->
+<!--            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"-->
+<!--                      android:layout_gravity="center_vertical"-->
+<!--                      android:padding="@dimen/medium_padding"-->
+<!--                      android:textColor="@color/black"-->
+<!--                      android:textSize="16dp"-->
+<!--                      android:fontFamily="sans-serif-condensed-medium"-->
+<!--                      android:text="Dark mode (BETA)"-->
+<!--            android:layout_weight="1"/>-->
+<!--            <CheckBox-->
+<!--                    android:id="@+id/dark_mode_tick"-->
+<!--                    android:paddingEnd="@dimen/medium_padding"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_gravity="center_vertical"/>-->
+<!--        </LinearLayout>-->
 
-    </androidx.cardview.widget.CardView>
+<!--    </androidx.cardview.widget.CardView>-->
 
-    <TextView
-        android:id="@+id/build"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal|bottom"
         android:paddingTop="@dimen/small_padding"
-        android:text="@string/build"
-        android:textSize="10dp"/>
-
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="@dimen/small_padding"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/tiny_padding"
+                android:paddingBottom="@dimen/tiny_padding"
+                android:paddingStart="@dimen/small_padding"
+                android:paddingEnd="@dimen/small_padding"
+                android:text="GENERAL"
+                android:letterSpacing="0.1"/>
+            <LinearLayout
+                android:id="@+id/theme_setting"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/medium_padding"
+                android:paddingEnd="@dimen/medium_padding"
+                android:paddingTop="@dimen/small_padding"
+                android:paddingBottom="@dimen/small_padding"
+                android:background="?android:selectableItemBackground"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Theme"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"/>
+                <TextView
+                    android:id="@+id/theme_request"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/button_tint"
+                    tools:text="Light"
+                    android:textSize="16sp"/>
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="@dimen/small_padding"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/tiny_padding"
+                android:paddingBottom="@dimen/tiny_padding"
+                android:paddingStart="@dimen/small_padding"
+                android:paddingEnd="@dimen/small_padding"
+                android:text="ADDITIONAL INFORMATION"
+                android:letterSpacing="0.1"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/medium_padding"
+                android:paddingEnd="@dimen/medium_padding"
+                android:paddingTop="@dimen/small_padding"
+                android:paddingBottom="@dimen/small_padding"
+                android:background="?android:selectableItemBackground"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Build"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"/>
+                <TextView
+                    android:id="@+id/build"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/button_tint"
+                    android:text="@string/build"
+                    android:textSize="16sp"/>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
 </LinearLayout>
