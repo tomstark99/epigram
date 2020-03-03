@@ -51,7 +51,7 @@
                 android:layout_weight="1"
                 android:text="@string/menu_settings_tag"
                 android:textSize="24dp"
-                android:textColor="@color/colorAccent"
+                android:textColor="@color/red_to_white"
                 android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"/>
 
         <!--<ImageView-->
@@ -130,7 +130,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Theme"
+                    android:text="Theme (beta)"
                     android:textColor="@color/black"
                     android:textSize="16sp"/>
                 <TextView

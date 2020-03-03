@@ -24,7 +24,7 @@
                       android:padding="@dimen/element_padding"
                       android:orientation="vertical">
             <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
-                          android:paddingTop="125dp"
+                          android:paddingTop="75dp"
                           android:layout_gravity="center_horizontal">
                 <ImageView
                         android:src="@drawable/layer_2"
