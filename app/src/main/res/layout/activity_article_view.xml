@@ -9,15 +9,17 @@
         android:layout_height="match_parent">
 
     <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appbar"
             android:layout_height="60dp"
             android:layout_width="match_parent"
+            app:elevation="0dp"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
         <LinearLayout
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:layout_scrollFlags="scroll|enterAlways"
+                app:layout_scrollFlags="scroll|enterAlways|snap"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
             <ImageView

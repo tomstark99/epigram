@@ -8,8 +8,12 @@
     <color name="colorPrimaryDark">#fafafa</color>
     <color name="colorAccent">#c2262f</color>
     <color name="colorAccentHint">#88c2262f</color>
-    <color name="placeholder_background">#e6e6e6</color>
-    <color name="placeholderProgress">#d6d6d6</color>
+<!--    <color name="placeholder_background">#e6e6e6</color>-->
+    <color name="placeholder_background">@color/placeholder_background_night</color>
+    <color name="placeholder_background_night">#339b9b9b</color>
+<!--    <color name="placeholderProgress">#d6d6d6</color>-->
+    <color name="placeholderProgress">#4D757575</color>
+
     <color name="button_tint">#80000000</color>
 
     <color name="progress_background">#fff</color>

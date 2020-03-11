@@ -101,7 +101,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="@dimen/small_padding"
+        android:paddingTop="@dimen/tiny_padding"
         android:orientation="vertical">
         <LinearLayout
             android:layout_width="match_parent"
@@ -116,15 +116,18 @@
                 android:paddingStart="@dimen/small_padding"
                 android:paddingEnd="@dimen/small_padding"
                 android:text="GENERAL"
-                android:letterSpacing="0.1"/>
+                android:textSize="13sp"
+                android:fontFamily="sans-serif-condensed-light"
+                android:textColor="@color/black"
+                android:letterSpacing="0.2"/>
             <LinearLayout
                 android:id="@+id/theme_setting"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingStart="@dimen/medium_padding"
                 android:paddingEnd="@dimen/medium_padding"
-                android:paddingTop="@dimen/small_padding"
-                android:paddingBottom="@dimen/small_padding"
+                android:paddingTop="@dimen/element_padding"
+                android:paddingBottom="@dimen/element_padding"
                 android:background="?android:selectableItemBackground"
                 android:orientation="vertical">
                 <TextView
@@ -132,7 +135,7 @@
                     android:layout_height="wrap_content"
                     android:text="Theme (beta)"
                     android:textColor="@color/black"
-                    android:textSize="16sp"/>
+                    android:textSize="18sp"/>
                 <TextView
                     android:id="@+id/theme_request"
                     android:layout_width="match_parent"
@@ -155,14 +158,18 @@
                 android:paddingStart="@dimen/small_padding"
                 android:paddingEnd="@dimen/small_padding"
                 android:text="ADDITIONAL INFORMATION"
-                android:letterSpacing="0.1"/>
+                android:textSize="13sp"
+                android:textColor="@color/black"
+                android:fontFamily="sans-serif-condensed-light"
+                android:letterSpacing="0.2"/>
             <LinearLayout
+                android:id="@+id/build_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingStart="@dimen/medium_padding"
                 android:paddingEnd="@dimen/medium_padding"
-                android:paddingTop="@dimen/small_padding"
-                android:paddingBottom="@dimen/small_padding"
+                android:paddingTop="@dimen/element_padding"
+                android:paddingBottom="@dimen/element_padding"
                 android:background="?android:selectableItemBackground"
                 android:orientation="vertical">
                 <TextView
@@ -170,7 +177,7 @@
                     android:layout_height="wrap_content"
                     android:text="Build"
                     android:textColor="@color/black"
-                    android:textSize="16sp"/>
+                    android:textSize="18sp"/>
                 <TextView
                     android:id="@+id/build"
                     android:layout_width="match_parent"

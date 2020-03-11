@@ -13,6 +13,9 @@ class SettingsPresenter (view : SettingsMvp.View, val themeId: Preference<Int> =
 
     override fun setTheme(i: Int) {
         themeId.set(i)
+    }
+
+    override fun reload() {
         view?.load()
     }
 }

@@ -17,13 +17,14 @@
             android:layout_marginTop="@dimen/medium_padding"
             android:layout_marginBottom="@dimen/tiny_padding"
             android:paddingHorizontal="@dimen/medium_padding"
-            android:text="Theme"
+            android:text="Select theme"
             android:textAppearance="@style/TextAppearance.Tasker.DialogTitle" />
         <RadioGroup
+            android:id="@+id/theme_group"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingStart="@dimen/medium_padding"
-            android:paddingEnd="@dimen/medium_padding">
+            android:paddingStart="@dimen/large_padding"
+            android:paddingEnd="@dimen/large_padding">
             <RadioButton
                 android:id="@+id/light"
                 android:background="?android:selectableItemBackgroundBorderless"
@@ -31,7 +32,7 @@
                 android:layout_height="wrap_content"
                 android:buttonTint="@color/button_tint"
                 android:textColor="@color/black"
-                android:textSize="16sp"
+                android:textSize="18sp"
                 android:text="Light"
                 android:padding="@dimen/tiny_padding"/>
             <RadioButton
@@ -41,22 +42,25 @@
                 android:layout_height="wrap_content"
                 android:buttonTint="@color/button_tint"
                 android:textColor="@color/black"
-                android:textSize="16sp"
+                android:textSize="18sp"
                 android:text="Dark"
                 android:padding="@dimen/tiny_padding"/>
-<!--            <RadioButton-->
-<!--                android:id="@+id/follow_device"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:textColor="@color/black"-->
-<!--                android:text="Follow device theme"-->
-<!--                android:padding="@dimen/tiny_padding"/>-->
+            <RadioButton
+                android:id="@+id/follow_device"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/button_tint"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:text="Follow device theme"
+                android:padding="@dimen/tiny_padding"/>
         </RadioGroup>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="end"
+            android:paddingBottom="@dimen/tiny_padding"
             android:orientation="horizontal">
 
             <com.google.android.material.button.MaterialButton

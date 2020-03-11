@@ -28,9 +28,6 @@
         <item name="android:fontFamily">sans-serif-condensed-medium</item>
     </style>
 
-    <style name="placeholder_progress">
-        <item name="colorAccent">@color/placeholderProgress</item>
-    </style>
     <style name="search_progress">
         <item name="colorAccent">@color/colorAccent</item>
     </style>

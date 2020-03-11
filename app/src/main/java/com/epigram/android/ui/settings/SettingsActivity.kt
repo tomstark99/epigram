@@ -1,6 +1,7 @@
 package com.epigram.android.ui.settings
 
 import android.app.Dialog
+import android.content.res.Configuration
 import android.graphics.Typeface
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
@@ -12,6 +13,8 @@ import android.view.Window
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.RadioButton
+import android.widget.RadioGroup
+import androidx.annotation.IdRes
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.app.AppCompatDelegate.*
@@ -27,22 +30,26 @@ class SettingsActivity : BaseActivity<SettingsMvp.Presenter>(), SettingsMvp.View
     var clicked = false
     lateinit var m: Dialog
     lateinit var no: Button
+    lateinit var rg: RadioGroup
     lateinit var light: RadioButton
     lateinit var dark: RadioButton
-    //lateinit var followDevice: RadioButton
+    lateinit var followDevice: RadioButton
 
-    enum class Theme(val id: Int, @StringRes val theme: Int){
-        LIGHT(0, R.string.light),
-        DARK(1, R.string.dark),
-        //FOLLOW_SYSTEM(2, R.string.follow_device)
+    enum class Theme(val id: Int, @StringRes val theme: Int, @IdRes val rb: Int){
+        LIGHT(0, R.string.light, R.id.light),
+        DARK(1, R.string.dark, R.id.dark),
+        FOLLOW_SYSTEM(2, R.string.follow_device, R.id.follow_device)
     }
 
     private var map = mutableMapOf<Int, Int>(MODE_NIGHT_NO to 0,
-                                            MODE_NIGHT_YES to 1)//,
-                                            //MODE_NIGHT_FOLLOW_SYSTEM to 2)
+                                            MODE_NIGHT_YES to 1,
+                                            MODE_NIGHT_FOLLOW_SYSTEM to 2)
+
+    private var buttonMap = mutableMapOf<RadioButton, Int>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         presenter = SettingsPresenter(this)
         presenter.onCreate()
     }
@@ -56,9 +63,14 @@ class SettingsActivity : BaseActivity<SettingsMvp.Presenter>(), SettingsMvp.View
         m.window!!.setLayout(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT)
 
         no = m.findViewById(R.id.btNegative) as Button
+        rg = m.findViewById(R.id.theme_group) as RadioGroup
         light = m.findViewById(R.id.light) as RadioButton
         dark = m.findViewById(R.id.dark) as RadioButton
-        //followDevice = m.findViewById(R.id.follow_device) as RadioButton
+        followDevice = m.findViewById(R.id.follow_device) as RadioButton
+
+        buttonMap[light] = MODE_NIGHT_NO
+        buttonMap[dark] = MODE_NIGHT_YES
+        buttonMap[followDevice] = MODE_NIGHT_FOLLOW_SYSTEM
 
         val typeFace = Typeface.createFromAsset(getAssets(), "fonts/lora_bold.ttf")
         settings_title.typeface = typeFace
@@ -69,28 +81,20 @@ class SettingsActivity : BaseActivity<SettingsMvp.Presenter>(), SettingsMvp.View
     override fun setClickables() {
         settings_back.setOnClickListener{ finish() }
         theme_setting.setOnClickListener { m.show() }
+        build_button.setOnClickListener {  }
         no.setOnClickListener { m.cancel() }
-        if(getDefaultNightMode() == MODE_NIGHT_YES) dark.isChecked = true else light.isChecked = true
-        light.setOnClickListener {
-            m.cancel()
-            if(getDefaultNightMode() != MODE_NIGHT_NO) {
-                setDefaultNightMode(MODE_NIGHT_NO)
-                presenter.setTheme(MODE_NIGHT_NO)
+        var current = m.findViewById(Theme.values()[map[getDefaultNightMode()]!!].rb) as RadioButton
+        current.isChecked = true
+        current.setOnClickListener { m.cancel() }
+        rg.setOnCheckedChangeListener { group, i ->
+            var c = group.findViewById(i) as RadioButton
+            if(c.isChecked) {
+                setDefaultNightMode(buttonMap[c]!!)
+                presenter.setTheme(buttonMap[c]!!)
+                theme_request.setText(Theme.values()[map[PreferenceModule.darkMode.get()]!!].theme)
+                m.cancel()
             }
         }
-        dark.setOnClickListener {
-            m.cancel()
-            if(getDefaultNightMode() != MODE_NIGHT_YES){
-                setDefaultNightMode(MODE_NIGHT_YES)
-                presenter.setTheme(MODE_NIGHT_YES)
-            }
-        }
-//        followDevice.setOnClickListener {
-//            m.cancel()
-//            setDefaultNightMode(MODE_NIGHT_FOLLOW_SYSTEM)
-//            presenter.setTheme(MODE_NIGHT_FOLLOW_SYSTEM)
-//        }
-
     }
 
     fun switch(bool: Boolean): Boolean{
