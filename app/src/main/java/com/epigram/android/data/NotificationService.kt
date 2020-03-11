@@ -18,6 +18,7 @@ import com.bumptech.glide.request.transition.Transition
 import com.epigram.android.ui.article.ArticleActivity
 import com.epigram.android.ui.MainActivity
 import com.epigram.android.R
+import com.epigram.android.arch.PreferenceModule.latestNotification
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -36,36 +37,41 @@ class NotificationService : FirebaseMessagingService() {
         //super.onMessageReceived(p0)
 
         if(!p0.data.get("id").isNullOrEmpty()) {
-            postManager.getArticle(p0.data.get("id")!!)
-                .subscribeOn(AndroidSchedulers.mainThread())
-                .observeOn(Schedulers.io())
-                .subscribe({ post ->
-                    if(!post.image.isNullOrEmpty()) {
-                        Glide.with(this)
-                            .asBitmap()
-                            .load(post.image)
-                            .apply(RequestOptions.bitmapTransform(CircleCrop()))
-                            .into(object : CustomTarget<Bitmap>() {
-                                override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
-                                    createNotificationArticle(p0, post, resource)
-                                }
+            if(latestNotification.get() != p0.data.get("id")){
+                latestNotification.set(p0.data.get("id")!!)
 
-                                override fun onLoadCleared(placeholder: Drawable?) {
+                postManager.getArticle(p0.data.get("id")!!)
+                    .subscribeOn(AndroidSchedulers.mainThread())
+                    .observeOn(Schedulers.io())
+                    .subscribe({ post ->
+                        if(!post.image.isNullOrEmpty()) {
+                            Glide.with(this)
+                                .asBitmap()
+                                .load(post.image)
+                                .apply(RequestOptions.bitmapTransform(CircleCrop()))
+                                .into(object : CustomTarget<Bitmap>() {
+                                    override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
+                                        createNotificationArticle(p0, post, resource)
+                                    }
 
-                                }
-                            })
-                    }
-                    else{
-                        createNotificationArticle(p0, post, null)
-                    }
-                }, { e -> Log.e("error", "There was a problem loading notification post", e)})
+                                    override fun onLoadCleared(placeholder: Drawable?) {
+
+                                    }
+                                })
+                        }
+                        else{
+                            createNotificationArticle(p0, post, null)
+                        }
+                    }, { e -> Log.e("error", "There was a problem loading notification post", e)})
+            }
+
         }
-        else if(!p0.data.get("titleNew").isNullOrEmpty()){
-            createNotificationUpdate(p0)
-        }
-        else {
-            createNotificationDraft(p0)
-        }
+//        else if(!p0.data.get("titleNew").isNullOrEmpty()){
+//            createNotificationUpdate(p0)
+//        }
+//        else {
+//            createNotificationDraft(p0)
+//        }
     }
 
 

@@ -18,6 +18,10 @@ object PreferenceModule {
         rxSharedPrefs.getInteger("dark_mode.int", MODE_NIGHT_NO)
     }
 
+    val latestNotification by lazy {
+        rxSharedPrefs.getString("latest_notification.string")
+    }
+
     private val sharedPrefs by lazy {
         PreferenceManager.getDefaultSharedPreferences(AppModule.application)
     }

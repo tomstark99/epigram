@@ -23,6 +23,7 @@ import com.epigram.android.ui.section.SectionActivity
 import com.epigram.android.ui.settings.SettingsActivity
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.tabs.TabLayout
+import com.google.firebase.messaging.FirebaseMessaging
 import org.joda.time.DateTime
 
 class MainActivity : BaseActivity<MainActivityMvp.Presenter>(),
@@ -74,9 +75,9 @@ class MainActivity : BaseActivity<MainActivityMvp.Presenter>(),
             }
         }
 
-        // notifications disabled
-//        FirebaseMessaging.getInstance().subscribeToTopic("new_article")
-//            .addOnCompleteListener { }
+        // notifications enabled
+        FirebaseMessaging.getInstance().subscribeToTopic("new_article")
+            .addOnCompleteListener { }
 
 //        FirebaseMessaging.getInstance().subscribeToTopic("new_article_draft")
 //            .addOnCompleteListener { }
