@@ -45,7 +45,7 @@
     <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-        <ImageView android:layout_width="match_parent" android:layout_height="160dp"
+        <ImageView android:layout_width="match_parent" android:layout_height="140dp"
                    android:id="@+id/post_image"
                    android:scaleType="centerCrop"
                    android:src="@drawable/placeholder_background"
@@ -71,7 +71,7 @@
             android:id="@+id/post_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20dp"
+            android:textSize="18dp"
             tools:text="ARTICLE TITLE"
             android:textStyle="normal"
             android:textColor="@color/black"
@@ -115,11 +115,12 @@
                 android:layout_height="wrap_content"
                 android:padding="6dp"
                 tools:text="June 10, 2019"
-                android:textSize="10dp"
+                android:textSize="11dp"
                 android:fontFamily="sans-serif-condensed-medium"/>
     </LinearLayout>
 
     <LinearLayout
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="@dimen/inner_element_padding"

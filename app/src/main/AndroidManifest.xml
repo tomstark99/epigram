@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.example.epigram">
+          package="com.epigram.android">
 
     <uses-permission android:name="android.permission.INTERNET"/>
 
@@ -13,31 +13,31 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".SettingsActivity"
-                  android:parentActivityName=".MainActivity"
+        <activity android:name=".ui.settings.SettingsActivity"
+                  android:parentActivityName=".ui.MainActivity"
                   android:theme="@style/AppTheme.NoActionBar"
                   android:windowSoftInputMode="stateAlwaysHidden">
         </activity>
         <activity
-                android:name=".AboutActivity"
-                android:parentActivityName=".MainActivity"
+                android:name=".ui.about.AboutActivity"
+                android:parentActivityName=".ui.MainActivity"
                 android:theme="@style/AppTheme.NoActionBar"
                 android:windowSoftInputMode="stateAlwaysHidden">
         </activity>
         <activity
-                android:name=".WelcomeActivity"
-                android:parentActivityName=".MainActivity"
+                android:name=".ui.WelcomeActivity"
+                android:parentActivityName=".ui.MainActivity"
                 android:theme="@style/AppTheme.NoActionBar"
                 android:windowSoftInputMode="stateAlwaysHidden">
         </activity>
         <activity
-                android:name=".MainActivity"
+                android:name=".ui.MainActivity"
                 android:label="@string/title_activity_main"
                 android:theme="@style/AppTheme.NoActionBar"
                 android:windowSoftInputMode="stateAlwaysHidden">
         </activity>
         <activity
-                android:name=".SplashActivity"
+                android:name=".ui.SplashActivity"
                 android:theme="@style/SplashTheme"
                 android:windowSoftInputMode="stateAlwaysHidden">
             <intent-filter>
@@ -47,19 +47,26 @@
             </intent-filter>
         </activity>
         <activity
-                android:name=".ArticleActivity"
-                android:parentActivityName=".MainActivity"
+                android:name=".ui.article.ArticleActivity"
+                android:parentActivityName=".ui.MainActivity"
                 android:theme="@style/AppTheme.NoActionBar"
                 android:windowSoftInputMode="stateAlwaysHidden"/>
         <activity
-                android:name=".SectionActivity"
-                android:parentActivityName=".MainActivity"
+                android:name=".ui.section.SectionActivity"
+                android:parentActivityName=".ui.MainActivity"
                 android:theme="@style/AppTheme.NoActionBar"
                 android:windowSoftInputMode="stateAlwaysHidden"/>
         <activity
-                android:name=".SearchActivity"
+                android:name=".ui.search.SearchActivity"
                 android:theme="@style/AppTheme.NoActionBar"
                 android:windowSoftInputMode="stateVisible"/>
+
+        <activity
+            android:name=".ui.promo.PromoActivity"
+            android:parentActivityName=".ui.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateAlwaysHidden">
+        </activity>
 
         <service
                 android:name=".data.NotificationService"

@@ -5,9 +5,9 @@
 
     <item android:title="ALL SECTIONS">
         <menu>
-            <!--<item-->
-                    <!--android:id="@+id/nav_home"-->
-                    <!--android:title="@string/menu_home"/>-->
+            <item
+                    android:id="@+id/nav_most_read"
+                    android:title="@string/menu_most_read"/>
             <item
                     android:id="@+id/nav_news"
                     android:title="@string/menu_news"/>
@@ -20,6 +20,18 @@
             <item
                     android:id="@+id/nav_the_croft"
                     android:title="@string/menu_the_croft"/>
+            <item
+                android:id="@+id/nav_wellbeing"
+                android:title="@string/menu_wellbeing"/>
+            <item
+                android:id="@+id/nav_food"
+                android:title="@string/menu_food"/>
+            <item
+                android:id="@+id/nav_travel"
+                android:title="@string/menu_travel"/>
+            <item
+                android:id="@+id/nav_style"
+                android:title="@string/menu_style"/>
             <!--<item-->
                     <!--android:id="@+id/nav_opinion"-->
                     <!--android:title="@string/menu_opinion"/>-->
@@ -27,14 +39,17 @@
                     android:id="@+id/nav_science"
                     android:title="@string/menu_science"/>
             <item
-                    android:id="@+id/nav_wellbeing"
-                    android:title="@string/menu_wellbeing"/>
-            <item
-                    android:id="@+id/nav_lifestyle"
-                    android:title="@string/menu_lifestyle"/>
-            <item
                     android:id="@+id/nav_entertainment"
                     android:title="@string/menu_entertainment"/>
+            <item
+                android:id="@+id/nav_film_tv"
+                android:title="@string/menu_film_tv"/>
+            <item
+                android:id="@+id/nav_arts"
+                android:title="@string/menu_arts"/>
+            <item
+                android:id="@+id/nav_music"
+                android:title="@string/menu_music"/>
             <item
                     android:id="@+id/nav_sport"
                     android:title="@string/menu_sport"/>
@@ -57,6 +72,10 @@
                 android:id="@+id/nav_about"
                 android:icon="@drawable/ic_info_outline_black_24dp"
                 android:title="@string/menu_about"/>
+        <item
+            android:title=""
+            android:enabled="false" >
+        </item>
     </group>
 
 </menu>

@@ -5,7 +5,8 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".WelcomeActivity">
+        android:background="@color/colorPrimary"
+        tools:context=".ui.WelcomeActivity">
         <LinearLayout
                 android:layout_width="match_parent" android:layout_height="60dp"
         android:elevation="10dp">
@@ -18,7 +19,8 @@
         </LinearLayout>
     <androidx.core.widget.NestedScrollView android:layout_width="match_parent"
                                            android:layout_height="match_parent"
-                                           android:elevation="0dp">
+                                           android:elevation="0dp"
+                                            android:paddingBottom="@dimen/medium_padding">
         <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                       android:padding="@dimen/element_padding"
                       android:orientation="vertical"
@@ -52,7 +54,7 @@
                     android:gravity="center"
                     android:orientation="vertical"
                     android:paddingTop="30dp"
-                    android:paddingBottom="@dimen/element_padding">
+                    android:paddingBottom="@dimen/large_padding">
                 <TextView
                         android:text="Thank you for installing Epigram"
                         android:layout_width="wrap_content"
@@ -69,12 +71,14 @@
                         android:textSize="16dp"
                       android:text="@string/welcome_text"/>
             <TextView
-                android:text="ABC - 123"
-                android:layout_width="wrap_content"
+                android:text="epigramburgerjoint20"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/element_padding"
+                android:layout_marginBottom="@dimen/element_padding"
                 android:textColor="@color/black"
                 android:gravity="center"
-                android:padding="@dimen/medium_padding"
+                android:padding="@dimen/small_padding"
                 android:fontFamily="sans-serif-condensed-medium"
                 android:textStyle="bold"
                 android:visibility="visible"
@@ -82,10 +86,40 @@
             <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-condensed-light"
                 android:textSize="16dp"
-                android:text="@string/welcome_terms"/>
+                android:text="@string/welcome_text_2"/>
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/cropped_icon"/>
+
+            <TextView
+                android:id="@+id/welcome_terms"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="10dp"
+                android:text="@string/welcome_terms"
+                android:padding="@dimen/small_padding"
+                android:gravity="bottom"
+                android:layout_gravity="bottom"
+                android:textAlignment="center"/>
         </LinearLayout>
 
 
     </androidx.core.widget.NestedScrollView>
-
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/welcome_left"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="10dp"
+            tools:text="This screen will appear 3 more times"
+            android:padding="@dimen/small_padding"
+            android:textAlignment="center"/>
+    </LinearLayout>
 </FrameLayout>

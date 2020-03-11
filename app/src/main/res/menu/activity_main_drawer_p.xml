@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:tools="http://schemas.android.com/tools"
+      tools:showIn="navigation_view">
+
+    <item android:title="ALL SECTIONS">
+        <menu>
+            <item
+                    android:id="@+id/nav_most_read"
+                    android:title="@string/menu_most_read"/>
+            <item
+                    android:id="@+id/nav_news"
+                    android:title="@string/menu_news"/>
+            <item
+                    android:id="@+id/nav_features"
+                    android:title="@string/menu_features"/>
+            <item
+                    android:id="@+id/nav_comment"
+                    android:title="@string/menu_opinion"/>
+            <item
+                    android:id="@+id/nav_the_croft"
+                    android:title="@string/menu_the_croft"/>
+            <item
+                android:id="@+id/nav_wellbeing"
+                android:title="@string/menu_wellbeing"/>
+            <item
+                android:id="@+id/nav_food"
+                android:title="@string/menu_food"/>
+            <item
+                android:id="@+id/nav_travel"
+                android:title="@string/menu_travel"/>
+            <item
+                android:id="@+id/nav_style"
+                android:title="@string/menu_style"/>
+            <!--<item-->
+                    <!--android:id="@+id/nav_opinion"-->
+                    <!--android:title="@string/menu_opinion"/>-->
+            <item
+                    android:id="@+id/nav_science"
+                    android:title="@string/menu_science"/>
+            <item
+                    android:id="@+id/nav_entertainment"
+                    android:title="@string/menu_entertainment"/>
+            <item
+                android:id="@+id/nav_film_tv"
+                android:title="@string/menu_film_tv"/>
+            <item
+                android:id="@+id/nav_arts"
+                android:title="@string/menu_arts"/>
+            <item
+                android:id="@+id/nav_music"
+                android:title="@string/menu_music"/>
+            <item
+                    android:id="@+id/nav_sport"
+                    android:title="@string/menu_sport"/>
+            <item
+                    android:id="@+id/nav_intramural"
+                    android:title="@string/menu_intramural"/>
+            <item
+                    android:id="@+id/nav_puzzles"
+                    android:title="@string/menu_puzzles"/>
+        </menu>
+    </item>
+
+
+    <group android:checkableBehavior="none">
+        <item
+                android:id="@+id/nav_promo"
+                android:icon="@drawable/ic_local_offer_24px"
+                android:title="@string/menu_promo"/>
+        <item
+            android:id="@+id/nav_settings"
+            android:icon="@drawable/ic_settings_outline"
+            android:title="@string/menu_settings"/>
+        <item
+                android:id="@+id/nav_about"
+                android:icon="@drawable/ic_info_outline_black_24dp"
+                android:title="@string/menu_about"/>
+        <item
+            android:title=""
+            android:enabled="false" >
+        </item>
+    </group>
+
+</menu>

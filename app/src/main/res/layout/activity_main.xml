@@ -16,13 +16,15 @@
 
     <com.google.android.material.navigation.NavigationView
             android:id="@+id/nav_view"
-            android:layout_width="320dp"
+            android:layout_width="280dp"
             android:layout_height="match_parent"
             android:layout_gravity="start"
+            android:background="@color/colorPrimary"
             android:clipToPadding="false"
             android:fitsSystemWindows="true"
+            app:itemIconTint="@color/button_tint"
+            app:itemTextColor="@color/black"
             app:headerLayout="@layout/nav_header_main"
             app:itemHorizontalPadding="@dimen/large_padding"
             app:menu="@menu/activity_main_drawer"/>
-
 </androidx.drawerlayout.widget.DrawerLayout>
