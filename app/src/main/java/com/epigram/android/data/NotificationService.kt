@@ -22,6 +22,7 @@ import com.epigram.android.arch.PreferenceModule.latestNotification
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.rxkotlin.addTo
 import io.reactivex.schedulers.Schedulers
 import kotlin.random.Random
 
@@ -34,7 +35,6 @@ class NotificationService : FirebaseMessagingService() {
     private val postManager = PostManager()
 
     override fun onMessageReceived(p0: RemoteMessage) {
-        //super.onMessageReceived(p0)
 
         if(!p0.data.get("id").isNullOrEmpty()) {
             if(latestNotification.get() != p0.data.get("id")){
@@ -53,18 +53,14 @@ class NotificationService : FirebaseMessagingService() {
                                     override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
                                         createNotificationArticle(p0, post, resource)
                                     }
-
                                     override fun onLoadCleared(placeholder: Drawable?) {
-
                                     }
                                 })
-                        }
-                        else{
+                        } else{
                             createNotificationArticle(p0, post, null)
                         }
                     }, { e -> Log.e("error", "There was a problem loading notification post", e)})
             }
-
         }
 //        else if(!p0.data.get("titleNew").isNullOrEmpty()){
 //            createNotificationUpdate(p0)
@@ -73,8 +69,6 @@ class NotificationService : FirebaseMessagingService() {
 //            createNotificationDraft(p0)
 //        }
     }
-
-
 
     fun createNotificationArticle(p0: RemoteMessage, post: Post, resource: Bitmap?) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -101,52 +95,53 @@ class NotificationService : FirebaseMessagingService() {
         managerCompat.notify(ID++, notification)
     }
 
-    fun createNotificationDraft(p0: RemoteMessage) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val importance = NotificationManager.IMPORTANCE_DEFAULT
-            val mChannel = NotificationChannel("article_drafts","Article drafts", importance)
-            val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
-            notificationManager.createNotificationChannel(mChannel)
-        }
-        val pendingIntent = PendingIntent.getActivity(this, 1, Intent(this, MainActivity::class.java), PendingIntent.FLAG_UPDATE_CURRENT)
-        val managerCompat = NotificationManagerCompat.from(this)
+//    fun createNotificationDraft(p0: RemoteMessage) {
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//            val importance = NotificationManager.IMPORTANCE_DEFAULT
+//            val mChannel = NotificationChannel("article_drafts","Article drafts", importance)
+//            val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+//            notificationManager.createNotificationChannel(mChannel)
+//        }
+//        val pendingIntent = PendingIntent.getActivity(this, 1, Intent(this, MainActivity::class.java), PendingIntent.FLAG_UPDATE_CURRENT)
+//        val managerCompat = NotificationManagerCompat.from(this)
+//
+//        val notification =  NotificationCompat.Builder(this, "article_drafts")
+//            .setContentTitle("New article drafted")
+//            .setContentText(p0.data.get("title"))
+//            .setSmallIcon(R.drawable.ic_clifton_icon)
+//            .setStyle(NotificationCompat.BigTextStyle().bigText(p0.data.get("title")))
+//            .setAutoCancel(true)
+//            .setContentIntent(pendingIntent)
+//            .setColor(getColor(R.color.colorPrimary))
+//            .setDefaults(NotificationCompat.DEFAULT_ALL)
+//            .build()
+//        managerCompat.notify(ID++, notification)
+//    }
+//
+//    fun createNotificationUpdate(p0: RemoteMessage) {
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//            val importance = NotificationManager.IMPORTANCE_DEFAULT
+//            val mChannel = NotificationChannel("article_drafts","Article drafts", importance)
+//            val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+//            notificationManager.createNotificationChannel(mChannel)
+//        }
+//        val pendingIntent = PendingIntent.getActivity(this, 1, Intent(this, MainActivity::class.java), PendingIntent.FLAG_UPDATE_CURRENT)
+//        val managerCompat = NotificationManagerCompat.from(this)
+//        val contentText = if(p0.data.get("titleOld").isNullOrEmpty())
+//                                    "Article '" + p0.data.get("titleNew") + "' contents updated"
+//                               else "Article title change from '" + p0.data.get("titleOld") + "' to '" + p0.data.get("titleNew") + "'"
+//
+//        val notification =  NotificationCompat.Builder(this, "article_drafts")
+//            .setContentTitle("Draft article updated")
+//            .setContentText(contentText)
+//            .setSmallIcon(R.drawable.ic_clifton_icon)
+//            .setStyle(NotificationCompat.BigTextStyle().bigText(p0.data.get("title")))
+//            .setAutoCancel(true)
+//            .setContentIntent(pendingIntent)
+//            .setColor(getColor(R.color.colorPrimary))
+//            .setDefaults(NotificationCompat.DEFAULT_ALL)
+//            .build()
+//        managerCompat.notify(ID++, notification)
+//    }
 
-        val notification =  NotificationCompat.Builder(this, "article_drafts")
-            .setContentTitle("New article drafted")
-            .setContentText(p0.data.get("title"))
-            .setSmallIcon(R.drawable.ic_clifton_icon)
-            .setStyle(NotificationCompat.BigTextStyle().bigText(p0.data.get("title")))
-            .setAutoCancel(true)
-            .setContentIntent(pendingIntent)
-            .setColor(getColor(R.color.colorPrimary))
-            .setDefaults(NotificationCompat.DEFAULT_ALL)
-            .build()
-        managerCompat.notify(ID++, notification)
-    }
-
-    fun createNotificationUpdate(p0: RemoteMessage) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val importance = NotificationManager.IMPORTANCE_DEFAULT
-            val mChannel = NotificationChannel("article_drafts","Article drafts", importance)
-            val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
-            notificationManager.createNotificationChannel(mChannel)
-        }
-        val pendingIntent = PendingIntent.getActivity(this, 1, Intent(this, MainActivity::class.java), PendingIntent.FLAG_UPDATE_CURRENT)
-        val managerCompat = NotificationManagerCompat.from(this)
-        val contentText = if(p0.data.get("titleOld").isNullOrEmpty())
-                                    "Article '" + p0.data.get("titleNew") + "' contents updated"
-                               else "Article title change from '" + p0.data.get("titleOld") + "' to '" + p0.data.get("titleNew") + "'"
-
-        val notification =  NotificationCompat.Builder(this, "article_drafts")
-            .setContentTitle("Draft article updated")
-            .setContentText(contentText)
-            .setSmallIcon(R.drawable.ic_clifton_icon)
-            .setStyle(NotificationCompat.BigTextStyle().bigText(p0.data.get("title")))
-            .setAutoCancel(true)
-            .setContentIntent(pendingIntent)
-            .setColor(getColor(R.color.colorPrimary))
-            .setDefaults(NotificationCompat.DEFAULT_ALL)
-            .build()
-        managerCompat.notify(ID++, notification)
-    }
 }

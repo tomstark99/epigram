@@ -39,7 +39,6 @@ class AdapterArticles(context: Context, posts: MutableList<Post>, loadNext: Load
     var pageIndex: Int = 0
     var isHome: Boolean
 
-
     init {
         this.posts = posts
         this.context = context
@@ -48,25 +47,20 @@ class AdapterArticles(context: Context, posts: MutableList<Post>, loadNext: Load
         this.isHome = home
     }
 
-
-
     enum class Inflater(val id: Int, @LayoutRes val element: Int){
         POSITION_ONE(0, R.layout.element_news_article_breaking),
         POSITION_TWO(1, R.layout.element_news_article_first),
         POSITION_MRE(2, R.layout.element_news_article)
     }
 
-
-
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        holder.tags.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
+        holder.tags.layoutManager =
+            LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
         holder.tags.itemAnimator = DefaultItemAnimator()
         holder.tags.adapter =
             MyAdapterTag(posts[position].tags.orEmpty())
         setPost(holder, position)
     }
-
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
 
@@ -76,20 +70,14 @@ class AdapterArticles(context: Context, posts: MutableList<Post>, loadNext: Load
 
     }
 
-
-
     override fun getItemViewType(position: Int): Int {
         if(position == 0) return 0
         return if(position == 1) 1 else 2
     }
 
-
-
     override fun getItemCount(): Int {
         return posts.size
     }
-
-
 
     inner class MyViewHolder(l: LinearLayout) : RecyclerView.ViewHolder(l) {
 
@@ -115,8 +103,6 @@ class AdapterArticles(context: Context, posts: MutableList<Post>, loadNext: Load
         }
     }
 
-
-
     override fun onViewAttachedToWindow(holder: MyViewHolder) {
         super.onViewAttachedToWindow(holder)
         holder.disposable?.let { disposable -> disposable.dispose() }
@@ -132,14 +118,10 @@ class AdapterArticles(context: Context, posts: MutableList<Post>, loadNext: Load
         }
     }
 
-
-
     override fun onViewDetachedFromWindow(holder: MyViewHolder) {
         super.onViewDetachedFromWindow(holder)
         holder.disposable?.let { disposable -> disposable.dispose() }
     }
-
-
 
     fun addPosts(newPosts: List<Post>){
         val posts2 = posts
@@ -150,8 +132,6 @@ class AdapterArticles(context: Context, posts: MutableList<Post>, loadNext: Load
             .subscribe({it -> posts = it})
         notifyDataSetChanged()
     }
-
-
 
     fun setPost(holder: MyViewHolder, position: Int){
         if(position == 0 && posts[position].date.plusWeeks(1).isBeforeNow && posts[position].tags!!.contains("breaking news")) {
@@ -185,14 +165,10 @@ class AdapterArticles(context: Context, posts: MutableList<Post>, loadNext: Load
 
     }
 
-
-
     fun clear(){
         posts.clear()
         notifyDataSetChanged()
     }
-
-
 
     interface LoadNextPage {
         fun bottomReached()

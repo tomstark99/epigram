@@ -34,6 +34,7 @@ class SettingsActivity : BaseActivity<SettingsMvp.Presenter>(), SettingsMvp.View
     lateinit var light: RadioButton
     lateinit var dark: RadioButton
     lateinit var followDevice: RadioButton
+    lateinit var current: RadioButton
 
     enum class Theme(val id: Int, @StringRes val theme: Int, @IdRes val rb: Int){
         LIGHT(0, R.string.light, R.id.light),
@@ -67,6 +68,7 @@ class SettingsActivity : BaseActivity<SettingsMvp.Presenter>(), SettingsMvp.View
         light = m.findViewById(R.id.light) as RadioButton
         dark = m.findViewById(R.id.dark) as RadioButton
         followDevice = m.findViewById(R.id.follow_device) as RadioButton
+        current = m.findViewById(Theme.values()[map[getDefaultNightMode()]!!].rb) as RadioButton
 
         buttonMap[light] = MODE_NIGHT_NO
         buttonMap[dark] = MODE_NIGHT_YES
@@ -83,7 +85,6 @@ class SettingsActivity : BaseActivity<SettingsMvp.Presenter>(), SettingsMvp.View
         theme_setting.setOnClickListener { m.show() }
         build_button.setOnClickListener {  }
         no.setOnClickListener { m.cancel() }
-        var current = m.findViewById(Theme.values()[map[getDefaultNightMode()]!!].rb) as RadioButton
         current.isChecked = true
         current.setOnClickListener { m.cancel() }
         rg.setOnCheckedChangeListener { group, i ->
@@ -95,9 +96,5 @@ class SettingsActivity : BaseActivity<SettingsMvp.Presenter>(), SettingsMvp.View
                 m.cancel()
             }
         }
-    }
-
-    fun switch(bool: Boolean): Boolean{
-        return !bool
     }
 }

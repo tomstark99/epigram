@@ -18,17 +18,20 @@ data class Post(
     companion object{
 
         fun fromTemplate(template: PostTemplate): Post?{
-        //System.out.println(template.id)
-        //if(template.id.equals("5cd2b5b0f7ff1100c0a7eab8")) {
-            //System.out.println(template.html)
-            //System.out.println("==================")
             var x: String = template.html ?: ""
             x = x.replace("<style>", "<!--")
             x = x.replace("</style>", "-->")
-            //System.out.println(x)
-        //}
-        //template.html.replace("<style>.+<\\/style>", "")
-        return Post(template.id,template.uuid,template.title,x,template.feature_image, template.primary_tag?.name?.toUpperCase(), template.tags?.map { tags -> tags.name }, DateTime.parse(template.published_at),template.url)
+            return Post(
+                template.id,
+                template.uuid,
+                template.title,
+                x,
+                template.feature_image,
+                template.primary_tag?.name?.toUpperCase(),
+                template.tags?.map { tags -> tags.name },
+                DateTime.parse(template.published_at),
+                template.url
+            )
         }
     }
 }

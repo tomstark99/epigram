@@ -63,7 +63,6 @@ class MyAdapterTag(tags: List<String>) :
     }
 
     fun setTag(holder: MyViewHolder, position: Int) {
-        //tags.removeAll(Arrays.asList("featured top", "carousel", "one sidebar"))
         holder.tag.text = tags[position].toUpperCase()
     }
 

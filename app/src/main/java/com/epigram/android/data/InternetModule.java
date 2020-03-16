@@ -20,12 +20,8 @@ public class InternetModule {
 
     public static EpigramService getEpigramService(){
 
-
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);
-
-
-
 
         OkHttpClient client = new OkHttpClient.Builder().addInterceptor(logging)
                 .connectTimeout(10, TimeUnit.SECONDS)
@@ -42,7 +38,6 @@ public class InternetModule {
         if(epigramService == null) {
             epigramService = retrofit.create(EpigramService.class);
         }
-
         return epigramService;
     }
 
