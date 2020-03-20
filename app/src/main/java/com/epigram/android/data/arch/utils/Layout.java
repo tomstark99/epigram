@@ -1,4 +1,4 @@
-package com.epigram.android.data;
+package com.epigram.android.data.arch.utils;
 
 import android.content.Context;
 import android.util.AttributeSet;

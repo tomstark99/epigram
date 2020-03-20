@@ -1,4 +1,4 @@
-package com.epigram.android.arch
+package com.epigram.android.data.arch
 
 import android.preference.PreferenceManager
 import com.f2prateek.rx.preferences2.RxSharedPreferences

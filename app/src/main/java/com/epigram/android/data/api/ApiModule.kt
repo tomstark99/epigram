@@ -2,44 +2,51 @@ package com.epigram.android.data.api
 
 import com.epigram.android.BuildConfig
 import com.epigram.android.data.api.EpigramService
+import com.epigram.android.data.arch.AppModule
+import com.google.gson.Gson
 
 import io.reactivex.schedulers.Schedulers
+import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import okhttp3.logging.HttpLoggingInterceptor.*
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.create
 
 import java.util.concurrent.TimeUnit
 
 object ApiModule {
 
-    private var retrofit: Retrofit? = null
-    private var epigramService: EpigramService? = null
-    private val URL = BuildConfig.URL
+    private const val URL = BuildConfig.URL
+    private const val CACHE_SIZE_BYTES = 1024 * 1024 * 2L
 
+    val apiService: EpigramService by lazy {
+        retrofit.create(EpigramService::class.java)
+    }
 
-    fun getEpigramService(): EpigramService {
-
-        val logging = HttpLoggingInterceptor()
-        logging.level = HttpLoggingInterceptor.Level.BODY
-
-        val client = OkHttpClient.Builder().addInterceptor(logging)
-            .connectTimeout(10, TimeUnit.SECONDS)
-            .readTimeout(1, TimeUnit.MINUTES)
+    private val retrofit by lazy {
+        Retrofit.Builder()
+            .baseUrl(URL)
+            .client(okhttp)
+            .addConverterFactory(GsonConverterFactory.create(gson))
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build()
+    }
 
-        if (retrofit == null) {
-            retrofit = Retrofit.Builder().client(client)
-                .baseUrl(URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io()))
-                .build()
-        }
-        if (epigramService == null) {
-            epigramService = retrofit!!.create(EpigramService::class.java)
-        }
-        return epigramService
+    private val okhttp by lazy {
+        OkHttpClient.Builder()
+            .connectTimeout(20, TimeUnit.SECONDS)
+            .readTimeout(20, TimeUnit.SECONDS)
+            .addInterceptor(HttpLoggingInterceptor()
+            .setLevel(Level.BODY))
+            .cache(Cache(AppModule.application.cacheDir, CACHE_SIZE_BYTES))
+            .build()
+    }
+
+    val gson by lazy {
+        Gson()
     }
 
 }

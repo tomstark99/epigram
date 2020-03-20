@@ -1,4 +1,4 @@
-package com.epigram.android.arch.utils;
+package com.epigram.android.data.arch.utils;
 
 import android.app.Activity;
 import android.content.Context;

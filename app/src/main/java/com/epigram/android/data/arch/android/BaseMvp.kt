@@ -1,4 +1,4 @@
-package com.epigram.android.arch.android
+package com.epigram.android.data.arch.android
 
 interface BaseMvp {
     interface View {

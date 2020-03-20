@@ -1,5 +1,8 @@
-package com.epigram.android.data
+package com.epigram.android.data.api
 
+import com.epigram.android.data.model.PostTemplate
+import com.epigram.android.data.model.SearchResult
+import com.epigram.android.data.model.Wrapper
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Path
