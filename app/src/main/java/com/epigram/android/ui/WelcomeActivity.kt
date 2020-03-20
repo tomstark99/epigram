@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.WindowManager.*
 import com.epigram.android.R
-import com.epigram.android.arch.PreferenceModule
+import com.epigram.android.data.arch.PreferenceModule
 import kotlinx.android.synthetic.main.activity_welcome.*
 import java.text.MessageFormat
 

@@ -24,7 +24,7 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
 import com.epigram.android.R;
-import com.epigram.android.data.Post;
+import com.epigram.android.data.model.Post;
 import com.jakewharton.rxbinding2.view.RxView;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;

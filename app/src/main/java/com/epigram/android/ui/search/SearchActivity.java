@@ -14,13 +14,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.epigram.android.data.DataModule;
+import com.epigram.android.data.managers.PostManager;
 import com.epigram.android.ui.article.ArticleActivity;
 import com.epigram.android.ui.adapters.MyAdapterArticles;
 import com.epigram.android.R;
-import com.epigram.android.arch.utils.Utils;
-import com.epigram.android.data.Layout;
-import com.epigram.android.data.Post;
-import com.epigram.android.data.PostManager;
+import com.epigram.android.data.arch.utils.Utils;
+import com.epigram.android.data.arch.utils.Layout;
+import com.epigram.android.data.model.Post;
+import com.epigram.android.data.managers.PostManagerImpl;
 import com.jakewharton.rxbinding2.view.RxView;
 import com.jakewharton.rxbinding2.widget.RxTextView;
 import io.reactivex.Observable;
@@ -39,7 +41,7 @@ import static com.epigram.android.ui.adapters.MyAdapterArticles.SEARCH_PAGE_INDE
 
 public class SearchActivity extends AppCompatActivity implements MyAdapterArticles.LoadNextPage {
 
-    private PostManager pManager = new PostManager();
+    private PostManager pManager = DataModule.INSTANCE.getPostManager();
     private MyAdapterArticles adapterArticles = new MyAdapterArticles(this, new ArrayList<>(), this, SEARCH_PAGE_INDEX);
     //private AdapterSearch adapterArticles = new AdapterSearch(this, new ArrayList<>(), this);
     private RecyclerView recyclerView;

@@ -18,9 +18,11 @@ import com.epigram.android.ui.article.ArticleActivity
 import com.epigram.android.ui.adapters.MyAdapterPlaceholder
 import com.epigram.android.ui.adapters.MyAdapterSection
 import com.epigram.android.R
-import com.epigram.android.data.Layout
-import com.epigram.android.data.Post
-import com.epigram.android.data.PostManager
+import com.epigram.android.data.DataModule
+import com.epigram.android.data.arch.utils.Layout
+import com.epigram.android.data.managers.PostManager
+import com.epigram.android.data.model.Post
+import com.epigram.android.data.managers.PostManagerImpl
 import com.epigram.android.ui.search.SearchActivity
 import com.google.android.material.navigation.NavigationView
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -29,7 +31,7 @@ import kotlinx.android.synthetic.main.app_bar_section.*
 
 class SectionActivity : AppCompatActivity(), MyAdapterSection.LoadNextPage, NavigationView.OnNavigationItemSelectedListener {
 
-    private val pManager = PostManager()
+    private val pManager: PostManager = DataModule.postManager
     private var adapter2: MyAdapterSection? = null
     private var recyclerView: RecyclerView? = null
 

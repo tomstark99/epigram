@@ -3,18 +3,15 @@ package com.epigram.android.ui
 import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatDelegate
-import androidx.appcompat.app.AppCompatDelegate.*
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.viewpager.widget.ViewPager
 import com.epigram.android.R
 
-import com.epigram.android.arch.android.BaseActivity
+import com.epigram.android.data.arch.android.BaseActivity
 import com.epigram.android.ui.about.AboutActivity
 import com.epigram.android.ui.main.SectionsPagerAdapter
 import com.epigram.android.ui.promo.PromoActivity
