@@ -97,6 +97,7 @@ public class PlaceholderFragment extends Fragment implements AdapterArticles.Loa
 
         swipeRefresh = (SwipeRefreshLayout) view.findViewById(R.id.swipe_refresh);
         swipeRefresh.setColorSchemeResources(R.color.colorAccent, R.color.colorAccentHint);
+        swipeRefresh.setProgressBackgroundColorSchemeResource(R.color.progress_background);
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {

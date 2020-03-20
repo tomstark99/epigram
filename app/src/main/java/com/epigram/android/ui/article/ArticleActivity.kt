@@ -55,6 +55,15 @@ class ArticleActivity : AppCompatActivity() {
         val share = findViewById<ImageView>(R.id.article_share)
         share.setOnClickListener { shareThis() }
 
+        article_scroll.setOnScrollChangeListener { v: NestedScrollView?, scrollX: Int, scrollY: Int, oldScrollX: Int, oldScrollY: Int ->
+            if(scrollY == 0 && oldScrollY != 0) {
+                appbar.elevation = 0f
+            }
+            if(oldScrollY == 0 && scrollY != 0) {
+                appbar.elevation = resources.getDimension(R.dimen.appbar_elevation)
+            }
+        }
+
         findViewById<TextView>(R.id.title).setOnClickListener{ findViewById<NestedScrollView>(
             R.id.article_scroll
         ).smoothScrollTo(0,0) }

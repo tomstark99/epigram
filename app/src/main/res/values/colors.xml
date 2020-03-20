@@ -8,5 +8,26 @@
     <color name="colorPrimaryDark">#fafafa</color>
     <color name="colorAccent">#c2262f</color>
     <color name="colorAccentHint">#88c2262f</color>
-    <color name="placeholderProgress">#d6d6d6</color>
+<!--    <color name="placeholder_background">#e6e6e6</color>-->
+    <color name="placeholder_background">@color/placeholder_background_night</color>
+    <color name="placeholder_background_night">#339b9b9b</color>
+<!--    <color name="placeholderProgress">#d6d6d6</color>-->
+    <color name="placeholderProgress">#4D757575</color>
+
+    <color name="button_tint">#80000000</color>
+
+    <color name="progress_background">#fff</color>
+    <color name="red_to_white">@color/colorAccent</color>
+    <color name="red_to_dark">@color/colorAccent</color>
+
+    <color name="nearly_black">#262626</color>
+    <color name="dark_grey">#2d2d2d</color>
+    <color name="dark">#1e1e1e</color>
+    <color name="dark_translucent">#BF1e1e1e</color>
+    <color name="dark_white">#e1e1e1</color>
+
+    <color name="dark_1">#1b1b1b</color>
+    <color name="dark_2">#262626</color>
+    <color name="dark_3">#2f2f2f</color>
+
 </resources>

@@ -7,6 +7,8 @@ import android.util.Log
 import android.view.MenuItem
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.app.AppCompatDelegate.*
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.viewpager.widget.ViewPager
@@ -18,6 +20,7 @@ import com.epigram.android.ui.main.SectionsPagerAdapter
 import com.epigram.android.ui.promo.PromoActivity
 import com.epigram.android.ui.search.SearchActivity
 import com.epigram.android.ui.section.SectionActivity
+import com.epigram.android.ui.settings.SettingsActivity
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.tabs.TabLayout
 import org.joda.time.DateTime
@@ -210,6 +213,7 @@ class MainActivity : BaseActivity<MainActivityMvp.Presenter>(),
                 getString(R.string.menu_puzzles_tag)
             )
             R.id.nav_promo -> startActivity(Intent(this, PromoActivity::class.java))
+            R.id.nav_settings -> startActivity(Intent(this, SettingsActivity::class.java))
             R.id.nav_about -> startActivity(Intent(this, AboutActivity::class.java))
             else ->
 
