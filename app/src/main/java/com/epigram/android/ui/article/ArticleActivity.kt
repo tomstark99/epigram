@@ -89,7 +89,6 @@ class ArticleActivity : AppCompatActivity() {
         val layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         recyclerView!!.layoutManager = layoutManager
         recyclerView!!.itemAnimator = DefaultItemAnimator()
-        //recyclerView!!.isNestedScrollingEnabled = false
         recyclerView!!.adapter =
             MyAdapterTag(post.tags!!.toMutableList())
 
@@ -110,35 +109,6 @@ class ArticleActivity : AppCompatActivity() {
         article_post_title.text = post.title
         //article_tag_text.text = post.tag
         article_post_date_alternate.text = post.date.toString("MMM d, yyyy")
-    }
-
-
-    fun createNotificationArticle(post: Post, bitmap: Bitmap) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val importance = NotificationManager.IMPORTANCE_HIGH
-            val mChannel = NotificationChannel("article","New articles", importance)
-            val notificationManager = getSystemService(FirebaseMessagingService.NOTIFICATION_SERVICE) as NotificationManager
-            notificationManager.createNotificationChannel(mChannel)
-        }
-        val managerCompat = NotificationManagerCompat.from(this)
-        val intent = makeIntent(this, post)
-        val pendingIntent = PendingIntent.getActivity(this, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT)
-
-//        val placeholder =
-
-
-        val notification =  NotificationCompat.Builder(this, "article")
-            .setContentTitle("New article published")
-            .setContentText(post.title)
-            .setSmallIcon(R.drawable.ic_clifton_icon)
-            .setContentIntent(pendingIntent)
-            .setStyle(NotificationCompat.BigTextStyle().bigText(post.title))
-            .setLargeIcon(bitmap)
-            .setAutoCancel(true)
-            .setColor(getColor(R.color.colorPrimary))
-            .setDefaults(NotificationCompat.DEFAULT_ALL)
-            .build()
-        managerCompat.notify(NotificationService.ID++, notification)
     }
 
     companion object {

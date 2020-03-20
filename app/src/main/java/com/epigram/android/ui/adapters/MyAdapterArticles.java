@@ -41,9 +41,6 @@ public class MyAdapterArticles extends RecyclerView.Adapter<MyAdapterArticles.My
     public static int SEARCH_PAGE_INDEX = 100;
     public static int HOME_PAGE_INDEX = 0;
 
-    //private Post vcars = new Post("advert", "advert-vcars", "Get 20% off vcars as a student: download the app now", "", "https://www.v-cars.com/wp-content/uploads/2019/05/VCarsLogo-Resized.png", "ADVERT", Arrays.asList("ADVERT"), DateTime.now(), "");
-    //private boolean advertTime = true;
-
     public List<Post> posts = new ArrayList<>();
     private final MultiTransformation<Bitmap> multiTransformation;
     private LoadNextPage loadNextPage = null;
@@ -92,11 +89,8 @@ public class MyAdapterArticles extends RecyclerView.Adapter<MyAdapterArticles.My
         public TextView title;
         public ImageView titleImage;
         public LinearLayout linearLayout;
-        //public TextView tag;
         public RecyclerView tags;
-        // public TextView date; // for date on top of image
         public TextView dateAlt;
-        //public TextView sectionTitle;
         public TextView searchResults;
         public boolean imageLoaded = false;
 
@@ -108,13 +102,10 @@ public class MyAdapterArticles extends RecyclerView.Adapter<MyAdapterArticles.My
                 searchResults = l.findViewById(R.id.search_results_number);
             }
             title = l.findViewById(R.id.post_title);
-            //tag = l.findViewById(R.id.tag_text);
             tags = l.findViewById(R.id.recycler_view_tag);
-            // date = l.findViewById(R.id.post_date); // for top of image
             dateAlt = l.findViewById(R.id.post_date_alternate);
             titleImage = l.findViewById(R.id.post_image);
             this.linearLayout = l;
-            //sectionTitle = l.findViewById(R.id.section_text);
         }
     }
 
@@ -150,7 +141,6 @@ public class MyAdapterArticles extends RecyclerView.Adapter<MyAdapterArticles.My
 
     public void addPosts(List<Post> postsNew){
 
-
         List<Post> checkSame = new ArrayList<>(posts);
 
         checkSame.addAll(postsNew);
@@ -177,24 +167,12 @@ public class MyAdapterArticles extends RecyclerView.Adapter<MyAdapterArticles.My
             }
         });
 
-//        if(advertTime) {
-//            //checkSame.add(vcars);
-//        }
-//        advertTime = !advertTime;
         Observable.fromIterable(checkSame)
                 .distinct(it -> it.getId())
                 .toList()
                 .subscribe(it -> posts = it);
 
-        //posts = checkSame;
-
-        //if(posts.get(0).getDate().plusWeeks(1).isBeforeNow()) posts.remove(0);
-
-
-
         diffResult.dispatchUpdatesTo(this);
-        //posts = new ListUtils().duplicatePost(new ArrayList<>(posts));
-        //notifyDataSetChanged();
     }
 
     @Override
@@ -242,12 +220,11 @@ public class MyAdapterArticles extends RecyclerView.Adapter<MyAdapterArticles.My
 
     public void setPosts(MyViewHolder holder, int position){
         if(pageIndex == SEARCH_PAGE_INDEX && position == 0){
-            holder.searchResults.setText(holder.searchResults.getResources().getQuantityString(R.plurals.results, resultTotal,resultTotal));//Integer.toString(posts.size()));
+            holder.searchResults.setText(holder.searchResults.getResources().getQuantityString(R.plurals.results, resultTotal,resultTotal));
         }
         List<String> tag = posts.get(position).getTags();
         tag.removeAll(Arrays.asList("featured top", "carousel", "one sidebar"));
         holder.title.setText((posts.get(position).getTitle()));
-        //holder.tag.setText(tag.get(0).toUpperCase());//posts.get(position).getTag());
         holder.dateAlt.setText(posts.get(position).getDate().toString("MMM d, yyyy"));
 
         Glide.with(holder.titleImage).load(posts.get(position).getImage()).placeholder(R.drawable.placeholder_background).apply(RequestOptions.bitmapTransform(multiTransformation)).listener(new RequestListener<Drawable>() {
