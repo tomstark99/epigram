@@ -1,29 +1,22 @@
 package com.epigram.android.ui.settings
 
 import android.app.Dialog
-import android.content.res.Configuration
 import android.graphics.Typeface
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
-import android.view.ViewGroup
 import android.view.ViewGroup.*
 import android.view.Window
 import android.widget.Button
-import android.widget.LinearLayout
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import androidx.annotation.IdRes
 import androidx.annotation.StringRes
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.app.AppCompatDelegate.*
 import com.epigram.android.BuildConfig
 import com.epigram.android.R
-import com.epigram.android.arch.PreferenceModule
-import com.epigram.android.arch.android.BaseActivity
+import com.epigram.android.data.arch.PreferenceModule
+import com.epigram.android.data.arch.android.BaseActivity
 import kotlinx.android.synthetic.main.activity_settings.*
-import kotlinx.android.synthetic.main.element_theme_dialog.*
 
 class SettingsActivity : BaseActivity<SettingsMvp.Presenter>(), SettingsMvp.View {
 

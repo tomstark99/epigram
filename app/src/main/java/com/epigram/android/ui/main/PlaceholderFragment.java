@@ -17,10 +17,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.epigram.android.data.Layout;
-import com.epigram.android.data.Post;
-import com.epigram.android.data.PostManager;
-import com.epigram.android.ui.adapters.AdapterArticles;
+import com.epigram.android.data.DataModule;
+import com.epigram.android.data.arch.utils.Layout;
+import com.epigram.android.data.arch.utils.LoadNextPage;
+import com.epigram.android.data.managers.PostManager;
+import com.epigram.android.data.model.Post;
+import com.epigram.android.ui.adapters.AdapterArticlesCorona;
 import com.epigram.android.ui.adapters.MyAdapterPlaceholder;
 import com.epigram.android.ui.article.ArticleActivity;
 import com.epigram.android.R;
@@ -35,16 +37,16 @@ import java.util.List;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class PlaceholderFragment extends Fragment implements AdapterArticles.LoadNextPage{
+public class PlaceholderFragment extends Fragment implements LoadNextPage {
 
     private static final String ARG_SECTION_NUMBER = "section_number";
     private static final String ARG_HAS_BREAKING = "has_breaking.bool";
 
     private int FIRST_INDEX = 1;
 
-    private PostManager pManager = new PostManager();
+    private PostManager pManager = DataModule.INSTANCE.getPostManager();
 
-    private AdapterArticles adapter2 = null;
+    private AdapterArticlesCorona adapter2 = null;
     private int nextPage = FIRST_INDEX;
     private boolean loaded = false;
     private RecyclerView recyclerView;
@@ -183,7 +185,11 @@ public class PlaceholderFragment extends Fragment implements AdapterArticles.Loa
                             }
                             nextPage++;
                             if (adapter2 == null) {
-                                adapter2 = new AdapterArticles(this.getContext(), posts.first, PlaceholderFragment.this, pageIndex, getArguments().getBoolean(ARG_HAS_BREAKING));
+                                if(pageIndex == 0) {
+                                    adapter2 = new AdapterArticlesCorona(this.getContext(), posts.first, posts.first, this, pageIndex);
+                                } else {
+                                    //adapter2 = new AdapterArticles(this.getContext(), posts.first,this, pageIndex);
+                                }
                                 recyclerView.setAdapter(adapter2);
                             }
                             else {

@@ -3,18 +3,15 @@ package com.epigram.android.ui
 import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatDelegate
-import androidx.appcompat.app.AppCompatDelegate.*
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.viewpager.widget.ViewPager
 import com.epigram.android.R
 
-import com.epigram.android.arch.android.BaseActivity
+import com.epigram.android.data.arch.android.BaseActivity
 import com.epigram.android.ui.about.AboutActivity
 import com.epigram.android.ui.main.SectionsPagerAdapter
 import com.epigram.android.ui.promo.PromoActivity
@@ -24,6 +21,7 @@ import com.epigram.android.ui.settings.SettingsActivity
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.tabs.TabLayout
 import com.google.firebase.messaging.FirebaseMessaging
+import kotlinx.android.synthetic.main.app_bar_main.*
 import org.joda.time.DateTime
 
 class MainActivity : BaseActivity<MainActivityMvp.Presenter>(),
@@ -31,12 +29,13 @@ class MainActivity : BaseActivity<MainActivityMvp.Presenter>(),
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if(DateTime("2020-03-16T00:00:00.000").isAfterNow) setContentView(R.layout.activity_main_p) else setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_main) // if(DateTime("2020-03-16T00:00:00.000").isAfterNow) setContentView(R.layout.activity_main_p) else
         presenter = MainActivityPresenter(this)
         presenter.onCreate()
         val sectionsPagerAdapter = SectionsPagerAdapter(this, supportFragmentManager)
         val viewPager = findViewById<ViewPager>(R.id.view_pager)
         viewPager.adapter = sectionsPagerAdapter
+        viewPager.offscreenPageLimit = 0
         val tabs = findViewById<TabLayout>(R.id.tabs)
         tabs.setupWithViewPager(viewPager)
         tabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
@@ -54,6 +53,9 @@ class MainActivity : BaseActivity<MainActivityMvp.Presenter>(),
         })
 
         val title = findViewById<TextView>(R.id.title)
+        title.setOnClickListener {
+            sectionsPagerAdapter.fragmentReselected(tabs.selectedTabPosition)
+        }
         val typeFace = Typeface.createFromAsset(assets, "fonts/lora_bold.ttf")
         title.typeface = typeFace
         val navView = findViewById<NavigationView>(R.id.nav_view)
@@ -100,6 +102,7 @@ class MainActivity : BaseActivity<MainActivityMvp.Presenter>(),
     }
 
     override fun load(showWelcome: Boolean) {
+        //tabs.getTabAt(0)!!.setIcon(R.drawable.ic_warning_amber_24px_outlined_red)
         if (showWelcome && DateTime("2020-03-16T00:00:00.000").isAfterNow) {
             WelcomeActivity.start(this)
         }

@@ -3,7 +3,6 @@ package com.epigram.android.data
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
-import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.os.Build
@@ -16,13 +15,14 @@ import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import com.epigram.android.ui.article.ArticleActivity
-import com.epigram.android.ui.MainActivity
 import com.epigram.android.R
-import com.epigram.android.arch.PreferenceModule.latestNotification
+import com.epigram.android.data.arch.PreferenceModule.latestNotification
+import com.epigram.android.data.managers.PostManager
+import com.epigram.android.data.managers.PostManagerImpl
+import com.epigram.android.data.model.Post
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.rxkotlin.addTo
 import io.reactivex.schedulers.Schedulers
 import kotlin.random.Random
 
@@ -32,7 +32,7 @@ class NotificationService : FirebaseMessagingService() {
         var ID = Random.nextInt(5000)
     }
 
-    private val postManager = PostManager()
+    private val postManager: PostManager = DataModule.postManager
 
     override fun onMessageReceived(p0: RemoteMessage) {
 
