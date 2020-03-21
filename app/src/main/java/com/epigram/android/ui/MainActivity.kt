@@ -53,6 +53,9 @@ class MainActivity : BaseActivity<MainActivityMvp.Presenter>(),
         })
 
         val title = findViewById<TextView>(R.id.title)
+        title.setOnClickListener {
+            sectionsPagerAdapter.fragmentReselected(tabs.selectedTabPosition)
+        }
         val typeFace = Typeface.createFromAsset(assets, "fonts/lora_bold.ttf")
         title.typeface = typeFace
         val navView = findViewById<NavigationView>(R.id.nav_view)
