@@ -3,6 +3,7 @@
     <string name="app_name_title">epigram</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="tab_text_1">HOME</string>
+    <string name="tab_text_c">COVID-19</string>
     <string name="tab_text_2">NEWS</string>
     <string name="tab_text_3">THE CROFT</string>
     <string name="tab_text_4">FEATURES</string>
@@ -17,6 +18,7 @@
 
     <string name="empty"></string>
     <string name="tag1">news</string>
+    <string name="tagc">coronavirus</string>
     <string name="tag2">the-croft</string>
     <string name="tag3">features</string>
     <string name="tag4">comment</string>

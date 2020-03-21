@@ -21,6 +21,7 @@ import com.epigram.android.ui.settings.SettingsActivity
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.tabs.TabLayout
 import com.google.firebase.messaging.FirebaseMessaging
+import kotlinx.android.synthetic.main.app_bar_main.*
 import org.joda.time.DateTime
 
 class MainActivity : BaseActivity<MainActivityMvp.Presenter>(),
@@ -98,6 +99,7 @@ class MainActivity : BaseActivity<MainActivityMvp.Presenter>(),
     }
 
     override fun load(showWelcome: Boolean) {
+        //tabs.getTabAt(0)!!.setIcon(R.drawable.ic_warning_amber_24px_outlined_red)
         if (showWelcome && DateTime("2020-03-16T00:00:00.000").isAfterNow) {
             WelcomeActivity.start(this)
         }

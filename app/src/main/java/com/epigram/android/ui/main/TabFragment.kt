@@ -11,9 +11,7 @@ import com.epigram.android.R
 import com.epigram.android.data.arch.android.BaseFragment
 import com.epigram.android.data.arch.utils.LoadNextPage
 import com.epigram.android.data.model.Post
-import com.epigram.android.ui.adapters.AdapterArticles
-import com.epigram.android.ui.adapters.AdapterArticlesCorona
-import com.epigram.android.ui.adapters.MyAdapterPlaceholder
+import com.epigram.android.ui.adapters.*
 import com.epigram.android.ui.article.ArticleActivity
 import kotlinx.android.synthetic.main.fragment_main.*
 
@@ -22,7 +20,8 @@ class TabFragment : BaseFragment<TabMvp.Presenter>(), TabMvp.View, LoadNextPage 
     private var pageNum = FIRST_INDEX
     private var tabNum = 0
     private var adapter: AdapterArticles? = null
-    private var adapterHome: AdapterArticlesCorona? = null
+    private var adapterC: AdapterCor? = null
+    private var adapterHome: AdapterArticlesHome? = null
 
     companion object {
 
@@ -101,10 +100,10 @@ class TabFragment : BaseFragment<TabMvp.Presenter>(), TabMvp.View, LoadNextPage 
         tab_something_wrong.visibility = View.GONE
         swipe_refresh.isRefreshing = false
         if(adapterHome == null) {
-            adapterHome = AdapterArticlesCorona(context!!, emptyList<Post>().toMutableList(), posts.toMutableList(), this, tabNum)
+            adapterHome = AdapterArticlesHome(context!!, posts.toMutableList(), this, tabNum)
             my_recycler_view.adapter = adapterHome
         } else {
-            if(pageNum == FIRST_INDEX + 1) (adapterHome as AdapterArticlesCorona).clear()
+            if(pageNum == FIRST_INDEX + 1) (adapterHome as AdapterArticlesHome).clear()
             adapterHome!!.addPosts(posts)
         }
     }
@@ -115,25 +114,25 @@ class TabFragment : BaseFragment<TabMvp.Presenter>(), TabMvp.View, LoadNextPage 
         tab_something_wrong.visibility = View.GONE
         swipe_refresh.isRefreshing = false
         if(adapterHome == null) {
-            adapterHome = AdapterArticlesCorona(context!!, emptyList<Post>().toMutableList(), posts.toMutableList(), this, tabNum)
+            adapterHome = AdapterArticlesHome(context!!, posts.toMutableList(), this, tabNum)
             my_recycler_view.adapter = adapterHome
         } else {
-            if(pageNum == FIRST_INDEX + 1) (adapterHome as AdapterArticlesCorona).clear()
+            if(pageNum == FIRST_INDEX + 1) (adapterHome as AdapterArticlesHome).clear()
             adapterHome!!.addPosts(posts)
         }
     }
 
-    override fun onPostSuccessCorona(corona: List<Post>, posts: List<Post>) {
+    override fun onPostSuccessCorona(corona: List<Post>) {
         pageNum++
         loaded = true
         tab_something_wrong.visibility = View.GONE
         swipe_refresh.isRefreshing = false
-        if(adapterHome == null) {
-            adapterHome = AdapterArticlesCorona(context!!, corona.toMutableList(), posts.toMutableList(), this, tabNum)
-            my_recycler_view.adapter = adapterHome
+        if(adapterC == null) {
+            adapterC = AdapterCor(context!!, corona.toMutableList(), this)
+            my_recycler_view.adapter = adapterC
         } else {
-            if(pageNum == FIRST_INDEX + 1) (adapterHome as AdapterArticlesCorona).clear()
-            adapterHome!!.addPosts(posts)
+            if(pageNum == FIRST_INDEX + 1) (adapterC as AdapterCor).clear()
+            adapterC!!.addPosts(corona)
         }
     }
 

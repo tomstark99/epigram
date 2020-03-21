@@ -41,6 +41,7 @@ class SectionsPagerAdapter(private val mContext: Context, fm: FragmentManager) :
         @StringRes
         private val TAB_TITLES = intArrayOf(
             R.string.tab_text_1,
+            R.string.tab_text_c,
             R.string.tab_text_2,
             R.string.tab_text_3,
             R.string.tab_text_4,
@@ -53,6 +54,7 @@ class SectionsPagerAdapter(private val mContext: Context, fm: FragmentManager) :
         )
         private val FILTERS = intArrayOf(
             R.string.empty,
+            R.string.tagc,
             R.string.tag1,
             R.string.tag2,
             R.string.tag3,

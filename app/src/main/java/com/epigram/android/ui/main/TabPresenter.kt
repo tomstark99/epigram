@@ -31,13 +31,17 @@ class TabPresenter (view: TabMvp.View,
                     Function3<p, Pair<String, p>, p, Triple<p, p, p>> { t1, t2, t3 ->
                         Triple(t1, t2.second, t3)
                     })
-                //getPostsHome(single, pageNum, tab)
-                getPostsHomeC(singleC, pageNum, tab)
+                getPostsHome(single, pageNum, tab)
+                //getPostsHomeC(singleC, pageNum, tab)
             }
             else{
                 getMorePostsHome(pageNum, tab)
             }
-        } else {
+        }
+        else if(tabNum == 1) {
+            getPostsCorona(pageNum, tab)
+        }
+        else {
             getPosts(pageNum, tab)
         }
     }
@@ -57,17 +61,12 @@ class TabPresenter (view: TabMvp.View,
             }).addTo(subscription)
     }
 
-    fun getPostsHomeC(single: Single<Triple<p, p, p>>, pageNum: Int, tab: String) {
-        single.subscribeOn(Schedulers.io())
+    fun getPostsCorona(pageNum: Int, tab: String) {
+        postManager.getPostTitles(pageNum, tab)
+            .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ posts ->
-                var breaking = posts.first[0]
-                var news = posts.third.toMutableList()
-                var corona = posts.second.toMutableList()
-                corona.remove(breaking)
-                news.remove(breaking)
-                news.add(0, breaking)
-                view?.onPostSuccessCorona(corona, news)
+                view?.onPostSuccessCorona(posts.second)
             }, { e ->
                 view?.onPostError()
                 Log.e("error", "something went wrong loading posts", e)
