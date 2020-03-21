@@ -14,7 +14,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_marginTop="80dp"
-            android:visibility="visible">
+            android:visibility="gone">
         <ImageView
                 android:id="@+id/tab_image_something_wrong"
                 android:layout_width="match_parent"

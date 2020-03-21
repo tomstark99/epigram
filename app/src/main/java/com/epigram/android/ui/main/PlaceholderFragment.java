@@ -22,8 +22,7 @@ import com.epigram.android.data.arch.utils.Layout;
 import com.epigram.android.data.arch.utils.LoadNextPage;
 import com.epigram.android.data.managers.PostManager;
 import com.epigram.android.data.model.Post;
-import com.epigram.android.ui.adapters.AdapterArticles;
-import com.epigram.android.ui.adapters.AdapterArticlesHome;
+import com.epigram.android.ui.adapters.AdapterArticlesCorona;
 import com.epigram.android.ui.adapters.MyAdapterPlaceholder;
 import com.epigram.android.ui.article.ArticleActivity;
 import com.epigram.android.R;
@@ -47,7 +46,7 @@ public class PlaceholderFragment extends Fragment implements LoadNextPage {
 
     private PostManager pManager = DataModule.INSTANCE.getPostManager();
 
-    private AdapterArticlesHome adapter2 = null;
+    private AdapterArticlesCorona adapter2 = null;
     private int nextPage = FIRST_INDEX;
     private boolean loaded = false;
     private RecyclerView recyclerView;
@@ -187,7 +186,7 @@ public class PlaceholderFragment extends Fragment implements LoadNextPage {
                             nextPage++;
                             if (adapter2 == null) {
                                 if(pageIndex == 0) {
-                                    adapter2 = new AdapterArticlesHome(this.getContext(), posts.first, posts.first, this, pageIndex);
+                                    adapter2 = new AdapterArticlesCorona(this.getContext(), posts.first, posts.first, this, pageIndex);
                                 } else {
                                     //adapter2 = new AdapterArticles(this.getContext(), posts.first,this, pageIndex);
                                 }

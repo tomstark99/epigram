@@ -31,9 +31,10 @@ import io.reactivex.disposables.Disposable
 import java.util.concurrent.TimeUnit
 import kotlin.collections.ArrayList
 
-class AdapterArticlesHome(context: Context, posts: MutableList<Post>, loadNext: LoadNextPage, position: Int) : RecyclerView.Adapter<AdapterArticlesHome.MyViewHolder>(){
+class AdapterArticlesCorona(context: Context, corona: MutableList<Post>, posts: MutableList<Post>, loadNext: LoadNextPage, position: Int) : RecyclerView.Adapter<AdapterArticlesCorona.MyViewHolder>(){
 
     var posts: MutableList<Post> = ArrayList()
+    var corona: MutableList<Post> = ArrayList()
     var context: Context
     var loadNextPage: LoadNextPage
     var multiTransformation = MultiTransformation(CenterCrop(), RoundedCorners(40))
@@ -43,6 +44,7 @@ class AdapterArticlesHome(context: Context, posts: MutableList<Post>, loadNext: 
         var newPosts = posts
         newPosts.add(1, posts[0])
         this.posts = newPosts
+        this.corona = corona
         this.context = context
         this.loadNextPage = loadNext
         this.pageIndex = position
@@ -50,15 +52,24 @@ class AdapterArticlesHome(context: Context, posts: MutableList<Post>, loadNext: 
 
     enum class Inflater(val id: Int, @LayoutRes val element: Int){
         POSITION_ONE(0, R.layout.element_news_article_breaking),
-        POSITION_THR(1, R.layout.element_news_article_first),
-        POSITION_MRE(2, R.layout.element_news_article)
+        POSITION_TWO(1, R.layout.element_corona),
+        POSITION_THR(2, R.layout.element_news_article_first),
+        POSITION_MRE(3, R.layout.element_news_article)
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        holder.tags!!.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
-        holder.tags!!.itemAnimator = DefaultItemAnimator()
-        holder.tags!!.adapter = MyAdapterTag(posts[position].tags.orEmpty())
-        setPost(holder, position)
+        if(position == 1){
+            holder.cor!!.layoutManager = LinearLayoutManager(this.context)
+            holder.cor!!.itemAnimator = DefaultItemAnimator()
+            holder.cor!!.adapter = AdapterCor(context, corona, loadNextPage)
+        } else{
+            holder.tags!!.layoutManager =
+                LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
+            holder.tags!!.itemAnimator = DefaultItemAnimator()
+            holder.tags!!.adapter = MyAdapterTag(posts[position].tags.orEmpty())
+            setPost(holder, position)
+        }
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -70,7 +81,8 @@ class AdapterArticlesHome(context: Context, posts: MutableList<Post>, loadNext: 
 
     override fun getItemViewType(position: Int): Int {
         if(position == 0) return 0
-        return if(position == 1) 1 else 2
+        else if(position == 1) return 1
+        else return if(position == 2) 2 else 3
     }
 
     override fun getItemCount(): Int {
@@ -82,6 +94,7 @@ class AdapterArticlesHome(context: Context, posts: MutableList<Post>, loadNext: 
         var title: TextView?
         var articleImage: ImageView?
         var tags: RecyclerView?
+        var cor: RecyclerView?
         var date: TextView?
 
         var firstElementText: TextView?
@@ -94,6 +107,7 @@ class AdapterArticlesHome(context: Context, posts: MutableList<Post>, loadNext: 
             articleImage = l.findViewById(R.id.post_image)
             date = l.findViewById(R.id.post_date_alternate)
             tags = l.findViewById(R.id.recycler_view_tag)
+            cor = l.findViewById(R.id.recycler_view_c)
             firstElementText = l.findViewById(R.id.search_results_number)
 
             linearLayout = l
@@ -107,11 +121,13 @@ class AdapterArticlesHome(context: Context, posts: MutableList<Post>, loadNext: 
             .throttleFirst(500, TimeUnit.MILLISECONDS)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe { empty ->
+                if(holder.adapterPosition != 1) {
                     holder.articleImage!!.setTransitionName("article_header")
                     loadNextPage.onPostClicked(
-                        posts[holder.adapterPosition],
+                        posts[holder.adapterPosition + 1],
                         if (holder.imageLoaded) holder.articleImage else null
                     )
+                }
         }
     }
 

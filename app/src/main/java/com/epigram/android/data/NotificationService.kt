@@ -17,6 +17,7 @@ import com.bumptech.glide.request.transition.Transition
 import com.epigram.android.ui.article.ArticleActivity
 import com.epigram.android.R
 import com.epigram.android.data.arch.PreferenceModule.latestNotification
+import com.epigram.android.data.managers.PostManager
 import com.epigram.android.data.managers.PostManagerImpl
 import com.epigram.android.data.model.Post
 import com.google.firebase.messaging.FirebaseMessagingService
@@ -31,7 +32,7 @@ class NotificationService : FirebaseMessagingService() {
         var ID = Random.nextInt(5000)
     }
 
-    private val postManager = PostManagerImpl()
+    private val postManager: PostManager = DataModule.postManager
 
     override fun onMessageReceived(p0: RemoteMessage) {
 

@@ -124,7 +124,7 @@
                     tools:text="Article goes here"
                     android:textSize="18dp"
                     android:textColor="@color/black"
-                    android:fontFamily="sans-serif-condensed-light"
+                    android:fontFamily="sans-serif-condensed"
                     android:textStyle="normal"
                     android:textColorLink="@color/colorAccent"
                     android:paddingBottom="@dimen/small_padding"/>

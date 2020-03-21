@@ -15,11 +15,11 @@ import java.util.HashMap
  */
 class SectionsPagerAdapter(private val mContext: Context, fm: FragmentManager) : FragmentPagerAdapter(fm) {
 
-    private val fragmentMap = HashMap<Int, PlaceholderFragment>()
+    private val fragmentMap = HashMap<Int, TabFragment>()
 
     override fun getItem(position: Int): Fragment {
         if (!fragmentMap.containsKey(position)) {
-            fragmentMap[position] = PlaceholderFragment.newInstance(FILTERS[position], position)
+            fragmentMap[position] = TabFragment.newInstance(FILTERS[position], position)
         }
         return fragmentMap[position]!!
     }
