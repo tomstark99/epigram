@@ -40,9 +40,7 @@ class AdapterArticlesHome(context: Context, posts: MutableList<Post>, loadNext: 
     var pageIndex: Int = 0
 
     init {
-        var newPosts = posts
-        newPosts.add(1, posts[0])
-        this.posts = newPosts
+        this.posts = posts
         this.context = context
         this.loadNextPage = loadNext
         this.pageIndex = position

@@ -54,6 +54,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:paddingStart="@dimen/tiny_padding"
+            android:textColor="@color/button_tint"
             android:text="@string/corona_warn"/>
     </LinearLayout>
     <FrameLayout

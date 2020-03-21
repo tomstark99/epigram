@@ -29,7 +29,7 @@ class MainActivity : BaseActivity<MainActivityMvp.Presenter>(),
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if(DateTime("2020-03-16T00:00:00.000").isAfterNow) setContentView(R.layout.activity_main_p) else setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_main) // if(DateTime("2020-03-16T00:00:00.000").isAfterNow) setContentView(R.layout.activity_main_p) else
         presenter = MainActivityPresenter(this)
         presenter.onCreate()
         val sectionsPagerAdapter = SectionsPagerAdapter(this, supportFragmentManager)

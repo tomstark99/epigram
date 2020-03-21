@@ -116,8 +116,7 @@
                 android:paddingStart="@dimen/small_padding"
                 android:paddingEnd="@dimen/small_padding"
                 android:text="GENERAL"
-                android:textSize="13sp"
-                android:fontFamily="sans-serif-condensed-light"
+                android:textSize="10sp"
                 android:textColor="@color/black"
                 android:letterSpacing="0.2"/>
             <LinearLayout
@@ -158,9 +157,8 @@
                 android:paddingStart="@dimen/small_padding"
                 android:paddingEnd="@dimen/small_padding"
                 android:text="ADDITIONAL INFORMATION"
-                android:textSize="13sp"
+                android:textSize="10sp"
                 android:textColor="@color/black"
-                android:fontFamily="sans-serif-condensed-light"
                 android:letterSpacing="0.2"/>
             <LinearLayout
                 android:id="@+id/build_button"
