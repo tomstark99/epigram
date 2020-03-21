@@ -46,8 +46,8 @@
         android:layout_height="wrap_content"
         android:paddingBottom="@dimen/inner_element_padding">
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:src="@drawable/ic_warning_amber_24px_outlined"/>
         <TextView
             android:layout_width="wrap_content"
@@ -55,6 +55,7 @@
             android:layout_gravity="center_vertical"
             android:paddingStart="@dimen/tiny_padding"
             android:textColor="@color/button_tint"
+            android:textSize="12sp"
             android:text="@string/corona_warn"/>
     </LinearLayout>
     <FrameLayout

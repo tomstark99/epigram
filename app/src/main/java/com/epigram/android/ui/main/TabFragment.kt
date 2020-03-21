@@ -74,22 +74,22 @@ class TabFragment : BaseFragment<TabMvp.Presenter>(), TabMvp.View, LoadNextPage 
             }
         }
 
-
         swipe_refresh.setColorSchemeResources(R.color.colorAccent, R.color.colorAccentHint)
         swipe_refresh.setProgressBackgroundColorSchemeResource(R.color.progress_background)
         swipe_refresh.setOnRefreshListener {
             pageNum = FIRST_INDEX
+            tab_something_wrong.visibility = View.GONE
             presenter.load(pageNum, tabNum, getString(arguments!!.getInt(ARG_SECTION_NUMBER)))
         }
 
         presenter = TabPresenter(this)
+        tab_something_wrong.visibility = View.GONE
         presenter.load(pageNum, tabNum, getString(arguments!!.getInt(ARG_SECTION_NUMBER)))
     }
 
     override fun onPostSuccess(posts: List<Post>) {
         pageNum++
         loaded = true
-        tab_something_wrong.visibility = View.GONE
         swipe_refresh.isRefreshing = false
         if(adapter == null) {
             adapter = AdapterArticles(context!!, posts.toMutableList(), this, tabNum)
@@ -103,7 +103,6 @@ class TabFragment : BaseFragment<TabMvp.Presenter>(), TabMvp.View, LoadNextPage 
     override fun onPostSuccessHome(posts: List<Post>) {
         pageNum++
         loaded = true
-        tab_something_wrong.visibility = View.GONE
         swipe_refresh.isRefreshing = false
         if(adapterHome == null) {
             adapterHome = AdapterArticlesHome(context!!, posts.toMutableList(), this, tabNum)
@@ -117,7 +116,6 @@ class TabFragment : BaseFragment<TabMvp.Presenter>(), TabMvp.View, LoadNextPage 
     override fun onPostSuccessHomeMore(posts: List<Post>) {
         pageNum++
         loaded = true
-        tab_something_wrong.visibility = View.GONE
         swipe_refresh.isRefreshing = false
         if(adapterHome == null) {
             adapterHome = AdapterArticlesHome(context!!, posts.toMutableList(), this, tabNum)
@@ -131,7 +129,6 @@ class TabFragment : BaseFragment<TabMvp.Presenter>(), TabMvp.View, LoadNextPage 
     override fun onPostSuccessCorona(corona: List<Post>) {
         pageNum++
         loaded = true
-        tab_something_wrong.visibility = View.GONE
         swipe_refresh.isRefreshing = false
         if(adapterC == null) {
             adapterC = AdapterCor(context!!, corona.toMutableList(), this)
@@ -154,6 +151,7 @@ class TabFragment : BaseFragment<TabMvp.Presenter>(), TabMvp.View, LoadNextPage 
         if(!loaded) return
         else {
             loaded = false
+            tab_something_wrong.visibility = View.GONE
             presenter.load(pageNum, tabNum, getString(arguments!!.getInt(ARG_SECTION_NUMBER)))
         }
     }
