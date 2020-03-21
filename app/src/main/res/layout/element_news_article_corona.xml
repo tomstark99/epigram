@@ -48,13 +48,13 @@
         <ImageView
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:src="@drawable/ic_warning_amber_24px_outlined"/>
+            android:src="@drawable/ic_warning_amber_24px_outlined_red"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:paddingStart="@dimen/tiny_padding"
-            android:textColor="@color/button_tint"
+            android:textColor="@color/google_red"
             android:textSize="12sp"
             android:text="@string/corona_warn"/>
     </LinearLayout>

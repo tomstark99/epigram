@@ -35,7 +35,7 @@ class MainActivity : BaseActivity<MainActivityMvp.Presenter>(),
         val sectionsPagerAdapter = SectionsPagerAdapter(this, supportFragmentManager)
         val viewPager = findViewById<ViewPager>(R.id.view_pager)
         viewPager.adapter = sectionsPagerAdapter
-        //viewPager.offscreenPageLimit = 0
+        viewPager.offscreenPageLimit = 0
         val tabs = findViewById<TabLayout>(R.id.tabs)
         tabs.setupWithViewPager(viewPager)
         tabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {

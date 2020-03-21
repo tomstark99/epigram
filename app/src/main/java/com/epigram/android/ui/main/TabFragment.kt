@@ -88,63 +88,73 @@ class TabFragment : BaseFragment<TabMvp.Presenter>(), TabMvp.View, LoadNextPage 
     }
 
     override fun onPostSuccess(posts: List<Post>) {
-        pageNum++
-        loaded = true
-        swipe_refresh.isRefreshing = false
-        if(adapter == null) {
-            adapter = AdapterArticles(context!!, posts.toMutableList(), this, tabNum)
-            my_recycler_view.adapter = adapter
-        } else {
-            if(pageNum == FIRST_INDEX + 1) (adapter as AdapterArticles).clear()
-            adapter!!.addPosts(posts)
+        if(isAdded) {
+            pageNum++
+            loaded = true
+            swipe_refresh.isRefreshing = false
+            if (adapter == null) {
+                adapter = AdapterArticles(context!!, posts.toMutableList(), this, tabNum)
+                my_recycler_view.adapter = adapter
+            } else {
+                if (pageNum == FIRST_INDEX + 1) (adapter as AdapterArticles).clear()
+                adapter!!.addPosts(posts)
+            }
         }
     }
 
     override fun onPostSuccessHome(posts: List<Post>) {
-        pageNum++
-        loaded = true
-        swipe_refresh.isRefreshing = false
-        if(adapterHome == null) {
-            adapterHome = AdapterArticlesHome(context!!, posts.toMutableList(), this, tabNum)
-            my_recycler_view.adapter = adapterHome
-        } else {
-            if(pageNum == FIRST_INDEX + 1) (adapterHome as AdapterArticlesHome).clear()
-            adapterHome!!.addPosts(posts)
+        if(isAdded) {
+            pageNum++
+            loaded = true
+            swipe_refresh.isRefreshing = false
+            if (adapterHome == null) {
+                adapterHome = AdapterArticlesHome(context!!, posts.toMutableList(), this, tabNum)
+                my_recycler_view.adapter = adapterHome
+            } else {
+                if (pageNum == FIRST_INDEX + 1) (adapterHome as AdapterArticlesHome).clear()
+                adapterHome!!.addPosts(posts)
+            }
         }
     }
 
     override fun onPostSuccessHomeMore(posts: List<Post>) {
-        pageNum++
-        loaded = true
-        swipe_refresh.isRefreshing = false
-        if(adapterHome == null) {
-            adapterHome = AdapterArticlesHome(context!!, posts.toMutableList(), this, tabNum)
-            my_recycler_view.adapter = adapterHome
-        } else {
-            if(pageNum == FIRST_INDEX + 1) (adapterHome as AdapterArticlesHome).clear()
-            adapterHome!!.addPosts(posts)
+        if(isAdded) {
+            pageNum++
+            loaded = true
+            swipe_refresh.isRefreshing = false
+            if (adapterHome == null) {
+                adapterHome = AdapterArticlesHome(context!!, posts.toMutableList(), this, tabNum)
+                my_recycler_view.adapter = adapterHome
+            } else {
+                if (pageNum == FIRST_INDEX + 1) (adapterHome as AdapterArticlesHome).clear()
+                adapterHome!!.addPosts(posts)
+            }
         }
     }
 
     override fun onPostSuccessCorona(corona: List<Post>) {
-        pageNum++
-        loaded = true
-        swipe_refresh.isRefreshing = false
-        if(adapterC == null) {
-            adapterC = AdapterCor(context!!, corona.toMutableList(), this)
-            my_recycler_view.adapter = adapterC
-        } else {
-            if(pageNum == FIRST_INDEX + 1) (adapterC as AdapterCor).clear()
-            adapterC!!.addPosts(corona)
+        if(isAdded) {
+            pageNum++
+            loaded = true
+            swipe_refresh.isRefreshing = false
+            if (adapterC == null) {
+                adapterC = AdapterCor(context!!, corona.toMutableList(), this)
+                my_recycler_view.adapter = adapterC
+            } else {
+                if (pageNum == FIRST_INDEX + 1) (adapterC as AdapterCor).clear()
+                adapterC!!.addPosts(corona)
+            }
         }
     }
 
     override fun onPostError() {
-        if(my_recycler_view.adapter is MyAdapterPlaceholder) {
-            (my_recycler_view.adapter as MyAdapterPlaceholder).clear()
-            tab_something_wrong.visibility = View.VISIBLE
+        if(isAdded) {
+            if (my_recycler_view.adapter is MyAdapterPlaceholder) {
+                (my_recycler_view.adapter as MyAdapterPlaceholder).clear()
+                tab_something_wrong.visibility = View.VISIBLE
+            }
+            swipe_refresh.isRefreshing = false
         }
-        swipe_refresh.isRefreshing = false
     }
 
     override fun bottomReached() {
