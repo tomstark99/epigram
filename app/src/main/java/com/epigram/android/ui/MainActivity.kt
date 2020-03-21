@@ -39,7 +39,6 @@ class MainActivity : BaseActivity<MainActivityMvp.Presenter>(),
         viewPager.adapter = sectionsPagerAdapter
         val tabs = findViewById<TabLayout>(R.id.tabs)
         tabs.setupWithViewPager(viewPager)
-
         tabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
 
