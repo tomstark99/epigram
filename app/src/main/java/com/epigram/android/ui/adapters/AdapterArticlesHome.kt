@@ -49,14 +49,17 @@ class AdapterArticlesHome(context: Context, posts: MutableList<Post>, loadNext: 
     enum class Inflater(val id: Int, @LayoutRes val element: Int){
         POSITION_ONE(0, R.layout.element_news_article_breaking),
         POSITION_THR(1, R.layout.element_news_article_first),
-        POSITION_MRE(2, R.layout.element_news_article)
+        POSITION_MRE(2, R.layout.element_news_article),
+        POSITION_HME(3, R.layout.element_corona)
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        holder.tags!!.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
-        holder.tags!!.itemAnimator = DefaultItemAnimator()
-        holder.tags!!.adapter = MyAdapterTag(posts[position].tags.orEmpty())
-        setPost(holder, position)
+        if(position != 0) {
+            holder.tags!!.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
+            holder.tags!!.itemAnimator = DefaultItemAnimator()
+            holder.tags!!.adapter = MyAdapterTag(posts[position-1].tags.orEmpty())
+            setPost(holder, position-1)
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -67,12 +70,13 @@ class AdapterArticlesHome(context: Context, posts: MutableList<Post>, loadNext: 
     }
 
     override fun getItemViewType(position: Int): Int {
-        if(position == 0) return 0
-        return if(position == 1) 1 else 2
+        if(position == 0) return 3
+        else if(position == 1) return 0
+        return if(position == 2) 1 else 2
     }
 
     override fun getItemCount(): Int {
-        return posts.size
+        return posts.size + 1
     }
 
     inner class MyViewHolder(l: LinearLayout) : RecyclerView.ViewHolder(l) {
@@ -105,12 +109,14 @@ class AdapterArticlesHome(context: Context, posts: MutableList<Post>, loadNext: 
             .throttleFirst(500, TimeUnit.MILLISECONDS)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe { empty ->
+                if (holder.adapterPosition != 0) {
                     holder.articleImage!!.setTransitionName("article_header")
-                    loadNextPage.onPostClicked(
-                        posts[holder.adapterPosition],
-                        if (holder.imageLoaded) holder.articleImage else null
-                    )
-        }
+                loadNextPage.onPostClicked(
+                    posts[holder.adapterPosition-1],
+                    if (holder.imageLoaded) holder.articleImage else null
+                )
+                }
+            }
     }
 
     override fun onViewDetachedFromWindow(holder: MyViewHolder) {
@@ -156,7 +162,7 @@ class AdapterArticlesHome(context: Context, posts: MutableList<Post>, loadNext: 
                 }
             ).into(holder.articleImage!!)
 
-        if(position > itemCount - 2) loadNextPage.bottomReached()
+        if(position > itemCount - 3) loadNextPage.bottomReached()
 
     }
 

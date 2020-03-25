@@ -14,6 +14,7 @@
     <dimen name="larger_padding">48dp</dimen>
     <dimen name="largest_padding">64dp</dimen>
     <dimen name="huge_padding">72dp</dimen>
+    <dimen name="element_padding_half">6dp</dimen>
     <dimen name="element_padding">12dp</dimen>
     <dimen name="inner_element_padding">8dp</dimen>
     <dimen name="appbar_elevation">4dp</dimen>

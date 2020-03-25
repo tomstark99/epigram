@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingTop="@dimen/element_padding"
+        android:paddingTop="@dimen/element_padding_half"
         android:paddingBottom="@dimen/inner_element_padding"
         android:paddingStart="@dimen/element_padding"
         android:paddingEnd="@dimen/element_padding">
@@ -30,7 +30,7 @@
                 android:textSize="20dp"
                 android:textColor="@android:color/white"/>
         <TextView
-                android:text="RECENT NEWS"
+                android:text="@string/latest_corona"
                 android:id="@+id/search_results_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -41,25 +41,7 @@
                 android:visibility="visible"
                 android:textSize="22dp"/>
     </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingBottom="@dimen/inner_element_padding">
-        <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:src="@drawable/ic_warning_amber_24px_outlined_red"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:paddingStart="@dimen/tiny_padding"
-            android:textColor="@color/google_red"
-            android:textSize="12sp"
-            android:autoLink="web"
-            android:theme="@style/corona_info"
-            android:text="@string/corona_warn"/>
-    </LinearLayout>
+
     <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">

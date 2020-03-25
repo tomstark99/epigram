@@ -47,15 +47,17 @@ class AdapterCor(context: Context, posts: MutableList<Post>, loadNext: LoadNextP
 
     enum class Inflater(val id: Int, @LayoutRes val element: Int){
         POSITION_ONE(0, R.layout.element_news_article_corona),
-        POSITION_MRE(1, R.layout.element_news_article)
+        POSITION_MRE(1, R.layout.element_news_article),
+        POSITION_ALR(2, R.layout.element_corona2)
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        holder.tags.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
-        holder.tags.itemAnimator = DefaultItemAnimator()
-        holder.tags.adapter =
-            MyAdapterTag(posts[position].tags.orEmpty())
-        setPost(holder, position)
+        if(position != 0) {
+            holder.tags!!.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
+            holder.tags!!.itemAnimator = DefaultItemAnimator()
+            holder.tags!!.adapter = MyAdapterTag(posts[position-1].tags.orEmpty())
+            setPost(holder, position-1)
+        }
     }
 
 
@@ -68,22 +70,23 @@ class AdapterCor(context: Context, posts: MutableList<Post>, loadNext: LoadNextP
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if(position == 0) 0 else 1
+        if(position == 0) return 2
+        return if(position == 1) 0 else 1
     }
 
 
     override fun getItemCount(): Int {
-        return posts.size
+        return posts.size + 1
     }
 
 
 
     inner class MyViewHolder(l: LinearLayout) : RecyclerView.ViewHolder(l) {
 
-        var title: TextView
-        var articleImage: ImageView
-        var tags: RecyclerView
-        var date: TextView
+        var title: TextView?
+        var articleImage: ImageView?
+        var tags: RecyclerView?
+        var date: TextView?
 
         var firstElementText: TextView?
         var imageLoaded = false
@@ -111,11 +114,13 @@ class AdapterCor(context: Context, posts: MutableList<Post>, loadNext: LoadNextP
             .throttleFirst(500, TimeUnit.MILLISECONDS)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe { empty ->
-                holder.articleImage.setTransitionName("article_header")
-                loadNextPage.onPostClicked(
-                    posts[holder.adapterPosition],
-                    if (holder.imageLoaded) holder.articleImage else null
-            )
+                if(holder.adapterPosition != 0) {
+                    holder.articleImage!!.setTransitionName("article_header")
+                    loadNextPage.onPostClicked(
+                        posts[holder.adapterPosition-1],
+                        if (holder.imageLoaded) holder.articleImage else null
+                    )
+                }
         }
     }
 
@@ -141,10 +146,10 @@ class AdapterCor(context: Context, posts: MutableList<Post>, loadNext: LoadNextP
 
 
     fun setPost(holder: MyViewHolder, position: Int){
-        if(position == 0) holder.firstElementText!!.text = context.getString(R.string.latest_corona)
-        holder.title.text = posts[position].title
-        holder.date.text = posts[position].date.toString("MMM d, yyyy")
-        Glide.with(holder.articleImage)
+        //if(position == 1) holder.firstElementText!!.text = context.getString(R.string.latest_corona)
+        holder.title!!.text = posts[position].title
+        holder.date!!.text = posts[position].date.toString("MMM d, yyyy")
+        Glide.with(holder.articleImage!!)
             .load(posts[position].image)
             .placeholder(R.drawable.placeholder_background)
             .apply(RequestOptions.bitmapTransform(multiTransformation))
@@ -160,7 +165,8 @@ class AdapterCor(context: Context, posts: MutableList<Post>, loadNext: LoadNextP
                         return false
                     }
                 }
-            ).into(holder.articleImage)
+            ).into(holder.articleImage!!)
+        if(position > itemCount - 3) loadNextPage.bottomReached()
 
     }
 
