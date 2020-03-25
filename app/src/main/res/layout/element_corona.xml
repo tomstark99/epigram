@@ -11,7 +11,8 @@
         android:layout_height="wrap_content"
         android:text="STAY AT HOME"
         android:textAlignment="center"
-        android:textSize="25sp"
+        android:textSize="27sp"
+        android:textStyle="bold"
         android:textColor="@color/white_nochange"
         android:padding="2dp"
         android:background="@drawable/tab_c_background"/>

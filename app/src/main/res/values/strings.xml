@@ -102,6 +102,6 @@
     <string name="dark">Dark</string>
     <string name="follow_device">Follow device theme</string>
     <string name="latest_corona">LATEST: COVID-19</string>
-    <string name="corona_warn">Remember to keep up to date with the latest news regarding COVID-19 and how this may affect the University of Bristol. For more information please visit\n\nwww.nhs.uk/conditions/coronavirus-covid-19\nwww.bristol.ac.uk/students/coronavirus</string>
+    <string name="corona_warn">Remember to keep up to date with the latest news regarding COVID-19 and how this may affect the University of Bristol. For more information please visit\n\nwww.gov.uk/coronavirus\nwww.nhs.uk/conditions/coronavirus-covid-19\nwww.bristol.ac.uk/students/coronavirus</string>
 
 </resources>
