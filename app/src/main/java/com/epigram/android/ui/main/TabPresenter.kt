@@ -62,11 +62,11 @@ class TabPresenter (view: TabMvp.View,
     }
 
     fun getPostsCorona(pageNum: Int, tab: String) {
-        postManager.getPostTitles(pageNum, tab)
+        postManager.getPosts(pageNum, tab)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ posts ->
-                view?.onPostSuccessCorona(posts.second)
+                view?.onPostSuccessCorona(posts)
             }, { e ->
                 view?.onPostError()
                 Log.e("error", "something went wrong loading posts", e)

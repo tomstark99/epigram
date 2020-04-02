@@ -42,7 +42,7 @@
     </style>
 
     <style name="corona_info">
-        <item name="colorAccent">@color/google_red</item>
+        <item name="colorAccent">@color/white_nochange</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>

@@ -1,12 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view_c"
+    android:layout_height="wrap_content"
+    android:paddingStart="@dimen/element_padding"
+    android:paddingEnd="@dimen/element_padding"
+    android:paddingTop="@dimen/element_padding"
+    android:paddingBottom="@dimen/element_padding_half">
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:clipToPadding="false"/>
+        android:text="STAY AT HOME"
+        android:textAlignment="center"
+        android:textSize="27sp"
+        android:textStyle="bold"
+        android:textColor="@color/white_nochange"
+        android:padding="2dp"
+        android:background="@drawable/tab_c_background"/>
 <!--        android:scrollbars="vertical"-->
 <!--        android:nestedScrollingEnabled="false"-->
 <!--        android:isScrollContainer="false"-->

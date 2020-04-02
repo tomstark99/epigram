@@ -59,9 +59,9 @@ class AdapterArticlesCorona(context: Context, corona: MutableList<Post>, posts: 
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         if(position == 1){
-            holder.cor!!.layoutManager = LinearLayoutManager(this.context)
-            holder.cor!!.itemAnimator = DefaultItemAnimator()
-            holder.cor!!.adapter = AdapterCor(context, corona, loadNextPage)
+            //holder.cor!!.layoutManager = LinearLayoutManager(this.context)
+            //holder.cor!!.itemAnimator = DefaultItemAnimator()
+            //holder.cor!!.adapter = AdapterCor(context, corona, loadNextPage)
         } else{
             holder.tags!!.layoutManager =
                 LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
@@ -94,7 +94,7 @@ class AdapterArticlesCorona(context: Context, corona: MutableList<Post>, posts: 
         var title: TextView?
         var articleImage: ImageView?
         var tags: RecyclerView?
-        var cor: RecyclerView?
+        //var cor: RecyclerView?
         var date: TextView?
 
         var firstElementText: TextView?
@@ -107,7 +107,7 @@ class AdapterArticlesCorona(context: Context, corona: MutableList<Post>, posts: 
             articleImage = l.findViewById(R.id.post_image)
             date = l.findViewById(R.id.post_date_alternate)
             tags = l.findViewById(R.id.recycler_view_tag)
-            cor = l.findViewById(R.id.recycler_view_c)
+            //cor = l.findViewById(R.id.recycler_view_c)
             firstElementText = l.findViewById(R.id.search_results_number)
 
             linearLayout = l
