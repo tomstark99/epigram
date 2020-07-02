@@ -9,11 +9,11 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="STAY AT HOME"
+        android:text="STAY ALERT"
         android:textAlignment="center"
         android:textSize="27sp"
         android:textStyle="bold"
-        android:textColor="@color/white_nochange"
+        android:textColor="@color/default_black"
         android:padding="2dp"
         android:background="@drawable/tab_c_background"/>
 <!--        android:scrollbars="vertical"-->

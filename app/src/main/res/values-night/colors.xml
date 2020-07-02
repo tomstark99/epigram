@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="default_black">#e1e1e1</color>
     <color name="colorPrimary">@color/dark_3</color>
     <color name="black">#e1e1e1</color>
     <color name="white">@color/dark_3</color>

@@ -23,8 +23,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:paddingStart="@dimen/tiny_padding"
-            android:textColor="@color/white_nochange"
-            android:textSize="12sp"
+            android:textColor="@color/default_black"
+            android:textSize="14sp"
             android:autoLink="web"
             android:theme="@style/corona_info"
             android:text="@string/corona_warn"/>
