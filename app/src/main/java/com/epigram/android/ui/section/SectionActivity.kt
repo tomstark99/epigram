@@ -74,7 +74,7 @@ class SectionActivity : AppCompatActivity(), MyAdapterSection.LoadNextPage, Navi
             }
         }
 
-        swipe_refresh.setColorSchemeResources(R.color.colorAccent, R.color.colorAccentHint)
+        swipe_refresh.setColorSchemeResources(R.color.red_to_white)
         swipe_refresh.setProgressBackgroundColorSchemeResource(R.color.progress_background)
         swipe_refresh.setOnRefreshListener {
             if (adapter2 == null && recyclerView!!.adapter !is MyAdapterPlaceholder) {

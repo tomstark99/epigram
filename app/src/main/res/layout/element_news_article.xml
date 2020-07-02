@@ -8,8 +8,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingTop="@dimen/inner_element_padding"
-        android:paddingBottom="@dimen/inner_element_padding"
+        android:paddingTop="@dimen/element_padding_half"
+        android:paddingBottom="@dimen/element_padding_half"
         android:paddingStart="@dimen/element_padding"
         android:paddingEnd="@dimen/element_padding">
     <LinearLayout

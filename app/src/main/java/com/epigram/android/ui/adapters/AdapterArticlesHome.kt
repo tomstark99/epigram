@@ -23,6 +23,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
 import com.epigram.android.R
 import com.epigram.android.data.arch.utils.LoadNextPage
+import com.epigram.android.data.arch.utils.SnapHelperOne
 import com.epigram.android.data.model.Post
 import com.jakewharton.rxbinding2.view.RxView
 import io.reactivex.Observable
@@ -31,7 +32,7 @@ import io.reactivex.disposables.Disposable
 import java.util.concurrent.TimeUnit
 import kotlin.collections.ArrayList
 
-class AdapterArticlesHome(context: Context, posts: MutableList<Post>, loadNext: LoadNextPage, position: Int) : RecyclerView.Adapter<AdapterArticlesHome.MyViewHolder>(){
+class AdapterArticlesHome(context: Context, posts: MutableList<Post>, var breakingPosts: MutableList<Post>, loadNext: LoadNextPage, position: Int) : RecyclerView.Adapter<AdapterArticlesHome.MyViewHolder>(){
 
     var posts: MutableList<Post> = ArrayList()
     var context: Context
@@ -47,14 +48,21 @@ class AdapterArticlesHome(context: Context, posts: MutableList<Post>, loadNext: 
     }
 
     enum class Inflater(val id: Int, @LayoutRes val element: Int){
-        POSITION_ONE(0, R.layout.element_news_article_breaking),
+        POSITION_ONE(0, R.layout.element_news_article_breaking_list),
         POSITION_THR(1, R.layout.element_news_article_first),
         POSITION_MRE(2, R.layout.element_news_article),
         POSITION_HME(3, R.layout.element_corona)
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        if(position != 0) {
+        if (position == 1) {
+            val snapHelper = SnapHelperOne()
+            holder.breaking!!.onFlingListener = null
+            snapHelper.attachToRecyclerView(holder.breaking!!)
+            holder.breaking!!.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            holder.breaking!!.adapter = BreakingAdapter(context, breakingPosts, loadNextPage)
+        }
+        else if(position != 0) {
             holder.tags!!.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
             holder.tags!!.itemAnimator = DefaultItemAnimator()
             holder.tags!!.adapter = MyAdapterTag(posts[position-1].tags.orEmpty())
@@ -84,6 +92,7 @@ class AdapterArticlesHome(context: Context, posts: MutableList<Post>, loadNext: 
         var title: TextView?
         var articleImage: ImageView?
         var tags: RecyclerView?
+        var breaking: RecyclerView?
         var date: TextView?
 
         var firstElementText: TextView?
@@ -96,6 +105,7 @@ class AdapterArticlesHome(context: Context, posts: MutableList<Post>, loadNext: 
             articleImage = l.findViewById(R.id.post_image)
             date = l.findViewById(R.id.post_date_alternate)
             tags = l.findViewById(R.id.recycler_view_tag)
+            breaking = l.findViewById(R.id.recycler_breaking)
             firstElementText = l.findViewById(R.id.search_results_number)
 
             linearLayout = l
@@ -135,13 +145,13 @@ class AdapterArticlesHome(context: Context, posts: MutableList<Post>, loadNext: 
     }
 
     fun setPost(holder: MyViewHolder, position: Int){
-        if(position == 0 && posts[position].date.plusWeeks(1).isBeforeNow && posts[position].tags!!.contains("breaking news") && (!posts[position].title.contains("coronavirus") || !posts[position].title.contains("corona"))) {
-            holder.itemView.visibility = View.GONE
-            holder.itemView.layoutParams =  RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,1)
-        } else {
+//        if(position == 0 && posts[position].date.plusWeeks(1).isBeforeNow && posts[position].tags!!.contains("breaking news") && (!posts[position].title.contains("coronavirus") || !posts[position].title.contains("corona"))) {
+//            holder.itemView.visibility = View.GONE
+//            holder.itemView.layoutParams =  RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,1)
+//        } else {
             holder.itemView.visibility = View.VISIBLE
             holder.itemView.layoutParams =  RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT)
-        }
+//        }
         holder.title!!.text = posts[position].title
         holder.date!!.text = posts[position].date.toString("MMM d, yyyy")
         Glide.with(holder.articleImage!!)
