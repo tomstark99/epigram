@@ -42,7 +42,7 @@
     </style>
 
     <style name="corona_info">
-        <item name="colorAccent">@color/default_black</item>
+        <item name="colorAccent">@color/red_to_white</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>

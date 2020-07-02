@@ -12,7 +12,7 @@
     <!--<string name="tab_text_5">SCIENCE</string>-->
     <!--<string name="tab_text_6">WELLBEING</string>-->
     <!--<string name="tab_text_7">LIFESTYLE</string>-->
-    <string name="tab_text_6">ENTERTAINMENT</string>
+    <string name="tab_text_6">CULTURE</string>
     <string name="tab_text_7">SPORT</string>
     <!--<string name="tab_text_10">INTRAMURAL</string>-->
 
@@ -48,7 +48,7 @@
     <string name="menu_opinion">OPINION</string>
     <string name="menu_science">SCIENCE</string>
     <string name="menu_lifestyle">LIFESTYLE</string>
-    <string name="menu_entertainment">ENTERTAINMENT</string>
+    <string name="menu_entertainment">CULTURE</string>
     <string name="menu_film_tv">FILM &amp; TV</string>
     <string name="menu_arts">ARTS</string>
     <string name="menu_music">MUSIC</string>
