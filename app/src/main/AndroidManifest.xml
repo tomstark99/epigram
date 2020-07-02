@@ -70,6 +70,13 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateAlwaysHidden"
             android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.NewActivity"
+            android:parentActivityName=".ui.MainActivity"
+            android:theme="@style/Theme.AppCompat.Translucent"
+            android:windowSoftInputMode="stateAlwaysHidden"
+            android:screenOrientation="portrait"/>
+
         <service
             android:name=".data.NotificationService"
             android:exported="false">

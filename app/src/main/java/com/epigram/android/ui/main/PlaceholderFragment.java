@@ -98,7 +98,7 @@ public class PlaceholderFragment extends Fragment implements LoadNextPage {
         load();
 
         swipeRefresh = (SwipeRefreshLayout) view.findViewById(R.id.swipe_refresh);
-        swipeRefresh.setColorSchemeResources(R.color.colorAccent, R.color.colorAccentHint);
+        swipeRefresh.setColorSchemeResources(R.color.red_to_white);
         swipeRefresh.setProgressBackgroundColorSchemeResource(R.color.progress_background);
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override

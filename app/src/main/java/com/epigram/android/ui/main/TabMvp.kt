@@ -6,7 +6,7 @@ import com.epigram.android.data.model.Post
 interface TabMvp : BaseMvp {
 
     interface View : BaseMvp.View {
-        fun onPostSuccessHome(posts: List<Post>)
+        fun onPostSuccessHome(breakingPosts: List<Post>, posts: List<Post>)
         fun onPostSuccessHomeMore(posts: List<Post>)
         fun onPostSuccessCorona(corona: List<Post>)
         fun onPostSuccess(posts: List<Post>)

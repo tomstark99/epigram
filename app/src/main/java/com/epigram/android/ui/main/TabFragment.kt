@@ -74,7 +74,7 @@ class TabFragment : BaseFragment<TabMvp.Presenter>(), TabMvp.View, LoadNextPage 
             }
         }
 
-        swipe_refresh.setColorSchemeResources(R.color.colorAccent, R.color.colorAccentHint)
+        swipe_refresh.setColorSchemeResources(R.color.red_to_white)
         swipe_refresh.setProgressBackgroundColorSchemeResource(R.color.progress_background)
         swipe_refresh.setOnRefreshListener {
             pageNum = FIRST_INDEX
@@ -102,13 +102,13 @@ class TabFragment : BaseFragment<TabMvp.Presenter>(), TabMvp.View, LoadNextPage 
         }
     }
 
-    override fun onPostSuccessHome(posts: List<Post>) {
+    override fun onPostSuccessHome(breakingPosts: List<Post>, posts: List<Post>) {
         if(isAdded) {
             pageNum++
             loaded = true
             swipe_refresh.isRefreshing = false
             if (adapterHome == null) {
-                adapterHome = AdapterArticlesHome(context!!, posts.toMutableList(), this, tabNum)
+                adapterHome = AdapterArticlesHome(context!!, posts.toMutableList(), breakingPosts.toMutableList(), this, tabNum)
                 my_recycler_view.adapter = adapterHome
             } else {
                 if (pageNum == FIRST_INDEX + 1) (adapterHome as AdapterArticlesHome).clear()
@@ -123,7 +123,7 @@ class TabFragment : BaseFragment<TabMvp.Presenter>(), TabMvp.View, LoadNextPage 
             loaded = true
             swipe_refresh.isRefreshing = false
             if (adapterHome == null) {
-                adapterHome = AdapterArticlesHome(context!!, posts.toMutableList(), this, tabNum)
+                adapterHome = AdapterArticlesHome(context!!, posts.toMutableList(), emptyList<Post>().toMutableList(), this, tabNum)
                 my_recycler_view.adapter = adapterHome
             } else {
                 if (pageNum == FIRST_INDEX + 1) (adapterHome as AdapterArticlesHome).clear()

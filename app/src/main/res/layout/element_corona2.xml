@@ -24,7 +24,7 @@
             android:layout_gravity="center_vertical"
             android:paddingStart="@dimen/tiny_padding"
             android:textColor="@color/red_to_white"
-            android:textSize="12sp"
+            android:textSize="14sp"
             android:autoLink="web"
             android:theme="@style/corona_info"
             android:text="@string/corona_warn"/>

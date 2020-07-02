@@ -134,6 +134,11 @@ class AdapterArticles(context: Context, posts: MutableList<Post>, loadNext: Load
 
 
     fun setPost(holder: MyViewHolder, position: Int){
+        if (position == 0) {
+            val scale = context.resources.displayMetrics.density
+            val dpAsPixels = (6 * scale + 0.5f).toInt()
+            holder.articleImage.setPadding(0, dpAsPixels, 0, 0)
+        }
         holder.title.text = posts[position].title
         holder.date.text = posts[position].date.toString("MMM d, yyyy")
         Glide.with(holder.articleImage)

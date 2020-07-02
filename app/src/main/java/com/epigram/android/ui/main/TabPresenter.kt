@@ -50,11 +50,11 @@ class TabPresenter (view: TabMvp.View,
         single.subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ posts ->
-                var breaking = posts.first[0]
+                var breaking = posts.first
                 var news = posts.second.toMutableList()
-                news.remove(breaking)
-                news.add(0, breaking)
-                view?.onPostSuccessHome(news)
+                news.removeAll(breaking)
+                //news.add(0, breaking)
+                view?.onPostSuccessHome(breaking, news)
             }, { e ->
                 view?.onPostError()
                 Log.e("error", "something went wrong loading posts", e)
