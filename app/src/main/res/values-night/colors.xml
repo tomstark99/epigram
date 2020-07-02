@@ -4,6 +4,7 @@
     <color name="black">#e1e1e1</color>
     <color name="white">@color/dark_3</color>
     <color name="button_tint">#80ffffff</color>
+    <color name="colorAccent20">#339b9b9b</color>
 
     <color name="progress_background">#353535</color>
     <color name="red_to_white">#e1e1e1</color>
