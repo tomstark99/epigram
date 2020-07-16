@@ -62,11 +62,11 @@ class AdapterArticlesHome(context: Context, posts: MutableList<Post>, var breaki
             holder.breaking!!.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             holder.breaking!!.adapter = BreakingAdapter(context, breakingPosts, loadNextPage)
         }
-        else if(position != 0) {
+        else if(position > 1) {
             holder.tags!!.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
             holder.tags!!.itemAnimator = DefaultItemAnimator()
-            holder.tags!!.adapter = MyAdapterTag(posts[position-1].tags.orEmpty())
-            setPost(holder, position-1)
+            holder.tags!!.adapter = MyAdapterTag(posts[position-2].tags.orEmpty())
+            setPost(holder, position-2)
         }
     }
 
@@ -119,12 +119,12 @@ class AdapterArticlesHome(context: Context, posts: MutableList<Post>, var breaki
             .throttleFirst(500, TimeUnit.MILLISECONDS)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe { empty ->
-                if (holder.adapterPosition != 0) {
+                if (holder.adapterPosition > 1) {
                     holder.articleImage!!.setTransitionName("article_header")
-                loadNextPage.onPostClicked(
-                    posts[holder.adapterPosition-1],
-                    if (holder.imageLoaded) holder.articleImage else null
-                )
+                    loadNextPage.onPostClicked(
+                        posts[holder.adapterPosition-2],
+                        if (holder.imageLoaded) holder.articleImage else null
+                    )
                 }
             }
     }
@@ -172,7 +172,9 @@ class AdapterArticlesHome(context: Context, posts: MutableList<Post>, var breaki
                 }
             ).into(holder.articleImage!!)
 
-        if(position > itemCount - 3) loadNextPage.bottomReached()
+        if(position > itemCount - 4) {
+            loadNextPage.bottomReached()
+        }
 
     }
 
