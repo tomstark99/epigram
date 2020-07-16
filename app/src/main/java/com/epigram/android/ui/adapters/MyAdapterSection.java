@@ -167,10 +167,13 @@ public class MyAdapterSection extends RecyclerView.Adapter<MyAdapterSection.MyVi
     }
 
     public void setPosts(MyViewHolder holder, int position){
+        float scale = context.getResources().getDisplayMetrics().density;
+        int dpAsPixels = (int) (6*scale + 0.5f);
         if (position == 0) {
-            float scale = context.getResources().getDisplayMetrics().density;
-            int dpAsPixels = (int) (6*scale + 0.5f);
             holder.titleImage.setPadding(0,dpAsPixels, 0, 0);
+        }
+        if(position != 0 && holder.titleImage.getPaddingTop() == dpAsPixels) {
+            holder.titleImage.setPadding(0, 0, 0, 0);
         }
         holder.title.setText((posts.get(position).getTitle()));
         holder.dateAlt.setText(posts.get(position).getDate().toString("MMM d, yyyy"));
