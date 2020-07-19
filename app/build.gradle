@@ -11,8 +11,8 @@ android {
         applicationId "com.epigram.android"
         minSdkVersion 23
         targetSdkVersion 29
-        versionCode 12
-        versionName "1.6.0"
+        versionCode 14
+        versionName "1.6.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         buildConfigField "String", "API_KEY", "\"89c0bcf0d0e9935465c6e0f0cb\""
@@ -51,9 +51,9 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.core:core-ktx:1.2.0'
+    implementation 'androidx.core:core-ktx:1.3.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'com.google.android.material:material:1.1.0'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     testImplementation 'junit:junit:4.12'
@@ -62,7 +62,6 @@ dependencies {
     implementation 'com.squareup.retrofit2:retrofit:2.6.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.6.0'
     implementation 'com.google.code.gson:gson:2.8.5'
-    implementation 'com.android.support:recyclerview-v7:28.0.0'
     implementation 'com.github.bumptech.glide:glide:4.9.0'
     implementation 'net.danlew:android.joda:2.10.1.2'
     implementation "io.reactivex.rxjava2:rxjava:2.2.10"
@@ -72,12 +71,11 @@ dependencies {
     implementation 'com.f2prateek.rx.preferences2:rx-preferences:2.0.0-RC3'
 
     implementation 'com.jakewharton.rxbinding2:rxbinding:2.1.1'
-    implementation 'org.sufficientlysecure:html-textview:3.6'
-    implementation 'com.android.support:design:26.1.0'
+    implementation 'org.sufficientlysecure:html-textview:3.9'
     implementation("com.squareup.okhttp3:logging-interceptor:3.14.2")
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.6.0'
-    implementation 'com.google.firebase:firebase-core:17.2.3'
-    implementation 'com.google.firebase:firebase-messaging:20.1.3'
+    implementation 'com.google.firebase:firebase-core:17.4.4'
+    implementation 'com.google.firebase:firebase-messaging:20.2.3'
 
     debugImplementation "com.willowtreeapps.hyperion:hyperion-core:$hyperionVer"
     debugImplementation "com.willowtreeapps.hyperion:hyperion-attr:$hyperionVer"

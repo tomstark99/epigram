@@ -1,21 +1,28 @@
 package com.epigram.android.ui.adapters
 
+import android.app.Activity
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.epigram.android.R
+import com.epigram.android.ui.section.SectionActivity
+import com.epigram.android.ui.section.SectionActivityNew
+import com.jakewharton.rxbinding2.view.RxView
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 
 import java.util.ArrayList
 import java.util.Arrays
+import java.util.concurrent.TimeUnit
 
 class MyAdapterTag(tags: List<String>) :
     RecyclerView.Adapter<MyAdapterTag.MyViewHolder>() {
 
     var tags: MutableList<String> = ArrayList()
-
+    lateinit var context: Context
 
     fun clear() {
         tags.clear()
@@ -25,7 +32,7 @@ class MyAdapterTag(tags: List<String>) :
     inner class MyViewHolder(var linearLayout: LinearLayout) : RecyclerView.ViewHolder(linearLayout) {
 
         var tag: TextView
-        val disposable: Disposable? = null
+        var disposable: Disposable? = null
 
         init {
             tag = linearLayout.findViewById(R.id.article_tag_text)
@@ -34,17 +41,28 @@ class MyAdapterTag(tags: List<String>) :
 
     override fun onViewDetachedFromWindow(holder: MyViewHolder) {
         super.onViewDetachedFromWindow(holder)
-        if (holder.disposable != null) {
-            holder.disposable.dispose()
-        }
+        holder.disposable?.let { disposable -> disposable.dispose() }
     }
+
+//    override fun onViewAttachedToWindow(holder: MyViewHolder) {
+//        super.onViewAttachedToWindow(holder)
+//
+//        if (holder.disposable != null) {
+//            holder.disposable.dispose()
+//        }
+//    }
 
     override fun onViewAttachedToWindow(holder: MyViewHolder) {
         super.onViewAttachedToWindow(holder)
-
-        if (holder.disposable != null) {
-            holder.disposable.dispose()
-        }
+        holder.disposable?.let { disposable -> disposable.dispose() }
+        holder.disposable = RxView.clicks(holder.linearLayout)
+            .throttleFirst(500, TimeUnit.MILLISECONDS)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe { empty ->
+                var tag = tags[holder.adapterPosition]
+                var slug = tag.toLowerCase().replace(" ", "-")
+                SectionActivity.start(context as Activity, tag, slug)
+            }
     }
 
     init {
@@ -54,6 +72,7 @@ class MyAdapterTag(tags: List<String>) :
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
+        context = parent.context
         val l = LayoutInflater.from(parent.context).inflate(R.layout.element_tag, parent, false) as LinearLayout
         return MyViewHolder(l)
     }

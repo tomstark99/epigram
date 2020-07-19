@@ -20,18 +20,27 @@ import com.bumptech.glide.load.MultiTransformation
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
-import com.epigram.android.ui.adapters.MyAdapterTag
+import com.epigram.android.ui.adapters.AdapterTag
 import com.epigram.android.R
+import com.epigram.android.data.arch.android.BaseActivity
+import com.epigram.android.data.arch.utils.LoadNextPage
+import com.epigram.android.data.arch.utils.SnapHelperOne
 import com.epigram.android.data.model.Post
+import com.epigram.android.ui.adapters.BreakingAdapter
+import com.epigram.android.ui.section.SectionMvp
 import kotlinx.android.synthetic.main.activity_article_view.*
+import org.sufficientlysecure.htmltextview.HtmlFormatter
+import org.sufficientlysecure.htmltextview.HtmlFormatterBuilder
 import org.sufficientlysecure.htmltextview.HtmlHttpImageGetter
 import org.sufficientlysecure.htmltextview.HtmlTextView
+import java.util.*
 
 
-class ArticleActivity : AppCompatActivity() {
+class ArticleActivity : BaseActivity<ArticleMvp.Presenter>(), ArticleMvp.View, LoadNextPage {
 
     var url: String = "https://epigram.org.uk/"
     private var recyclerView: RecyclerView? = null
+    lateinit var post: Post
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,6 +71,8 @@ class ArticleActivity : AppCompatActivity() {
             R.id.article_scroll
         ).smoothScrollTo(0,0) }
 
+        presenter = ArticlePresenter(this)
+
     }
 
     private fun shareThis() {
@@ -77,14 +88,22 @@ class ArticleActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
 
-        val post = intent.getSerializableExtra(ARG_POST) as Post
+        post = intent.getSerializableExtra(ARG_POST) as Post
 
         recyclerView = findViewById(R.id.recycler_view_tag)
         val layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         recyclerView!!.layoutManager = layoutManager
         recyclerView!!.itemAnimator = DefaultItemAnimator()
         recyclerView!!.adapter =
-            MyAdapterTag(post.tags!!.toMutableList())
+            AdapterTag(post.tags)
+
+        val snapHelper = SnapHelperOne()
+        recycler_related!!.onFlingListener = null
+        snapHelper.attachToRecyclerView(recycler_related!!)
+        recycler_related!!.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        val slugs = post.tags.second.orEmpty().toMutableList()
+        slugs.removeAll(Arrays.asList("featured-top", "carousel", "one-sidebar", "weeklytop", "no-sidebar"))
+        presenter.load(slugs[0])
 
         url = post.url
 
@@ -97,12 +116,44 @@ class ArticleActivity : AppCompatActivity() {
                 .apply(RequestOptions.bitmapTransform(MultiTransformation(CenterCrop(), RoundedCorners(40))))
                 .into(article_post_image)
 
-        val htmlTextView: HtmlTextView = html_text
-        htmlTextView.setHtml(post.html, HtmlHttpImageGetter(htmlTextView, null, true))
+        val htmlTextView: TextView = html_text
+//        htmlTextView.setHtml(post.html, HtmlHttpImageGetter(htmlTextView, null, true))
+        val formattedHtml = HtmlFormatter.formatHtml(HtmlFormatterBuilder().setHtml(post.html).setImageGetter(HtmlHttpImageGetter(htmlTextView, null, true)))
+        htmlTextView.text = formattedHtml
 //      article_text.text = Html.fromHtml(post.html)
         article_post_title.text = post.title
         //article_tag_text.text = post.tag
         article_post_date_alternate.text = post.date.toString("MMM d, yyyy")
+    }
+
+    override fun onPostSuccess(posts: List<Post>) {
+        val p = posts.toMutableList()
+        p.remove(post)
+        if(p.isNotEmpty()){ recycler_related.adapter = BreakingAdapter(this, p, this) }
+        else {
+            related.visibility = View.GONE
+            recycler_related.visibility = View.GONE
+        }
+    }
+
+    override fun onPostError() {
+
+    }
+
+    override fun setClickables() {
+
+    }
+
+    override fun bottomReached() {
+        return
+    }
+
+    override fun onPostClicked(clicked: Post, titleImage: ImageView?) {
+        if (titleImage != null) {
+            start(this, clicked, titleImage)
+        } else {
+            start(this, clicked)
+        }
     }
 
     companion object {

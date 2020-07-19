@@ -39,6 +39,22 @@ class PostManagerImpl (val service: EpigramService) : PostManager{
             }
     }
 
+    override fun getPostsRelated(filter: String?): Single<List<Post>> {
+        var tagFilter: String? = null
+        if (filter != null && filter.isNotBlank()) {
+            tagFilter = "tag:$filter"
+        }
+        return service
+            .getPostsBreak(KEY, "tags", tagFilter, "5", "published_at desc").map { body ->
+                val posts = ArrayList<Post>()
+
+                for (post in body.posts) {
+                    Post.fromTemplate(post)?.let { posts.add(it) }
+                }
+                posts
+            }
+    }
+
     override fun getPostTitles(page: Int, searchTerm: String): Single<Pair<String, List<Post>>> {
 
         return service  // if you dont get all t
