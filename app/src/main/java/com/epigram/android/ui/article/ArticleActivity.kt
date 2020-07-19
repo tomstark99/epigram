@@ -103,7 +103,11 @@ class ArticleActivity : BaseActivity<ArticleMvp.Presenter>(), ArticleMvp.View, L
         recycler_related!!.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         val slugs = post.tags.second.orEmpty().toMutableList()
         slugs.removeAll(Arrays.asList("featured-top", "carousel", "one-sidebar", "weeklytop", "no-sidebar"))
-        presenter.load(slugs[0])
+        if (slugs.isNotEmpty()){ presenter.load(slugs[0]) }
+        else {
+            related.visibility = View.GONE
+            recycler_related.visibility = View.GONE
+        }
 
         url = post.url
 
