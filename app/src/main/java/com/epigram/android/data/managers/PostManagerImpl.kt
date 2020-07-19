@@ -45,7 +45,7 @@ class PostManagerImpl (val service: EpigramService) : PostManager{
             tagFilter = "tag:$filter"
         }
         return service
-            .getPostsBreak(KEY, "tags", tagFilter, "5", "published_at desc").map { body ->
+            .getPostsBreak(KEY, "tags", tagFilter, "10", "published_at desc").map { body ->
                 val posts = ArrayList<Post>()
 
                 for (post in body.posts) {

@@ -9,7 +9,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.epigram.android.R
 import com.epigram.android.ui.section.SectionActivity
-import com.epigram.android.ui.section.SectionActivityNew
 import com.jakewharton.rxbinding2.view.RxView
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -18,10 +17,11 @@ import java.util.ArrayList
 import java.util.Arrays
 import java.util.concurrent.TimeUnit
 
-class MyAdapterTag(tags: List<String>) :
-    RecyclerView.Adapter<MyAdapterTag.MyViewHolder>() {
+class AdapterTag(tags: Pair<List<String>?, List<String>?>) :
+    RecyclerView.Adapter<AdapterTag.MyViewHolder>() {
 
     var tags: MutableList<String> = ArrayList()
+    var slugs: MutableList<String> = ArrayList()
     lateinit var context: Context
 
     fun clear() {
@@ -59,15 +59,15 @@ class MyAdapterTag(tags: List<String>) :
             .throttleFirst(500, TimeUnit.MILLISECONDS)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe { empty ->
-                var tag = tags[holder.adapterPosition]
-                var slug = tag.toLowerCase().replace(" ", "-")
-                SectionActivity.start(context as Activity, tag, slug)
+                SectionActivity.start(context as Activity, tags[holder.adapterPosition], slugs[holder.adapterPosition])
             }
     }
 
     init {
-        this.tags = tags.toMutableList()
+        this.tags = tags.first.orEmpty().toMutableList()
+        this.slugs = tags.second.orEmpty().toMutableList()
         this.tags.removeAll(Arrays.asList("featured top", "carousel", "one sidebar", "weeklytop", "no sidebar"))
+        this.slugs.removeAll(Arrays.asList("featured-top", "carousel", "one-sidebar", "weeklytop", "no-sidebar"))
     }
 
 

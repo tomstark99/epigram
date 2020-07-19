@@ -52,7 +52,7 @@ class AdapterArticles(context: Context, posts: MutableList<Post>, loadNext: Load
         holder.tags.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
         holder.tags.itemAnimator = DefaultItemAnimator()
         holder.tags.adapter =
-            MyAdapterTag(posts[position].tags.orEmpty())
+            AdapterTag(posts[position].tags)
         setPost(holder, position)
     }
 
