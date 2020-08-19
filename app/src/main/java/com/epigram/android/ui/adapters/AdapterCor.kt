@@ -55,7 +55,7 @@ class AdapterCor(context: Context, posts: MutableList<Post>, loadNext: LoadNextP
         if(position != 0) {
             holder.tags!!.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
             holder.tags!!.itemAnimator = DefaultItemAnimator()
-            holder.tags!!.adapter = MyAdapterTag(posts[position-1].tags.orEmpty())
+            holder.tags!!.adapter = AdapterTag(posts[position-1].tags)
             setPost(holder, position-1)
         }
     }

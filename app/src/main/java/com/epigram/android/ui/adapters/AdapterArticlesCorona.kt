@@ -66,7 +66,7 @@ class AdapterArticlesCorona(context: Context, corona: MutableList<Post>, posts: 
             holder.tags!!.layoutManager =
                 LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
             holder.tags!!.itemAnimator = DefaultItemAnimator()
-            holder.tags!!.adapter = MyAdapterTag(posts[position].tags.orEmpty())
+            holder.tags!!.adapter = AdapterTag(posts[position].tags)
             setPost(holder, position)
         }
 
@@ -147,13 +147,13 @@ class AdapterArticlesCorona(context: Context, corona: MutableList<Post>, posts: 
     }
 
     fun setPost(holder: MyViewHolder, position: Int){
-        if(position == 0 && posts[position].date.plusWeeks(1).isBeforeNow && posts[position].tags!!.contains("breaking news") && (!posts[position].title.contains("coronavirus") || !posts[position].title.contains("corona"))) {
-            holder.itemView.visibility = View.GONE
-            holder.itemView.layoutParams =  RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,1)
-        } else {
-            holder.itemView.visibility = View.VISIBLE
-            holder.itemView.layoutParams =  RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT)
-        }
+//        if(position == 0 && posts[position].date.plusWeeks(1).isBeforeNow && posts[position].tags!!.contains("breaking news") && (!posts[position].title.contains("coronavirus") || !posts[position].title.contains("corona"))) {
+//            holder.itemView.visibility = View.GONE
+//            holder.itemView.layoutParams =  RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,1)
+//        } else {
+//            holder.itemView.visibility = View.VISIBLE
+//            holder.itemView.layoutParams =  RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT)
+//        }
         holder.title!!.text = posts[position].title
         holder.date!!.text = posts[position].date.toString("MMM d, yyyy")
         Glide.with(holder.articleImage!!)

@@ -12,43 +12,70 @@
         android:paddingBottom="@dimen/element_padding_half"
         android:paddingStart="@dimen/element_padding"
         android:paddingEnd="@dimen/element_padding">
-    <FrameLayout
-            android:layout_width="match_parent"
+    <LinearLayout
+        android:id="@+id/frame"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <FrameLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content">
-        <ImageView android:layout_width="match_parent" android:layout_height="110dp"
-                   android:id="@+id/post_image"
-                   android:scaleType="centerCrop"
-                   android:src="@drawable/placeholder_background"
-                   android:adjustViewBounds="false"/>
+            <ImageView android:layout_width="160dp" android:layout_height="110dp"
+                android:id="@+id/post_image"
+                android:scaleType="centerCrop"
+                android:src="@drawable/placeholder_background"
+                android:adjustViewBounds="false"/>
 
-        <!--<TextView-->
-                <!--android:id="@+id/post_date"-->
+            <!--<TextView-->
+            <!--android:id="@+id/post_date"-->
             <!--android:layout_width="wrap_content"-->
             <!--android:layout_height="wrap_content"-->
-                <!--android:layout_gravity="bottom|end"-->
-                <!--android:background="@drawable/date_background"-->
-                <!--android:layout_marginBottom="@dimen/small_padding"-->
-                <!--android:layout_marginEnd="@dimen/appbar_padding"-->
-                <!--android:layout_marginEnd="@dimen/appbar_padding"-->
-                <!--android:padding="8dp"-->
-                <!--android:textColor="@color/white"-->
-                <!--tools:text="JUNE 10, 2019"-->
-                <!--android:fontFamily="sans-serif-condensed-medium"-->
-                <!--android:textSize="12dp"/>-->
-    </FrameLayout>
+            <!--android:layout_gravity="bottom|end"-->
+            <!--android:background="@drawable/date_background"-->
+            <!--android:layout_marginBottom="@dimen/small_padding"-->
+            <!--android:layout_marginEnd="@dimen/appbar_padding"-->
+            <!--android:layout_marginEnd="@dimen/appbar_padding"-->
+            <!--android:padding="8dp"-->
+            <!--android:textColor="@color/white"-->
+            <!--tools:text="JUNE 10, 2019"-->
+            <!--android:fontFamily="sans-serif-condensed-medium"-->
+            <!--android:textSize="12dp"/>-->
+        </FrameLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingStart="@dimen/tiny_padding">
+            <TextView
+                android:id="@+id/post_title"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:textSize="16dp"
+                tools:text="ARTICLE TITLE"
+                android:textStyle="normal"
+                android:textColor="@color/black"
+                android:fontFamily="sans-serif-condensed-medium"/>
+            <TextView
+                android:id="@+id/post_date_alternate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="6dp"
+                android:paddingBottom="6dp"
+                tools:text="June 10, 2019"
+                android:textSize="11dp"
+                android:fontFamily="sans-serif-condensed-medium"/>
+        </LinearLayout>
 
-    <TextView
-            android:id="@+id/post_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="16dp"
-            tools:text="ARTICLE TITLE"
-            android:textStyle="normal"
-            android:textColor="@color/black"
-            android:fontFamily="sans-serif-condensed-medium"/>
+    </LinearLayout>
+
+
+
     <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+        android:paddingTop="6dp">
 
         <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_view_tag"
@@ -78,14 +105,7 @@
                 <!--android:layout_marginStart="@dimen/tiny_padding"-->
                 <!--android:layout_gravity="center"-->
                 <!--android:src="@drawable/ic_access_time_black_24dp"/>-->
-        <TextView
-                android:id="@+id/post_date_alternate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="6dp"
-                tools:text="June 10, 2019"
-                android:textSize="11dp"
-                android:fontFamily="sans-serif-condensed-medium"/>
+
     </LinearLayout>
 
 </LinearLayout>

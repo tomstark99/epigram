@@ -65,7 +65,7 @@ class AdapterArticlesHome(context: Context, posts: MutableList<Post>, var breaki
         else if(position > 1) {
             holder.tags!!.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
             holder.tags!!.itemAnimator = DefaultItemAnimator()
-            holder.tags!!.adapter = MyAdapterTag(posts[position-2].tags.orEmpty())
+            holder.tags!!.adapter = AdapterTag(posts[position-2].tags)
             setPost(holder, position-2)
         }
     }

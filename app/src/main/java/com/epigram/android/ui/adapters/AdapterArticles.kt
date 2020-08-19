@@ -52,7 +52,7 @@ class AdapterArticles(context: Context, posts: MutableList<Post>, loadNext: Load
         holder.tags.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
         holder.tags.itemAnimator = DefaultItemAnimator()
         holder.tags.adapter =
-            MyAdapterTag(posts[position].tags.orEmpty())
+            AdapterTag(posts[position].tags)
         setPost(holder, position)
     }
 
@@ -82,6 +82,7 @@ class AdapterArticles(context: Context, posts: MutableList<Post>, loadNext: Load
         var imageLoaded = false
         var linearLayout: LinearLayout
         var disposable: Disposable? = null
+        var frame: LinearLayout
 
         init {
             title = l.findViewById(R.id.post_title)
@@ -92,6 +93,7 @@ class AdapterArticles(context: Context, posts: MutableList<Post>, loadNext: Load
             firstElementText = l.findViewById(R.id.search_results_number)
 
             linearLayout = l
+            frame = l.findViewById(R.id.frame)
         }
     }
 
@@ -137,10 +139,10 @@ class AdapterArticles(context: Context, posts: MutableList<Post>, loadNext: Load
         val scale = context.resources.displayMetrics.density
         val dpAsPixels = (6 * scale + 0.5f).toInt()
         if (position == 0) {
-            holder.articleImage.setPadding(0, dpAsPixels, 0, 0)
+            holder.frame.setPadding(0, dpAsPixels, 0, 0)
         }
-        if(position != 0 && holder.articleImage.paddingTop == dpAsPixels) {
-            holder.articleImage.setPadding(0, 0, 0, 0)
+        if(position != 0 && holder.frame.paddingTop == dpAsPixels) {
+            holder.frame.setPadding(0, 0, 0, 0)
         }
         holder.title.text = posts[position].title
         holder.date.text = posts[position].date.toString("MMM d, yyyy")

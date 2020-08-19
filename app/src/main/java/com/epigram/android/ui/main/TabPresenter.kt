@@ -25,14 +25,14 @@ class TabPresenter (view: TabMvp.View,
                         BiFunction<p, p, Pair<p, p>> { t1, t2 ->
                             t1 to t2
                         })
-                var singleC = Single.zip(postManager.getPostsBreaking(),
-                    postManager.getPostTitles(pageNum, "coronavirus"),
-                    postManager.getPosts(pageNum, tab),
-                    Function3<p, Pair<String, p>, p, Triple<p, p, p>> { t1, t2, t3 ->
-                        Triple(t1, t2.second, t3)
-                    })
+//                var singleC = Single.zip(postManager.getPostsBreaking(),
+//                    postManager.getPostTitles(pageNum, "coronavirus"),
+//                    postManager.getPosts(pageNum, tab),
+//                    Function3<p, Pair<String, p>, p, Triple<p, p, p>> { t1, t2, t3 ->
+//                        Triple(t1, t2.second, t3)
+//                    })
                 getPostsHome(single, pageNum, tab)
-                //getPostsHomeC(singleC, pageNum, tab)
+//                getPostsHomeC(singleC, pageNum, tab)
             }
             else{
                 getMorePostsHome(pageNum, tab)

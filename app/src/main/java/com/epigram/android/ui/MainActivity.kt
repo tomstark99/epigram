@@ -24,8 +24,6 @@ import com.google.firebase.messaging.FirebaseMessaging
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.app_bar_main.*
-import org.joda.time.DateTime
 import java.util.concurrent.TimeUnit
 
 class MainActivity : BaseActivity<MainActivityMvp.Presenter>(),

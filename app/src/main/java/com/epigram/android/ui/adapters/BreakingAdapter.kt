@@ -1,6 +1,5 @@
 package com.epigram.android.ui.adapters
 
-import android.app.Activity
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
@@ -34,7 +33,7 @@ class BreakingAdapter(var context: Context, var posts: MutableList<Post>, var lo
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.tags.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         holder.tags.itemAnimator = DefaultItemAnimator()
-        holder.tags.adapter = MyAdapterTag(posts[position].tags.orEmpty())
+        holder.tags.adapter = AdapterTag(posts[position].tags)
         holder.title.text = posts[position].title
         holder.date.text = posts[position].date.toString("MMM d, yyyy")
         setImage(holder, position)
