@@ -9,7 +9,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="STAY ALERT"
+        android:text="STAY SAFE"
         android:textAlignment="center"
         android:textSize="27sp"
         android:textStyle="bold"
