@@ -8,11 +8,12 @@ class MainActivityPresenter(mainActivityView: MainActivityMvp.View, private val 
     BasePresenter<MainActivityMvp.View>(mainActivityView),
     MainActivityMvp.Presenter {
 
-//    var counter = c.get()
+    var counter = c.get()
 
     override fun onCreate() {
-        val showWelcome = seenNew.get()
-        view?.load(showWelcome)
+        if(counter >= 4) c.set(0) else c.set(counter + 1)
+//        val showWelcome = seenNew.get()
+        view?.load()
         seenNew.set(true)
 
 //        if(showWelcome) {

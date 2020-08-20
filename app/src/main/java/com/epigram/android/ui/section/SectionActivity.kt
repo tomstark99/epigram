@@ -99,6 +99,10 @@ class SectionActivity : BaseActivity<SectionMvp.Presenter>(), SectionMvp.View, L
             }
     }
 
+    override fun onPostSuccessCorona(corona: List<Post>) {
+
+    }
+
     override fun onPostError() {
             if (recycler_view_section.adapter is MyAdapterPlaceholder) {
                 (recycler_view_section.adapter as MyAdapterPlaceholder).clear()

@@ -15,7 +15,7 @@ object PreferenceModule {
     }
 
     val counter by lazy {
-        rxSharedPrefs.getInteger("five_counter.int", 3)
+        rxSharedPrefs.getInteger("counter.int", -1)
     }
 
     val darkMode by lazy {
