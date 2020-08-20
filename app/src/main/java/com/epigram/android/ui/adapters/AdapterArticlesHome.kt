@@ -22,9 +22,11 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
 import com.epigram.android.R
+import com.epigram.android.data.arch.PreferenceModule
 import com.epigram.android.data.arch.utils.LoadNextPage
 import com.epigram.android.data.arch.utils.SnapHelperOne
 import com.epigram.android.data.model.Post
+import com.f2prateek.rx.preferences2.Preference
 import com.jakewharton.rxbinding2.view.RxView
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -39,6 +41,8 @@ class AdapterArticlesHome(context: Context, posts: MutableList<Post>, var breaki
     var loadNextPage: LoadNextPage
     var multiTransformation = MultiTransformation(CenterCrop(), RoundedCorners(40))
     var pageIndex: Int = 0
+    private val c: Preference<Int> = PreferenceModule.counter
+    var only_one = true
 
     init {
         this.posts = posts
@@ -51,11 +55,32 @@ class AdapterArticlesHome(context: Context, posts: MutableList<Post>, var breaki
         POSITION_ONE(0, R.layout.element_news_article_breaking_list),
         POSITION_THR(1, R.layout.element_news_article_first),
         POSITION_MRE(2, R.layout.element_news_article),
-        POSITION_HME(3, R.layout.element_corona)
+        POSITION_HME(3, R.layout.element_corona),
+        POSITION_MSK(4, R.layout.element_corona_no)
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        if (position == 1) {
+        if (position == 0) {
+            RxView.clicks(holder.maskClose!!)
+                .throttleFirst(500, TimeUnit.MILLISECONDS)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe { empty ->
+                    if(holder.maskLayout!!.visibility == View.VISIBLE) {
+                        holder.maskLayout!!.visibility = View.GONE
+                        holder.staySafe!!.visibility = View.VISIBLE
+                        holder.maskClose!!.animate().rotationBy(-180f).start()
+                    } else {
+                        holder.staySafe!!.visibility = View.GONE
+                        holder.maskLayout!!.visibility = View.VISIBLE
+                        holder.maskClose!!.animate().rotationBy(180f).start()
+                    }
+                    if(only_one && c.get() == 0) {
+                        only_one = false
+                        c.set(c.get() + 2)
+                    }
+                }
+        }
+        else if (position == 1) {
             val snapHelper = SnapHelperOne()
             holder.breaking!!.onFlingListener = null
             snapHelper.attachToRecyclerView(holder.breaking!!)
@@ -78,7 +103,9 @@ class AdapterArticlesHome(context: Context, posts: MutableList<Post>, var breaki
     }
 
     override fun getItemViewType(position: Int): Int {
-        if(position == 0) return 3
+        if(position == 0) {
+            return if(displayMask()) 3 else 4
+        }
         else if(position == 1) return 0
         return if(position == 2) 1 else 2
     }
@@ -98,6 +125,9 @@ class AdapterArticlesHome(context: Context, posts: MutableList<Post>, var breaki
         var firstElementText: TextView?
         var imageLoaded = false
         var linearLayout: LinearLayout
+        var maskLayout: LinearLayout?
+        var maskClose: ImageView?
+        var staySafe: TextView?
         var disposable: Disposable? = null
 
         init {
@@ -107,6 +137,9 @@ class AdapterArticlesHome(context: Context, posts: MutableList<Post>, var breaki
             tags = l.findViewById(R.id.recycler_view_tag)
             breaking = l.findViewById(R.id.recycler_breaking)
             firstElementText = l.findViewById(R.id.search_results_number)
+            maskLayout = l.findViewById(R.id.mask)
+            maskClose = l.findViewById(R.id.mask_close)
+            staySafe = l.findViewById(R.id.stay_safe)
 
             linearLayout = l
         }
@@ -181,6 +214,11 @@ class AdapterArticlesHome(context: Context, posts: MutableList<Post>, var breaki
     fun clear(){
         posts.clear()
         notifyDataSetChanged()
+    }
+
+    fun displayMask() : Boolean {
+        var temp = c.get()
+        return if(temp == 0) true else false
     }
 
 }

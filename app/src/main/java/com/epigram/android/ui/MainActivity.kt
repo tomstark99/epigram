@@ -17,6 +17,7 @@ import com.epigram.android.ui.main.SectionsPagerAdapter
 import com.epigram.android.ui.promo.PromoActivity
 import com.epigram.android.ui.search.SearchActivity
 import com.epigram.android.ui.section.SectionActivity
+import com.epigram.android.ui.section.SectionActivityC
 import com.epigram.android.ui.settings.SettingsActivity
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.tabs.TabLayout
@@ -102,18 +103,19 @@ class MainActivity : BaseActivity<MainActivityMvp.Presenter>(),
         //                });
     }
 
-    override fun load(showWelcome: Boolean) {
+    override fun load() {
         //tabs.getTabAt(0)!!.setIcon(R.drawable.ic_warning_amber_24px_outlined_red)
 //        if (showWelcome && DateTime("2020-03-16T00:00:00.000").isAfterNow) {
 //            WelcomeActivity.start(this)
 //        }
 
-        Observable.timer(1200, TimeUnit.MILLISECONDS, AndroidSchedulers.mainThread())
-            .map {
-                if(!showWelcome) { NewActivity.start(this) }
-            }
-            .subscribeOn(Schedulers.io())
-            .subscribe()
+//        Observable.timer(1200, TimeUnit.MILLISECONDS, AndroidSchedulers.mainThread())
+//            .map {
+//                if(!showWelcome) { NewActivity.start(this) }
+//            }
+//            .subscribeOn(Schedulers.io())
+//            .subscribe()
+
     }
 
     override fun onSearchRequested(): Boolean {
@@ -139,6 +141,11 @@ class MainActivity : BaseActivity<MainActivityMvp.Presenter>(),
                 this,
                 menuItem.toString(),
                 getString(R.string.menu_most_read_tag)
+            )
+            R.id.nav_covid_19 -> SectionActivityC.start(
+                this,
+                menuItem.toString(),
+                getString(R.string.menu_covid_19_tag)
             )
             R.id.nav_news -> SectionActivity.start(
                 this,

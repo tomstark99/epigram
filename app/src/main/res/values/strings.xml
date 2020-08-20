@@ -38,6 +38,7 @@
 
     <string name="menu_most_read">MOST READ</string>
     <string name="menu_news">NEWS</string>
+    <string name="menu_covid_19">COVID-19</string>
     <string name="menu_features">FEATURES</string>
     <string name="menu_comment">COMMENT</string>
     <string name="menu_the_croft">THE CROFT</string>
@@ -62,6 +63,7 @@
 
     <string name="menu_most_read_tag">weeklytop</string>
     <string name="menu_news_tag">news</string>
+    <string name="menu_covid_19_tag">covid-19</string>
     <string name="menu_features_tag">features</string>
     <string name="menu_comment_tag">comment</string>
     <string name="menu_the_croft_tag">the-croft</string>

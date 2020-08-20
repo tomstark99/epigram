@@ -38,9 +38,9 @@ class TabPresenter (view: TabMvp.View,
                 getMorePostsHome(pageNum, tab)
             }
         }
-        else if(tabNum == 1) {
-            getPostsCorona(pageNum, tab)
-        }
+//        else if(tabNum == 1) {
+//            getPostsCorona(pageNum, tab)
+//        }
         else {
             getPosts(pageNum, tab)
         }
