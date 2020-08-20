@@ -59,7 +59,7 @@ class AdapterArticles(context: Context, posts: MutableList<Post>, loadNext: Load
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        val l = LayoutInflater.from(parent.context).inflate(R.layout.element_news_article, parent, false) as LinearLayout
+        val l = LayoutInflater.from(parent.context).inflate(R.layout.element_news_article_new, parent, false) as LinearLayout
         return MyViewHolder(l)
 
     }

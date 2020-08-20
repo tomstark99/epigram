@@ -198,7 +198,7 @@ public class MyAdapterArticles extends RecyclerView.Adapter<MyAdapterArticles.My
             return vh;
         }
         else {
-            LinearLayout l = (LinearLayout) LayoutInflater.from(parent.getContext()).inflate(R.layout.element_news_article, parent, false);
+            LinearLayout l = (LinearLayout) LayoutInflater.from(parent.getContext()).inflate(R.layout.element_news_article_new, parent, false);
             MyViewHolder vh = new MyViewHolder(l);
             return vh;
         }

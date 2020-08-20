@@ -42,7 +42,7 @@ class AdapterSearch (var context: Context, posts: List<Post>, var loadNext: Load
 
     enum class Inflater(val id: Int, @LayoutRes val element: Int){
         POSITION_ONE(0, R.layout.element_news_article_first),
-        POSITION_MRE(1, R.layout.element_news_article)
+        POSITION_MRE(1, R.layout.element_news_article_new)
     }
 
     inner class ViewHolder(l: LinearLayout) : RecyclerView.ViewHolder(l) {

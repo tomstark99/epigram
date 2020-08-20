@@ -47,7 +47,7 @@ class AdapterCor(context: Context, posts: MutableList<Post>, loadNext: LoadNextP
 
     enum class Inflater(val id: Int, @LayoutRes val element: Int){
         POSITION_ONE(0, R.layout.element_news_article_corona),
-        POSITION_MRE(1, R.layout.element_news_article),
+        POSITION_MRE(1, R.layout.element_news_article_new),
         POSITION_ALR(2, R.layout.element_corona2)
     }
 

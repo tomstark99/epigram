@@ -54,7 +54,7 @@ class AdapterArticlesHome(context: Context, posts: MutableList<Post>, var breaki
     enum class Inflater(val id: Int, @LayoutRes val element: Int){
         POSITION_ONE(0, R.layout.element_news_article_breaking_list),
         POSITION_THR(1, R.layout.element_news_article_first),
-        POSITION_MRE(2, R.layout.element_news_article),
+        POSITION_MRE(2, R.layout.element_news_article_new),
         POSITION_HME(3, R.layout.element_corona),
         POSITION_MSK(4, R.layout.element_corona_no)
     }
