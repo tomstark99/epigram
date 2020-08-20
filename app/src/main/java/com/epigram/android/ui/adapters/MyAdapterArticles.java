@@ -178,8 +178,8 @@ public class MyAdapterArticles extends RecyclerView.Adapter<MyAdapterArticles.My
     @Override
     public MyAdapterArticles.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
         if(pageIndex == HOME_PAGE_INDEX && viewType == 1){
-            if(posts.get(0).getDate().plusWeeks(1).isBeforeNow() && posts.get(0).getTags().contains("breaking-news")){ //
-                posts.remove(0);
+            if(posts.get(0).getDate().plusWeeks(1).isBeforeNow() && posts.get(0).getTags().getFirst().contains("breaking-news")){ //
+//                posts.remove(0);
                 LinearLayout l = (LinearLayout) LayoutInflater.from(parent.getContext()).inflate(R.layout.element_news_article_first, parent, false);
                 MyViewHolder vh = new MyViewHolder(l);
                 return vh;
@@ -214,7 +214,7 @@ public class MyAdapterArticles extends RecyclerView.Adapter<MyAdapterArticles.My
     public void onBindViewHolder(MyViewHolder holder, int position){
         holder.tags.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
         holder.tags.setItemAnimator(new DefaultItemAnimator());
-        holder.tags.setAdapter(new MyAdapterTag(posts.get(position).getTags()));
+        holder.tags.setAdapter(new AdapterTag(posts.get(position).getTags()));
         setPosts(holder, position);
     }
 
@@ -222,7 +222,7 @@ public class MyAdapterArticles extends RecyclerView.Adapter<MyAdapterArticles.My
         if(pageIndex == SEARCH_PAGE_INDEX && position == 0){
             holder.searchResults.setText(holder.searchResults.getResources().getQuantityString(R.plurals.results, resultTotal,resultTotal));
         }
-        List<String> tag = posts.get(position).getTags();
+        List<String> tag = posts.get(position).getTags().getFirst();
         tag.removeAll(Arrays.asList("featured top", "carousel", "one sidebar"));
         holder.title.setText((posts.get(position).getTitle()));
         holder.dateAlt.setText(posts.get(position).getDate().toString("MMM d, yyyy"));

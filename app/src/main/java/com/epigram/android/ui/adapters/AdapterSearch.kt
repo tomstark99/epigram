@@ -145,7 +145,7 @@ class AdapterSearch (var context: Context, posts: List<Post>, var loadNext: Load
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.tags.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
         holder.tags.itemAnimator = DefaultItemAnimator()
-        holder.tags.adapter = MyAdapterTag(posts[position].tags.orEmpty())
+        holder.tags.adapter = AdapterTag(posts[position].tags)
         setPost(holder,position)
     }
 

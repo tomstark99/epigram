@@ -29,7 +29,23 @@ class PostManagerImpl (val service: EpigramService) : PostManager{
     override fun getPostsBreaking(): Single<List<Post>> {
 
         return service
-            .getPostsBreak(KEY, "tags", "tag:breaking-news", "1", "published_at desc").map { body ->
+            .getPostsBreak(KEY, "tags", "tag:breaking-news", "5", "published_at desc").map { body ->
+                val posts = ArrayList<Post>()
+
+                for (post in body.posts) {
+                    Post.fromTemplate(post)?.let { posts.add(it) }
+                }
+                posts
+            }
+    }
+
+    override fun getPostsRelated(filter: String?): Single<List<Post>> {
+        var tagFilter: String? = null
+        if (filter != null && filter.isNotBlank()) {
+            tagFilter = "tag:$filter"
+        }
+        return service
+            .getPostsBreak(KEY, "tags", tagFilter, "10", "published_at desc").map { body ->
                 val posts = ArrayList<Post>()
 
                 for (post in body.posts) {

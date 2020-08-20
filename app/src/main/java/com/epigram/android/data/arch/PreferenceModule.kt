@@ -10,8 +10,12 @@ object PreferenceModule {
         rxSharedPrefs.getBoolean("is_first_use.bool", true)
     }
 
+    val seenNew by lazy {
+        rxSharedPrefs.getBoolean("seen_new.bool",false)
+    }
+
     val counter by lazy {
-        rxSharedPrefs.getInteger("five_counter.int", 3)
+        rxSharedPrefs.getInteger("counter.int", -1)
     }
 
     val darkMode by lazy {

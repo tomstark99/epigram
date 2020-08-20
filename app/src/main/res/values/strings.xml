@@ -12,7 +12,7 @@
     <!--<string name="tab_text_5">SCIENCE</string>-->
     <!--<string name="tab_text_6">WELLBEING</string>-->
     <!--<string name="tab_text_7">LIFESTYLE</string>-->
-    <string name="tab_text_6">ENTERTAINMENT</string>
+    <string name="tab_text_6">CULTURE</string>
     <string name="tab_text_7">SPORT</string>
     <!--<string name="tab_text_10">INTRAMURAL</string>-->
 
@@ -38,6 +38,7 @@
 
     <string name="menu_most_read">MOST READ</string>
     <string name="menu_news">NEWS</string>
+    <string name="menu_covid_19">COVID-19</string>
     <string name="menu_features">FEATURES</string>
     <string name="menu_comment">COMMENT</string>
     <string name="menu_the_croft">THE CROFT</string>
@@ -48,7 +49,7 @@
     <string name="menu_opinion">OPINION</string>
     <string name="menu_science">SCIENCE</string>
     <string name="menu_lifestyle">LIFESTYLE</string>
-    <string name="menu_entertainment">ENTERTAINMENT</string>
+    <string name="menu_entertainment">CULTURE</string>
     <string name="menu_film_tv">FILM &amp; TV</string>
     <string name="menu_arts">ARTS</string>
     <string name="menu_music">MUSIC</string>
@@ -62,6 +63,7 @@
 
     <string name="menu_most_read_tag">weeklytop</string>
     <string name="menu_news_tag">news</string>
+    <string name="menu_covid_19_tag">covid-19</string>
     <string name="menu_features_tag">features</string>
     <string name="menu_comment_tag">comment</string>
     <string name="menu_the_croft_tag">the-croft</string>
@@ -96,12 +98,12 @@
     <string name="welcome_text_3">Show this screen to your waiter when you pay to receive 25% off your food bill.</string>
     <string name="welcome_terms">Terms and conditions apply. Valid from Sunday to Wednesday until 15 March. Cannot be used in conjunction with any other offer.</string>
     <string name="build">%s [%s] %s</string>
-    <string name="copyright_text">Copyright © 2019 epigram</string>
+    <string name="copyright_text">Copyright © 2020 epigram</string>
 
     <string name="light">Light</string>
     <string name="dark">Dark</string>
     <string name="follow_device">Follow device theme</string>
     <string name="latest_corona">LATEST: COVID-19</string>
-    <string name="corona_warn">Remember to keep up to date with the latest news regarding COVID-19 and how this may affect the University of Bristol. For more information please visit\n\nwww.gov.uk/coronavirus\nwww.nhs.uk/conditions/coronavirus-covid-19\nwww.bristol.ac.uk/students/coronavirus</string>
+    <string name="corona_warn">Remember to keep up to date with the latest news regarding COVID-19 and how the University of Bristol may be affected. For more information please visit\n\nwww.gov.uk/coronavirus\nwww.nhs.uk/conditions/coronavirus-covid-19\nwww.bristol.ac.uk/students/coronavirus</string>
 
 </resources>

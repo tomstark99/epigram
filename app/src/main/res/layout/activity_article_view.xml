@@ -63,23 +63,25 @@
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingStart="@dimen/element_padding"
                 android:paddingEnd="@dimen/element_padding"
                 android:orientation="vertical"
-                android:paddingBottom="@dimen/small_padding"
                 android:clipToPadding="false"
                 android:paddingTop="@dimen/element_padding">
-
-            <ImageView
+                <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
                     android:id="@+id/article_post_image"
                     android:src="@drawable/placeholder_background"
                     android:adjustViewBounds="true"
                     android:transitionName="article_header"/>
-            <TextView
+                <TextView
                     android:id="@+id/article_post_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -90,12 +92,12 @@
                     android:textStyle="bold"
                     android:textColor="@color/black"/>
 
-            <LinearLayout
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingBottom="8dp">
 
-                <androidx.recyclerview.widget.RecyclerView
+                    <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recycler_view_tag"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -103,7 +105,7 @@
                         android:orientation="horizontal"
                         android:clipToPadding="false"/>
 
-                <TextView
+                    <TextView
                         android:id="@+id/article_post_date_alternate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -115,9 +117,20 @@
                         android:textSize="10dp"
                         android:fontFamily="sans-serif-condensed-medium"/>
 
-            </LinearLayout>
+                </LinearLayout>
 
-            <org.sufficientlysecure.htmltextview.HtmlTextView
+                <!--            <org.sufficientlysecure.htmltextview.HtmlTextView-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:id="@+id/html_text"-->
+                <!--                    tools:text="Article goes here"-->
+                <!--                    android:textSize="18dp"-->
+                <!--                    android:textColor="@color/black"-->
+                <!--                    android:fontFamily="sans-serif-condensed"-->
+                <!--                    android:textStyle="normal"-->
+                <!--                    android:textColorLink="@color/colorAccent"-->
+                <!--                    android:paddingBottom="@dimen/small_padding"/>-->
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/html_text"
@@ -128,12 +141,49 @@
                     android:textStyle="normal"
                     android:textColorLink="@color/colorAccent"
                     android:paddingBottom="@dimen/small_padding"/>
-            <TextView
-                    android:layout_width="match_parent"
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/related"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/element_padding"
+                android:paddingEnd="@dimen/element_padding"
+                android:paddingTop="@dimen/inner_element_padding"
+                android:paddingBottom="@dimen/inner_element_padding">
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:text="@string/copyright_text"
-                    android:textSize="10dp"/>
+                    android:background="@drawable/tab_background"
+                    android:paddingLeft="3dp"
+                    android:paddingRight="3dp"
+                    android:layout_marginStart="2dp"
+                    android:textSize="20dp"
+                    android:textColor="@android:color/white"/>
+                <TextView
+                    android:text="RELATED"
+                    android:id="@+id/section_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="12dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:fontFamily="sans-serif-condensed-medium"
+                    android:textSize="22dp"/>
+            </LinearLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_related"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clipToPadding="false"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:paddingTop="@dimen/small_padding"
+                android:paddingBottom="@dimen/small_padding"
+                android:text="@string/copyright_text"
+                android:textSize="10dp"/>
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>

@@ -25,22 +25,22 @@ class TabPresenter (view: TabMvp.View,
                         BiFunction<p, p, Pair<p, p>> { t1, t2 ->
                             t1 to t2
                         })
-                var singleC = Single.zip(postManager.getPostsBreaking(),
-                    postManager.getPostTitles(pageNum, "coronavirus"),
-                    postManager.getPosts(pageNum, tab),
-                    Function3<p, Pair<String, p>, p, Triple<p, p, p>> { t1, t2, t3 ->
-                        Triple(t1, t2.second, t3)
-                    })
+//                var singleC = Single.zip(postManager.getPostsBreaking(),
+//                    postManager.getPostTitles(pageNum, "coronavirus"),
+//                    postManager.getPosts(pageNum, tab),
+//                    Function3<p, Pair<String, p>, p, Triple<p, p, p>> { t1, t2, t3 ->
+//                        Triple(t1, t2.second, t3)
+//                    })
                 getPostsHome(single, pageNum, tab)
-                //getPostsHomeC(singleC, pageNum, tab)
+//                getPostsHomeC(singleC, pageNum, tab)
             }
             else{
                 getMorePostsHome(pageNum, tab)
             }
         }
-        else if(tabNum == 1) {
-            getPostsCorona(pageNum, tab)
-        }
+//        else if(tabNum == 1) {
+//            getPostsCorona(pageNum, tab)
+//        }
         else {
             getPosts(pageNum, tab)
         }
@@ -50,11 +50,11 @@ class TabPresenter (view: TabMvp.View,
         single.subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ posts ->
-                var breaking = posts.first[0]
+                var breaking = posts.first
                 var news = posts.second.toMutableList()
-                news.remove(breaking)
-                news.add(0, breaking)
-                view?.onPostSuccessHome(news)
+                news.removeAll(breaking)
+                //news.add(0, breaking)
+                view?.onPostSuccessHome(breaking, news)
             }, { e ->
                 view?.onPostError()
                 Log.e("error", "something went wrong loading posts", e)

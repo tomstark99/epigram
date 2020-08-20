@@ -22,8 +22,11 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
 import com.epigram.android.R
+import com.epigram.android.data.arch.PreferenceModule
 import com.epigram.android.data.arch.utils.LoadNextPage
+import com.epigram.android.data.arch.utils.SnapHelperOne
 import com.epigram.android.data.model.Post
+import com.f2prateek.rx.preferences2.Preference
 import com.jakewharton.rxbinding2.view.RxView
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -31,13 +34,15 @@ import io.reactivex.disposables.Disposable
 import java.util.concurrent.TimeUnit
 import kotlin.collections.ArrayList
 
-class AdapterArticlesHome(context: Context, posts: MutableList<Post>, loadNext: LoadNextPage, position: Int) : RecyclerView.Adapter<AdapterArticlesHome.MyViewHolder>(){
+class AdapterArticlesHome(context: Context, posts: MutableList<Post>, var breakingPosts: MutableList<Post>, loadNext: LoadNextPage, position: Int) : RecyclerView.Adapter<AdapterArticlesHome.MyViewHolder>(){
 
     var posts: MutableList<Post> = ArrayList()
     var context: Context
     var loadNextPage: LoadNextPage
     var multiTransformation = MultiTransformation(CenterCrop(), RoundedCorners(40))
     var pageIndex: Int = 0
+    private val c: Preference<Int> = PreferenceModule.counter
+    var only_one = true
 
     init {
         this.posts = posts
@@ -47,18 +52,46 @@ class AdapterArticlesHome(context: Context, posts: MutableList<Post>, loadNext: 
     }
 
     enum class Inflater(val id: Int, @LayoutRes val element: Int){
-        POSITION_ONE(0, R.layout.element_news_article_breaking),
+        POSITION_ONE(0, R.layout.element_news_article_breaking_list),
         POSITION_THR(1, R.layout.element_news_article_first),
         POSITION_MRE(2, R.layout.element_news_article),
-        POSITION_HME(3, R.layout.element_corona)
+        POSITION_HME(3, R.layout.element_corona),
+        POSITION_MSK(4, R.layout.element_corona_no)
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        if(position != 0) {
+        if (position == 0) {
+            RxView.clicks(holder.maskClose!!)
+                .throttleFirst(500, TimeUnit.MILLISECONDS)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe { empty ->
+                    if(holder.maskLayout!!.visibility == View.VISIBLE) {
+                        holder.maskLayout!!.visibility = View.GONE
+                        holder.staySafe!!.visibility = View.VISIBLE
+                        holder.maskClose!!.animate().rotationBy(-180f).start()
+                    } else {
+                        holder.staySafe!!.visibility = View.GONE
+                        holder.maskLayout!!.visibility = View.VISIBLE
+                        holder.maskClose!!.animate().rotationBy(180f).start()
+                    }
+                    if(only_one && c.get() == 0) {
+                        only_one = false
+                        c.set(c.get() + 2)
+                    }
+                }
+        }
+        else if (position == 1) {
+            val snapHelper = SnapHelperOne()
+            holder.breaking!!.onFlingListener = null
+            snapHelper.attachToRecyclerView(holder.breaking!!)
+            holder.breaking!!.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            holder.breaking!!.adapter = BreakingAdapter(context, breakingPosts, loadNextPage)
+        }
+        else if(position > 1) {
             holder.tags!!.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
             holder.tags!!.itemAnimator = DefaultItemAnimator()
-            holder.tags!!.adapter = MyAdapterTag(posts[position-1].tags.orEmpty())
-            setPost(holder, position-1)
+            holder.tags!!.adapter = AdapterTag(posts[position-2].tags)
+            setPost(holder, position-2)
         }
     }
 
@@ -70,7 +103,9 @@ class AdapterArticlesHome(context: Context, posts: MutableList<Post>, loadNext: 
     }
 
     override fun getItemViewType(position: Int): Int {
-        if(position == 0) return 3
+        if(position == 0) {
+            return if(displayMask()) 3 else 4
+        }
         else if(position == 1) return 0
         return if(position == 2) 1 else 2
     }
@@ -84,11 +119,15 @@ class AdapterArticlesHome(context: Context, posts: MutableList<Post>, loadNext: 
         var title: TextView?
         var articleImage: ImageView?
         var tags: RecyclerView?
+        var breaking: RecyclerView?
         var date: TextView?
 
         var firstElementText: TextView?
         var imageLoaded = false
         var linearLayout: LinearLayout
+        var maskLayout: LinearLayout?
+        var maskClose: ImageView?
+        var staySafe: TextView?
         var disposable: Disposable? = null
 
         init {
@@ -96,7 +135,11 @@ class AdapterArticlesHome(context: Context, posts: MutableList<Post>, loadNext: 
             articleImage = l.findViewById(R.id.post_image)
             date = l.findViewById(R.id.post_date_alternate)
             tags = l.findViewById(R.id.recycler_view_tag)
+            breaking = l.findViewById(R.id.recycler_breaking)
             firstElementText = l.findViewById(R.id.search_results_number)
+            maskLayout = l.findViewById(R.id.mask)
+            maskClose = l.findViewById(R.id.mask_close)
+            staySafe = l.findViewById(R.id.stay_safe)
 
             linearLayout = l
         }
@@ -109,12 +152,12 @@ class AdapterArticlesHome(context: Context, posts: MutableList<Post>, loadNext: 
             .throttleFirst(500, TimeUnit.MILLISECONDS)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe { empty ->
-                if (holder.adapterPosition != 0) {
+                if (holder.adapterPosition > 1) {
                     holder.articleImage!!.setTransitionName("article_header")
-                loadNextPage.onPostClicked(
-                    posts[holder.adapterPosition-1],
-                    if (holder.imageLoaded) holder.articleImage else null
-                )
+                    loadNextPage.onPostClicked(
+                        posts[holder.adapterPosition-2],
+                        if (holder.imageLoaded) holder.articleImage else null
+                    )
                 }
             }
     }
@@ -135,13 +178,13 @@ class AdapterArticlesHome(context: Context, posts: MutableList<Post>, loadNext: 
     }
 
     fun setPost(holder: MyViewHolder, position: Int){
-        if(position == 0 && posts[position].date.plusWeeks(1).isBeforeNow && posts[position].tags!!.contains("breaking news") && (!posts[position].title.contains("coronavirus") || !posts[position].title.contains("corona"))) {
-            holder.itemView.visibility = View.GONE
-            holder.itemView.layoutParams =  RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,1)
-        } else {
+//        if(position == 0 && posts[position].date.plusWeeks(1).isBeforeNow && posts[position].tags!!.contains("breaking news") && (!posts[position].title.contains("coronavirus") || !posts[position].title.contains("corona"))) {
+//            holder.itemView.visibility = View.GONE
+//            holder.itemView.layoutParams =  RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,1)
+//        } else {
             holder.itemView.visibility = View.VISIBLE
             holder.itemView.layoutParams =  RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT)
-        }
+//        }
         holder.title!!.text = posts[position].title
         holder.date!!.text = posts[position].date.toString("MMM d, yyyy")
         Glide.with(holder.articleImage!!)
@@ -162,13 +205,20 @@ class AdapterArticlesHome(context: Context, posts: MutableList<Post>, loadNext: 
                 }
             ).into(holder.articleImage!!)
 
-        if(position > itemCount - 3) loadNextPage.bottomReached()
+        if(position > itemCount - 4) {
+            loadNextPage.bottomReached()
+        }
 
     }
 
     fun clear(){
         posts.clear()
         notifyDataSetChanged()
+    }
+
+    fun displayMask() : Boolean {
+        var temp = c.get()
+        return if(temp == 0) true else false
     }
 
 }

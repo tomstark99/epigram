@@ -10,7 +10,7 @@ data class Post(
     val html: String,
     val image: String?,
     val tag: String?,
-    val tags: List<String>?,
+    val tags: Pair<List<String>?, List<String>?>,
     val date: DateTime,
     val url : String
 
@@ -19,8 +19,8 @@ data class Post(
 
         fun fromTemplate(template: PostTemplate): Post?{
             var x: String = template.html ?: ""
-            x = x.replace("<style>", "<!--")
-            x = x.replace("</style>", "-->")
+//            x = x.replace("<style>", "<!--")
+//            x = x.replace("</style>", "-->")
             return Post(
                 template.id,
                 template.uuid,
@@ -28,7 +28,8 @@ data class Post(
                 x,
                 template.feature_image,
                 template.primary_tag?.name?.toUpperCase(),
-                template.tags?.map { tags -> tags.name },
+                Pair(template.tags?.map { tags -> tags.name }, template.tags?.map { tags -> tags.slug }),
+//                template.tags?.map { tags -> tags.slug },
                 DateTime.parse(template.published_at),
                 template.url
             )
@@ -53,8 +54,8 @@ data class Wrapper<T>(
 )
 
 data class Tags(
-    val id: String,
-    val name: String
+    val name: String,
+    val slug: String
 )
 
 data class Authors(

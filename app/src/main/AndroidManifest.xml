@@ -60,6 +60,12 @@
             android:windowSoftInputMode="stateAlwaysHidden"
             android:screenOrientation="portrait"/>
         <activity
+            android:name=".ui.section.SectionActivityC"
+            android:parentActivityName=".ui.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateAlwaysHidden"
+            android:screenOrientation="portrait"/>
+        <activity
             android:name=".ui.search.SearchActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateVisible"
@@ -68,6 +74,12 @@
             android:name=".ui.promo.PromoActivity"
             android:parentActivityName=".ui.MainActivity"
             android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateAlwaysHidden"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.NewActivity"
+            android:parentActivityName=".ui.MainActivity"
+            android:theme="@style/Theme.AppCompat.Translucent"
             android:windowSoftInputMode="stateAlwaysHidden"
             android:screenOrientation="portrait"/>
         <service

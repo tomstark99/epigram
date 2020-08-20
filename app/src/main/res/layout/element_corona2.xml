@@ -17,14 +17,14 @@
         <ImageView
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:src="@drawable/ic_warning_amber_24px_outlined"/>
+            android:src="@drawable/ic_warning_amber_24px_outlined_red"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:paddingStart="@dimen/tiny_padding"
-            android:textColor="@color/white_nochange"
-            android:textSize="12sp"
+            android:textColor="@color/red_to_white"
+            android:textSize="14sp"
             android:autoLink="web"
             android:theme="@style/corona_info"
             android:text="@string/corona_warn"/>
