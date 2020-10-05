@@ -20,8 +20,10 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
 import com.epigram.android.R
+import com.epigram.android.data.arch.PreferenceModule
 import com.epigram.android.data.arch.utils.LoadNextPage
 import com.epigram.android.data.model.Post
+import com.f2prateek.rx.preferences2.Preference
 import com.jakewharton.rxbinding2.view.RxView
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -36,6 +38,7 @@ class AdapterArticles(context: Context, posts: MutableList<Post>, loadNext: Load
     var loadNextPage: LoadNextPage
     var multiTransformation = MultiTransformation(CenterCrop(), RoundedCorners(40))
     var pageIndex: Int = 0
+    private val l: Preference<Int> = PreferenceModule.layoutMode
 
 
 
@@ -59,7 +62,7 @@ class AdapterArticles(context: Context, posts: MutableList<Post>, loadNext: Load
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        val l = LayoutInflater.from(parent.context).inflate(R.layout.element_news_article_new, parent, false) as LinearLayout
+        val l = if(l.get() == 1) LayoutInflater.from(parent.context).inflate(R.layout.element_news_article_new, parent, false) as LinearLayout else LayoutInflater.from(parent.context).inflate(R.layout.element_news_article, parent, false) as LinearLayout
         return MyViewHolder(l)
 
     }

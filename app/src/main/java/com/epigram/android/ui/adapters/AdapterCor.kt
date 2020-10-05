@@ -21,8 +21,10 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
 import com.epigram.android.R
+import com.epigram.android.data.arch.PreferenceModule
 import com.epigram.android.data.arch.utils.LoadNextPage
 import com.epigram.android.data.model.Post
+import com.f2prateek.rx.preferences2.Preference
 import com.jakewharton.rxbinding2.view.RxView
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -36,7 +38,7 @@ class AdapterCor(context: Context, posts: MutableList<Post>, loadNext: LoadNextP
     var context: Context
     var loadNextPage: LoadNextPage
     var multiTransformation = MultiTransformation(CenterCrop(), RoundedCorners(40))
-
+    private val l: Preference<Int> = PreferenceModule.layoutMode
 
 
     init {
@@ -47,8 +49,9 @@ class AdapterCor(context: Context, posts: MutableList<Post>, loadNext: LoadNextP
 
     enum class Inflater(val id: Int, @LayoutRes val element: Int){
         POSITION_ONE(0, R.layout.element_news_article_corona),
-        POSITION_MRE(1, R.layout.element_news_article_new),
-        POSITION_ALR(2, R.layout.element_corona2)
+        POSITION_MRE(1, R.layout.element_news_article),
+        POSITION_ALR(2, R.layout.element_corona2),
+        POSITION_CMP(3, R.layout.element_news_article_new)
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
@@ -71,7 +74,8 @@ class AdapterCor(context: Context, posts: MutableList<Post>, loadNext: LoadNextP
 
     override fun getItemViewType(position: Int): Int {
         if(position == 0) return 2
-        return if(position == 1) 0 else 1
+        else if(position == 1) return 0
+        return if(l.get()==1) 3 else 1
     }
 
 

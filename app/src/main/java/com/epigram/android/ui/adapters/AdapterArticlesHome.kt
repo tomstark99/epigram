@@ -42,6 +42,7 @@ class AdapterArticlesHome(context: Context, posts: MutableList<Post>, var breaki
     var multiTransformation = MultiTransformation(CenterCrop(), RoundedCorners(40))
     var pageIndex: Int = 0
     private val c: Preference<Int> = PreferenceModule.counter
+    private val l: Preference<Int> = PreferenceModule.layoutMode
     var only_one = true
 
     init {
@@ -56,7 +57,8 @@ class AdapterArticlesHome(context: Context, posts: MutableList<Post>, var breaki
         POSITION_THR(1, R.layout.element_news_article_first),
         POSITION_MRE(2, R.layout.element_news_article_new),
         POSITION_HME(3, R.layout.element_corona),
-        POSITION_MSK(4, R.layout.element_corona_no)
+        POSITION_MSK(4, R.layout.element_corona_no),
+        POSITION_CMP(5, R.layout.element_news_article_new)
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
@@ -68,11 +70,11 @@ class AdapterArticlesHome(context: Context, posts: MutableList<Post>, var breaki
                     if(holder.maskLayout!!.visibility == View.VISIBLE) {
                         holder.maskLayout!!.visibility = View.GONE
                         holder.staySafe!!.visibility = View.VISIBLE
-                        holder.maskClose!!.animate().rotationBy(-180f).start()
+                        holder.maskCLoseIc!!.animate().rotationBy(-180f).start()
                     } else {
                         holder.staySafe!!.visibility = View.GONE
                         holder.maskLayout!!.visibility = View.VISIBLE
-                        holder.maskClose!!.animate().rotationBy(180f).start()
+                        holder.maskCLoseIc!!.animate().rotationBy(180f).start()
                     }
                     if(only_one && c.get() == 0) {
                         only_one = false
@@ -107,7 +109,8 @@ class AdapterArticlesHome(context: Context, posts: MutableList<Post>, var breaki
             return if(displayMask()) 3 else 4
         }
         else if(position == 1) return 0
-        return if(position == 2) 1 else 2
+        else if(position == 2) return 1
+        return if(l.get() == 1) 5 else 2
     }
 
     override fun getItemCount(): Int {
@@ -126,7 +129,8 @@ class AdapterArticlesHome(context: Context, posts: MutableList<Post>, var breaki
         var imageLoaded = false
         var linearLayout: LinearLayout
         var maskLayout: LinearLayout?
-        var maskClose: ImageView?
+        var maskClose: LinearLayout?
+        var maskCLoseIc: ImageView?
         var staySafe: TextView?
         var disposable: Disposable? = null
 
@@ -139,6 +143,7 @@ class AdapterArticlesHome(context: Context, posts: MutableList<Post>, var breaki
             firstElementText = l.findViewById(R.id.search_results_number)
             maskLayout = l.findViewById(R.id.mask)
             maskClose = l.findViewById(R.id.mask_close)
+            maskCLoseIc = l.findViewById(R.id.mask_close_ic)
             staySafe = l.findViewById(R.id.stay_safe)
 
             linearLayout = l
