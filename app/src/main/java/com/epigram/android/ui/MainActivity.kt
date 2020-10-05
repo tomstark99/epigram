@@ -241,6 +241,11 @@ class MainActivity : BaseActivity<MainActivityMvp.Presenter>(),
         return true
     }
 
+    override fun onRestart() {
+        super.onRestart()
+        this.recreate()
+    }
+
     companion object {
 
         internal var ARG_SECTION = "section.object"

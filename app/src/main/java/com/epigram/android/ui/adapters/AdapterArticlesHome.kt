@@ -70,11 +70,11 @@ class AdapterArticlesHome(context: Context, posts: MutableList<Post>, var breaki
                     if(holder.maskLayout!!.visibility == View.VISIBLE) {
                         holder.maskLayout!!.visibility = View.GONE
                         holder.staySafe!!.visibility = View.VISIBLE
-                        holder.maskClose!!.animate().rotationBy(-180f).start()
+                        holder.maskCLoseIc!!.animate().rotationBy(-180f).start()
                     } else {
                         holder.staySafe!!.visibility = View.GONE
                         holder.maskLayout!!.visibility = View.VISIBLE
-                        holder.maskClose!!.animate().rotationBy(180f).start()
+                        holder.maskCLoseIc!!.animate().rotationBy(180f).start()
                     }
                     if(only_one && c.get() == 0) {
                         only_one = false
@@ -129,7 +129,8 @@ class AdapterArticlesHome(context: Context, posts: MutableList<Post>, var breaki
         var imageLoaded = false
         var linearLayout: LinearLayout
         var maskLayout: LinearLayout?
-        var maskClose: ImageView?
+        var maskClose: LinearLayout?
+        var maskCLoseIc: ImageView?
         var staySafe: TextView?
         var disposable: Disposable? = null
 
@@ -142,6 +143,7 @@ class AdapterArticlesHome(context: Context, posts: MutableList<Post>, var breaki
             firstElementText = l.findViewById(R.id.search_results_number)
             maskLayout = l.findViewById(R.id.mask)
             maskClose = l.findViewById(R.id.mask_close)
+            maskCLoseIc = l.findViewById(R.id.mask_close_ic)
             staySafe = l.findViewById(R.id.stay_safe)
 
             linearLayout = l
