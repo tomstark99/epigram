@@ -32,7 +32,7 @@ import java.util.concurrent.TimeUnit
 class MainActivity : BaseActivity<MainActivityMvp.Presenter>(),
     NavigationView.OnNavigationItemSelectedListener, MainActivityMvp.View {
 
-    private var l: Preference<Int> = PreferenceModule.layoutMode
+    private var l: Int = PreferenceModule.layoutMode.get()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -247,12 +247,9 @@ class MainActivity : BaseActivity<MainActivityMvp.Presenter>(),
 
     override fun onResume() {
         super.onResume()
-        if(l.get() != PreferenceModule.layoutMode.get()) {
-            l = PreferenceModule.layoutMode
-            finish()
-            overridePendingTransition(0,0)
-            startActivity(intent)
-            overridePendingTransition(0,0)
+        if(l != PreferenceModule.layoutMode.get()) {
+            l = PreferenceModule.layoutMode.get()
+            this.recreate()
         }
     }
 

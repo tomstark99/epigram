@@ -24,7 +24,6 @@ class TabFragment : BaseFragment<TabMvp.Presenter>(), TabMvp.View, LoadNextPage 
     private var adapter: AdapterArticles? = null
     private var adapterC: AdapterCor? = null
     private var adapterHome: AdapterArticlesHome? = null
-    private var l: Preference<Int> = PreferenceModule.layoutMode
 
     companion object {
 
@@ -48,14 +47,6 @@ class TabFragment : BaseFragment<TabMvp.Presenter>(), TabMvp.View, LoadNextPage 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_main, container, false)
-    }
-
-    override fun onResume() {
-        super.onResume()
-//        if (l.get() != PreferenceModule.layoutMode.get()) {
-//            l = PreferenceModule.layoutMode
-//            fragmentManager!!.beginTransaction().detach(this).attach(this).commit()
-//        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
