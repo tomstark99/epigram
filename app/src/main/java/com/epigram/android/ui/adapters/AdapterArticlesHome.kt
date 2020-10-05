@@ -42,6 +42,7 @@ class AdapterArticlesHome(context: Context, posts: MutableList<Post>, var breaki
     var multiTransformation = MultiTransformation(CenterCrop(), RoundedCorners(40))
     var pageIndex: Int = 0
     private val c: Preference<Int> = PreferenceModule.counter
+    private val l: Preference<Int> = PreferenceModule.layoutMode
     var only_one = true
 
     init {
@@ -56,7 +57,8 @@ class AdapterArticlesHome(context: Context, posts: MutableList<Post>, var breaki
         POSITION_THR(1, R.layout.element_news_article_first),
         POSITION_MRE(2, R.layout.element_news_article),
         POSITION_HME(3, R.layout.element_corona),
-        POSITION_MSK(4, R.layout.element_corona_no)
+        POSITION_MSK(4, R.layout.element_corona_no),
+        POSITION_CMP(5, R.layout.element_news_article_new)
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
@@ -107,7 +109,8 @@ class AdapterArticlesHome(context: Context, posts: MutableList<Post>, var breaki
             return if(displayMask()) 3 else 4
         }
         else if(position == 1) return 0
-        return if(position == 2) 1 else 2
+        else if(position == 2) return 1
+        return if(l.get() == 1) 5 else 2
     }
 
     override fun getItemCount(): Int {

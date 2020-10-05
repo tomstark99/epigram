@@ -120,6 +120,30 @@
                 android:textColor="@color/black"
                 android:letterSpacing="0.2"/>
             <LinearLayout
+                android:id="@+id/layout_setting"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/medium_padding"
+                android:paddingEnd="@dimen/medium_padding"
+                android:paddingTop="@dimen/element_padding"
+                android:paddingBottom="@dimen/element_padding"
+                android:background="?android:selectableItemBackground"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Layout"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"/>
+                <TextView
+                    android:id="@+id/layout_request"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/button_tint"
+                    tools:text="Default"
+                    android:textSize="16sp"/>
+            </LinearLayout>
+            <LinearLayout
                 android:id="@+id/theme_setting"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -143,6 +167,7 @@
                     tools:text="Light"
                     android:textSize="16sp"/>
             </LinearLayout>
+
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"

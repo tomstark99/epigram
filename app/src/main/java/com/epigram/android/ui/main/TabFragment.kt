@@ -59,13 +59,14 @@ class TabFragment : BaseFragment<TabMvp.Presenter>(), TabMvp.View, LoadNextPage 
                 } else {
                     my_recycler_view.adapter = adapterHome
                 }
-            } else if (tabNum == 1) {
-                if(adapterC == null) {
-                    my_recycler_view.adapter = MyAdapterPlaceholder()
-                } else {
-                    my_recycler_view.adapter = adapterC
-                }
-            } else {
+            } // else if (tabNum == 1) {
+//                if(adapterC == null) {
+//                    my_recycler_view.adapter = MyAdapterPlaceholder()
+//                } else {
+//                    my_recycler_view.adapter = adapterC
+//                }
+//            }
+            else {
                 if(adapter == null) {
                     my_recycler_view.adapter = MyAdapterPlaceholder()
                 } else {
