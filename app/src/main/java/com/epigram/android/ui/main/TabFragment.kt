@@ -8,11 +8,13 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.epigram.android.R
+import com.epigram.android.data.arch.PreferenceModule
 import com.epigram.android.data.arch.android.BaseFragment
 import com.epigram.android.data.arch.utils.LoadNextPage
 import com.epigram.android.data.model.Post
 import com.epigram.android.ui.adapters.*
 import com.epigram.android.ui.article.ArticleActivity
+import com.f2prateek.rx.preferences2.Preference
 import kotlinx.android.synthetic.main.fragment_main.*
 
 class TabFragment : BaseFragment<TabMvp.Presenter>(), TabMvp.View, LoadNextPage {
