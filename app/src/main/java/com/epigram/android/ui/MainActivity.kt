@@ -10,6 +10,7 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.viewpager.widget.ViewPager
 import com.epigram.android.R
+import com.epigram.android.data.arch.PreferenceModule
 
 import com.epigram.android.data.arch.android.BaseActivity
 import com.epigram.android.ui.about.AboutActivity
@@ -19,6 +20,7 @@ import com.epigram.android.ui.search.SearchActivity
 import com.epigram.android.ui.section.SectionActivity
 import com.epigram.android.ui.section.SectionActivityC
 import com.epigram.android.ui.settings.SettingsActivity
+import com.f2prateek.rx.preferences2.Preference
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.tabs.TabLayout
 import com.google.firebase.messaging.FirebaseMessaging
@@ -29,6 +31,8 @@ import java.util.concurrent.TimeUnit
 
 class MainActivity : BaseActivity<MainActivityMvp.Presenter>(),
     NavigationView.OnNavigationItemSelectedListener, MainActivityMvp.View {
+
+    private var l: Int = PreferenceModule.layoutMode.get()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -239,6 +243,14 @@ class MainActivity : BaseActivity<MainActivityMvp.Presenter>(),
         }
         drawerLayout.closeDrawer(GravityCompat.START)
         return true
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if(l != PreferenceModule.layoutMode.get()) {
+            l = PreferenceModule.layoutMode.get()
+            this.recreate()
+        }
     }
 
     companion object {

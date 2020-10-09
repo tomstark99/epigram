@@ -22,6 +22,10 @@ object PreferenceModule {
         rxSharedPrefs.getInteger("dark_mode.int", MODE_NIGHT_FOLLOW_SYSTEM)
     }
 
+    val layoutMode by lazy {
+        rxSharedPrefs.getInteger("layout.int", 1)
+    }
+
     val latestNotification by lazy {
         rxSharedPrefs.getString("latest_notification.string")
     }

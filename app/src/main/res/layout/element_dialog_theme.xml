@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="1dp"
+        android:layout_margin="@dimen/medium_padding"
+        android:background="@drawable/dialog_background"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/medium_padding"
+            android:layout_marginBottom="@dimen/tiny_padding"
+            android:paddingHorizontal="@dimen/medium_padding"
+            android:text="Select theme"
+            android:textAppearance="@style/TextAppearance.Tasker.DialogTitle" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/tiny_padding"
+            android:paddingHorizontal="@dimen/medium_padding"
+            android:text="@string/theme_description"/>
+        <RadioGroup
+            android:id="@+id/theme_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/large_padding"
+            android:paddingEnd="@dimen/large_padding">
+            <RadioButton
+                android:id="@+id/light"
+                android:background="?android:selectableItemBackgroundBorderless"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/button_tint"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:text="@string/light"
+                android:padding="@dimen/tiny_padding"/>
+            <RadioButton
+                android:id="@+id/dark"
+                android:background="?android:selectableItemBackgroundBorderless"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/button_tint"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:text="@string/dark"
+                android:padding="@dimen/tiny_padding"/>
+            <RadioButton
+                android:id="@+id/follow_device"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/button_tint"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:text="@string/follow_device"
+                android:padding="@dimen/tiny_padding"/>
+        </RadioGroup>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:paddingBottom="@dimen/tiny_padding"
+            android:orientation="horizontal">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btNegative"
+                style="@style/Widget.Tasker.BorderlessButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/medium_padding"
+                android:text="Cancel" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+</LinearLayout>
