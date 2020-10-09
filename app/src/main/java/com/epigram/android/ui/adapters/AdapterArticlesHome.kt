@@ -43,6 +43,7 @@ class AdapterArticlesHome(context: Context, posts: MutableList<Post>, var breaki
     var pageIndex: Int = 0
     private val c: Preference<Int> = PreferenceModule.counter
     private val l: Preference<Int> = PreferenceModule.layoutMode
+    private var mask = displayMask()
     var only_one = true
 
     init {
@@ -58,29 +59,19 @@ class AdapterArticlesHome(context: Context, posts: MutableList<Post>, var breaki
         POSITION_MRE(2, R.layout.element_news_article_new),
         POSITION_HME(3, R.layout.element_corona),
         POSITION_MSK(4, R.layout.element_corona_no),
-        POSITION_CMP(5, R.layout.element_news_article_new)
+        POSITION_CMP(5, R.layout.element_news_article_new),
+        POSITION_MAS(6, R.layout.element_corona_mask)
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         if (position == 0) {
-            RxView.clicks(holder.maskClose!!)
-                .throttleFirst(500, TimeUnit.MILLISECONDS)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { empty ->
-                    if(holder.maskLayout!!.visibility == View.VISIBLE) {
-                        holder.maskLayout!!.visibility = View.GONE
-                        holder.staySafe!!.visibility = View.VISIBLE
-                        holder.maskCLoseIc!!.animate().rotationBy(-180f).start()
-                    } else {
-                        holder.staySafe!!.visibility = View.GONE
-                        holder.maskLayout!!.visibility = View.VISIBLE
-                        holder.maskCLoseIc!!.animate().rotationBy(180f).start()
-                    }
-                    if(only_one && c.get() == 0) {
-                        only_one = false
-                        c.set(c.get() + 2)
-                    }
-                }
+            if(mask) {
+                mask = false
+                holder.maskLayout!!.visibility = View.VISIBLE
+                holder.staySafe!!.setBackgroundResource(0)
+                holder.staySafe!!.setTextColor(context.getColor(R.color.black))
+                holder.maskCLoseIc!!.animate().rotationBy(180f).start()
+            }
         }
         else if (position == 1) {
             val snapHelper = SnapHelperOne()
@@ -106,7 +97,7 @@ class AdapterArticlesHome(context: Context, posts: MutableList<Post>, var breaki
 
     override fun getItemViewType(position: Int): Int {
         if(position == 0) {
-            return if(displayMask()) 3 else 4
+            return 6 //if(displayMask()) 3 else 4
         }
         else if(position == 1) return 0
         else if(position == 2) return 1
@@ -165,6 +156,34 @@ class AdapterArticlesHome(context: Context, posts: MutableList<Post>, var breaki
                     )
                 }
             }
+        if (holder.adapterPosition == 0) {
+            RxView.clicks(holder.maskClose!!)
+                .throttleFirst(500, TimeUnit.MILLISECONDS)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe { empty ->
+                    if(holder.maskLayout!!.visibility == View.VISIBLE) {
+                        holder.maskLayout!!.visibility = View.GONE
+                        holder.staySafe!!.setBackgroundResource(R.drawable.tab_c_background)
+                        holder.staySafe!!.setTextColor(context.getColor(R.color.red_to_white))
+                        holder.maskCLoseIc!!.animate().rotationBy(-180f).start()
+//                        holder.maskLayout!!.visibility = View.GONE
+//                        holder.staySafe!!.visibility = View.VISIBLE
+//                        holder.maskCLoseIc!!.animate().rotationBy(-180f).start()
+                    } else {
+                        holder.maskLayout!!.visibility = View.VISIBLE
+                        holder.staySafe!!.setBackgroundResource(0)
+                        holder.staySafe!!.setTextColor(context.getColor(R.color.black))
+                        holder.maskCLoseIc!!.animate().rotationBy(180f).start()
+//                        holder.staySafe!!.visibility = View.GONE
+//                        holder.maskLayout!!.visibility = View.VISIBLE
+//                        holder.maskCLoseIc!!.animate().rotationBy(180f).start()
+                    }
+                    if(only_one && c.get() == 0) {
+                        only_one = false
+                        c.set(c.get() + 2)
+                    }
+                }
+        }
     }
 
     override fun onViewDetachedFromWindow(holder: MyViewHolder) {

@@ -19,7 +19,6 @@
             android:layout_width="280dp"
             android:layout_height="match_parent"
             android:layout_gravity="start"
-            android:background="@color/colorPrimary"
             android:clipToPadding="false"
             android:fitsSystemWindows="true"
             app:itemIconTint="@color/button_tint"

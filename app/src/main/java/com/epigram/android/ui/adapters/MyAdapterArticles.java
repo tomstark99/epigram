@@ -24,7 +24,9 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
 import com.epigram.android.R;
+import com.epigram.android.data.arch.PreferenceModule;
 import com.epigram.android.data.model.Post;
+import com.f2prateek.rx.preferences2.Preference;
 import com.jakewharton.rxbinding2.view.RxView;
 
 import io.reactivex.Observable;
@@ -46,6 +48,7 @@ public class MyAdapterArticles extends RecyclerView.Adapter<MyAdapterArticles.My
     private LoadNextPage loadNextPage = null;
     private int resultTotal = 0;
     private Context context;
+    private int layoutId = PreferenceModule.INSTANCE.getLayoutMode().get();
 
     private int pageIndex; // 100 for search recycler view
 
@@ -198,7 +201,12 @@ public class MyAdapterArticles extends RecyclerView.Adapter<MyAdapterArticles.My
             return vh;
         }
         else {
-            LinearLayout l = (LinearLayout) LayoutInflater.from(parent.getContext()).inflate(R.layout.element_news_article_new, parent, false);
+            LinearLayout l;
+            if(layoutId == 0) {
+                l = (LinearLayout) LayoutInflater.from(parent.getContext()).inflate(R.layout.element_news_article, parent, false);
+            } else {
+                l = (LinearLayout) LayoutInflater.from(parent.getContext()).inflate(R.layout.element_news_article_new, parent, false);
+            }
             MyViewHolder vh = new MyViewHolder(l);
             return vh;
         }

@@ -5,8 +5,7 @@
     android:paddingStart="@dimen/element_padding"
     android:paddingEnd="@dimen/element_padding"
     android:paddingTop="@dimen/element_padding"
-    android:paddingBottom="@dimen/element_padding_half"
-    android:animateLayoutChanges="true">
+    android:paddingBottom="@dimen/element_padding_half">
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -37,40 +36,39 @@
                 android:layout_marginEnd="@dimen/tiny_padding"
                 android:src="@drawable/ic_keyboard_arrow_up_black_24dp"/>
         </LinearLayout>
-        <LinearLayout
-            android:id="@+id/mask"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:visibility="gone"
-            android:animateLayoutChanges="true">
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="38dp"
-                android:animateLayoutChanges="true">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="STAY SAFE, WEAR A MASK"
-                    android:textColor="@color/black"
-                    android:textStyle="bold"
-                    android:layout_gravity="center_vertical"
-                    android:textAlignment="center"
-                    android:letterSpacing="0.07"
-                    android:textSize="22sp"/>
-            </FrameLayout>
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="175dp"
-                android:src="@drawable/ic_mask"
-                android:paddingTop="@dimen/inner_element_padding"
-                android:layout_gravity="center_horizontal"/>
-        </LinearLayout>
     </FrameLayout>
+    <LinearLayout
+        android:id="@+id/mask"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone">
+<!--        <FrameLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="38dp"-->
+<!--            android:animateLayoutChanges="true">-->
+<!--            <TextView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="STAY SAFE, WEAR A MASK"-->
+<!--                android:textColor="@color/black"-->
+<!--                android:textStyle="bold"-->
+<!--                android:layout_gravity="center_vertical"-->
+<!--                android:textAlignment="center"-->
+<!--                android:letterSpacing="0.07"-->
+<!--                android:textSize="22sp"/>-->
+<!--        </FrameLayout>-->
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="175dp"
+            android:src="@drawable/ic_mask"
+            android:paddingTop="@dimen/inner_element_padding"
+            android:layout_gravity="center_horizontal"/>
+    </LinearLayout>
 
 
-    <!--        android:scrollbars="vertical"-->
-    <!--        android:nestedScrollingEnabled="false"-->
-    <!--        android:isScrollContainer="false"-->
-    <!--        android:verticalScrollbarPosition="right"/>-->
+<!--        android:scrollbars="vertical"-->
+<!--        android:nestedScrollingEnabled="false"-->
+<!--        android:isScrollContainer="false"-->
+<!--        android:verticalScrollbarPosition="right"/>-->
 </LinearLayout>
