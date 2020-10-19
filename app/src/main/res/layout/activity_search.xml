@@ -1,68 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/place_holders"
-        android:background="?android:selectableItemBackground"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:clipChildren="false">
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_height="54dp"
+        android:layout_width="match_parent"
+        android:layout_marginStart="@dimen/element_padding_half"
+        android:layout_marginEnd="@dimen/element_padding_half"
+        android:layout_marginTop="@dimen/element_padding_half"
+        android:elevation="4dp"
+        android:background="@drawable/tab_s_background">
 
         <LinearLayout
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:elevation="4dp"
-                android:background="@color/colorPrimary">
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_scrollFlags="scroll|enterAlways|snap"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
             <ImageView
-                    android:id="@+id/search_back"
-                    android:src="@drawable/ic_arrow_back_black_24dp"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:layout_gravity="center"
-                    android:padding="12dp"
-                    style="@style/SelectableItemBackground"/>
+                android:id="@+id/search_back"
+                android:src="@drawable/ic_arrow_back_black_24dp"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_gravity="center"
+                android:padding="12dp"
+                style="@style/SelectableItemBackground"/>
 
             <EditText
-                    android:id="@+id/search_query"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:minHeight="?actionBarSize"
-                    android:padding="@dimen/appbar_padding"
-                    android:layout_weight="1"
-                    android:hint=" Search by title or author"
-                    android:textColorHint="@color/button_tint"
-                    android:textColor="@color/black"
-                    android:backgroundTint="@android:color/transparent"
-                    android:lines="1"
-                    android:inputType="text"
-                    android:imeOptions="actionSearch">
+                android:id="@+id/search_query"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:minHeight="?actionBarSize"
+                android:padding="@dimen/appbar_padding"
+                android:layout_weight="1"
+                android:hint=" Search by title or author"
+                android:textColorHint="@color/button_tint"
+                android:textColor="@color/black"
+                android:backgroundTint="@android:color/transparent"
+                android:lines="1"
+                android:inputType="text"
+                android:imeOptions="actionSearch">
                 <requestFocus/>
             </EditText>
             <FrameLayout android:layout_width="wrap_content"
-                         android:layout_height="wrap_content"
-                            android:layout_gravity="center">
+                android:layout_height="wrap_content"
+                android:layout_gravity="center">
                 <ImageView
-                        android:id="@+id/cancel_in_search_activity"
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:padding="12dp"
-                        android:src="@drawable/ic_close_red_24dp"
-                        style="@style/SelectableItemBackground"
-                        android:visibility="gone"/>
+                    android:id="@+id/cancel_in_search_activity"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:padding="12dp"
+                    android:src="@drawable/ic_close_red_24dp"
+                    style="@style/SelectableItemBackground"
+                    android:visibility="gone"/>
                 <ImageView
-                        android:id="@+id/search_button_in_search_activity"
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:padding="12dp"
-                        android:src="@drawable/ic_search_black_24dp"
-                        style="@style/SelectableItemBackground"/>
+                    android:id="@+id/search_button_in_search_activity"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:padding="12dp"
+                    android:src="@drawable/ic_search_black_24dp"
+                    style="@style/SelectableItemBackground"/>
             </FrameLayout>
 
         </LinearLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
 
     <!--<LinearLayout-->
             <!--android:layout_width="match_parent"-->
@@ -109,7 +121,9 @@
 
     <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_marginTop="-60dp"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
         <ProgressBar
                 android:id="@+id/search_progress"
                 android:visibility="gone"
@@ -121,6 +135,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/swipe_refresh"
+            android:paddingTop="60dp"
             android:elevation="1dp">
 
             <androidx.recyclerview.widget.RecyclerView
@@ -228,4 +243,4 @@
             <!--android:layout_marginTop="50dp"-->
             <!--android:background="@drawable/tag_background"/>-->
 
-</LinearLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

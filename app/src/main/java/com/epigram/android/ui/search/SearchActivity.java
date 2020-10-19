@@ -72,7 +72,7 @@ public class SearchActivity extends AppCompatActivity implements MyAdapterArticl
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapterArticles);
-        recyclerView.setNestedScrollingEnabled(false);
+//        recyclerView.setNestedScrollingEnabled(false);
 
         findViewById(R.id.search_back).setOnClickListener(new View.OnClickListener() {
             @Override

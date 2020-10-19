@@ -9,9 +9,11 @@
 
     <color name="progress_background">#353535</color>
     <color name="red_to_white">#e1e1e1</color>
-    <color name="red_to_dark">#555555</color>
+    <color name="red_to_dark">#3d3d3d</color>
 
     <color name="google_red_light">#ee8879</color>
 
+    <color name="search_box">#3d3d3d</color>
+    <color name="search_box_outline">#3d3d3d</color>
 </resources>
 
