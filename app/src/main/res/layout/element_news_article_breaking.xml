@@ -5,39 +5,14 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/place_holders"
         android:background="?android:selectableItemBackground"
-        android:layout_width="match_parent"
+        android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:paddingStart="@dimen/element_padding"
         android:paddingEnd="@dimen/element_padding"
-        android:paddingTop="@dimen/element_padding">
+        android:paddingTop="@dimen/element_padding_half"
+        android:paddingBottom="@dimen/element_padding_half">
 
-    <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:paddingBottom="@dimen/inner_element_padding">
-        <TextView
-                android:id="@+id/section_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/tab_background"
-                android:paddingLeft="3dp"
-                android:paddingRight="3dp"
-                android:layout_marginStart="2dp"
-                android:textStyle="bold"
-                android:textSize="20dp"
-                android:textColor="@android:color/white"/>
-        <TextView
-                android:text="BREAKING NEWS"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="12dp"
-                android:textColor="@color/black"
-                android:fontFamily="sans-serif-condensed-medium"
-                android:textStyle="bold"
-                android:textSize="22dp"/>
-    </LinearLayout>
     <!--<ImageView android:layout_width="match_parent" android:layout_height="1dp"-->
                <!--android:scaleType="centerCrop"-->
                <!--android:src="@drawable/placeholder_background"-->
@@ -71,6 +46,7 @@
             android:id="@+id/post_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:lines="2"
             android:textSize="18dp"
             tools:text="ARTICLE TITLE"
             android:textStyle="normal"
@@ -79,7 +55,7 @@
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/inner_element_padding">
+            >
 
         <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_view_tag"

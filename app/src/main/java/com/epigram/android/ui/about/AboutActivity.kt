@@ -7,7 +7,6 @@ import android.os.Bundle
 import com.epigram.android.BuildConfig
 import com.epigram.android.R
 import kotlinx.android.synthetic.main.activity_about.*
-import kotlinx.android.synthetic.main.activity_about.build
 
 class AboutActivity : AppCompatActivity() {
 
@@ -18,7 +17,5 @@ class AboutActivity : AppCompatActivity() {
         about_title.typeface = typeFace
         about_close.setOnClickListener{ finish() }
         version_number.text = getString(R.string.app_about, packageManager.getPackageInfo(packageName,0).versionName)
-        build.text = getString(R.string.build, BuildConfig.VERSION_NAME, Build.VERSION.RELEASE, BuildConfig.BUILD_TIME.toString())
-
     }
 }

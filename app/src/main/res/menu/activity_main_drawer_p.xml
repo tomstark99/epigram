@@ -69,6 +69,10 @@
                 android:icon="@drawable/ic_local_offer_24px"
                 android:title="@string/menu_promo"/>
         <item
+            android:id="@+id/nav_settings"
+            android:icon="@drawable/ic_settings_outline"
+            android:title="@string/menu_settings"/>
+        <item
                 android:id="@+id/nav_about"
                 android:icon="@drawable/ic_info_outline_black_24dp"
                 android:title="@string/menu_about"/>

@@ -1,25 +1,27 @@
 package com.epigram.android.ui
 
 import com.f2prateek.rx.preferences2.Preference
-import com.epigram.android.arch.android.BasePresenter
-import com.epigram.android.arch.PreferenceModule
+import com.epigram.android.data.arch.android.BasePresenter
+import com.epigram.android.data.arch.PreferenceModule
 
-class MainActivityPresenter(mainActivityView: MainActivityMvp.View, private val firstUse: Preference<Boolean> = PreferenceModule.isFirstUse, private val c: Preference<Int> = PreferenceModule.counter) :
+class MainActivityPresenter(mainActivityView: MainActivityMvp.View, private val seenNew: Preference<Boolean> = PreferenceModule.seenNew, private val c: Preference<Int> = PreferenceModule.counter) :
     BasePresenter<MainActivityMvp.View>(mainActivityView),
     MainActivityMvp.Presenter {
 
     var counter = c.get()
 
     override fun onCreate() {
-        val showWelcome = firstUse.get()
-        view?.load(showWelcome)
+        if(counter >= 4) c.set(0) else c.set(counter + 1)
+//        val showWelcome = seenNew.get()
+        view?.load()
+        seenNew.set(true)
 
-        if(showWelcome) {
-            if(counter < 2) {
-                firstUse.set(false)
-            }
-            counter--
-            c.set(counter)
-        }
+//        if(showWelcome) {
+//            if(counter < 2) {
+//
+//            }
+//            counter--
+//            c.set(counter)
+//        }
     }
 }

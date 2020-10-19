@@ -3,159 +3,121 @@ package com.epigram.android.ui.section
 import android.app.Activity
 import android.content.Intent
 import android.graphics.Typeface
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.view.GravityCompat
-import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.DefaultItemAnimator
-import androidx.recyclerview.widget.RecyclerView
-import com.epigram.android.ui.article.ArticleActivity
-import com.epigram.android.ui.adapters.MyAdapterPlaceholder
-import com.epigram.android.ui.adapters.MyAdapterSection
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.epigram.android.R
-import com.epigram.android.data.Layout
-import com.epigram.android.data.Post
-import com.epigram.android.data.PostManager
+import com.epigram.android.data.arch.android.BaseActivity
+import com.epigram.android.data.arch.utils.LoadNextPage
+import com.epigram.android.data.model.Post
+import com.epigram.android.ui.adapters.*
+import com.epigram.android.ui.article.ArticleActivity
 import com.epigram.android.ui.search.SearchActivity
-import com.google.android.material.navigation.NavigationView
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.app_bar_section.*
 
-class SectionActivity : AppCompatActivity(), MyAdapterSection.LoadNextPage, NavigationView.OnNavigationItemSelectedListener {
+class SectionActivity : BaseActivity<SectionMvp.Presenter>(), SectionMvp.View, LoadNextPage {
 
-    private val pManager = PostManager()
-    private var adapter2: MyAdapterSection? = null
-    private var recyclerView: RecyclerView? = null
-
-    private val FIRST_INDEX = 1
-    private var nextPage = FIRST_INDEX
+    private var pageNum = FIRST_INDEX
+    private var section: String = ""
+    private var tag1: String = ""
+    private var adapter: AdapterArticles? = null
     private var loaded = false
 
-    private var section: String = ""
-    private var tag: String = ""
+
+    companion object {
+
+        const val ARG_SECTION = "section.object"
+        const val ARG_SECTION_TAG = "tag.object"
+
+        const val FIRST_INDEX = 1
+
+
+        fun start(context: Activity, section: String, tag: String) {
+            val intent = Intent(context, SectionActivity::class.java)
+            intent.putExtra(ARG_SECTION, section)
+            intent.putExtra(ARG_SECTION_TAG, tag)
+            context.startActivity(intent)
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.app_bar_section)
 
         section = intent.getSerializableExtra(ARG_SECTION) as String
-        tag = intent.getSerializableExtra(ARG_SECTION_TAG) as String
+        tag1 = intent.getSerializableExtra(ARG_SECTION_TAG) as String
 
+        recycler_view_section.layoutManager = LinearLayoutManager(this)
+        recycler_view_section.itemAnimator = DefaultItemAnimator()
+        if(recycler_view_section.adapter == null) {
+            if(adapter == null) {
+                recycler_view_section.adapter = MyAdapterPlaceholder()
+            } else {
+                recycler_view_section.adapter = adapter
+            }
+        }
+
+        swipe_refresh.setColorSchemeResources(R.color.red_to_white)
+        swipe_refresh.setProgressBackgroundColorSchemeResource(R.color.progress_background)
+        swipe_refresh.setOnRefreshListener {
+            pageNum = FIRST_INDEX
+            section_something_wrong.visibility = View.GONE
+            presenter.load(pageNum, tag1)
+        }
+
+        presenter = SectionPresenter(this)
+        section_something_wrong.visibility = View.GONE
+        presenter.load(pageNum, tag1)
+    }
+
+    override fun setClickables() {
         val title = findViewById<TextView>(R.id.title)
         val typeFace = Typeface.createFromAsset(assets, "fonts/lora_bold.ttf")
         title.setText(section.toLowerCase())
         title.setTypeface(typeFace)
+        title.setOnClickListener { recycler_view_section.smoothScrollToPosition(0) }
 
-        //val navView = findViewById<NavigationView>(R.id.nav_view)
-        //val headerView = navView.getHeaderView(0)
-        //val titleNav = headerView.findViewById<TextView>(R.id.nav_title)
-        //titleNav.setTypeface(typeFace)
-        //navView.setNavigationItemSelectedListener(this)
-
-        recyclerView = findViewById<RecyclerView>(R.id.recycler_view_section)
-
-        val layoutManager = Layout(this)
-        recyclerView!!.layoutManager = layoutManager
-        recyclerView!!.itemAnimator = DefaultItemAnimator()
-        recyclerView!!.isNestedScrollingEnabled = false
-        if (recyclerView!!.adapter == null) {
-            if (adapter2 == null) {
-                recyclerView!!.adapter = MyAdapterPlaceholder()
-            } else {
-                recyclerView!!.adapter = adapter2
-            }
-        }
-
-        swipe_refresh.setColorSchemeResources(R.color.colorAccent, R.color.colorAccentHint)
-        swipe_refresh.setOnRefreshListener {
-            if (adapter2 == null && recyclerView!!.adapter !is MyAdapterPlaceholder) {
-                // app crashes if there is no adapter e.g. if there is no internet connection
-            } else {
-                nextPage = FIRST_INDEX
-                //if (adapter2 != null) adapter2.clear();
-                loadPage(tag)
-            }
-        }
-
-        title.setOnClickListener { recyclerView!!.smoothScrollToPosition(0) }
-
-        findViewById<View>(R.id.section_back).setOnClickListener{ finish() }
-        findViewById<View>(R.id.search_button_in_section).setOnClickListener{
+        section_back.setOnClickListener{ finish() }
+        search_button_in_section.setOnClickListener{
             startActivity(Intent(this, SearchActivity::class.java))
         }
-
-        loadPage(tag)
     }
 
-    fun loadPage(tag: String) {
-        section_something_wrong.visibility = View.GONE
-        pManager.getPosts(nextPage, tag)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({ posts ->
-                loaded = true
-                swipe_refresh.isRefreshing = false
-                nextPage++
-                if(adapter2 == null){
-                    adapter2 =
-                        MyAdapterSection(this, posts, this, section)
-                    recyclerView!!.adapter = adapter2
-                }
-                else{
-                    adapter2!!.addPosts(posts)
-                }
-            }, { e ->
-                (recyclerView!!.getAdapter() as MyAdapterPlaceholder).clear()
+    override fun onPostSuccess(posts: List<Post>) {
+            pageNum++
+            loaded = true
+            swipe_refresh.isRefreshing = false
+            if (adapter == null) {
+                adapter = AdapterArticles(this, posts.toMutableList(), this, 0)
+                recycler_view_section.adapter = adapter
+            } else {
+                if (pageNum == FIRST_INDEX + 1) (adapter as AdapterArticles).clear()
+                adapter!!.addPosts(posts)
+            }
+    }
+
+    override fun onPostSuccessCorona(corona: List<Post>) {
+
+    }
+
+    override fun onPostError() {
+            if (recycler_view_section.adapter is MyAdapterPlaceholder) {
+                (recycler_view_section.adapter as MyAdapterPlaceholder).clear()
                 section_something_wrong.visibility = View.VISIBLE
-                Log.e("error", "soemthing went wrong loading section posts", e)})
-    }
-
-    override fun onNavigationItemSelected(menuItem: MenuItem): Boolean {
-        val drawerLayout = findViewById<DrawerLayout>(R.id.drawer_layout)
-        when (menuItem.itemId) {
-            //R.id.nav_home -> finish()
-            R.id.nav_news -> startActivity(Intent(this, SectionActivity::class.java))
-            R.id.nav_features -> {
             }
-            R.id.nav_comment -> {
-            }
-            R.id.nav_the_croft -> {
-            }
-//            R.id.nav_opinion -> { }
-            R.id.nav_science -> {
-            }
-            R.id.nav_wellbeing -> {
-            }
-            R.id.nav_entertainment -> {
-            }
-            R.id.nav_sport -> {
-            }
-            R.id.nav_intramural -> {
-            }
-            R.id.nav_puzzles -> {
-            }
-//            R.id.nav_settings -> {
-//            }
-            R.id.nav_about -> {
-            }
-            else ->
-
-                drawerLayout.closeDrawer(GravityCompat.START)
-        }
-        drawerLayout.closeDrawer(GravityCompat.START)
-        return true
+            swipe_refresh.isRefreshing = false
     }
 
     override fun bottomReached() {
-        if (!loaded) return
-        loaded = false
-        loadPage(tag)
+        if(!loaded) return
+        else {
+            loaded = false
+            section_something_wrong.visibility = View.GONE
+            presenter.load(pageNum, tag1)
+        }
     }
 
     override fun onPostClicked(clicked: Post, titleImage: ImageView?) {
@@ -166,17 +128,8 @@ class SectionActivity : AppCompatActivity(), MyAdapterSection.LoadNextPage, Navi
         }
     }
 
-    companion object {
-
-        const val ARG_SECTION = "section.object"
-        const val ARG_SECTION_TAG = "tag.object"
-
-        fun start(context: Activity, section: String, tag: String) {
-            val intent = Intent(context, SectionActivity::class.java)
-            intent.putExtra(ARG_SECTION, section)
-            intent.putExtra(ARG_SECTION_TAG, tag)
-            context.startActivity(intent)
-
-        }
+    fun reselected() {
+        recycler_view_section.smoothScrollToPosition(0)
     }
+
 }

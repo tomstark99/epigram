@@ -9,6 +9,9 @@
                     android:id="@+id/nav_most_read"
                     android:title="@string/menu_most_read"/>
             <item
+                    android:id="@+id/nav_covid_19"
+                    android:title="@string/menu_covid_19"/>
+            <item
                     android:id="@+id/nav_news"
                     android:title="@string/menu_news"/>
             <item
@@ -64,10 +67,10 @@
 
 
     <group android:checkableBehavior="none">
-<!--        <item-->
-<!--                android:id="@+id/nav_settings"-->
-<!--                android:icon="@drawable/ic_settings_outline"-->
-<!--                android:title="@string/menu_settings"/>-->
+        <item
+                android:id="@+id/nav_settings"
+                android:icon="@drawable/ic_settings_outline"
+                android:title="@string/menu_settings"/>
         <item
                 android:id="@+id/nav_about"
                 android:icon="@drawable/ic_info_outline_black_24dp"

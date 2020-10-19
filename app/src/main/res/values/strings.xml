@@ -3,6 +3,7 @@
     <string name="app_name_title">epigram</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="tab_text_1">HOME</string>
+    <string name="tab_text_c">COVID-19</string>
     <string name="tab_text_2">NEWS</string>
     <string name="tab_text_3">THE CROFT</string>
     <string name="tab_text_4">FEATURES</string>
@@ -11,12 +12,13 @@
     <!--<string name="tab_text_5">SCIENCE</string>-->
     <!--<string name="tab_text_6">WELLBEING</string>-->
     <!--<string name="tab_text_7">LIFESTYLE</string>-->
-    <string name="tab_text_6">ENTERTAINMENT</string>
+    <string name="tab_text_6">CULTURE</string>
     <string name="tab_text_7">SPORT</string>
     <!--<string name="tab_text_10">INTRAMURAL</string>-->
 
     <string name="empty"></string>
     <string name="tag1">news</string>
+    <string name="tagc">covid-19</string>
     <string name="tag2">the-croft</string>
     <string name="tag3">features</string>
     <string name="tag4">comment</string>
@@ -36,6 +38,7 @@
 
     <string name="menu_most_read">MOST READ</string>
     <string name="menu_news">NEWS</string>
+    <string name="menu_covid_19">COVID-19</string>
     <string name="menu_features">FEATURES</string>
     <string name="menu_comment">COMMENT</string>
     <string name="menu_the_croft">THE CROFT</string>
@@ -46,7 +49,7 @@
     <string name="menu_opinion">OPINION</string>
     <string name="menu_science">SCIENCE</string>
     <string name="menu_lifestyle">LIFESTYLE</string>
-    <string name="menu_entertainment">ENTERTAINMENT</string>
+    <string name="menu_entertainment">CULTURE</string>
     <string name="menu_film_tv">FILM &amp; TV</string>
     <string name="menu_arts">ARTS</string>
     <string name="menu_music">MUSIC</string>
@@ -60,6 +63,7 @@
 
     <string name="menu_most_read_tag">weeklytop</string>
     <string name="menu_news_tag">news</string>
+    <string name="menu_covid_19_tag">covid-19</string>
     <string name="menu_features_tag">features</string>
     <string name="menu_comment_tag">comment</string>
     <string name="menu_the_croft_tag">the-croft</string>
@@ -82,30 +86,32 @@
     <string name="menu_home_tag">home</string>
 
     <string name="app_about">EPIGRAM\nVERSION: %s</string>
-    <string name="app_about_about_us">There has long been a student newspaper presence at the University of Bristol. The
-        Bristol Nonesuch was launched in 1911 (the name is now used for the University of Bristol’s alumni magazine) and
-        it continued into the 1960s.\n\nBACCUS followed Nonesuch, but as it was denounced as NUS propaganda, the Union
-        withdrew their funding in the late 1980s.\n\nIn its place, Epigram was set up. James Landale, now Diplomatic
-        Editor at BBC news, was the first editor and the first issue was printed in 1988.\n\nEpigram has changed a lot
-        since 1988. Our logo has changed numerous times, the number of pages has increased from 8 to 48 and an online
-        presence has developed.\n\nMore than 300 issues and various epi-puns later, this year we will celebrate our 30th
-        year.
+    <string name="app_about_general">In print and online, Epigram is the University of Bristol\’s independent student newspaper. We are run for students, by students, and have a combined readership of over 20,000. Our content is not controlled by the University or the Students Union and we remain politically neutral.\n\nWe welcome written pieces, videos, photography, art and poetry and our sections cover a wide variety of topics. Our lifestyle magazine, The Croft can be found inside every copy of Epigram and online featuring Wellbeing, Style, Food and Travel.\n\nEpigram is printed fortnightly and can be found around campus, in cafes and student accommodation. We have a large editorial and business team who work hard, alongside their degrees, to create Epigram for both print and online.
     </string>
-    <string name="app_about_redactions">Epigram strive to be as accurate and impartial on student news as possible.
-        However, should you wish to raise any editorial, commercial or legal issues please email editor@epigram.org.uk
-        with the problem, addressed to the Editors-in-Chief. Please be sure to include the issue number and article
-        headline if the article was in print, or the URL if the article was online. We endeavour to correct any
-        inaccuracies as soon as they are raised with us.\n\nIn the first instance, we will investigate and look to seek an
-        informal resolution. However, if the complainant is not satisfied with the response, we will bring it to the
-        Students\' Union (with whom we are an affiliated media product, but remain editorially independent) who can
-        provide independent mediation for the issue to seek a resolution.
+    <string name="app_about_history">Epigram was founded in 1988 by James Landale, now Diplomatic Correspondent for BBC News. Former Editor of The Daily Telegraph, William Lewis was a writer for the newspaper in these early years.\n\nBefore Epigram, there had been The Bristol Nonesuch which was launched in 1911 and continued until the 1960s. The name is now used for the University\’s alumni magazine. BACCUS followed Nonesuch, but was denounced as NUS propaganda and funding was withdrawn by the Student\’s Union in the late 1980s.\n\nNotable Epigram alumni include Susanna Reid who was Editor-in-Chief between 1990 and 1991 and Krissi Murison, once Music Editor, who is now the Deputy Editor of The Sunday Times Magazine.\n\nAs of May 2019, the newspaper has reached 339 print editions and we continue to grow our online presence including on Facebook, Twitter and Instagram.
+    </string>
+    <string name="app_about_redactions">As an independent publication, Epigram strives to be as accurate and impartial as possible. However, should you wish to raise any editorial, commercial or legal concerns, provide feedback or make a formal complaint, please get in touch:\n\nEditorial and Legal: editor.epigram@gmail.com\nCommercial: managingdirector.epigram@gmail.com\n\nPlease include the issue number, page number and article headline or advertisement that your complaint refers to. We endeavour to correct any inaccuracies as soon as they are raised.\n\nIn the first instance, we will investigate your complaint and seek an informal resolution where suitable. If the complainant is not satisfied with the response, we will involve Bristol Student\’s Union – of which we are an affiliated media product, but remain editorially independent - who can provide mediation for the issue and seek a resolution.
     </string>
     <string name="welcome_text">As a thank you for installing our app we would like to offer you a 25% discount at The Burger Joint for a limited time only.</string>
     <string name="welcome_left">{0,choice,0#Remember to claim your discount|1#This screen will show {0} more time|1&lt;This screen will show {0} more times}</string>
     <string name="welcome_text_2">Show this screen to your waiter when you pay to receive 25% off your food bill. This screen can also be found in the navigation drawer of the main app.</string>
     <string name="welcome_text_3">Show this screen to your waiter when you pay to receive 25% off your food bill.</string>
     <string name="welcome_terms">Terms and conditions apply. Valid from Sunday to Wednesday until 15 March. Cannot be used in conjunction with any other offer.</string>
-    <string name="build">Build: %s [%s] %s</string>
-    <string name="copyright_text">Copyright © 2019 epigram</string>
+    <string name="build">%s [%s] %s</string>
+    <string name="copyright_text">Copyright © 2020 epigram</string>
+
+    <string name="light">Light</string>
+    <string name="dark">Dark</string>
+    <string name="follow_device">Follow device theme</string>
+    <string name="theme_description">Epigram can be read with a light or dark background, this can be easier on your eyes at night.</string>
+
+    <string name="default_layout">Default</string>
+    <string name="compact_layout">Compact</string>
+    <string name="layout_description">The layout determines how articles will appear when reading epigram.</string>
+
+    <string name="latest_corona">LATEST: COVID-19</string>
+    <string name="corona_warn">Remember to keep up to date with the latest news regarding COVID-19 and how the University of Bristol may be affected. For more information please visit\n\nwww.gov.uk/coronavirus\nwww.nhs.uk/conditions/coronavirus-covid-19\nwww.bristol.ac.uk/students/coronavirus</string>
+
+
 
 </resources>

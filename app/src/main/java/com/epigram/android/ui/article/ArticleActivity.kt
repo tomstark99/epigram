@@ -3,17 +3,13 @@ package com.epigram.android.ui.article
 import android.app.*
 import android.content.Context
 import android.content.Intent
-import android.graphics.Bitmap
 import android.graphics.Typeface
-import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NavUtils
-import androidx.core.app.NotificationCompat
-import androidx.core.app.NotificationManagerCompat
 import androidx.core.app.ShareCompat
 import androidx.core.widget.NestedScrollView
 import androidx.recyclerview.widget.DefaultItemAnimator
@@ -24,20 +20,27 @@ import com.bumptech.glide.load.MultiTransformation
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
-import com.epigram.android.ui.adapters.MyAdapterTag
+import com.epigram.android.ui.adapters.AdapterTag
 import com.epigram.android.R
-import com.epigram.android.data.NotificationService
-import com.epigram.android.data.Post
-import com.google.firebase.messaging.FirebaseMessagingService
+import com.epigram.android.data.arch.android.BaseActivity
+import com.epigram.android.data.arch.utils.LoadNextPage
+import com.epigram.android.data.arch.utils.SnapHelperOne
+import com.epigram.android.data.model.Post
+import com.epigram.android.ui.adapters.BreakingAdapter
+import com.epigram.android.ui.section.SectionMvp
 import kotlinx.android.synthetic.main.activity_article_view.*
+import org.sufficientlysecure.htmltextview.HtmlFormatter
+import org.sufficientlysecure.htmltextview.HtmlFormatterBuilder
 import org.sufficientlysecure.htmltextview.HtmlHttpImageGetter
 import org.sufficientlysecure.htmltextview.HtmlTextView
+import java.util.*
 
 
-class ArticleActivity : AppCompatActivity() {
+class ArticleActivity : BaseActivity<ArticleMvp.Presenter>(), ArticleMvp.View, LoadNextPage {
 
     var url: String = "https://epigram.org.uk/"
     private var recyclerView: RecyclerView? = null
+    lateinit var post: Post
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,9 +58,20 @@ class ArticleActivity : AppCompatActivity() {
         val share = findViewById<ImageView>(R.id.article_share)
         share.setOnClickListener { shareThis() }
 
+        article_scroll.setOnScrollChangeListener { v: NestedScrollView?, scrollX: Int, scrollY: Int, oldScrollX: Int, oldScrollY: Int ->
+            if(scrollY == 0 && oldScrollY != 0) {
+                appbar.elevation = 0f
+            }
+            if(oldScrollY == 0 && scrollY != 0) {
+                appbar.elevation = resources.getDimension(R.dimen.appbar_elevation)
+            }
+        }
+
         findViewById<TextView>(R.id.title).setOnClickListener{ findViewById<NestedScrollView>(
             R.id.article_scroll
         ).smoothScrollTo(0,0) }
+
+        presenter = ArticlePresenter(this)
 
     }
 
@@ -74,15 +88,26 @@ class ArticleActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
 
-        val post = intent.getSerializableExtra(ARG_POST) as Post
+        post = intent.getSerializableExtra(ARG_POST) as Post
 
         recyclerView = findViewById(R.id.recycler_view_tag)
         val layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         recyclerView!!.layoutManager = layoutManager
         recyclerView!!.itemAnimator = DefaultItemAnimator()
-        //recyclerView!!.isNestedScrollingEnabled = false
         recyclerView!!.adapter =
-            MyAdapterTag(post.tags!!.toMutableList())
+            AdapterTag(post.tags)
+
+        val snapHelper = SnapHelperOne()
+        recycler_related!!.onFlingListener = null
+        snapHelper.attachToRecyclerView(recycler_related!!)
+        recycler_related!!.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        val slugs = post.tags.second.orEmpty().toMutableList()
+        slugs.removeAll(Arrays.asList("featured-top", "carousel", "one-sidebar", "weeklytop", "no-sidebar"))
+        if (slugs.isNotEmpty()){ presenter.load(slugs[0]) }
+        else {
+            related.visibility = View.GONE
+            recycler_related.visibility = View.GONE
+        }
 
         url = post.url
 
@@ -97,39 +122,42 @@ class ArticleActivity : AppCompatActivity() {
 
         val htmlTextView: HtmlTextView = html_text
         htmlTextView.setHtml(post.html, HtmlHttpImageGetter(htmlTextView, null, true))
+//        val formattedHtml = HtmlFormatter.formatHtml(HtmlFormatterBuilder().setHtml(post.html).setImageGetter(HtmlHttpImageGetter(htmlTextView, null, true)))
+//        htmlTextView.text = formattedHtml
 //      article_text.text = Html.fromHtml(post.html)
         article_post_title.text = post.title
         //article_tag_text.text = post.tag
         article_post_date_alternate.text = post.date.toString("MMM d, yyyy")
     }
 
-
-    fun createNotificationArticle(post: Post, bitmap: Bitmap) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val importance = NotificationManager.IMPORTANCE_HIGH
-            val mChannel = NotificationChannel("article","New articles", importance)
-            val notificationManager = getSystemService(FirebaseMessagingService.NOTIFICATION_SERVICE) as NotificationManager
-            notificationManager.createNotificationChannel(mChannel)
+    override fun onPostSuccess(posts: List<Post>) {
+        val p = posts.toMutableList()
+        p.remove(post)
+        if(p.isNotEmpty()){ recycler_related.adapter = BreakingAdapter(this, p, this) }
+        else {
+            related.visibility = View.GONE
+            recycler_related.visibility = View.GONE
         }
-        val managerCompat = NotificationManagerCompat.from(this)
-        val intent = makeIntent(this, post)
-        val pendingIntent = PendingIntent.getActivity(this, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+    }
 
-//        val placeholder =
+    override fun onPostError() {
 
+    }
 
-        val notification =  NotificationCompat.Builder(this, "article")
-            .setContentTitle("New article published")
-            .setContentText(post.title)
-            .setSmallIcon(R.drawable.ic_clifton_icon)
-            .setContentIntent(pendingIntent)
-            .setStyle(NotificationCompat.BigTextStyle().bigText(post.title))
-            .setLargeIcon(bitmap)
-            .setAutoCancel(true)
-            .setColor(getColor(R.color.colorPrimary))
-            .setDefaults(NotificationCompat.DEFAULT_ALL)
-            .build()
-        managerCompat.notify(NotificationService.ID++, notification)
+    override fun setClickables() {
+
+    }
+
+    override fun bottomReached() {
+        return
+    }
+
+    override fun onPostClicked(clicked: Post, titleImage: ImageView?) {
+        if (titleImage != null) {
+            start(this, clicked, titleImage)
+        } else {
+            start(this, clicked)
+        }
     }
 
     companion object {

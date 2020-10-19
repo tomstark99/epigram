@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="default_black">#e1e1e1</color>
+    <color name="colorPrimary">@color/dark_2</color>
+    <color name="black">#e1e1e1</color>
+    <color name="white">@color/dark_2</color>
+    <color name="button_tint">#80ffffff</color>
+    <color name="colorAccent20">#339b9b9b</color>
+
+    <color name="progress_background">#353535</color>
+    <color name="red_to_white">#e1e1e1</color>
+    <color name="red_to_dark">#555555</color>
+
+    <color name="google_red_light">#ee8879</color>
+
+</resources>
+

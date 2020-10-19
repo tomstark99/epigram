@@ -24,7 +24,9 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
 import com.epigram.android.R;
-import com.epigram.android.data.Post;
+import com.epigram.android.data.arch.PreferenceModule;
+import com.epigram.android.data.model.Post;
+import com.f2prateek.rx.preferences2.Preference;
 import com.jakewharton.rxbinding2.view.RxView;
 
 import io.reactivex.Observable;
@@ -41,14 +43,12 @@ public class MyAdapterArticles extends RecyclerView.Adapter<MyAdapterArticles.My
     public static int SEARCH_PAGE_INDEX = 100;
     public static int HOME_PAGE_INDEX = 0;
 
-    //private Post vcars = new Post("advert", "advert-vcars", "Get 20% off vcars as a student: download the app now", "", "https://www.v-cars.com/wp-content/uploads/2019/05/VCarsLogo-Resized.png", "ADVERT", Arrays.asList("ADVERT"), DateTime.now(), "");
-    //private boolean advertTime = true;
-
     public List<Post> posts = new ArrayList<>();
     private final MultiTransformation<Bitmap> multiTransformation;
     private LoadNextPage loadNextPage = null;
     private int resultTotal = 0;
     private Context context;
+    private int layoutId = PreferenceModule.INSTANCE.getLayoutMode().get();
 
     private int pageIndex; // 100 for search recycler view
 
@@ -92,11 +92,8 @@ public class MyAdapterArticles extends RecyclerView.Adapter<MyAdapterArticles.My
         public TextView title;
         public ImageView titleImage;
         public LinearLayout linearLayout;
-        //public TextView tag;
         public RecyclerView tags;
-        // public TextView date; // for date on top of image
         public TextView dateAlt;
-        //public TextView sectionTitle;
         public TextView searchResults;
         public boolean imageLoaded = false;
 
@@ -108,13 +105,10 @@ public class MyAdapterArticles extends RecyclerView.Adapter<MyAdapterArticles.My
                 searchResults = l.findViewById(R.id.search_results_number);
             }
             title = l.findViewById(R.id.post_title);
-            //tag = l.findViewById(R.id.tag_text);
             tags = l.findViewById(R.id.recycler_view_tag);
-            // date = l.findViewById(R.id.post_date); // for top of image
             dateAlt = l.findViewById(R.id.post_date_alternate);
             titleImage = l.findViewById(R.id.post_image);
             this.linearLayout = l;
-            //sectionTitle = l.findViewById(R.id.section_text);
         }
     }
 
@@ -150,7 +144,6 @@ public class MyAdapterArticles extends RecyclerView.Adapter<MyAdapterArticles.My
 
     public void addPosts(List<Post> postsNew){
 
-
         List<Post> checkSame = new ArrayList<>(posts);
 
         checkSame.addAll(postsNew);
@@ -177,31 +170,19 @@ public class MyAdapterArticles extends RecyclerView.Adapter<MyAdapterArticles.My
             }
         });
 
-//        if(advertTime) {
-//            //checkSame.add(vcars);
-//        }
-//        advertTime = !advertTime;
         Observable.fromIterable(checkSame)
                 .distinct(it -> it.getId())
                 .toList()
                 .subscribe(it -> posts = it);
 
-        //posts = checkSame;
-
-        //if(posts.get(0).getDate().plusWeeks(1).isBeforeNow()) posts.remove(0);
-
-
-
         diffResult.dispatchUpdatesTo(this);
-        //posts = new ListUtils().duplicatePost(new ArrayList<>(posts));
-        //notifyDataSetChanged();
     }
 
     @Override
     public MyAdapterArticles.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
         if(pageIndex == HOME_PAGE_INDEX && viewType == 1){
-            if(posts.get(0).getDate().plusWeeks(1).isBeforeNow() && posts.get(0).getTags().contains("breaking-news")){ //
-                posts.remove(0);
+            if(posts.get(0).getDate().plusWeeks(1).isBeforeNow() && posts.get(0).getTags().getFirst().contains("breaking-news")){ //
+//                posts.remove(0);
                 LinearLayout l = (LinearLayout) LayoutInflater.from(parent.getContext()).inflate(R.layout.element_news_article_first, parent, false);
                 MyViewHolder vh = new MyViewHolder(l);
                 return vh;
@@ -220,7 +201,12 @@ public class MyAdapterArticles extends RecyclerView.Adapter<MyAdapterArticles.My
             return vh;
         }
         else {
-            LinearLayout l = (LinearLayout) LayoutInflater.from(parent.getContext()).inflate(R.layout.element_news_article, parent, false);
+            LinearLayout l;
+            if(layoutId == 0) {
+                l = (LinearLayout) LayoutInflater.from(parent.getContext()).inflate(R.layout.element_news_article, parent, false);
+            } else {
+                l = (LinearLayout) LayoutInflater.from(parent.getContext()).inflate(R.layout.element_news_article_new, parent, false);
+            }
             MyViewHolder vh = new MyViewHolder(l);
             return vh;
         }
@@ -236,18 +222,17 @@ public class MyAdapterArticles extends RecyclerView.Adapter<MyAdapterArticles.My
     public void onBindViewHolder(MyViewHolder holder, int position){
         holder.tags.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
         holder.tags.setItemAnimator(new DefaultItemAnimator());
-        holder.tags.setAdapter(new MyAdapterTag(posts.get(position).getTags()));
+        holder.tags.setAdapter(new AdapterTag(posts.get(position).getTags()));
         setPosts(holder, position);
     }
 
     public void setPosts(MyViewHolder holder, int position){
         if(pageIndex == SEARCH_PAGE_INDEX && position == 0){
-            holder.searchResults.setText(holder.searchResults.getResources().getQuantityString(R.plurals.results, resultTotal,resultTotal));//Integer.toString(posts.size()));
+            holder.searchResults.setText(holder.searchResults.getResources().getQuantityString(R.plurals.results, resultTotal,resultTotal));
         }
-        List<String> tag = posts.get(position).getTags();
+        List<String> tag = posts.get(position).getTags().getFirst();
         tag.removeAll(Arrays.asList("featured top", "carousel", "one sidebar"));
         holder.title.setText((posts.get(position).getTitle()));
-        //holder.tag.setText(tag.get(0).toUpperCase());//posts.get(position).getTag());
         holder.dateAlt.setText(posts.get(position).getDate().toString("MMM d, yyyy"));
 
         Glide.with(holder.titleImage).load(posts.get(position).getImage()).placeholder(R.drawable.placeholder_background).apply(RequestOptions.bitmapTransform(multiTransformation)).listener(new RequestListener<Drawable>() {

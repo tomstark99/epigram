@@ -9,11 +9,13 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.epigram.android.R
+import com.epigram.android.data.DataModule
 
-import com.epigram.android.arch.android.BaseActivity
-import com.epigram.android.arch.utils.Utils
-import com.epigram.android.data.Post
-import com.epigram.android.data.PostManager
+import com.epigram.android.data.arch.android.BaseActivity
+import com.epigram.android.data.arch.utils.Utils
+import com.epigram.android.data.managers.PostManager
+import com.epigram.android.data.model.Post
+import com.epigram.android.data.managers.PostManagerImpl
 import com.epigram.android.ui.adapters.AdapterSearch
 import com.epigram.android.ui.article.ArticleActivity
 import com.jakewharton.rxbinding2.view.RxView
@@ -33,7 +35,7 @@ class SearchActivity1 : BaseActivity<SearchMvp.Presenter>(), SearchMvp.View, Ada
     var retry = 0
     var nextPage = 1
     var lastSearch: String? = null
-    var pManager = PostManager()
+    var pManager: PostManager = DataModule.postManager
     var loaded = false
 
     override fun onCreate(savedInstanceState: Bundle?) {

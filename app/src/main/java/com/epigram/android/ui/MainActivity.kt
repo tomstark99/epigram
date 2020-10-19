@@ -3,7 +3,6 @@ package com.epigram.android.ui
 import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import android.widget.ImageView
 import android.widget.TextView
@@ -11,31 +10,41 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.viewpager.widget.ViewPager
 import com.epigram.android.R
+import com.epigram.android.data.arch.PreferenceModule
 
-import com.epigram.android.arch.android.BaseActivity
+import com.epigram.android.data.arch.android.BaseActivity
 import com.epigram.android.ui.about.AboutActivity
 import com.epigram.android.ui.main.SectionsPagerAdapter
 import com.epigram.android.ui.promo.PromoActivity
 import com.epigram.android.ui.search.SearchActivity
 import com.epigram.android.ui.section.SectionActivity
+import com.epigram.android.ui.section.SectionActivityC
+import com.epigram.android.ui.settings.SettingsActivity
+import com.f2prateek.rx.preferences2.Preference
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.tabs.TabLayout
-import org.joda.time.DateTime
+import com.google.firebase.messaging.FirebaseMessaging
+import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
+import java.util.concurrent.TimeUnit
 
 class MainActivity : BaseActivity<MainActivityMvp.Presenter>(),
     NavigationView.OnNavigationItemSelectedListener, MainActivityMvp.View {
 
+    private var l: Int = PreferenceModule.layoutMode.get()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if(DateTime("2020-03-16T00:00:00.000").isAfterNow) setContentView(R.layout.activity_main_p) else setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_main) // if(DateTime("2020-03-16T00:00:00.000").isAfterNow) setContentView(R.layout.activity_main_p) else
         presenter = MainActivityPresenter(this)
         presenter.onCreate()
         val sectionsPagerAdapter = SectionsPagerAdapter(this, supportFragmentManager)
         val viewPager = findViewById<ViewPager>(R.id.view_pager)
         viewPager.adapter = sectionsPagerAdapter
+        viewPager.offscreenPageLimit = 0
         val tabs = findViewById<TabLayout>(R.id.tabs)
         tabs.setupWithViewPager(viewPager)
-
         tabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
 
@@ -51,6 +60,9 @@ class MainActivity : BaseActivity<MainActivityMvp.Presenter>(),
         })
 
         val title = findViewById<TextView>(R.id.title)
+        title.setOnClickListener {
+            sectionsPagerAdapter.fragmentReselected(tabs.selectedTabPosition)
+        }
         val typeFace = Typeface.createFromAsset(assets, "fonts/lora_bold.ttf")
         title.typeface = typeFace
         val navView = findViewById<NavigationView>(R.id.nav_view)
@@ -71,9 +83,9 @@ class MainActivity : BaseActivity<MainActivityMvp.Presenter>(),
             }
         }
 
-        // notifications disabled
-//        FirebaseMessaging.getInstance().subscribeToTopic("new_article")
-//            .addOnCompleteListener { }
+        // notifications enabled
+        FirebaseMessaging.getInstance().subscribeToTopic("new_article")
+            .addOnCompleteListener { }
 
 //        FirebaseMessaging.getInstance().subscribeToTopic("new_article_draft")
 //            .addOnCompleteListener { }
@@ -93,13 +105,21 @@ class MainActivity : BaseActivity<MainActivityMvp.Presenter>(),
         //
         //                    }
         //                });
-
     }
 
-    override fun load(showWelcome: Boolean) {
-        if (showWelcome && DateTime("2020-03-16T00:00:00.000").isAfterNow) {
-            WelcomeActivity.start(this)
-        }
+    override fun load() {
+        //tabs.getTabAt(0)!!.setIcon(R.drawable.ic_warning_amber_24px_outlined_red)
+//        if (showWelcome && DateTime("2020-03-16T00:00:00.000").isAfterNow) {
+//            WelcomeActivity.start(this)
+//        }
+
+//        Observable.timer(1200, TimeUnit.MILLISECONDS, AndroidSchedulers.mainThread())
+//            .map {
+//                if(!showWelcome) { NewActivity.start(this) }
+//            }
+//            .subscribeOn(Schedulers.io())
+//            .subscribe()
+
     }
 
     override fun onSearchRequested(): Boolean {
@@ -125,6 +145,11 @@ class MainActivity : BaseActivity<MainActivityMvp.Presenter>(),
                 this,
                 menuItem.toString(),
                 getString(R.string.menu_most_read_tag)
+            )
+            R.id.nav_covid_19 -> SectionActivityC.start(
+                this,
+                menuItem.toString(),
+                getString(R.string.menu_covid_19_tag)
             )
             R.id.nav_news -> SectionActivity.start(
                 this,
@@ -210,6 +235,7 @@ class MainActivity : BaseActivity<MainActivityMvp.Presenter>(),
                 getString(R.string.menu_puzzles_tag)
             )
             R.id.nav_promo -> startActivity(Intent(this, PromoActivity::class.java))
+            R.id.nav_settings -> startActivity(Intent(this, SettingsActivity::class.java))
             R.id.nav_about -> startActivity(Intent(this, AboutActivity::class.java))
             else ->
 
@@ -217,6 +243,14 @@ class MainActivity : BaseActivity<MainActivityMvp.Presenter>(),
         }
         drawerLayout.closeDrawer(GravityCompat.START)
         return true
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if(l != PreferenceModule.layoutMode.get()) {
+            l = PreferenceModule.layoutMode.get()
+            this.recreate()
+        }
     }
 
     companion object {
