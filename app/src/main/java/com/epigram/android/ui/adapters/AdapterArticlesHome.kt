@@ -25,6 +25,7 @@ import com.epigram.android.R
 import com.epigram.android.data.arch.PreferenceModule
 import com.epigram.android.data.arch.utils.LoadNextPage
 import com.epigram.android.data.arch.utils.SnapHelperOne
+import com.epigram.android.data.arch.utils.Utils
 import com.epigram.android.data.model.Post
 import com.f2prateek.rx.preferences2.Preference
 import com.jakewharton.rxbinding2.view.RxView
@@ -210,7 +211,7 @@ class AdapterArticlesHome(context: Context, posts: MutableList<Post>, var breaki
             holder.itemView.layoutParams =  RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT)
 //        }
         holder.title!!.text = posts[position].title
-        holder.date!!.text = posts[position].date.toString("MMM d, yyyy")
+        holder.date!!.text = Utils.dateText(posts[position].date)//posts[position].date.toString("MMM d, yyyy")
         Glide.with(holder.articleImage!!)
             .load(posts[position].image)
             .placeholder(R.drawable.placeholder_background)

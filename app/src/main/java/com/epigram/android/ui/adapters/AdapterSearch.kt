@@ -23,6 +23,7 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
 import com.epigram.android.R
+import com.epigram.android.data.arch.utils.Utils
 import com.epigram.android.data.model.Post
 import com.jakewharton.rxbinding2.view.RxView
 import io.reactivex.Observable
@@ -157,7 +158,7 @@ class AdapterSearch (var context: Context, posts: List<Post>, var loadNext: Load
                 resultTotal
             ))
         holder.title.text = posts[position].title
-        holder.date.text = posts[position].date.toString("MMM d, yyyy")
+        holder.date!!.text = Utils.dateText(posts[position].date)//posts[position].date.toString("MMM d, yyyy")
         Glide.with(holder.image)
             .load(posts[position].image)
             .placeholder(R.drawable.placeholder_background)
