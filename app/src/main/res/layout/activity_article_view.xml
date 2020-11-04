@@ -85,38 +85,43 @@
                     android:id="@+id/article_post_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="24dp"
+                    android:textSize="26dp"
                     tools:text="ARTICLE TITLE"
                     android:paddingTop="@dimen/baby_padding"
+                    android:paddingBottom="@dimen/baby_padding"
                     android:fontFamily="sans-serif-condensed-medium"
                     android:textStyle="bold"
                     android:textColor="@color/black"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingBottom="8dp">
-
+                    android:layout_height="wrap_content">
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recycler_view_tag"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
                         android:orientation="horizontal"
+                        android:layout_gravity="center"
                         android:clipToPadding="false"/>
-
-                    <TextView
-                        android:id="@+id/article_post_date_alternate"
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingTop="@dimen/tiny_padding"
-                        android:paddingBottom="@dimen/tiny_padding"
-                        android:paddingStart="@dimen/baby_padding"
-                        android:paddingEnd="@dimen/tiny_padding"
-                        tools:text="June 10, 2019"
-                        android:textSize="10dp"
-                        android:fontFamily="sans-serif-condensed-medium"/>
-
+                        android:layout_gravity="center">
+                        <ImageView
+                            android:layout_width="12dp"
+                            android:layout_height="12dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_access_time_black_24dp"/>
+                        <TextView
+                            android:id="@+id/article_post_date_alternate"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/baby_padding"
+                            android:layout_gravity="center"
+                            tools:text="June 10, 2019"
+                            android:textSize="11dp"
+                            android:fontFamily="sans-serif-condensed-medium"/>
+                    </LinearLayout>
                 </LinearLayout>
 
                 <org.sufficientlysecure.htmltextview.HtmlTextView
@@ -124,11 +129,12 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/html_text"
                     tools:text="Article goes here"
-                    android:textSize="18dp"
+                    android:textSize="19dp"
                     android:textColor="@color/black"
                     android:fontFamily="sans-serif-condensed"
                     android:textStyle="normal"
                     android:textColorLink="@color/colorAccent"
+                    android:paddingTop="@dimen/small_padding"
                     android:paddingBottom="@dimen/small_padding"/>
 <!--                <TextView-->
 <!--                    android:layout_width="match_parent"-->

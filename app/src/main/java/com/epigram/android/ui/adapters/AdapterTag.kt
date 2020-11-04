@@ -68,6 +68,9 @@ class AdapterTag(tags: Pair<List<String>?, List<String>?>) :
         this.slugs = tags.second.orEmpty().toMutableList()
         this.tags.removeAll(Arrays.asList("featured top", "carousel", "one sidebar", "weeklytop", "no sidebar"))
         this.slugs.removeAll(Arrays.asList("featured-top", "carousel", "one-sidebar", "weeklytop", "no-sidebar"))
+        val tagsCorrected = this.tags.map { if (it == "film&tv") "film & tv" else it }.toMutableList()
+        this.tags = tagsCorrected
+
     }
 
 
