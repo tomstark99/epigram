@@ -71,18 +71,29 @@
             android:id="@+id/recycler_view_tag"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:orientation="horizontal"
             android:clipToPadding="false"/>
-
-        <TextView
-            android:id="@+id/post_date_alternate"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="6dp"
-            tools:text="June 10, 2019"
-            android:textSize="11dp"
-            android:fontFamily="sans-serif-condensed-medium"/>
+            android:paddingStart="6dp">
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_access_time_black_24dp"/>
+            <TextView
+                android:id="@+id/post_date_alternate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="6dp"
+                tools:text="June 10, 2019"
+                android:textSize="11dp"
+                android:fontFamily="sans-serif-condensed-medium"/>
+        </LinearLayout>
+
+
+
         <!--<TextView-->
         <!--android:id="@+id/tag_text"-->
         <!--android:layout_width="wrap_content"-->
@@ -98,12 +109,7 @@
         <!--android:fontFamily="sans-serif-condensed-medium"-->
         <!--android:textStyle="bold"-->
         <!--android:textColor="@android:color/white"/>-->
-        <!--<ImageView-->
-        <!--android:layout_width="16dp"-->
-        <!--android:layout_height="16dp"-->
-        <!--android:layout_marginStart="@dimen/tiny_padding"-->
-        <!--android:layout_gravity="center"-->
-        <!--android:src="@drawable/ic_access_time_black_24dp"/>-->
+
 
     </LinearLayout>
 
