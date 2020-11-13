@@ -15,7 +15,6 @@ import com.epigram.android.data.arch.utils.LoadNextPage
 import com.epigram.android.data.model.Post
 import com.epigram.android.ui.adapters.*
 import com.epigram.android.ui.article.ArticleActivity
-import com.epigram.android.ui.main.TabFragment
 import com.epigram.android.ui.search.SearchActivity
 import kotlinx.android.synthetic.main.app_bar_section.*
 import kotlinx.android.synthetic.main.app_bar_section.swipe_refresh
@@ -25,7 +24,7 @@ class SectionActivityC : BaseActivity<SectionMvp.Presenter>(), SectionMvp.View, 
     private var pageNum = FIRST_INDEX
     private var section: String = ""
     private var tag1: String = ""
-    private var adapter: AdapterCor? = null
+    private var adapter: AdapterCorona? = null
     private var loaded = false
 
 
@@ -56,7 +55,7 @@ class SectionActivityC : BaseActivity<SectionMvp.Presenter>(), SectionMvp.View, 
         recycler_view_section.itemAnimator = DefaultItemAnimator()
         if(recycler_view_section.adapter == null) {
             if(adapter == null) {
-                recycler_view_section.adapter = MyAdapterPlaceholder()
+                recycler_view_section.adapter = AdapterPlaceholder()
             } else {
                 recycler_view_section.adapter = adapter
             }
@@ -97,17 +96,17 @@ class SectionActivityC : BaseActivity<SectionMvp.Presenter>(), SectionMvp.View, 
             loaded = true
             swipe_refresh.isRefreshing = false
             if (adapter == null) {
-                adapter = AdapterCor(this, corona.toMutableList(), this)
+                adapter = AdapterCorona(this, corona.toMutableList(), this)
                 recycler_view_section.adapter = adapter
             } else {
-                if (pageNum == FIRST_INDEX + 1) (adapter as AdapterCor).clear()
+                if (pageNum == FIRST_INDEX + 1) (adapter as AdapterCorona).clear()
                 adapter!!.addPosts(corona)
             }
     }
 
     override fun onPostError() {
-            if (recycler_view_section.adapter is MyAdapterPlaceholder) {
-                (recycler_view_section.adapter as MyAdapterPlaceholder).clear()
+            if (recycler_view_section.adapter is AdapterPlaceholder) {
+                (recycler_view_section.adapter as AdapterPlaceholder).clear()
                 section_something_wrong.visibility = View.VISIBLE
             }
             swipe_refresh.isRefreshing = false

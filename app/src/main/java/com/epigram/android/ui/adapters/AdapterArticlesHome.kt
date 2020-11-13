@@ -58,10 +58,8 @@ class AdapterArticlesHome(context: Context, posts: MutableList<Post>, var breaki
         POSITION_ONE(0, R.layout.element_news_article_breaking_list),
         POSITION_THR(1, R.layout.element_news_article_first),
         POSITION_MRE(2, R.layout.element_news_article),
-        POSITION_HME(3, R.layout.element_corona),
-        POSITION_MSK(4, R.layout.element_corona_no),
-        POSITION_CMP(5, R.layout.element_news_article_new),
-        POSITION_MAS(6, R.layout.element_corona_mask)
+        POSITION_CMP(3, R.layout.element_news_article_new),
+        POSITION_MAS(4, R.layout.element_corona_mask)
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
@@ -69,8 +67,8 @@ class AdapterArticlesHome(context: Context, posts: MutableList<Post>, var breaki
             if(mask) {
                 mask = false
                 holder.maskLayout!!.visibility = View.VISIBLE
-                holder.staySafe!!.setBackgroundResource(0)
-                holder.staySafe!!.setTextColor(context.getColor(R.color.black))
+//                holder.staySafe!!.setBackgroundResource(0) // ACTIVATE THESE TWO
+//                holder.staySafe!!.setTextColor(context.getColor(R.color.black)) // TWO
                 holder.maskCLoseIc!!.animate().rotationBy(180f).start()
             }
         }
@@ -98,11 +96,11 @@ class AdapterArticlesHome(context: Context, posts: MutableList<Post>, var breaki
 
     override fun getItemViewType(position: Int): Int {
         if(position == 0) {
-            return 6 //if(displayMask()) 3 else 4
+            return 4
         }
         else if(position == 1) return 0
         else if(position == 2) return 1
-        return if(l.get() == 1) 5 else 2
+        return if(l.get() == 1) 3 else 2
     }
 
     override fun getItemCount(): Int {
@@ -164,16 +162,16 @@ class AdapterArticlesHome(context: Context, posts: MutableList<Post>, var breaki
                 .subscribe { empty ->
                     if(holder.maskLayout!!.visibility == View.VISIBLE) {
                         holder.maskLayout!!.visibility = View.GONE
-                        holder.staySafe!!.setBackgroundResource(R.drawable.tab_c_background)
-                        holder.staySafe!!.setTextColor(context.getColor(R.color.red_to_white))
+//                        holder.staySafe!!.setBackgroundResource(R.drawable.tab_c_background) // ACTIVATE THESE TWO
+//                        holder.staySafe!!.setTextColor(context.getColor(R.color.red_to_white)) // TWO
                         holder.maskCLoseIc!!.animate().rotationBy(-180f).start()
 //                        holder.maskLayout!!.visibility = View.GONE
 //                        holder.staySafe!!.visibility = View.VISIBLE
 //                        holder.maskCLoseIc!!.animate().rotationBy(-180f).start()
                     } else {
                         holder.maskLayout!!.visibility = View.VISIBLE
-                        holder.staySafe!!.setBackgroundResource(0)
-                        holder.staySafe!!.setTextColor(context.getColor(R.color.black))
+//                        holder.staySafe!!.setBackgroundResource(0) // ACTIVATE THESE TWO
+//                        holder.staySafe!!.setTextColor(context.getColor(R.color.black)) // TWO
                         holder.maskCLoseIc!!.animate().rotationBy(180f).start()
 //                        holder.staySafe!!.visibility = View.GONE
 //                        holder.maskLayout!!.visibility = View.VISIBLE

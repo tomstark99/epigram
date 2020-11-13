@@ -19,6 +19,6 @@
         android:paddingBottom="3dp"
         android:fontFamily="sans-serif-condensed-medium"
         android:textStyle="bold"
-        android:textColor="@android:color/white"
+        android:textColor="@color/red_to_white"
         android:textSize="11dp"/>
 </LinearLayout>

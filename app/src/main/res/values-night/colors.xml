@@ -8,10 +8,14 @@
     <color name="colorAccent20">#339b9b9b</color>
 
     <color name="progress_background">#353535</color>
+    <color name="white_to_light_red">@color/epigram_light</color>
     <color name="red_to_white">#e1e1e1</color>
     <color name="red_to_dark">#555555</color>
+    <color name="light_red_to_dark">#555555</color>
 
     <color name="google_red_light">#ee8879</color>
 
+    <color name="search_box">#3d3d3d</color>
+    <color name="search_box_outline">#3d3d3d</color>
 </resources>
 

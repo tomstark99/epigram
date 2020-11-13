@@ -40,7 +40,7 @@ public class Utils {
             return formatter.print(period);
         } else if(time.plusHours(2).isAfterNow()) {
             PeriodFormatter formatter = new PeriodFormatterBuilder()
-                    .appendMinutes().appendSuffix(" hour ago")
+                    .appendHours().appendSuffix(" hour ago")
                     .printZeroNever()
                     .toFormatter();
             return formatter.print(period);
@@ -53,6 +53,12 @@ public class Utils {
         } else if(time.plusDays(2).isAfterNow() && period.getDays() == 1) {
             PeriodFormatter formatter = new PeriodFormatterBuilder()
                     .appendDays().appendSuffix(" day ago")
+                    .printZeroNever()
+                    .toFormatter();
+            return formatter.print(period);
+        } else if(time.plusWeeks(1).isAfterNow()) {
+            PeriodFormatter formatter = new PeriodFormatterBuilder()
+                    .appendDays().appendSuffix(" days ago")
                     .printZeroNever()
                     .toFormatter();
             return formatter.print(period);

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingStart="@dimen/element_padding"
+    android:paddingEnd="@dimen/element_padding"
+    android:paddingTop="@dimen/element_padding"
+    android:paddingBottom="@dimen/element_padding_half">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/tab_c_background"
+        android:paddingStart="@dimen/tiny_padding"
+        android:paddingEnd="@dimen/tiny_padding"
+        android:paddingTop="@dimen/tiny_padding"
+        android:paddingBottom="@dimen/tiny_padding">
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/ic_warning_amber_24px_outlined_red"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:paddingStart="@dimen/tiny_padding"
+            android:textColor="@color/red_to_white"
+            android:textSize="14sp"
+            android:autoLink="web"
+            android:theme="@style/corona_info"
+            android:text="@string/corona_warn"/>
+    </LinearLayout>
+<!--        android:scrollbars="vertical"-->
+<!--        android:nestedScrollingEnabled="false"-->
+<!--        android:isScrollContainer="false"-->
+<!--        android:verticalScrollbarPosition="right"/>-->
+</LinearLayout>

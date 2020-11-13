@@ -7,27 +7,33 @@ apply plugin: 'kotlin-android-extensions'
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
+
+    def Properties prop = new Properties()
+    prop.load(project.rootProject.file("local.properties").newDataInputStream())
+
     defaultConfig {
         applicationId "com.epigram.android"
         minSdkVersion 23
         targetSdkVersion 29
-        versionCode 18
-        versionName "1.8"
+        versionCode 20
+        versionName "1.8.2"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
-        buildConfigField "String", "API_KEY", "\"89c0bcf0d0e9935465c6e0f0cb\""
-        buildConfigField "String", "API_KEY_LOCAL", "\"e1d04b772de9afe657708c5630\""
-        buildConfigField "String", "URL", "\"https://epigram.ghost.io\""
-        buildConfigField "String", "URL_LOCAL", "\"http://localhost:2368\""
+
+
+        buildConfigField "String", "API_KEY", "\"${prop['api_key']}\""
+        buildConfigField "String", "API_KEY_LOCAL", "\"${prop['api_key_local']}\""
+        buildConfigField "String", "URL", "\"${prop['url']}\""
+        buildConfigField "String", "URL_LOCAL", "\"${prop['url_local']}\""
         buildConfigField "java.util.Date", "BUILD_TIME", "new java.util.Date(" + System.currentTimeMillis() + "L)"
     }
 
     signingConfigs {
         release {
-            storeFile file('../release.jks')
-            storePassword 'ASdfeslks12SDF32ds2!!@%%&12'
-            keyPassword '112rSdf33sdfea===!@@£1231'
-            keyAlias 'epigram'
+            storeFile file(prop['store_file'])
+            storePassword prop['store_password']
+            keyPassword prop['key_password']
+            keyAlias prop['key_alias']
         }
     }
 
