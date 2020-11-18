@@ -61,6 +61,7 @@
                 android:layout_height="wrap_content"
                 android:background="?attr/colorPrimary"
                 app:tabIndicatorFullWidth="false"
+                app:tabIndicator="@drawable/tab_indicator"
                 app:tabMode="scrollable"
                 app:tabTextColor="@color/black"
                 app:tabUnboundedRipple="true"

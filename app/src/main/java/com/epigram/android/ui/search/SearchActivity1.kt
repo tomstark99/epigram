@@ -12,10 +12,10 @@ import com.epigram.android.R
 import com.epigram.android.data.DataModule
 
 import com.epigram.android.data.arch.android.BaseActivity
+import com.epigram.android.data.arch.utils.LoadNextPage
 import com.epigram.android.data.arch.utils.Utils
 import com.epigram.android.data.managers.PostManager
 import com.epigram.android.data.model.Post
-import com.epigram.android.data.managers.PostManagerImpl
 import com.epigram.android.ui.adapters.AdapterSearch
 import com.epigram.android.ui.article.ArticleActivity
 import com.jakewharton.rxbinding2.view.RxView
@@ -29,7 +29,7 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_search.*
 import java.util.concurrent.TimeUnit
 
-class SearchActivity1 : BaseActivity<SearchMvp.Presenter>(), SearchMvp.View, AdapterSearch.LoadNextPage {
+class SearchActivity1 : BaseActivity<SearchMvp.Presenter>(), SearchMvp.View, LoadNextPage {
 
     private lateinit var adapter: AdapterSearch
     var retry = 0
@@ -54,6 +54,16 @@ class SearchActivity1 : BaseActivity<SearchMvp.Presenter>(), SearchMvp.View, Ada
         search_button_in_search_activity.setOnClickListener {
             if(search_query.text.toString().length > 2) {
                 load(search_query.text.toString())
+            }
+        }
+        swipe_refresh.setColorSchemeResources(R.color.red_to_white)
+        swipe_refresh.setProgressBackgroundColorSchemeColor(resources.getColor(R.color.progress_background))
+        swipe_refresh.setProgressViewOffset(false, resources.getDimensionPixelSize(R.dimen.appbar_height_half), resources.getDimensionPixelSize(R.dimen.swipe_refresh_height))
+        swipe_refresh.setOnRefreshListener {
+            if(search_query.text.length > 2) {
+                load(search_query.text.toString())
+            } else {
+                swipe_refresh.isRefreshing = false
             }
         }
         val searchPress = RxView.clicks(search_button_in_search_activity)
@@ -87,6 +97,7 @@ class SearchActivity1 : BaseActivity<SearchMvp.Presenter>(), SearchMvp.View, Ada
                 search_no_result.visibility = View.GONE
                 search_placeholder.visibility = View.GONE
                 if(adapter.posts.isEmpty()) search_progress.visibility = View.GONE
+                System.out.println(c)
                 load(c)
             }
     }

@@ -25,6 +25,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
 import com.epigram.android.R;
 import com.epigram.android.data.arch.PreferenceModule;
+import com.epigram.android.data.arch.utils.Utils;
 import com.epigram.android.data.model.Post;
 import com.f2prateek.rx.preferences2.Preference;
 import com.jakewharton.rxbinding2.view.RxView;
@@ -233,7 +234,7 @@ public class MyAdapterArticles extends RecyclerView.Adapter<MyAdapterArticles.My
         List<String> tag = posts.get(position).getTags().getFirst();
         tag.removeAll(Arrays.asList("featured top", "carousel", "one sidebar"));
         holder.title.setText((posts.get(position).getTitle()));
-        holder.dateAlt.setText(posts.get(position).getDate().toString("MMM d, yyyy"));
+        holder.dateAlt.setText(Utils.dateText(posts.get(position).getDate()));//(posts.get(position).getDate().toString("MMM d, yyyy"));
 
         Glide.with(holder.titleImage).load(posts.get(position).getImage()).placeholder(R.drawable.placeholder_background).apply(RequestOptions.bitmapTransform(multiTransformation)).listener(new RequestListener<Drawable>() {
             @Override

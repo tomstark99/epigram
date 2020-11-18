@@ -54,7 +54,7 @@ class SectionActivity : BaseActivity<SectionMvp.Presenter>(), SectionMvp.View, L
         recycler_view_section.itemAnimator = DefaultItemAnimator()
         if(recycler_view_section.adapter == null) {
             if(adapter == null) {
-                recycler_view_section.adapter = MyAdapterPlaceholder()
+                recycler_view_section.adapter = AdapterPlaceholder()
             } else {
                 recycler_view_section.adapter = adapter
             }
@@ -104,8 +104,8 @@ class SectionActivity : BaseActivity<SectionMvp.Presenter>(), SectionMvp.View, L
     }
 
     override fun onPostError() {
-            if (recycler_view_section.adapter is MyAdapterPlaceholder) {
-                (recycler_view_section.adapter as MyAdapterPlaceholder).clear()
+            if (recycler_view_section.adapter is AdapterPlaceholder) {
+                (recycler_view_section.adapter as AdapterPlaceholder).clear()
                 section_something_wrong.visibility = View.VISIBLE
             }
             swipe_refresh.isRefreshing = false

@@ -20,8 +20,10 @@
     <color name="button_tint">#80000000</color>
 
     <color name="progress_background">#fff</color>
+    <color name="white_to_light_red">#fff</color>
     <color name="red_to_white">@color/colorAccent</color>
     <color name="red_to_dark">@color/colorAccent</color>
+    <color name="light_red_to_dark">@color/epigram_light</color>
 
     <color name="nearly_black">#262626</color>
     <color name="dark_grey">#2d2d2d</color>
@@ -36,4 +38,7 @@
     <color name="google_red">#ea4335</color>
     <color name="google_red_light">#ee8879</color>
     <color name="epigram_light">#efd0d1</color>
+
+    <color name="search_box">@color/colorPrimary</color>
+    <color name="search_box_outline">#339b9b9b</color>
 </resources>

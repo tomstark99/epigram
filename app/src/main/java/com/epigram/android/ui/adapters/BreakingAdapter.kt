@@ -19,6 +19,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
 import com.epigram.android.R
 import com.epigram.android.data.arch.utils.LoadNextPage
+import com.epigram.android.data.arch.utils.Utils
 import com.epigram.android.data.model.Post
 import com.jakewharton.rxbinding2.view.RxView
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -35,7 +36,7 @@ class BreakingAdapter(var context: Context, var posts: MutableList<Post>, var lo
         holder.tags.itemAnimator = DefaultItemAnimator()
         holder.tags.adapter = AdapterTag(posts[position].tags)
         holder.title.text = posts[position].title
-        holder.date.text = posts[position].date.toString("MMM d, yyyy")
+        holder.date.text = Utils.dateText(posts[position].date)//posts[position].date.toString("MMM d, yyyy")
         setImage(holder, position)
     }
 

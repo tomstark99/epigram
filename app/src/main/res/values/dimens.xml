@@ -18,5 +18,8 @@
     <dimen name="element_padding">12dp</dimen>
     <dimen name="inner_element_padding">8dp</dimen>
     <dimen name="appbar_elevation">4dp</dimen>
+    <dimen name="appbar_height">60dp</dimen>
+    <dimen name="appbar_height_half">30dp</dimen>
+    <dimen name="swipe_refresh_height">80dp</dimen>
 
 </resources>

@@ -16,14 +16,13 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.epigram.android.data.DataModule;
 import com.epigram.android.data.managers.PostManager;
-import com.epigram.android.ui.adapters.MyAdapterPlaceholder;
+import com.epigram.android.ui.adapters.AdapterPlaceholder;
 import com.epigram.android.ui.article.ArticleActivity;
 import com.epigram.android.ui.adapters.MyAdapterArticles;
 import com.epigram.android.R;
 import com.epigram.android.data.arch.utils.Utils;
 import com.epigram.android.data.arch.utils.Layout;
 import com.epigram.android.data.model.Post;
-import com.epigram.android.data.managers.PostManagerImpl;
 import com.jakewharton.rxbinding2.view.RxView;
 import com.jakewharton.rxbinding2.widget.RxTextView;
 import io.reactivex.Observable;
@@ -44,7 +43,7 @@ public class SearchActivity extends AppCompatActivity implements MyAdapterArticl
 
     private PostManager pManager = DataModule.INSTANCE.getPostManager();
     private MyAdapterArticles adapterArticles = new MyAdapterArticles(this, new ArrayList<>(), this, SEARCH_PAGE_INDEX);
-    private MyAdapterPlaceholder adapterPlaceholder = new MyAdapterPlaceholder();
+    private AdapterPlaceholder adapterPlaceholder = new AdapterPlaceholder();
     //private AdapterSearch adapterArticles = new AdapterSearch(this, new ArrayList<>(), this);
     private RecyclerView recyclerView;
 
@@ -72,7 +71,6 @@ public class SearchActivity extends AppCompatActivity implements MyAdapterArticl
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapterArticles);
-        recyclerView.setNestedScrollingEnabled(false);
 
         findViewById(R.id.search_back).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,6 +90,7 @@ public class SearchActivity extends AppCompatActivity implements MyAdapterArticl
         ref = findViewById(R.id.swipe_refresh);
         ref.setColorSchemeResources(R.color.red_to_white);
         ref.setProgressBackgroundColorSchemeResource(R.color.progress_background);
+        ref.setProgressViewOffset(false,getResources().getDimensionPixelSize(R.dimen.appbar_height_half),getResources().getDimensionPixelSize(R.dimen.swipe_refresh_height));
         ref.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {

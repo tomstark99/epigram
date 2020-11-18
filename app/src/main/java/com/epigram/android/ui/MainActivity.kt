@@ -17,6 +17,7 @@ import com.epigram.android.ui.about.AboutActivity
 import com.epigram.android.ui.main.SectionsPagerAdapter
 import com.epigram.android.ui.promo.PromoActivity
 import com.epigram.android.ui.search.SearchActivity
+import com.epigram.android.ui.search.SearchActivity1
 import com.epigram.android.ui.section.SectionActivity
 import com.epigram.android.ui.section.SectionActivityC
 import com.epigram.android.ui.settings.SettingsActivity
@@ -46,13 +47,9 @@ class MainActivity : BaseActivity<MainActivityMvp.Presenter>(),
         val tabs = findViewById<TabLayout>(R.id.tabs)
         tabs.setupWithViewPager(viewPager)
         tabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-            override fun onTabSelected(tab: TabLayout.Tab) {
+            override fun onTabSelected(tab: TabLayout.Tab) { }
 
-            }
-
-            override fun onTabUnselected(tab: TabLayout.Tab) {
-
-            }
+            override fun onTabUnselected(tab: TabLayout.Tab) { }
 
             override fun onTabReselected(tab: TabLayout.Tab) {
                 sectionsPagerAdapter.fragmentReselected(tab.position)
