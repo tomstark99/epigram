@@ -25,6 +25,7 @@ import com.epigram.android.R
 import com.epigram.android.data.arch.android.BaseActivity
 import com.epigram.android.data.arch.utils.LoadNextPage
 import com.epigram.android.data.arch.utils.SnapHelperOne
+import com.epigram.android.data.arch.utils.Utils
 import com.epigram.android.data.model.Post
 import com.epigram.android.ui.adapters.BreakingAdapter
 import com.epigram.android.ui.section.SectionMvp
@@ -127,7 +128,7 @@ class ArticleActivity : BaseActivity<ArticleMvp.Presenter>(), ArticleMvp.View, L
 //      article_text.text = Html.fromHtml(post.html)
         article_post_title.text = post.title
         //article_tag_text.text = post.tag
-        article_post_date_alternate.text = post.date.toString("MMM d, yyyy")
+        article_post_date_alternate.text = Utils.dateText(post.date)//post.date.toString("MMM d, yyyy")
     }
 
     override fun onPostSuccess(posts: List<Post>) {

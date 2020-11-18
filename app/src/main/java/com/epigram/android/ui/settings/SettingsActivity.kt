@@ -97,7 +97,7 @@ class SettingsActivity : BaseActivity<SettingsMvp.Presenter>(), SettingsMvp.View
 
         val typeFace = Typeface.createFromAsset(getAssets(), "fonts/lora_bold.ttf")
         settings_title.typeface = typeFace
-        build.text = getString(R.string.build, BuildConfig.VERSION_NAME, Build.VERSION.RELEASE, BuildConfig.BUILD_TIME.toString())
+        build.text = getString(R.string.build, BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE.toString(), BuildConfig.BUILD_TIME.toString())
         theme_request.setText(Theme.values()[map[PreferenceModule.darkMode.get()]!!].theme)
         layout_request.setText(Layout.values()[PreferenceModule.layoutMode.get()].layout)
     }

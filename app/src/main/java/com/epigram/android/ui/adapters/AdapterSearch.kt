@@ -23,6 +23,8 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
 import com.epigram.android.R
+import com.epigram.android.data.arch.utils.LoadNextPage
+import com.epigram.android.data.arch.utils.Utils
 import com.epigram.android.data.model.Post
 import com.jakewharton.rxbinding2.view.RxView
 import io.reactivex.Observable
@@ -32,7 +34,7 @@ import java.util.concurrent.TimeUnit
 
 class AdapterSearch (var context: Context, posts: List<Post>, var loadNext: LoadNextPage) : RecyclerView.Adapter<AdapterSearch.ViewHolder>() {
 
-    @JvmField var posts = mutableListOf<Post>()
+    var posts = mutableListOf<Post>()
     var resultTotal = 0
     var multiTransformation = MultiTransformation<Bitmap>(CenterCrop(), RoundedCorners(40))
 
@@ -45,26 +47,16 @@ class AdapterSearch (var context: Context, posts: List<Post>, var loadNext: Load
         POSITION_MRE(1, R.layout.element_news_article)
     }
 
-    inner class ViewHolder(l: LinearLayout) : RecyclerView.ViewHolder(l) {
-        var title: TextView
-        var image: ImageView
-        var tags: RecyclerView
-        var date: TextView
-        var results: TextView?
+    inner class ViewHolder(var l: LinearLayout) : RecyclerView.ViewHolder(l) {
+        var title: TextView = l.findViewById(R.id.post_title)
+        var image: ImageView = l.findViewById(R.id.post_image)
+        var tags: RecyclerView = l.findViewById(R.id.recycler_view_tag)
+        var date: TextView = l.findViewById(R.id.post_date_alternate)
+        var results: TextView? = l.findViewById(R.id.search_results_number)
 
         var imageLoaded = false
-        var layout: LinearLayout
+        var layout: LinearLayout = l
         var disposable: Disposable? = null
-
-        init {
-            title = l.findViewById(R.id.post_title)
-            image = l.findViewById(R.id.post_image)
-            date = l.findViewById(R.id.post_date_alternate)
-            tags = l.findViewById(R.id.recycler_view_tag)
-            results = l.findViewById(R.id.search_results_number)
-            layout = l
-
-        }
     }
 
     override fun onViewAttachedToWindow(holder: ViewHolder) {
@@ -102,7 +94,7 @@ class AdapterSearch (var context: Context, posts: List<Post>, var loadNext: Load
             }
         })
         Observable.fromIterable(newPosts)
-            .distinct({ it.id })
+            .distinct({ it -> it.id })
             .toList()
             .subscribe({it -> posts = it})
         res.dispatchUpdatesTo(this)
@@ -126,7 +118,7 @@ class AdapterSearch (var context: Context, posts: List<Post>, var loadNext: Load
             }
         })
         Observable.fromIterable(checkSame)
-            .distinct({ it.id })
+            .distinct({ it -> it.id })
             .toList()
             .subscribe({ it -> posts = it})
         res.dispatchUpdatesTo(this)
@@ -157,7 +149,7 @@ class AdapterSearch (var context: Context, posts: List<Post>, var loadNext: Load
                 resultTotal
             ))
         holder.title.text = posts[position].title
-        holder.date.text = posts[position].date.toString("MMM d, yyyy")
+        holder.date.text = Utils.dateText(posts[position].date)//posts[position].date.toString("MMM d, yyyy")
         Glide.with(holder.image)
             .load(posts[position].image)
             .placeholder(R.drawable.placeholder_background)
@@ -190,10 +182,5 @@ class AdapterSearch (var context: Context, posts: List<Post>, var loadNext: Load
     fun clear() {
         posts.clear()
         notifyDataSetChanged()
-    }
-
-    interface LoadNextPage {
-        fun bottomReached()
-        fun onPostClicked(clicked: Post, titleImage: ImageView?)
     }
 }

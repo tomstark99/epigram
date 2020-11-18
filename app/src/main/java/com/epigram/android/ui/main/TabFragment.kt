@@ -8,13 +8,11 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.epigram.android.R
-import com.epigram.android.data.arch.PreferenceModule
 import com.epigram.android.data.arch.android.BaseFragment
 import com.epigram.android.data.arch.utils.LoadNextPage
 import com.epigram.android.data.model.Post
 import com.epigram.android.ui.adapters.*
 import com.epigram.android.ui.article.ArticleActivity
-import com.f2prateek.rx.preferences2.Preference
 import kotlinx.android.synthetic.main.fragment_main.*
 
 class TabFragment : BaseFragment<TabMvp.Presenter>(), TabMvp.View, LoadNextPage {
@@ -22,7 +20,7 @@ class TabFragment : BaseFragment<TabMvp.Presenter>(), TabMvp.View, LoadNextPage 
     private var pageNum = FIRST_INDEX
     private var tabNum = 0
     private var adapter: AdapterArticles? = null
-    private var adapterC: AdapterCor? = null
+    private var adapterC: AdapterCorona? = null
     private var adapterHome: AdapterArticlesHome? = null
 
     companion object {
@@ -57,20 +55,20 @@ class TabFragment : BaseFragment<TabMvp.Presenter>(), TabMvp.View, LoadNextPage 
         if(my_recycler_view.adapter == null) {
             if(tabNum == 0) {
                 if(adapterHome == null) {
-                    my_recycler_view.adapter = MyAdapterPlaceholder()
+                    my_recycler_view.adapter = AdapterPlaceholder()
                 } else {
                     my_recycler_view.adapter = adapterHome
                 }
             } // else if (tabNum == 1) {
 //                if(adapterC == null) {
-//                    my_recycler_view.adapter = MyAdapterPlaceholder()
+//                    my_recycler_view.adapter = AdapterPlaceholder()
 //                } else {
 //                    my_recycler_view.adapter = adapterC
 //                }
 //            }
             else {
                 if(adapter == null) {
-                    my_recycler_view.adapter = MyAdapterPlaceholder()
+                    my_recycler_view.adapter = AdapterPlaceholder()
                 } else {
                     my_recycler_view.adapter = adapter
                 }
@@ -141,10 +139,10 @@ class TabFragment : BaseFragment<TabMvp.Presenter>(), TabMvp.View, LoadNextPage 
             loaded = true
             swipe_refresh.isRefreshing = false
             if (adapterC == null) {
-                adapterC = AdapterCor(context!!, corona.toMutableList(), this)
+                adapterC = AdapterCorona(context!!, corona.toMutableList(), this)
                 my_recycler_view.adapter = adapterC
             } else {
-                if (pageNum == FIRST_INDEX + 1) (adapterC as AdapterCor).clear()
+                if (pageNum == FIRST_INDEX + 1) (adapterC as AdapterCorona).clear()
                 adapterC!!.addPosts(corona)
             }
         }
@@ -152,8 +150,8 @@ class TabFragment : BaseFragment<TabMvp.Presenter>(), TabMvp.View, LoadNextPage 
 
     override fun onPostError() {
         if(isAdded) {
-            if (my_recycler_view.adapter is MyAdapterPlaceholder) {
-                (my_recycler_view.adapter as MyAdapterPlaceholder).clear()
+            if (my_recycler_view.adapter is AdapterPlaceholder) {
+                (my_recycler_view.adapter as AdapterPlaceholder).clear()
                 tab_something_wrong.visibility = View.VISIBLE
             }
             swipe_refresh.isRefreshing = false
