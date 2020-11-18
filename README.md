@@ -1,5 +1,22 @@
 # Epigram
 
+## Version 1.8.1
+
+- custom tab indicator
+- added time icon back to post date
+- removed redundant code
+- fixed issue where film & tv was missing space in tag
+- reduced custom tab indicator height
+- padding fixes
+- posts now display time since posted upto "6 days ago" after which defaults back to MMM d, YYYY format
+- updated design of wear a mask element
+- new search activity, search bar redesign. Now is floating and collapses on scroll with content scrolling under it when scrolling back up
+- settings page now displays correct build version number
+- minor padding and colour tweaks
+- removed excess code
+- converted placeholder adapter to kotlin codebase
+- prepped search activity for conversion
+
 ## Version 1.8
 Layout toggle
 
@@ -72,7 +89,7 @@ Breaking news update
 Late covid-19 update
 
 - toned down alert messages
-- updated copyright information 
+- updated copyright information
 - fixed text not being readable in about section when in light mode
 - changed corner radius on placeholder to fit with alert messages
 - changed alert message to have a nicer flow
