@@ -4,7 +4,7 @@
 
 The mobile Android App for the University of Bristol's Student Newspaper, built from the ground up using Kotlin with a Model View presenter design pattern. The app has many features all tied together with a beautiful user interface.
 
-## Latest Release
+## Latest Release - 18/11/2020
 
 ### Version 1.8.1
 
