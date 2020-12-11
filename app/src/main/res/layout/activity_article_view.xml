@@ -136,7 +136,46 @@
                     android:paddingTop="@dimen/small_padding"
                     android:paddingBottom="@dimen/small_padding"/>
             </LinearLayout>
+            <LinearLayout
+                android:id="@+id/author"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/element_padding"
+                android:paddingEnd="@dimen/element_padding"
+                android:paddingTop="@dimen/inner_element_padding"
+                android:paddingBottom="@dimen/inner_element_padding">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/tab_background"
+                    android:paddingLeft="3dp"
+                    android:paddingRight="3dp"
+                    android:layout_marginStart="2dp"
+                    android:textSize="20dp"
+                    android:textColor="@android:color/white"/>
+                <TextView
+                    android:text="AUTHOR"
+                    android:id="@+id/section_author"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="12dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:fontFamily="sans-serif-condensed-medium"
+                    android:textSize="22dp"/>
+            </LinearLayout>
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view_author"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingStart="@dimen/element_padding"
+                android:paddingEnd="@dimen/element_padding"
+                android:paddingTop="@dimen/inner_element_padding"
+                android:paddingBottom="@dimen/inner_element_padding"
+                android:layout_gravity="center_vertical"
+                android:clipToPadding="false"/>
             <LinearLayout
                 android:id="@+id/related"
                 android:layout_width="match_parent"

@@ -16,7 +16,7 @@ class PostManagerImpl (val service: EpigramService) : PostManager{
             tagFilter = "tag:$filter"
         }
         return service
-            .getPostsFilter(KEY, "tags", tagFilter, "20", page, "published_at desc").map { body ->
+            .getPostsFilter(KEY, "tags,authors", tagFilter, "20", page, "published_at desc").map { body ->
             val posts = ArrayList<Post>()
 
             for (post in body.posts) {
@@ -26,10 +26,11 @@ class PostManagerImpl (val service: EpigramService) : PostManager{
         }
     }
 
+
     override fun getPostsBreaking(): Single<List<Post>> {
 
         return service
-            .getPostsBreak(KEY, "tags", "tag:breaking-news", "5", "published_at desc").map { body ->
+            .getPostsBreak(KEY, "tags,authors", "tag:breaking-news", "5", "published_at desc").map { body ->
                 val posts = ArrayList<Post>()
 
                 for (post in body.posts) {
@@ -45,7 +46,23 @@ class PostManagerImpl (val service: EpigramService) : PostManager{
             tagFilter = "tag:$filter"
         }
         return service
-            .getPostsBreak(KEY, "tags", tagFilter, "10", "published_at desc").map { body ->
+            .getPostsBreak(KEY, "tags,authors", tagFilter, "10", "published_at desc").map { body ->
+                val posts = ArrayList<Post>()
+
+                for (post in body.posts) {
+                    Post.fromTemplate(post)?.let { posts.add(it) }
+                }
+                posts
+            }
+    }
+
+    override fun getPostsAuthor(page: Int, author: String?): Single<List<Post>> {
+        var authorFilter: String? = null
+        if (author != null && author.isNotBlank()) {
+            authorFilter = "author:$author"
+        }
+        return service
+            .getPostsFilter(KEY, "tags,authors", authorFilter, "20", page, "published_at desc").map { body ->
                 val posts = ArrayList<Post>()
 
                 for (post in body.posts) {
@@ -72,7 +89,7 @@ class PostManagerImpl (val service: EpigramService) : PostManager{
                 service
                         .getPostsFilter(
                             KEY,
-                            "tags",
+                            "tags,authors",
                             "id:[${ids.joinToString(",")}]",
                             "200"
                         , 0, "published_at desc")
@@ -101,7 +118,7 @@ class PostManagerImpl (val service: EpigramService) : PostManager{
 
     override fun getArticle(id: String): Single<Post> {
         return service
-            .getPostFromNotification(id, KEY, "tags").map { it.posts.first() }.map {
+            .getPostFromNotification(id, KEY, "tags,authors").map { it.posts.first() }.map {
                 Post.fromTemplate(it)!!
             }
     }

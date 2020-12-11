@@ -27,6 +27,7 @@ import com.epigram.android.data.arch.utils.LoadNextPage
 import com.epigram.android.data.arch.utils.SnapHelperOne
 import com.epigram.android.data.arch.utils.Utils
 import com.epigram.android.data.model.Post
+import com.epigram.android.ui.adapters.AdapterAuthor
 import com.epigram.android.ui.adapters.BreakingAdapter
 import com.epigram.android.ui.section.SectionMvp
 import kotlinx.android.synthetic.main.activity_article_view.*
@@ -95,8 +96,12 @@ class ArticleActivity : BaseActivity<ArticleMvp.Presenter>(), ArticleMvp.View, L
         val layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         recyclerView!!.layoutManager = layoutManager
         recyclerView!!.itemAnimator = DefaultItemAnimator()
-        recyclerView!!.adapter =
-            AdapterTag(post.tags)
+        recyclerView!!.adapter = AdapterTag(post.tags)
+
+        val layout = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        recycler_view_author!!.layoutManager = layout
+        recycler_view_author!!.itemAnimator = DefaultItemAnimator()
+        recycler_view_author!!.adapter = AdapterAuthor(post.authors)
 
         val snapHelper = SnapHelperOne()
         recycler_related!!.onFlingListener = null
