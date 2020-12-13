@@ -8,7 +8,6 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NavUtils
 import androidx.core.app.ShareCompat
 import androidx.core.widget.NestedScrollView
@@ -27,12 +26,9 @@ import com.epigram.android.data.arch.utils.LoadNextPage
 import com.epigram.android.data.arch.utils.SnapHelperOne
 import com.epigram.android.data.arch.utils.Utils
 import com.epigram.android.data.model.Post
-import com.epigram.android.ui.adapters.AdapterAuthor
+import com.epigram.android.ui.adapters.AdapterAuthorTag
 import com.epigram.android.ui.adapters.BreakingAdapter
-import com.epigram.android.ui.section.SectionMvp
 import kotlinx.android.synthetic.main.activity_article_view.*
-import org.sufficientlysecure.htmltextview.HtmlFormatter
-import org.sufficientlysecure.htmltextview.HtmlFormatterBuilder
 import org.sufficientlysecure.htmltextview.HtmlHttpImageGetter
 import org.sufficientlysecure.htmltextview.HtmlTextView
 import java.util.*
@@ -101,7 +97,7 @@ class ArticleActivity : BaseActivity<ArticleMvp.Presenter>(), ArticleMvp.View, L
         val layout = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         recycler_view_author!!.layoutManager = layout
         recycler_view_author!!.itemAnimator = DefaultItemAnimator()
-        recycler_view_author!!.adapter = AdapterAuthor(post.authors)
+        recycler_view_author!!.adapter = AdapterAuthorTag(post.authors)
 
         val snapHelper = SnapHelperOne()
         recycler_related!!.onFlingListener = null

@@ -11,7 +11,7 @@ data class Post(
     val image: String?,
     val tag: String?,
     val tags: Pair<List<String>?, List<String>?>,
-    val authors: Pair<List<String>?, List<String>?>,
+    val authors: Triple<List<String>?, List<String>?, List<String>?>,
     val date: DateTime,
     val url : String
 
@@ -30,7 +30,7 @@ data class Post(
                 template.feature_image,
                 template.primary_tag?.name?.toUpperCase(),
                 Pair(template.tags?.map { tags -> tags.name }, template.tags?.map { tags -> tags.slug }),
-                Pair(template.authors?.map { authors -> authors.name }, template.authors?.map { authors -> authors.slug }),
+                Triple(template.authors?.map { authors -> authors.name }, template.authors?.map { authors -> authors.slug }, template.authors?.map { authors -> authors.profile_image.orEmpty() }),
 //                template.tags?.map { tags -> tags.slug },
                 DateTime.parse(template.published_at),
                 template.url
@@ -63,7 +63,8 @@ data class Tags(
 
 data class Authors(
     val name: String,
-    val slug: String
+    val slug: String,
+    val profile_image: String?
 )
 
 data class SearchResult(

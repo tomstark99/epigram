@@ -13,6 +13,7 @@ import com.epigram.android.data.arch.utils.LoadNextPage
 import com.epigram.android.data.model.Post
 import com.epigram.android.ui.adapters.*
 import com.epigram.android.ui.article.ArticleActivity
+import kotlinx.android.synthetic.main.activity_article_view.view.*
 import kotlinx.android.synthetic.main.fragment_main.*
 
 class TabFragment : BaseFragment<TabMvp.Presenter>(), TabMvp.View, LoadNextPage {
@@ -94,6 +95,7 @@ class TabFragment : BaseFragment<TabMvp.Presenter>(), TabMvp.View, LoadNextPage 
             loaded = true
             swipe_refresh.isRefreshing = false
             if (adapter == null) {
+                (my_recycler_view.adapter as AdapterPlaceholder).stopAnimation()
                 adapter = AdapterArticles(context!!, posts.toMutableList(), this, tabNum)
                 my_recycler_view.adapter = adapter
             } else {

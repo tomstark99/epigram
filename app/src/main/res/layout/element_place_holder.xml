@@ -14,24 +14,28 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:visibility="gone"
             android:theme="@style/placeholder_progress"/>
         <TextView
+            android:id="@+id/placeholder_1"
             android:layout_width="match_parent"
             android:layout_height="110dp"
-            android:background="@drawable/placeholder_background"
+            android:background="@drawable/placeholder_animation"
             android:layout_marginBottom="5dp"/>
     </FrameLayout>
 
     <TextView
+        android:id="@+id/placeholder_2"
         android:layout_width="match_parent"
         android:layout_height="16dp"
-        android:background="@drawable/placeholder_background"
+        android:background="@drawable/placeholder_animation"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"/>
     <TextView
+        android:id="@+id/placeholder_3"
         android:layout_width="160dp"
         android:layout_height="16dp"
-        android:background="@drawable/placeholder_background"
+        android:background="@drawable/placeholder_animation"
         android:layout_marginTop="5dp"/>
 
 </LinearLayout>

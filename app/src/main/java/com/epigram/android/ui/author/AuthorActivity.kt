@@ -23,7 +23,8 @@ class AuthorActivity : BaseActivity<AuthorMvp.Presenter>(), AuthorMvp.View, Load
     private var pageNum = FIRST_INDEX
     private var section: String = ""
     private var tag1: String = ""
-    private var adapter: AdapterArticles? = null
+    private var image: String = ""
+    private var adapter: AdapterAuthor? = null
     private var loaded = false
 
 
@@ -31,14 +32,17 @@ class AuthorActivity : BaseActivity<AuthorMvp.Presenter>(), AuthorMvp.View, Load
 
         const val ARG_SECTION = "section.object"
         const val ARG_SECTION_TAG = "tag.object"
+        const val ARG_SECTION_IMG = "tag.image"
 
         const val FIRST_INDEX = 1
 
 
-        fun start(context: Activity, section: String, tag: String) {
+        fun start(context: Activity, section: String, tag: String, image: String) {
             val intent = Intent(context, AuthorActivity::class.java)
             intent.putExtra(ARG_SECTION, section)
             intent.putExtra(ARG_SECTION_TAG, tag)
+            intent.putExtra(ARG_SECTION_IMG, image)
+
             context.startActivity(intent)
         }
     }
@@ -49,6 +53,7 @@ class AuthorActivity : BaseActivity<AuthorMvp.Presenter>(), AuthorMvp.View, Load
 
         section = intent.getSerializableExtra(ARG_SECTION) as String
         tag1 = intent.getSerializableExtra(ARG_SECTION_TAG) as String
+        image = intent.getSerializableExtra(ARG_SECTION_IMG) as String
 
         recycler_view_section.layoutManager = LinearLayoutManager(this)
         recycler_view_section.itemAnimator = DefaultItemAnimator()
@@ -91,10 +96,10 @@ class AuthorActivity : BaseActivity<AuthorMvp.Presenter>(), AuthorMvp.View, Load
             loaded = true
             swipe_refresh.isRefreshing = false
             if (adapter == null) {
-                adapter = AdapterArticles(this, posts.toMutableList(), this, 0)
+                adapter = AdapterAuthor(this, posts.toMutableList(), this, 0, image)
                 recycler_view_section.adapter = adapter
             } else {
-                if (pageNum == FIRST_INDEX + 1) (adapter as AdapterArticles).clear()
+                if (pageNum == FIRST_INDEX + 1) (adapter as AdapterAuthor).clear()
                 adapter!!.addPosts(posts)
             }
     }
