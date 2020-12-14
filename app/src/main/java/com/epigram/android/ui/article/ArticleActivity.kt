@@ -27,7 +27,7 @@ import com.epigram.android.data.arch.utils.SnapHelperOne
 import com.epigram.android.data.arch.utils.Utils
 import com.epigram.android.data.model.Post
 import com.epigram.android.ui.adapters.AdapterAuthorTag
-import com.epigram.android.ui.adapters.BreakingAdapter
+import com.epigram.android.ui.adapters.AdapterBreaking
 import kotlinx.android.synthetic.main.activity_article_view.*
 import org.sufficientlysecure.htmltextview.HtmlHttpImageGetter
 import org.sufficientlysecure.htmltextview.HtmlTextView
@@ -135,7 +135,7 @@ class ArticleActivity : BaseActivity<ArticleMvp.Presenter>(), ArticleMvp.View, L
     override fun onPostSuccess(posts: List<Post>) {
         val p = posts.toMutableList()
         p.remove(post)
-        if(p.isNotEmpty()){ recycler_related.adapter = BreakingAdapter(this, p, this) }
+        if(p.isNotEmpty()){ recycler_related.adapter = AdapterBreaking(this, p, this) }
         else {
             related.visibility = View.GONE
             recycler_related.visibility = View.GONE

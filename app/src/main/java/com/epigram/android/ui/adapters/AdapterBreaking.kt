@@ -28,7 +28,7 @@ import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.element_news_article.view.*
 import java.util.concurrent.TimeUnit
 
-class BreakingAdapter(var context: Context, var posts: MutableList<Post>, var loadNext: LoadNextPage) : RecyclerView.Adapter<BreakingAdapter.ViewHolder>(){
+class AdapterBreaking(var context: Context, var posts: MutableList<Post>, var loadNext: LoadNextPage) : RecyclerView.Adapter<AdapterBreaking.ViewHolder>(){
 
     var multiTransformation = MultiTransformation(CenterCrop(), RoundedCorners(40))
 

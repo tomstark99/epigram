@@ -78,7 +78,7 @@ class AdapterArticlesHome(context: Context, posts: MutableList<Post>, var breaki
             holder.breaking!!.onFlingListener = null
             snapHelper.attachToRecyclerView(holder.breaking!!)
             holder.breaking!!.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            holder.breaking!!.adapter = BreakingAdapter(context, breakingPosts, loadNextPage)
+            holder.breaking!!.adapter = AdapterBreaking(context, breakingPosts, loadNextPage)
         }
         else if(position > 1) {
             holder.tags!!.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
@@ -192,7 +192,7 @@ class AdapterArticlesHome(context: Context, posts: MutableList<Post>, var breaki
     }
 
     fun addPosts(newPosts: List<Post>){
-        posts.remove(posts.last())
+//        posts.remove(posts.last())
         val posts2 = posts
         posts2.addAll(newPosts)
         Observable.fromIterable(posts2)
@@ -232,7 +232,7 @@ class AdapterArticlesHome(context: Context, posts: MutableList<Post>, var breaki
             ).into(holder.articleImage!!)
 
         if(position > itemCount - 4) {
-            posts.add
+//            posts.add
             loadNextPage.bottomReached()
         }
 

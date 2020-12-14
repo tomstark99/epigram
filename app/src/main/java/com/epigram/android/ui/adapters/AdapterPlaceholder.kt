@@ -17,9 +17,7 @@ import java.util.concurrent.TimeUnit
 class AdapterPlaceholder : RecyclerView.Adapter<AdapterPlaceholder.MyViewHolder>(){
 
     private var placeholder_count = 3
-    private var disposable_1: Disposable? = null
-    private var disposable_2: Disposable? = null
-    private var disposable_3: Disposable? = null
+    private var disposable: Disposable? = null
 
     fun clear() {
         placeholder_count = 0
@@ -46,42 +44,20 @@ class AdapterPlaceholder : RecyclerView.Adapter<AdapterPlaceholder.MyViewHolder>
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-//        while (animate) {
-        holder.p_1.isCrossFadeEnabled = true
-        disposable_1 = Observable.interval(200,1200, TimeUnit.MILLISECONDS)
+        val i = (position + 2) * 200
+            holder.p_1.isCrossFadeEnabled = true
+            disposable = Observable.interval(i.toLong(),1500, TimeUnit.MILLISECONDS)
                 .repeat()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe {
                     holder.p_1.startTransition(500)
-                    Observable.timer(500, TimeUnit.MILLISECONDS, AndroidSchedulers.mainThread())
-                        .map{
-                            holder.p_1.reverseTransition(500)
-                        }
-                        .subscribeOn(Schedulers.io())
-                        .subscribe()
-                }
-        disposable_2 = Observable.interval(300,1300, TimeUnit.MILLISECONDS)
-                .repeat()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe {
                     holder.p_2.startTransition(500)
-                    Observable.timer(500, TimeUnit.MILLISECONDS, AndroidSchedulers.mainThread())
-                        .map {
-                            holder.p_2.reverseTransition(500)
-                        }
-                        .subscribeOn(Schedulers.io())
-                        .subscribe()
-                }
-        disposable_3 = Observable.interval(400,1400, TimeUnit.MILLISECONDS)
-                .repeat()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe {
                     holder.p_3.startTransition(500)
                     Observable.timer(500, TimeUnit.MILLISECONDS, AndroidSchedulers.mainThread())
                         .map{
+                            holder.p_1.reverseTransition(500)
+                            holder.p_2.reverseTransition(500)
                             holder.p_3.reverseTransition(500)
                         }
                         .subscribeOn(Schedulers.io())
@@ -89,14 +65,15 @@ class AdapterPlaceholder : RecyclerView.Adapter<AdapterPlaceholder.MyViewHolder>
                 }
     }
 
-    fun stopAnimation() {
-        if(disposable_1 != null) disposable_1!!.dispose()
-        if(disposable_2 != null) disposable_2!!.dispose()
-        if(disposable_3 != null) disposable_3!!.dispose()
+    fun stopAnimation(){
+        if(disposable != null) disposable!!.dispose()
     }
 
     override fun getItemCount(): Int {
         return placeholder_count
     }
+
+
+
 
 }
