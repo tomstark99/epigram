@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.MultiTransformation
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
@@ -60,6 +61,7 @@ class AdapterAuthor(context: Context, posts: MutableList<Post>, loadNext: LoadNe
         if (image.isNotEmpty() && position == 0) {
             Glide.with(holder.author_image!!)
                 .load(image)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .placeholder(R.drawable.placeholder_author_image)
                 .apply(RequestOptions.bitmapTransform(authorTransformation))
                 .into(holder.author_image!!)

@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.MultiTransformation
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
@@ -152,6 +153,7 @@ class AdapterSearch (var context: Context, posts: List<Post>, var loadNext: Load
         holder.date.text = Utils.dateText(posts[position].date)//posts[position].date.toString("MMM d, yyyy")
         Glide.with(holder.image)
             .load(posts[position].image)
+            .diskCacheStrategy(DiskCacheStrategy.NONE)
             .placeholder(R.drawable.placeholder_background)
             .apply(RequestOptions.bitmapTransform(multiTransformation))
             .listener(

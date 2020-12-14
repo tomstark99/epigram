@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.MultiTransformation
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
@@ -191,6 +192,7 @@ class AdapterArticlesHome(context: Context, posts: MutableList<Post>, var breaki
     }
 
     fun addPosts(newPosts: List<Post>){
+        posts.remove(posts.last())
         val posts2 = posts
         posts2.addAll(newPosts)
         Observable.fromIterable(posts2)
@@ -212,6 +214,7 @@ class AdapterArticlesHome(context: Context, posts: MutableList<Post>, var breaki
         holder.date!!.text = Utils.dateText(posts[position].date)//posts[position].date.toString("MMM d, yyyy")
         Glide.with(holder.articleImage!!)
             .load(posts[position].image)
+            .diskCacheStrategy(DiskCacheStrategy.NONE)
             .placeholder(R.drawable.placeholder_background)
             .apply(RequestOptions.bitmapTransform(multiTransformation))
             .listener(
@@ -229,6 +232,7 @@ class AdapterArticlesHome(context: Context, posts: MutableList<Post>, var breaki
             ).into(holder.articleImage!!)
 
         if(position > itemCount - 4) {
+            posts.add
             loadNextPage.bottomReached()
         }
 

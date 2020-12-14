@@ -73,7 +73,7 @@ class AdapterAuthorTag(tags: Triple<List<String>?, List<String>?, List<String>?>
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         context = parent.context
-        val l = LayoutInflater.from(parent.context).inflate(R.layout.element_tag, parent, false) as LinearLayout
+        val l = LayoutInflater.from(parent.context).inflate(R.layout.element_tag_author, parent, false) as LinearLayout
         return MyViewHolder(l)
     }
 
