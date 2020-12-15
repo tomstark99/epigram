@@ -10,5 +10,7 @@ interface PostManager {
     fun getPostsAuthor(page: Int, author: String?): Single<List<Post>>
     fun getPostTitles(page: Int, searchTerm: String): Single<Pair<String, List<Post>>>
     fun getSearchTotal(searchTerm: String): Single<Int>
+    fun getPostsById(page: Int, ids: List<String>): Single<List<Post>>
+    fun getPostsLiked(page: Int, tags: List<String>, authors: List<String>): Single<List<Post>>
     fun getArticle(id: String): Single<Post>
 }

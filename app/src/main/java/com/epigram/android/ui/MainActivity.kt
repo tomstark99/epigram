@@ -14,8 +14,10 @@ import com.epigram.android.data.arch.PreferenceModule
 
 import com.epigram.android.data.arch.android.BaseActivity
 import com.epigram.android.ui.about.AboutActivity
+import com.epigram.android.ui.liked.LikedActivity
 import com.epigram.android.ui.main.SectionsPagerAdapter
 import com.epigram.android.ui.promo.PromoActivity
+import com.epigram.android.ui.saved.SavedActivity
 import com.epigram.android.ui.search.SearchActivity
 import com.epigram.android.ui.search.SearchActivity1
 import com.epigram.android.ui.section.SectionActivity
@@ -231,6 +233,8 @@ class MainActivity : BaseActivity<MainActivityMvp.Presenter>(),
                 menuItem.toString(),
                 getString(R.string.menu_puzzles_tag)
             )
+            R.id.nav_saved -> SavedActivity.start(this, menuItem.toString())
+            R.id.nav_liked -> LikedActivity.start(this, menuItem.toString())
             R.id.nav_promo -> startActivity(Intent(this, PromoActivity::class.java))
             R.id.nav_settings -> startActivity(Intent(this, SettingsActivity::class.java))
             R.id.nav_about -> startActivity(Intent(this, AboutActivity::class.java))

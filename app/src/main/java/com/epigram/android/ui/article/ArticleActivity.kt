@@ -21,6 +21,7 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.epigram.android.ui.adapters.AdapterTag
 import com.epigram.android.R
+import com.epigram.android.data.arch.PreferenceModule
 import com.epigram.android.data.arch.android.BaseActivity
 import com.epigram.android.data.arch.utils.LoadNextPage
 import com.epigram.android.data.arch.utils.SnapHelperOne
@@ -38,6 +39,12 @@ class ArticleActivity : BaseActivity<ArticleMvp.Presenter>(), ArticleMvp.View, L
 
     var url: String = "https://epigram.org.uk/"
     private var recyclerView: RecyclerView? = null
+    private val saved = PreferenceModule.savedPosts
+    private val liked = PreferenceModule.likedPosts
+    private val tags = PreferenceModule.likedTags
+    private val authors = PreferenceModule.likedAuthors
+    private  var isSaved = false
+    private  var isLiked = false
     lateinit var post: Post
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -130,6 +137,32 @@ class ArticleActivity : BaseActivity<ArticleMvp.Presenter>(), ArticleMvp.View, L
         article_post_title.text = post.title
         //article_tag_text.text = post.tag
         article_post_date_alternate.text = Utils.dateText(post.date)//post.date.toString("MMM d, yyyy")
+
+        if (saved.get().contains(post.id)) {
+            isSaved = true
+            save.isChecked = true
+        }
+        if (liked.get().contains(post.id)) {
+            isLiked = true
+            like.isChecked = true
+        }
+
+        save.setOnClickListener {
+            if (isSaved) saved.get().remove(post.id)
+            else saved.get().add(post.id)
+        }
+        like.setOnClickListener {
+            if (isLiked) {
+                saved.get().remove(post.id)
+                tags.get().removeAll(post.tags.second.orEmpty())
+                authors.get().removeAll(post.authors.second.orEmpty())
+            }
+            else{
+                saved.get().add(post.id)
+                tags.get().addAll(post.tags.second.orEmpty())
+                authors.get().addAll(post.authors.second.orEmpty())
+            }
+        }
     }
 
     override fun onPostSuccess(posts: List<Post>) {

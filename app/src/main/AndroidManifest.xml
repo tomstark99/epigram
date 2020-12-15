@@ -60,6 +60,18 @@
             android:windowSoftInputMode="stateAlwaysHidden"
             android:screenOrientation="portrait"/>
         <activity
+            android:name=".ui.saved.SavedActivity"
+            android:parentActivityName=".ui.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateAlwaysHidden"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.liked.LikedActivity"
+            android:parentActivityName=".ui.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateAlwaysHidden"
+            android:screenOrientation="portrait"/>
+        <activity
             android:name=".ui.author.AuthorActivity"
             android:parentActivityName=".ui.MainActivity"
             android:theme="@style/AppTheme.NoActionBar"

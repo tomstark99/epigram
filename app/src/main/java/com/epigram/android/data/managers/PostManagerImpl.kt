@@ -116,6 +116,30 @@ class PostManagerImpl (val service: EpigramService) : PostManager{
             }
     }
 
+    override fun getPostsById(page: Int, ids: List<String>): Single<List<Post>> {
+        return service
+            .getPostsFilter(KEY, "tags,authors", "id:[${ids.joinToString(",")}]", "20", page, "published_at desc").map { body ->
+                val posts = ArrayList<Post>()
+
+                for (post in body.posts) {
+                    Post.fromTemplate(post)?.let { posts.add(it) }
+                }
+                posts
+            }
+    }
+
+    override fun getPostsLiked(page: Int, tags: List<String>, authors: List<String>): Single<List<Post>> {
+        return service
+            .getPostsFilter(KEY, "tags,authors", "tag:[${tags.joinToString(",")}],author:[${authors.joinToString(",")}]", "20", page, "published_at desc").map { body ->
+                val posts = ArrayList<Post>()
+
+                for (post in body.posts) {
+                    Post.fromTemplate(post)?.let { posts.add(it) }
+                }
+                posts
+            }
+    }
+
     override fun getArticle(id: String): Single<Post> {
         return service
             .getPostFromNotification(id, KEY, "tags,authors").map { it.posts.first() }.map {

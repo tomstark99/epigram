@@ -62,6 +62,12 @@
             <item
                     android:id="@+id/nav_puzzles"
                     android:title="@string/menu_puzzles"/>
+            <item
+                android:id="@+id/nav_saved"
+                android:title="SAVED"/>
+            <item
+                android:id="@+id/nav_liked"
+                android:title="LIKED"/>
         </menu>
     </item>
 
