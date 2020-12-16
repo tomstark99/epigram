@@ -33,6 +33,7 @@ import kotlinx.android.synthetic.main.activity_article_view.*
 import org.sufficientlysecure.htmltextview.HtmlHttpImageGetter
 import org.sufficientlysecure.htmltextview.HtmlTextView
 import java.util.*
+import kotlin.collections.HashSet
 
 
 class ArticleActivity : BaseActivity<ArticleMvp.Presenter>(), ArticleMvp.View, LoadNextPage {
@@ -148,15 +149,15 @@ class ArticleActivity : BaseActivity<ArticleMvp.Presenter>(), ArticleMvp.View, L
         }
 
         save.setOnClickListener {
-            val savedPosts = saved.get()
+            val savedPosts = HashSet(saved.get())
             if (isSaved) savedPosts.remove(post.id)
             else savedPosts.add(post.id)
             saved.set(savedPosts)
         }
         like.setOnClickListener {
-            val likedPosts = liked.get()
-            val likedTags = tags.get()
-            val likedAuthors = authors.get()
+            val likedPosts = HashSet(liked.get())
+            val likedTags = HashSet(tags.get())
+            val likedAuthors = HashSet(authors.get())
 
             if (isLiked) {
                 likedPosts.remove(post.id)
