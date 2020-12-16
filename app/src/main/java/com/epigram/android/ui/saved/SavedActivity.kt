@@ -41,7 +41,7 @@ class SavedActivity : BaseActivity<SavedMvp.Presenter>(), SavedMvp.View, LoadNex
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.app_bar_section)
+        setContentView(R.layout.activity_saved)
 
         section = intent.getSerializableExtra(ARG_SECTION) as String
         recycler_view_section.layoutManager = LinearLayoutManager(this)

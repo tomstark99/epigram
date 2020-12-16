@@ -42,7 +42,7 @@ class LikedActivity : BaseActivity<LikedMvp.Presenter>(), LikedMvp.View, LoadNex
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.app_bar_section)
+        setContentView(R.layout.activity_liked)
 
         section = intent.getSerializableExtra(ARG_SECTION) as String
         recycler_view_section.layoutManager = LinearLayoutManager(this)
@@ -60,12 +60,12 @@ class LikedActivity : BaseActivity<LikedMvp.Presenter>(), LikedMvp.View, LoadNex
         swipe_refresh.setOnRefreshListener {
             pageNum = FIRST_INDEX
             section_something_wrong.visibility = View.GONE
-            presenter.load(pageNum)
+            presenter.loadLiked(pageNum)
         }
 
         presenter = LikedPresenter(this)
         section_something_wrong.visibility = View.GONE
-        presenter.load(pageNum)
+        presenter.loadLiked(pageNum)
     }
 
     override fun setClickables() {
@@ -107,7 +107,7 @@ class LikedActivity : BaseActivity<LikedMvp.Presenter>(), LikedMvp.View, LoadNex
         else {
             loaded = false
             section_something_wrong.visibility = View.GONE
-            presenter.load(pageNum)
+            presenter.loadLiked(pageNum)
         }
     }
 

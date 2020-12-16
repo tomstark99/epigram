@@ -39,10 +39,10 @@ object PreferenceModule {
     }
 
     val likedTags by lazy {
-        rxSharedPrefs.getStringSet("tags.list", mutableSetOf())
+        rxSharedPrefs.getStringSet("tags.list", mutableSetOf("news","the-croft"))
     }
     val likedAuthors by lazy {
-        rxSharedPrefs.getStringSet("authors.list", mutableSetOf())
+        rxSharedPrefs.getStringSet("authors.list", mutableSetOf("epigram-news"))
     }
 
     private val sharedPrefs by lazy {

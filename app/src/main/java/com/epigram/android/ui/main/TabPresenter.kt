@@ -2,9 +2,12 @@ package com.epigram.android.ui.main
 
 import android.util.Log
 import com.epigram.android.data.DataModule
+import com.epigram.android.data.arch.PreferenceModule
 import com.epigram.android.data.arch.android.BasePresenter
 import com.epigram.android.data.managers.PostManager
+import com.epigram.android.data.model.Authors
 import com.epigram.android.data.model.Post
+import com.f2prateek.rx.preferences2.Preference
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.functions.BiFunction
@@ -15,7 +18,9 @@ import io.reactivex.schedulers.Schedulers
 typealias p = List<Post>
 
 class TabPresenter (view: TabMvp.View,
-                    private val postManager: PostManager = DataModule.postManager) : BasePresenter<TabMvp.View>(view), TabMvp.Presenter {
+                    private val postManager: PostManager = DataModule.postManager,
+                    private val likedTags: Preference<MutableSet<String>> = PreferenceModule.likedTags,
+                    private val likedAuthors: Preference<MutableSet<String>> = PreferenceModule.likedAuthors) : BasePresenter<TabMvp.View>(view), TabMvp.Presenter {
 
     override fun load(pageNum: Int, tabNum: Int, tab: String) {
         if(tabNum == 0) {
@@ -38,9 +43,9 @@ class TabPresenter (view: TabMvp.View,
                 getMorePostsHome(pageNum, tab)
             }
         }
-//        else if(tabNum == 1) {
-//            getPostsCorona(pageNum, tab)
-//        }
+        else if(tabNum == 1) {
+            getPostsForYou(pageNum, likedTags.get().toList(), likedAuthors.get().toList())
+        }
         else {
             getPosts(pageNum, tab)
         }
@@ -67,6 +72,18 @@ class TabPresenter (view: TabMvp.View,
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ posts ->
                 view?.onPostSuccessCorona(posts)
+            }, { e ->
+                view?.onPostError()
+                Log.e("error", "something went wrong loading posts", e)
+            }).addTo(subscription)
+    }
+
+    fun getPostsForYou(pageNum: Int, tags: List<String>, authors: List<String>) {
+        postManager.getPostsLiked(pageNum, tags, authors)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({ posts ->
+                view?.onPostSuccess(posts)
             }, { e ->
                 view?.onPostError()
                 Log.e("error", "something went wrong loading posts", e)

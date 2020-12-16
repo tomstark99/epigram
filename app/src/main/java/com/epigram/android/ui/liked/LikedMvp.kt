@@ -13,5 +13,6 @@ interface LikedMvp : BaseMvp {
 
     interface Presenter : BaseMvp.Presenter {
         fun load(pageNum: Int)
+        fun loadLiked(pageNum: Int)
     }
 }
