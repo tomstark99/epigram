@@ -8,8 +8,6 @@ The mobile Android App for the University of Bristol's Student Newspaper, built 
 
 ### Version 1.9
 
-## Previous Releases
-
 - saving an article will put the id in a list to be read later
 - liking an article will show you articles based on the tags and authors of that article
 - added default liked tags and author so that for you page loads
@@ -32,6 +30,8 @@ The mobile Android App for the University of Bristol's Student Newspaper, built 
 - extracted author tags to its own adapter
 - dispose only being called for posts loaded with TabFragment
 - slightly increased tag text size
+
+## Previous Releases
 
 ### Version 1.8.1
 
