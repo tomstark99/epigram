@@ -4,7 +4,35 @@
 
 The mobile Android App for the University of Bristol's Student Newspaper, built from the ground up using Kotlin with a Model View presenter design pattern. The app has many features all tied together with a beautiful user interface.
 
-## Latest Release - 18/11/2020
+## Latest Release - 16/12/2020
+
+### Version 1.9
+Like and save articles
+
+- saving an article will put the id in a list to be read later
+- liking an article will show you articles based on the tags and authors of that article
+- added default liked tags and author so that for you page loads
+- added 'for you' tab to show personalised articles
+- renamed liked to for you where 'personalised' suggestions appear based on liked articles
+- kept liked articles for a place to easily unlike (while managing liked tags is not available)
+- increased icon size for error messages
+- new menu items for saved and liked posts
+- added some more string
+- renamed adapter for breaking news posts to align with other adapters
+- Glide now only loads images into memory rather than on disk cache, drastically reducing disk usage
+- Glide memory is cleared on application start
+- Added dedicated author tag with increased text size
+- added new element to be used when new articles are loading
+- added list of authors to the bottom of articles (using the existing tag framework)
+- authors are clickable to bring up their articles (using existing section framework)
+- if author has a picture this will be displayed at top of the list
+- post model now has authors and their slugs
+- article placeholders will now have a rolling breath when loading rather than the progress circle
+- extracted author tags to its own adapter
+- dispose only being called for posts loaded with TabFragment
+- slightly increased tag text size
+
+## Previous Releases
 
 ### Version 1.8.1
 
@@ -22,8 +50,6 @@ The mobile Android App for the University of Bristol's Student Newspaper, built 
 - removed excess code
 - converted placeholder adapter to kotlin codebase
 - prepped search activity for conversion
-
-## Previous Releases
 
 ### Version 1.8
 Layout toggle
