@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="@dimen/element_padding"
+    android:paddingBottom="@dimen/element_padding_half"
+    android:paddingStart="@dimen/element_padding"
+    android:paddingEnd="@dimen/element_padding">
+    <ImageView
+        android:id="@+id/author_image"
+        android:layout_width="match_parent"
+        android:layout_height="175dp"
+        android:layout_gravity="center"
+        android:src="@drawable/placeholder_author_image"/>
+</LinearLayout>

@@ -12,6 +12,7 @@ import com.epigram.android.R
 import com.epigram.android.data.arch.PreferenceModule
 
 import androidx.appcompat.app.AppCompatDelegate.setDefaultNightMode
+import com.bumptech.glide.Glide
 
 class SplashActivity : AppCompatActivity() {
 
@@ -22,6 +23,7 @@ class SplashActivity : AppCompatActivity() {
             View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
 
         setContentView(R.layout.activity_splash_screen)
+        Glide.get(this).clearMemory()
         findViewById<View>(R.id.left_logo).post {
             val screen = findViewById<View>(R.id.splash_root)
             val logoR = findViewById<View>(R.id.right_logo)

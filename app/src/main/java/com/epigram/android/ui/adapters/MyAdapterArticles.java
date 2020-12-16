@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.MultiTransformation;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
@@ -236,19 +237,25 @@ public class MyAdapterArticles extends RecyclerView.Adapter<MyAdapterArticles.My
         holder.title.setText((posts.get(position).getTitle()));
         holder.dateAlt.setText(Utils.dateText(posts.get(position).getDate()));//(posts.get(position).getDate().toString("MMM d, yyyy"));
 
-        Glide.with(holder.titleImage).load(posts.get(position).getImage()).placeholder(R.drawable.placeholder_background).apply(RequestOptions.bitmapTransform(multiTransformation)).listener(new RequestListener<Drawable>() {
-            @Override
-            public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                holder.imageLoaded = false;
-                return false;
-            }
+        Glide.with(holder.titleImage)
+                .load(posts.get(position).getImage())
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .placeholder(R.drawable.placeholder_background)
+                .apply(RequestOptions.bitmapTransform(multiTransformation))
+                .listener(new RequestListener<Drawable>() {
+                    @Override
+                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                        holder.imageLoaded = false;
+                        return false;
+                    }
 
-            @Override
-            public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                holder.imageLoaded = true;
-                return false;
-            }
-        }).into(holder.titleImage);
+                    @Override
+                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                        holder.imageLoaded = true;
+                        return false;
+                    }
+                })
+                .into(holder.titleImage);
         if(position > getItemCount() - 2) loadNextPage.bottomReached();
     }
 

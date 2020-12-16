@@ -14,21 +14,18 @@ import com.epigram.android.data.arch.PreferenceModule
 
 import com.epigram.android.data.arch.android.BaseActivity
 import com.epigram.android.ui.about.AboutActivity
+import com.epigram.android.ui.liked.LikedActivity
+import com.epigram.android.ui.liked.RecommendedActivity
 import com.epigram.android.ui.main.SectionsPagerAdapter
 import com.epigram.android.ui.promo.PromoActivity
+import com.epigram.android.ui.saved.SavedActivity
 import com.epigram.android.ui.search.SearchActivity
-import com.epigram.android.ui.search.SearchActivity1
 import com.epigram.android.ui.section.SectionActivity
 import com.epigram.android.ui.section.SectionActivityC
 import com.epigram.android.ui.settings.SettingsActivity
-import com.f2prateek.rx.preferences2.Preference
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.tabs.TabLayout
 import com.google.firebase.messaging.FirebaseMessaging
-import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
-import java.util.concurrent.TimeUnit
 
 class MainActivity : BaseActivity<MainActivityMvp.Presenter>(),
     NavigationView.OnNavigationItemSelectedListener, MainActivityMvp.View {
@@ -138,99 +135,30 @@ class MainActivity : BaseActivity<MainActivityMvp.Presenter>(),
         when (menuItem.itemId) {
             //case R.id.nav_home :
             //    break;
-            R.id.nav_most_read -> SectionActivity.start(
-                this,
-                menuItem.toString(),
-                getString(R.string.menu_most_read_tag)
-            )
-            R.id.nav_covid_19 -> SectionActivityC.start(
-                this,
-                menuItem.toString(),
-                getString(R.string.menu_covid_19_tag)
-            )
-            R.id.nav_news -> SectionActivity.start(
-                this,
-                menuItem.toString(),
-                getString(R.string.menu_news_tag)
-            )
-            R.id.nav_features -> SectionActivity.start(
-                this,
-                menuItem.toString(),
-                getString(R.string.menu_features_tag)
-            )
-            R.id.nav_comment -> SectionActivity.start(
-                this,
-                menuItem.toString(),
-                getString(R.string.menu_comment_tag)
-            )
-            R.id.nav_the_croft -> SectionActivity.start(
-                this,
-                menuItem.toString(),
-                getString(R.string.menu_the_croft_tag)
-            )
-            R.id.nav_wellbeing -> SectionActivity.start(
-                this,
-                menuItem.toString(),
-                getString(R.string.menu_wellbeing_tag)
-            )
-            R.id.nav_food -> SectionActivity.start(
-                this,
-                menuItem.toString(),
-                getString(R.string.menu_food_tag)
-            )
-            R.id.nav_travel -> SectionActivity.start(
-                this,
-                menuItem.toString(),
-                getString(R.string.menu_travel_tag)
-            )
-            R.id.nav_style -> SectionActivity.start(
-                this,
-                menuItem.toString(),
-                getString(R.string.menu_style_tag)
-            )
+            R.id.nav_most_read -> SectionActivity.start(this, menuItem.toString(), getString(R.string.menu_most_read_tag))
+            R.id.nav_covid_19 -> SectionActivityC.start(this, menuItem.toString(), getString(R.string.menu_covid_19_tag))
+//            R.id.nav_for_you -> RecommendedActivity.start(this, menuItem.toString())
+            R.id.nav_news -> SectionActivity.start(this, menuItem.toString(), getString(R.string.menu_news_tag))
+            R.id.nav_features -> SectionActivity.start(this, menuItem.toString(), getString(R.string.menu_features_tag))
+            R.id.nav_comment -> SectionActivity.start(this, menuItem.toString(), getString(R.string.menu_comment_tag))
+            R.id.nav_the_croft -> SectionActivity.start(this, menuItem.toString(), getString(R.string.menu_the_croft_tag))
+            R.id.nav_wellbeing -> SectionActivity.start(this, menuItem.toString(), getString(R.string.menu_wellbeing_tag))
+            R.id.nav_food -> SectionActivity.start(this, menuItem.toString(), getString(R.string.menu_food_tag))
+            R.id.nav_travel -> SectionActivity.start(this, menuItem.toString(), getString(R.string.menu_travel_tag))
+            R.id.nav_style -> SectionActivity.start(this, menuItem.toString(), getString(R.string.menu_style_tag))
             //            case R.id.nav_opinion:
             //                SectionActivity.Companion.start(this, menuItem.toString(), getString(R.string.menu_opinion_tag));
             //                break;
-            R.id.nav_science -> SectionActivity.start(
-                this,
-                menuItem.toString(),
-                getString(R.string.menu_science_tag)
-            )
-            R.id.nav_entertainment -> SectionActivity.start(
-                this,
-                menuItem.toString(),
-                getString(R.string.menu_entertainment_tag)
-            )
-            R.id.nav_film_tv -> SectionActivity.start(
-                this,
-                menuItem.toString(),
-                getString(R.string.menu_film_tv_tag)
-            )
-            R.id.nav_arts -> SectionActivity.start(
-                this,
-                menuItem.toString(),
-                getString(R.string.menu_arts_tag)
-            )
-            R.id.nav_music -> SectionActivity.start(
-                this,
-                menuItem.toString(),
-                getString(R.string.menu_music_tag)
-            )
-            R.id.nav_sport -> SectionActivity.start(
-                this,
-                menuItem.toString(),
-                getString(R.string.menu_sport_tag)
-            )
-            R.id.nav_intramural -> SectionActivity.start(
-                this,
-                menuItem.toString(),
-                getString(R.string.menu_intramural_tag)
-            )
-            R.id.nav_puzzles -> SectionActivity.start(
-                this,
-                menuItem.toString(),
-                getString(R.string.menu_puzzles_tag)
-            )
+            R.id.nav_science -> SectionActivity.start(this, menuItem.toString(), getString(R.string.menu_science_tag))
+            R.id.nav_entertainment -> SectionActivity.start(this, menuItem.toString(), getString(R.string.menu_entertainment_tag))
+            R.id.nav_film_tv -> SectionActivity.start(this, menuItem.toString(), getString(R.string.menu_film_tv_tag))
+            R.id.nav_arts -> SectionActivity.start(this, menuItem.toString(), getString(R.string.menu_arts_tag))
+            R.id.nav_music -> SectionActivity.start(this, menuItem.toString(), getString(R.string.menu_music_tag))
+            R.id.nav_sport -> SectionActivity.start(this, menuItem.toString(), getString(R.string.menu_sport_tag))
+            R.id.nav_intramural -> SectionActivity.start(this, menuItem.toString(), getString(R.string.menu_intramural_tag))
+            R.id.nav_puzzles -> SectionActivity.start(this, menuItem.toString(), getString(R.string.menu_puzzles_tag))
+            R.id.nav_saved -> SavedActivity.start(this, menuItem.toString())
+            R.id.nav_liked -> LikedActivity.start(this, menuItem.toString())
             R.id.nav_promo -> startActivity(Intent(this, PromoActivity::class.java))
             R.id.nav_settings -> startActivity(Intent(this, SettingsActivity::class.java))
             R.id.nav_about -> startActivity(Intent(this, AboutActivity::class.java))

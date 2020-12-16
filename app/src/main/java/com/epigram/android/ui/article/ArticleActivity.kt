@@ -8,7 +8,6 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NavUtils
 import androidx.core.app.ShareCompat
 import androidx.core.widget.NestedScrollView
@@ -22,25 +21,31 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.epigram.android.ui.adapters.AdapterTag
 import com.epigram.android.R
+import com.epigram.android.data.arch.PreferenceModule
 import com.epigram.android.data.arch.android.BaseActivity
 import com.epigram.android.data.arch.utils.LoadNextPage
 import com.epigram.android.data.arch.utils.SnapHelperOne
 import com.epigram.android.data.arch.utils.Utils
 import com.epigram.android.data.model.Post
-import com.epigram.android.ui.adapters.BreakingAdapter
-import com.epigram.android.ui.section.SectionMvp
+import com.epigram.android.ui.adapters.AdapterAuthorTag
+import com.epigram.android.ui.adapters.AdapterBreaking
 import kotlinx.android.synthetic.main.activity_article_view.*
-import org.sufficientlysecure.htmltextview.HtmlFormatter
-import org.sufficientlysecure.htmltextview.HtmlFormatterBuilder
 import org.sufficientlysecure.htmltextview.HtmlHttpImageGetter
 import org.sufficientlysecure.htmltextview.HtmlTextView
 import java.util.*
+import kotlin.collections.HashSet
 
 
 class ArticleActivity : BaseActivity<ArticleMvp.Presenter>(), ArticleMvp.View, LoadNextPage {
 
     var url: String = "https://epigram.org.uk/"
     private var recyclerView: RecyclerView? = null
+    private val saved = PreferenceModule.savedPosts
+    private val liked = PreferenceModule.likedPosts
+    private val tags = PreferenceModule.likedTags
+    private val authors = PreferenceModule.likedAuthors
+    private  var isSaved = false
+    private  var isLiked = false
     lateinit var post: Post
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -95,8 +100,12 @@ class ArticleActivity : BaseActivity<ArticleMvp.Presenter>(), ArticleMvp.View, L
         val layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         recyclerView!!.layoutManager = layoutManager
         recyclerView!!.itemAnimator = DefaultItemAnimator()
-        recyclerView!!.adapter =
-            AdapterTag(post.tags)
+        recyclerView!!.adapter = AdapterTag(post.tags)
+
+        val layout = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        recycler_view_author!!.layoutManager = layout
+        recycler_view_author!!.itemAnimator = DefaultItemAnimator()
+        recycler_view_author!!.adapter = AdapterAuthorTag(post.authors)
 
         val snapHelper = SnapHelperOne()
         recycler_related!!.onFlingListener = null
@@ -129,12 +138,47 @@ class ArticleActivity : BaseActivity<ArticleMvp.Presenter>(), ArticleMvp.View, L
         article_post_title.text = post.title
         //article_tag_text.text = post.tag
         article_post_date_alternate.text = Utils.dateText(post.date)//post.date.toString("MMM d, yyyy")
+
+        if (saved.get().contains(post.id)) {
+            isSaved = true
+            save.isChecked = true
+        }
+        if (liked.get().contains(post.id)) {
+            isLiked = true
+            like.isChecked = true
+        }
+
+        save.setOnClickListener {
+            val savedPosts = HashSet(saved.get())
+            if (isSaved) savedPosts.remove(post.id)
+            else savedPosts.add(post.id)
+            saved.set(savedPosts)
+        }
+        like.setOnClickListener {
+            val likedPosts = HashSet(liked.get())
+            val likedTags = HashSet(tags.get())
+            val likedAuthors = HashSet(authors.get())
+
+            if (isLiked) {
+                likedPosts.remove(post.id)
+                likedTags.removeAll(slugs)
+                likedAuthors.removeAll(post.authors.second.orEmpty())
+            }
+            else{
+                likedPosts.add(post.id)
+                likedTags.addAll(slugs)
+                likedAuthors.addAll(post.authors.second.orEmpty())
+            }
+            liked.set(likedPosts)
+            tags.set(likedTags)
+            authors.set(likedAuthors)
+        }
     }
 
     override fun onPostSuccess(posts: List<Post>) {
         val p = posts.toMutableList()
         p.remove(post)
-        if(p.isNotEmpty()){ recycler_related.adapter = BreakingAdapter(this, p, this) }
+        if(p.isNotEmpty()){ recycler_related.adapter = AdapterBreaking(this, p, this) }
         else {
             related.visibility = View.GONE
             recycler_related.visibility = View.GONE
