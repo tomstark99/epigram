@@ -7,6 +7,7 @@ The mobile Android App for the University of Bristol's Student Newspaper, built 
 ## Latest Release - 16/12/2020
 
 ### Version 1.9
+Like and save articles
 
 - saving an article will put the id in a list to be read later
 - liking an article will show you articles based on the tags and authors of that article
