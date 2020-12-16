@@ -148,20 +148,29 @@ class ArticleActivity : BaseActivity<ArticleMvp.Presenter>(), ArticleMvp.View, L
         }
 
         save.setOnClickListener {
-            if (isSaved) saved.get().remove(post.id)
-            else saved.get().add(post.id)
+            val savedPosts = saved.get()
+            if (isSaved) savedPosts.remove(post.id)
+            else savedPosts.add(post.id)
+            saved.set(savedPosts)
         }
         like.setOnClickListener {
+            val likedPosts = liked.get()
+            val likedTags = tags.get()
+            val likedAuthors = authors.get()
+
             if (isLiked) {
-                saved.get().remove(post.id)
-                tags.get().removeAll(post.tags.second.orEmpty())
-                authors.get().removeAll(post.authors.second.orEmpty())
+                likedPosts.remove(post.id)
+                likedTags.removeAll(slugs)
+                likedAuthors.removeAll(post.authors.second.orEmpty())
             }
             else{
-                saved.get().add(post.id)
-                tags.get().addAll(post.tags.second.orEmpty())
-                authors.get().addAll(post.authors.second.orEmpty())
+                likedPosts.add(post.id)
+                likedTags.addAll(slugs)
+                likedAuthors.addAll(post.authors.second.orEmpty())
             }
+            liked.set(likedPosts)
+            tags.set(likedTags)
+            authors.set(likedAuthors)
         }
     }
 
