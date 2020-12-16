@@ -30,6 +30,21 @@ object PreferenceModule {
         rxSharedPrefs.getString("latest_notification.string")
     }
 
+    val savedPosts by lazy {
+        rxSharedPrefs.getStringSet("saved.list", mutableSetOf())
+    }
+
+    val likedPosts by lazy {
+        rxSharedPrefs.getStringSet("liked.list", mutableSetOf())
+    }
+
+    val likedTags by lazy {
+        rxSharedPrefs.getStringSet("tags.list", mutableSetOf("news","the-croft"))
+    }
+    val likedAuthors by lazy {
+        rxSharedPrefs.getStringSet("authors.list", mutableSetOf("epigram-news"))
+    }
+
     private val sharedPrefs by lazy {
         PreferenceManager.getDefaultSharedPreferences(AppModule.application)
     }
