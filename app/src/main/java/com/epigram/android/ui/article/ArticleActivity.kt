@@ -130,8 +130,9 @@ class ArticleActivity : BaseActivity<ArticleMvp.Presenter>(), ArticleMvp.View, L
                 .apply(RequestOptions.bitmapTransform(MultiTransformation(CenterCrop(), RoundedCorners(40))))
                 .into(article_post_image)
 
-        val htmlTextView: HtmlTextView = html_text
-        htmlTextView.setHtml(post.html, HtmlHttpImageGetter(htmlTextView, null, true))
+//        val htmlTextView: HtmlTextView = html_text
+//        htmlTextView.setHtml(post.html, HtmlHttpImageGetter(htmlTextView, null, true))
+        html_webview.loadData(post.html, "text/html", null);
 //        val formattedHtml = HtmlFormatter.formatHtml(HtmlFormatterBuilder().setHtml(post.html).setImageGetter(HtmlHttpImageGetter(htmlTextView, null, true)))
 //        htmlTextView.text = formattedHtml
 //      article_text.text = Html.fromHtml(post.html)
