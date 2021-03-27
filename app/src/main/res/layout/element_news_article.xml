@@ -13,58 +13,69 @@
     android:paddingEnd="@dimen/element_padding">
 
     <LinearLayout
-        android:id="@+id/frame"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <ImageView
+        android:orientation="vertical"
+        android:background="@drawable/tab_s_background">
+        <LinearLayout
+            android:id="@+id/frame"
             android:layout_width="match_parent"
-            android:layout_height="110dp"
-            android:id="@+id/post_image"
-            android:scaleType="centerCrop"
-            android:src="@drawable/placeholder_background"
-            android:adjustViewBounds="false"/>
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="110dp"
+                android:id="@+id/post_image"
+                android:scaleType="centerCrop"
+                android:src="@drawable/placeholder_background"
+                android:adjustViewBounds="false"/>
             <TextView
                 android:id="@+id/post_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingStart="@dimen/element_padding_half"
                 android:layout_weight="1"
                 android:textSize="16dp"
                 tools:text="ARTICLE TITLE"
                 android:textStyle="normal"
                 android:textColor="@color/black"
                 android:fontFamily="sans-serif-condensed-medium"/>
-    </LinearLayout>
+        </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="@dimen/baby_padding">
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_view_tag"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_gravity="center"
-            android:clipToPadding="false"/>
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center">
-            <ImageView
-                android:layout_width="12dp"
-                android:layout_height="12dp"
-                android:layout_gravity="center"
-                android:src="@drawable/ic_access_time_black_24dp"/>
-            <TextView
-                android:id="@+id/post_date_alternate"
+            android:paddingTop="@dimen/baby_padding"
+            android:paddingStart="@dimen/element_padding_half"
+            android:paddingEnd="@dimen/element_padding_half"
+            android:paddingBottom="@dimen/element_padding_half">
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view_tag"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/baby_padding"
+                android:orientation="horizontal"
                 android:layout_gravity="center"
-                tools:text="June 10, 2019"
-                android:textSize="11dp"
-                android:fontFamily="sans-serif-condensed-medium"/>
+                android:clipToPadding="false"/>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center">
+                <ImageView
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_access_time_black_24dp"/>
+                <TextView
+                    android:id="@+id/post_date_alternate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/baby_padding"
+                    android:layout_gravity="center"
+                    tools:text="June 10, 2019"
+                    android:textSize="11dp"
+                    android:fontFamily="sans-serif-condensed-medium"/>
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
+
 </LinearLayout>
