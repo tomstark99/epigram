@@ -6,6 +6,6 @@ import com.epigram.android.data.managers.PostManagerImpl
 object DataModule {
 
     val postManager by lazy {
-        PostManagerImpl(ApiModule.apiService)
+        PostManagerImpl(ApiModule.apiServiceEpigram)
     }
 }

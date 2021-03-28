@@ -1,7 +1,7 @@
 package com.epigram.android.data.managers
 
 import com.epigram.android.BuildConfig
-import com.epigram.android.data.api.EpigramService
+import com.epigram.android.data.api.epigram.EpigramService
 import com.epigram.android.data.model.Post
 import io.reactivex.Single
 import java.util.*

@@ -1,4 +1,4 @@
-package com.epigram.android.data.api
+package com.epigram.android.data.api.epigram
 
 import com.epigram.android.data.model.PostTemplate
 import com.epigram.android.data.model.SearchResult
