@@ -38,13 +38,13 @@ class ViewManagerImpl (val service: GaService, val epiService: EpigramService) :
     }
 
     override fun getMostRead(count: Int, token: String): Single<List<Post>> {
-        return service.getMostRead("ga%3A176589224",
+        return service.getMostRead("ga:176589224",
             "21daysAgo",
             "today",
-            "ga%3Apageviews",
-            "ga%3Apagepath",
-            "-ga%3Apageviews",
-            "ga%3ApagePath!%3D%2F%3Bga%3ApagePath!%40tag%3Bga%3ApagePath!%40page%3Bga%3ApagePath!%40amp",
+            "ga:pageviews",
+            "ga@pagePath",
+            "-ga:pageviews",
+            "ga:pagePath!=/;ga:pagePath!~^\\/tag\\/*;ga:pagePath!~^\\/page\\/*;ga:pagePath!@amp",
             "7",
             token).map { body ->
             Views.fromTemplate(body)?.slugs
