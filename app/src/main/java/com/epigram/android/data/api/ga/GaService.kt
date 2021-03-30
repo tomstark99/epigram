@@ -12,10 +12,10 @@ interface GaService {
     fun getAccessToken(@Query("client_id") id: String,
                        @Query("client_secret") secret: String,
                        @Query("grant_type") type: String,
-                       @Query("refresh_token") token: String): Single<GaWrapper<AuthenticatorTemplate>>
+                       @Query("refresh_token") token: String): Single<AuthenticatorTemplate>
 
     @POST("oauth2/v3/tokeninfo")
-    fun getTokenValidity(@Query("access_token") token: String): Single<GaWrapper<AuthenticatorTemplate>>
+    fun getTokenValidity(@Query("access_token") token: String): Single<AuthenticatorTemplate>
 
     @GET("analytics/v3/data/ga")
     fun getPostViews(@Query("ids") id: String,
@@ -23,7 +23,7 @@ interface GaService {
                      @Query("end-date") endDate: String,
                      @Query("metrics") metrics: String,
                      @Query("filters") filter: String,
-                     @Query("access_token") token: String): Single<GaWrapper<ViewTemplate>>
+                     @Query("access_token") token: String): Single<ViewTemplate>
 
     @GET("analytics/v3/data/ga")
     fun getMostRead(@Query("ids") id: String,
@@ -34,6 +34,6 @@ interface GaService {
                     @Query("sort") sort: String,
                     @Query("filters") filter: String,
                     @Query("max-results") limit: String,
-                    @Query("access_token") token: String): Single<GaWrapper<ViewTemplate>>
+                    @Query("access_token") token: String): Single<ViewTemplate>
 
 }

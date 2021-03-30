@@ -10,7 +10,7 @@ data class Views(
         fun fromTemplate(template: ViewTemplate): Views? {
             var slugs = mutableListOf<String>()
             var views = mutableListOf<String>()
-            template.rows.views.forEach {
+            template.rows.forEach {
                 if (it.size == 1) {
                     views.add(it.first())
                 } else {
@@ -24,13 +24,5 @@ data class Views(
 }
 
 data class ViewTemplate(
-    val rows: Rows
-)
-
-data class GaWrapper<T>(
-    val content: T
-)
-
-data class Rows(
-    val views: List<List<String>>
+    val rows: List<List<String>>
 )

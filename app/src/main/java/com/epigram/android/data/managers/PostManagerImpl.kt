@@ -8,7 +8,7 @@ import java.util.*
 
 class PostManagerImpl (val service: EpigramService) : PostManager{
 
-    val KEY = BuildConfig.API_KEY
+    private val KEY = BuildConfig.API_KEY
 
     override fun getPosts(page: Int, filter: String?): Single<List<Post>> {
         var tagFilter: String? = null

@@ -1,41 +1,64 @@
 package com.epigram.android.data.managers
 
 import com.epigram.android.BuildConfig
+import com.epigram.android.data.api.epigram.EpigramService
 import com.epigram.android.data.api.ga.GaService
 import com.epigram.android.data.model.Post
+import com.epigram.android.data.model.TokenAuthenticator
 import com.epigram.android.data.model.Views
 import io.reactivex.Single
+import java.util.ArrayList
 
-class ViewManagerImpl (val service: GaService) : ViewManager {
+class ViewManagerImpl (val service: GaService, val epiService: EpigramService) : ViewManager {
 
     private var token = String
 
     override fun getToken(): Single<String> {
         return service.getAccessToken(BuildConfig.GA_CLIENT_ID, BuildConfig.GA_CLIENT_SECRET, "refresh_token", BuildConfig.GA_REFRESH_TOKEN).map { body ->
-            body.content.access_token
+            TokenAuthenticator.fromTemplate(body)?.token
         }
     }
 
     override fun validateToken(token: String): Single<Boolean> {
         return service.getTokenValidity(token).map { body ->
-            !body.content.expires_in.isNullOrEmpty()
+            TokenAuthenticator.fromTemplate(body)?.expiry!!.isNotEmpty()
         }
     }
 
     override fun getViews(path: String, token: String): Single<String> {
-        return service.getPostViews(BuildConfig.GA_CLIENT_ID,
+        return service.getPostViews("ga:176589224",
             "2015-01-01",
             "today",
-            "ga%3Apageviews",
-            "ga%3ApagePath%3D%40${path}",
+            "ga:pageviews",
+            "ga:pagePath=@${path}",
             token).map { body ->
-            val views = Views.fromTemplate(body.content)
+            val views = Views.fromTemplate(body)
             views!!.views.first()
         }
     }
 
     override fun getMostRead(count: Int, token: String): Single<List<Post>> {
-        //
+        return service.getMostRead("ga%3A176589224",
+            "21daysAgo",
+            "today",
+            "ga%3Apageviews",
+            "ga%3Apagepath",
+            "-ga%3Apageviews",
+            "ga%3ApagePath!%3D%2F%3Bga%3ApagePath!%40tag%3Bga%3ApagePath!%40page%3Bga%3ApagePath!%40amp",
+            "7",
+            token).map { body ->
+            Views.fromTemplate(body)?.slugs
+        }.flatMap { slugs ->
+            if(slugs.isEmpty()) return@flatMap Single.just((emptyList<Post>()))
+            epiService.getPostsFilter(BuildConfig.API_KEY, "tags,authors", "slug:[${slugs.joinToString(",")}]", "20", 0, "published_at desc").map { body ->
+                    val posts = ArrayList<Post>()
+
+                    for (post in body.posts) {
+                        Post.fromTemplate(post)?.let { posts.add(it) }
+                    }
+                    posts
+                }
+        }
     }
 
 }

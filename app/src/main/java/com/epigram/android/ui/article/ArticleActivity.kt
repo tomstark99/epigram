@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -173,6 +174,8 @@ class ArticleActivity : BaseActivity<ArticleMvp.Presenter>(), ArticleMvp.View, L
             tags.set(likedTags)
             authors.set(likedAuthors)
         }
+
+        presenter.loadViews(post.url.split("/")[post.url.split("/").lastIndex-1])
     }
 
     override fun onPostSuccess(posts: List<Post>) {
@@ -203,6 +206,10 @@ class ArticleActivity : BaseActivity<ArticleMvp.Presenter>(), ArticleMvp.View, L
         } else {
             start(this, clicked)
         }
+    }
+
+    override fun setViewCount(views: String) {
+        Log.d("views", "${views}")
     }
 
     companion object {

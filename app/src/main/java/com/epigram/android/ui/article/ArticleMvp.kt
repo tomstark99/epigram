@@ -9,9 +9,11 @@ interface ArticleMvp : BaseMvp {
         fun onPostSuccess(posts: List<Post>)
         fun onPostError()
         fun setClickables()
+        fun setViewCount(views: String)
     }
 
     interface Presenter : BaseMvp.Presenter {
         fun load(tag: String)
+        fun loadViews(path: String)
     }
 }
