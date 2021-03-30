@@ -14,7 +14,7 @@ data class Views(
                 if (it.size == 1) {
                     views.add(it.first())
                 } else {
-                    slugs.add(it[0])
+                    slugs.add(it[0].split("/")[it[0].split("/").lastIndex-1])
                     views.add(it[1])
                 }
             }

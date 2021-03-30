@@ -5,6 +5,7 @@ import com.epigram.android.data.DataModule
 import com.epigram.android.data.arch.android.BasePresenter
 import com.epigram.android.data.managers.PostManager
 import com.epigram.android.data.managers.ViewManager
+import com.google.android.gms.tasks.CancellationTokenSource
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.schedulers.Schedulers
@@ -60,6 +61,7 @@ class ArticlePresenter (view: ArticleMvp.View, private val postManager: PostMana
                 if (valid) {
                     this.token = token
                     getPostViews(token)
+                    getMostRead(token)
                     Log.d("token confirmation", "token is valid")
                 } else {
                     Log.d("token confirmation", "token not valid")
@@ -77,6 +79,17 @@ class ArticlePresenter (view: ArticleMvp.View, private val postManager: PostMana
                 view?.setViewCount(views)
             }, { e ->
                 Log.e("views error", "something went wrong retrieving post views", e)
+            }).addTo(subscription)
+    }
+
+    fun getMostRead(token: String) {
+        gaManager.getMostRead(10,token)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({ posts ->
+                Log.d("posts", "posts")
+            }, { e ->
+                Log.e("most read error", "something went wrong loading most read posts", e)
             }).addTo(subscription)
     }
 }

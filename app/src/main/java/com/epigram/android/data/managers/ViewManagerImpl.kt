@@ -42,15 +42,15 @@ class ViewManagerImpl (val service: GaService, val epiService: EpigramService) :
             "21daysAgo",
             "today",
             "ga:pageviews",
-            "ga@pagePath",
+            "ga:pagePath",
             "-ga:pageviews",
             "ga:pagePath!=/;ga:pagePath!~^\\/tag\\/*;ga:pagePath!~^\\/page\\/*;ga:pagePath!@amp",
-            "7",
+            "$count",
             token).map { body ->
             Views.fromTemplate(body)?.slugs
         }.flatMap { slugs ->
             if(slugs.isEmpty()) return@flatMap Single.just((emptyList<Post>()))
-            epiService.getPostsFilter(BuildConfig.API_KEY, "tags,authors", "slug:[${slugs.joinToString(",")}]", "20", 0, "published_at desc").map { body ->
+            epiService.getPostsFilter(BuildConfig.API_KEY, "tags,authors", "slug:[${slugs.joinToString(",")}]", "20", 0, "").map { body ->
                     val posts = ArrayList<Post>()
 
                     for (post in body.posts) {
