@@ -6,6 +6,7 @@ import java.io.Serializable
 data class Post(
     val id: String,
     val uuid: String,
+    val slug: String,
     val title: String,
     val html: String,
     val image: String?,
@@ -13,7 +14,8 @@ data class Post(
     val tags: Pair<List<String>?, List<String>?>,
     val authors: Triple<List<String>?, List<String>?, List<String>?>,
     val date: DateTime,
-    val url : String
+    val url : String,
+    var views: String
 
 ):Serializable{
     companion object{
@@ -25,6 +27,7 @@ data class Post(
             return Post(
                 template.id,
                 template.uuid,
+                template.slug,
                 template.title,
                 x,
                 template.feature_image,
@@ -33,7 +36,8 @@ data class Post(
                 Triple(template.authors?.map { authors -> authors.name }, template.authors?.map { authors -> authors.slug }, template.authors?.map { authors -> authors.profile_image.orEmpty() }),
 //                template.tags?.map { tags -> tags.slug },
                 DateTime.parse(template.published_at),
-                template.url
+                template.url,
+                ""
             )
         }
     }
@@ -42,6 +46,7 @@ data class Post(
 data class PostTemplate(
     val id: String,
     val uuid: String,
+    val slug: String,
     val title: String,
     val html: String?,
     val feature_image: String?,

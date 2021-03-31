@@ -47,16 +47,19 @@ class ViewManagerImpl (val service: GaService, val epiService: EpigramService) :
             "ga:pagePath!=/;ga:pagePath!~^\\/tag\\/*;ga:pagePath!~^\\/page\\/*;ga:pagePath!@amp",
             "$count",
             token).map { body ->
-            Views.fromTemplate(body)?.slugs
-        }.flatMap { slugs ->
-            if(slugs.isEmpty()) return@flatMap Single.just((emptyList<Post>()))
-            epiService.getPostsFilter(BuildConfig.API_KEY, "tags,authors", "slug:[${slugs.joinToString(",")}]", "20", 0, "").map { body ->
+            Views.fromTemplate(body)
+        }.flatMap { response ->
+            if(response.slugs.isEmpty()) return@flatMap Single.just((emptyList<Post>()))
+            epiService.getPostsFilter(BuildConfig.API_KEY, "tags,authors", "slug:[${response.slugs.joinToString(",")}]", "20", 0, "published_at desc").map { body ->
                     val posts = ArrayList<Post>()
 
                     for (post in body.posts) {
                         Post.fromTemplate(post)?.let { posts.add(it) }
                     }
-                    posts
+                    val slugsById = response.slugs.withIndex().associate { it.value to it.index }
+                    val sortedPosts = posts.sortedBy { slugsById[it.slug] }
+                    sortedPosts.mapIndexed { i, it -> it.views = response.views[i] }
+                    sortedPosts
                 }
         }
     }

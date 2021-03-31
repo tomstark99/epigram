@@ -61,7 +61,6 @@ class ArticlePresenter (view: ArticleMvp.View, private val postManager: PostMana
                 if (valid) {
                     this.token = token
                     getPostViews(token)
-                    getMostRead(token)
                     Log.d("token confirmation", "token is valid")
                 } else {
                     Log.d("token confirmation", "token not valid")

@@ -79,7 +79,6 @@ class ArticleActivity : BaseActivity<ArticleMvp.Presenter>(), ArticleMvp.View, L
         ).smoothScrollTo(0,0) }
 
         presenter = ArticlePresenter(this)
-
     }
 
     private fun shareThis() {
@@ -94,6 +93,8 @@ class ArticleActivity : BaseActivity<ArticleMvp.Presenter>(), ArticleMvp.View, L
 
     override fun onStart() {
         super.onStart()
+
+        presenter.loadViews(post.url.split("/")[post.url.split("/").lastIndex-1])
 
         post = intent.getSerializableExtra(ARG_POST) as Post
 
@@ -112,8 +113,10 @@ class ArticleActivity : BaseActivity<ArticleMvp.Presenter>(), ArticleMvp.View, L
         recycler_related!!.onFlingListener = null
         snapHelper.attachToRecyclerView(recycler_related!!)
         recycler_related!!.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+
         val slugs = post.tags.second.orEmpty().toMutableList()
         slugs.removeAll(Arrays.asList("featured-top", "carousel", "one-sidebar", "weeklytop", "no-sidebar"))
+
         if (slugs.isNotEmpty()){ presenter.load(slugs[0]) }
         else {
             related.visibility = View.GONE
@@ -174,8 +177,6 @@ class ArticleActivity : BaseActivity<ArticleMvp.Presenter>(), ArticleMvp.View, L
             tags.set(likedTags)
             authors.set(likedAuthors)
         }
-
-        presenter.loadViews(post.url.split("/")[post.url.split("/").lastIndex-1])
     }
 
     override fun onPostSuccess(posts: List<Post>) {
@@ -209,7 +210,7 @@ class ArticleActivity : BaseActivity<ArticleMvp.Presenter>(), ArticleMvp.View, L
     }
 
     override fun setViewCount(views: String) {
-        Log.d("views", "${views}")
+        article_views.text = "$views reads"
     }
 
     companion object {
