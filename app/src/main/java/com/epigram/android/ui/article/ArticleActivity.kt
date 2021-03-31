@@ -94,9 +94,9 @@ class ArticleActivity : BaseActivity<ArticleMvp.Presenter>(), ArticleMvp.View, L
     override fun onStart() {
         super.onStart()
 
-        presenter.loadViews(post.url.split("/")[post.url.split("/").lastIndex-1])
-
         post = intent.getSerializableExtra(ARG_POST) as Post
+
+        presenter.loadViews(post.url.split("/")[post.url.split("/").lastIndex-1])
 
         recyclerView = findViewById(R.id.recycler_view_tag)
         val layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
