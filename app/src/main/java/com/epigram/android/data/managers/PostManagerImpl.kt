@@ -5,6 +5,7 @@ import com.epigram.android.data.api.epigram.EpigramService
 import com.epigram.android.data.model.Post
 import io.reactivex.Single
 import java.util.*
+import kotlin.collections.ArrayList
 
 class PostManagerImpl (val service: EpigramService) : PostManager{
 
@@ -25,7 +26,6 @@ class PostManagerImpl (val service: EpigramService) : PostManager{
             posts
         }
     }
-
 
     override fun getPostsBreaking(): Single<List<Post>> {
 

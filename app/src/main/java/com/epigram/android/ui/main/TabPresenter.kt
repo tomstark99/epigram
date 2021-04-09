@@ -4,6 +4,7 @@ import android.util.Log
 import com.epigram.android.data.DataModule
 import com.epigram.android.data.arch.PreferenceModule
 import com.epigram.android.data.arch.android.BasePresenter
+import com.epigram.android.data.managers.KeywordManager
 import com.epigram.android.data.managers.PostManager
 import com.epigram.android.data.model.Authors
 import com.epigram.android.data.model.Post
@@ -14,11 +15,13 @@ import io.reactivex.functions.BiFunction
 import io.reactivex.functions.Function3
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.schedulers.Schedulers
+import timber.log.Timber
 
 typealias p = List<Post>
 
 class TabPresenter (view: TabMvp.View,
                     private val postManager: PostManager = DataModule.postManager,
+                    private val keywordManager: KeywordManager = DataModule.keywordManager,
                     private val likedTags: Preference<MutableSet<String>> = PreferenceModule.likedTags,
                     private val likedAuthors: Preference<MutableSet<String>> = PreferenceModule.likedAuthors) : BasePresenter<TabMvp.View>(view), TabMvp.Presenter {
 
@@ -87,6 +90,14 @@ class TabPresenter (view: TabMvp.View,
             }, { e ->
                 view?.onPostError()
                 Log.e("error", "something went wrong loading posts", e)
+            }).addTo(subscription)
+
+        keywordManager.generateKeywords()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({ keywords ->
+                keywords.forEach { Timber.d("keyword %s", it) }
+            }, { e -> Timber.e(e, "error generating keywords")
             }).addTo(subscription)
     }
 

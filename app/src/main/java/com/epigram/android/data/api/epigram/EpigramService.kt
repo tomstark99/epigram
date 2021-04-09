@@ -14,6 +14,9 @@ interface EpigramService {
     fun getPostsFilter(@Query("key") key: String, @Query("include") include: String, @Query("filter") filter: String?, @Query("limit") limit: String, @Query("page") page: Int, @Query("order") order: String): Single<Wrapper<PostTemplate>>
 
     @GET("ghost/api/v2/content/posts")
+    fun getPostsIDs(@Query("key") key: String, @Query("filter") filter: String?, @Query("limit") limit: String): Single<Wrapper<PostTemplate>>
+
+    @GET("ghost/api/v2/content/posts")
     fun getPostsBreak(@Query("key") key: String, @Query("include") include: String, @Query("filter") filter: String?, @Query("limit") limit: String, @Query("order") order: String): Single<Wrapper<PostTemplate>>
 
     @GET("ghost/api/v2/content/posts")
