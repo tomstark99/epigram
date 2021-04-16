@@ -92,12 +92,13 @@ class TabPresenter (view: TabMvp.View,
                 Log.e("error", "something went wrong loading posts", e)
             }).addTo(subscription)
 
-        keywordManager.generateKeywords()
+        keywordManager.generateKeywordsFromLiked()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ keywords ->
                 keywords.forEach { Timber.d("keyword %s", it) }
-            }, { e -> Timber.e(e, "error generating keywords")
+            }, { e ->
+                Timber.e(e, "error generating keywords")
             }).addTo(subscription)
     }
 

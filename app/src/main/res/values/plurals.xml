@@ -11,4 +11,9 @@
         <item quantity="one">This screen will show %d more time</item>
         <item quantity="other">This screen will show %d more times</item>
     </plurals>
+
+    <plurals name="views">
+        <item quantity="one">%d read</item>
+        <item quantity="other">%d reads</item>
+    </plurals>
 </resources>

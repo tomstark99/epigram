@@ -1,16 +1,22 @@
 package com.epigram.android.ui.article
 
+import android.provider.ContactsContract
 import android.util.Log
 import com.epigram.android.data.DataModule
 import com.epigram.android.data.arch.android.BasePresenter
+import com.epigram.android.data.managers.KeywordManager
 import com.epigram.android.data.managers.PostManager
 import com.epigram.android.data.managers.ViewManager
 import com.google.android.gms.tasks.CancellationTokenSource
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.schedulers.Schedulers
+import timber.log.Timber
 
-class ArticlePresenter (view: ArticleMvp.View, private val postManager: PostManager = DataModule.postManager, private val gaManager: ViewManager = DataModule.gaManager) : BasePresenter<ArticleMvp.View>(view), ArticleMvp.Presenter {
+class ArticlePresenter (view: ArticleMvp.View,
+                        private val postManager: PostManager = DataModule.postManager,
+                        private val gaManager: ViewManager = DataModule.gaManager,
+                        private val keywordManager: KeywordManager = DataModule.keywordManager) : BasePresenter<ArticleMvp.View>(view), ArticleMvp.Presenter {
 
     private var token = ""
     private lateinit var path: String
@@ -26,6 +32,10 @@ class ArticlePresenter (view: ArticleMvp.View, private val postManager: PostMana
             getAccessToken()
         }
         else getPostViews(token)
+    }
+
+    override fun loadKeywords(title: String) {
+        getArticleKeyWords(title)
     }
 
     fun getPosts(tag: String) {
@@ -89,6 +99,17 @@ class ArticlePresenter (view: ArticleMvp.View, private val postManager: PostMana
                 Log.d("posts", "posts")
             }, { e ->
                 Log.e("most read error", "something went wrong loading most read posts", e)
+            }).addTo(subscription)
+    }
+
+    fun getArticleKeyWords(title: String) {
+        keywordManager.generateKeywordsFromTitle(title)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({ keywords ->
+                view?.onKeywordSuccess(keywords)
+            }, { e ->
+                Timber.e("something went wrong generating keywords from the title", e)
             }).addTo(subscription)
     }
 }
