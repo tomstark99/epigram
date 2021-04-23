@@ -105,7 +105,7 @@
     <string name="welcome_text_3">Show this screen to your waiter when you pay to receive 25% off your food bill.</string>
     <string name="welcome_terms">Terms and conditions apply. Valid from Sunday to Wednesday until 15 March. Cannot be used in conjunction with any other offer.</string>
     <string name="build">%s [%s] %s</string>
-    <string name="copyright_text">Copyright © 2020 epigram</string>
+    <string name="copyright_text">Copyright © 2021 epigram</string>
 
     <string name="light">Light</string>
     <string name="dark">Dark</string>
