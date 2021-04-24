@@ -1,6 +1,6 @@
 package com.epigram.android.data.arch
 
-import android.preference.PreferenceManager
+import androidx.preference.PreferenceManager
 import com.f2prateek.rx.preferences2.RxSharedPreferences
 import androidx.appcompat.app.AppCompatDelegate.*
 
@@ -43,6 +43,10 @@ object PreferenceModule {
     }
     val likedAuthors by lazy {
         rxSharedPrefs.getStringSet("authors.list", mutableSetOf("epigram-news"))
+    }
+
+    val keywords by lazy {
+        rxSharedPrefs.getStringSet("keywords.list", mutableSetOf())
     }
 
     private val sharedPrefs by lazy {

@@ -17,5 +17,6 @@ interface ArticleMvp : BaseMvp {
         fun load(tag: String)
         fun loadViews(path: String)
         fun loadKeywords(title: String)
+        fun updateKeywords()
     }
 }

@@ -4,6 +4,10 @@ import com.epigram.android.BuildConfig
 import com.epigram.android.data.api.epigram.EpigramService
 import com.epigram.android.data.model.Post
 import io.reactivex.Single
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.rxkotlin.addTo
+import io.reactivex.schedulers.Schedulers
+import timber.log.Timber
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -120,7 +124,6 @@ class PostManagerImpl (val service: EpigramService) : PostManager{
         return service
             .getPostsFilter(KEY, "tags,authors", "id:[${ids.joinToString(",")}]", "20", page, "published_at desc").map { body ->
                 val posts = ArrayList<Post>()
-
                 for (post in body.posts) {
                     Post.fromTemplate(post)?.let { posts.add(it) }
                 }
@@ -128,16 +131,50 @@ class PostManagerImpl (val service: EpigramService) : PostManager{
             }
     }
 
-    override fun getPostsLiked(page: Int, tags: List<String>, authors: List<String>): Single<List<Post>> {
+    override fun getPostsLiked(page: Int, tags: List<String>, authors: List<String>, keywords: List<String>): Single<List<Post>> {
         return service
-            .getPostsFilter(KEY, "tags,authors", "tag:[${tags.joinToString(",")}],author:[${authors.joinToString(",")}]", "20", page, "published_at desc").map { body ->
-                val posts = ArrayList<Post>()
+            .getSearchIDs(KEY, "authors", "200", "title,id,primary_author,tag",page , "published_at desc").map { body ->
 
-                for (post in body.posts) {
-                    Post.fromTemplate(post)?.let { posts.add(it) }
+                body.posts.filter { post -> keywords.any { post.title.contains(it) } }.map { it.id } //&& tags.any { tag -> if(post.tags.isNullOrEmpty()) emptyList<String>().contains(tag) else post.tags.map { it.name }.contains(tag) } }.map { it.id }
+
+            }.flatMap { ids ->
+                if(ids.isEmpty()) {
+                    service
+                        .getPostsFilter(KEY,
+                            "tags,authors",
+                            "tag:[${tags.joinToString(",")}],author:[${authors.joinToString(",")}]",
+                            "20",
+                            0,
+                            "published_at desc")
+                        .map { body ->
+                            val posts = ArrayList<Post>()
+
+                            for (post in body.posts) {
+                                Post.fromTemplate(post)?.let { posts.add(it) }
+                            }
+                            posts
+                        }
+//                    Single.just(emptyList<Post>())
+                } else {
+                    service
+                        .getPostsFilter(
+                            KEY,
+                            "tags,authors",
+                            "id:[${ids.joinToString(",")}]",
+                            "200"
+                            , 0, "published_at desc")
+                        .map { body ->
+                            val posts = ArrayList<Post>()
+
+                            for (post in body.posts) {
+                                Post.fromTemplate(post)?.let { posts.add(it) }
+                            }
+                            posts
+                        }
                 }
-                posts
             }
+
+
     }
 
     override fun getArticle(id: String): Single<Post> {

@@ -78,7 +78,7 @@ class SectionPresenter (view: SectionMvp.View, private val postManager: PostMana
         gaManager.getMostRead(count, token)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({ posts -> 
+            .subscribe({ posts ->
                 view?.onPostSuccessMostRead(posts)
             }, { e ->
                 view?.onPostError()

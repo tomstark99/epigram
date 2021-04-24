@@ -22,6 +22,7 @@ typealias p = List<Post>
 class TabPresenter (view: TabMvp.View,
                     private val postManager: PostManager = DataModule.postManager,
                     private val keywordManager: KeywordManager = DataModule.keywordManager,
+                    private val keywords: Preference<MutableSet<String>> = PreferenceModule.keywords,
                     private val likedTags: Preference<MutableSet<String>> = PreferenceModule.likedTags,
                     private val likedAuthors: Preference<MutableSet<String>> = PreferenceModule.likedAuthors) : BasePresenter<TabMvp.View>(view), TabMvp.Presenter {
 
@@ -47,7 +48,7 @@ class TabPresenter (view: TabMvp.View,
             }
         }
         else if(tabNum == 1) {
-            getPostsForYou(pageNum, likedTags.get().toList(), likedAuthors.get().toList())
+            getPostsForYou(pageNum, likedTags.get().toList(), likedAuthors.get().toList(), keywords.get().toList())
         }
         else {
             getPosts(pageNum, tab)
@@ -81,8 +82,8 @@ class TabPresenter (view: TabMvp.View,
             }).addTo(subscription)
     }
 
-    fun getPostsForYou(pageNum: Int, tags: List<String>, authors: List<String>) {
-        postManager.getPostsLiked(pageNum, tags, authors)
+    fun getPostsForYou(pageNum: Int, tags: List<String>, authors: List<String>, keywords: List<String>) {
+        postManager.getPostsLiked(pageNum, tags, authors, keywords)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ posts ->
@@ -90,15 +91,6 @@ class TabPresenter (view: TabMvp.View,
             }, { e ->
                 view?.onPostError()
                 Log.e("error", "something went wrong loading posts", e)
-            }).addTo(subscription)
-
-        keywordManager.generateKeywordsFromLiked()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({ keywords ->
-                keywords.forEach { Timber.d("keyword %s", it) }
-            }, { e ->
-                Timber.e(e, "error generating keywords")
             }).addTo(subscription)
     }
 

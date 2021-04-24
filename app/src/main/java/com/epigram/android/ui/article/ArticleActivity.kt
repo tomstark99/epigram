@@ -98,7 +98,7 @@ class ArticleActivity : BaseActivity<ArticleMvp.Presenter>(), ArticleMvp.View, L
         post = intent.getSerializableExtra(ARG_POST) as Post
 
         presenter.loadViews(post.url.split("/")[post.url.split("/").lastIndex-1])
-        presenter.loadKeywords(post.title)
+//        presenter.loadKeywords(post.title)
 
         recyclerView = findViewById(R.id.recycler_view_tag)
         val layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
@@ -178,6 +178,8 @@ class ArticleActivity : BaseActivity<ArticleMvp.Presenter>(), ArticleMvp.View, L
             liked.set(likedPosts)
             tags.set(likedTags)
             authors.set(likedAuthors)
+
+            presenter.updateKeywords()
         }
     }
 
