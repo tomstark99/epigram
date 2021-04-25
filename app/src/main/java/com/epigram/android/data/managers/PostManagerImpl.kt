@@ -169,7 +169,21 @@ class PostManagerImpl (val service: EpigramService) : PostManager{
                             for (post in body.posts) {
                                 Post.fromTemplate(post)?.let { posts.add(it) }
                             }
-                            posts
+
+                            val postMap = posts.associateWith { 0 }.toMutableMap()
+
+                            posts.forEach { post ->
+                                if (post.authors.second.orEmpty().any { authors.contains(it) } && post.tags.second.orEmpty().all { tags.contains(it) }) {
+                                    postMap[post] = postMap[post]!! + 3
+                                } else if (post.authors.second.orEmpty().any { authors.contains(it) } && post.tags.second.orEmpty().any { tags.contains(it) }) {
+                                    postMap[post] = postMap[post]!! + 2
+                                } else if (post.authors.second.orEmpty().any { authors.contains(it) } || post.tags.second.orEmpty().any { tags.contains(it) }) {
+                                    postMap[post] = postMap[post]!! + 1
+                                }
+                            }
+
+                            postMap.toList().sortedByDescending { (_, v) -> v }.toMap().keys.toList()
+//                            posts
                         }
                 }
             }
