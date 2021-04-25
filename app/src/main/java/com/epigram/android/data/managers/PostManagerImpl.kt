@@ -135,7 +135,7 @@ class PostManagerImpl (val service: EpigramService) : PostManager{
         return service
             .getSearchIDs(KEY, "authors", "200", "title,id,primary_author,tag",page , "published_at desc").map { body ->
 
-                body.posts.filter { post -> keywords.any { post.title.contains(it) } }.map { it.id } //&& tags.any { tag -> if(post.tags.isNullOrEmpty()) emptyList<String>().contains(tag) else post.tags.map { it.name }.contains(tag) } }.map { it.id }
+                body.posts.filter { post -> keywords.any { post.title.toLowerCase().split(" ").contains(it) } }.map { it.id } //&& tags.any { tag -> if(post.tags.isNullOrEmpty()) emptyList<String>().contains(tag) else post.tags.map { it.name }.contains(tag) } }.map { it.id }
 
             }.flatMap { ids ->
                 if(ids.isEmpty()) {
