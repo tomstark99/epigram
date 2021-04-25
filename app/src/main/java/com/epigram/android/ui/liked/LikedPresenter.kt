@@ -24,7 +24,7 @@ class LikedPresenter (view: LikedMvp.View, private val postManager: PostManager 
     }
 
     fun getPosts(pageNum: Int, tags: List<String>, authors: List<String>) {
-        postManager.getPostsLiked(pageNum, tags, authors)
+        postManager.getPostsLiked(pageNum, tags, authors, emptyList())
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ posts ->

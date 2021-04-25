@@ -91,6 +91,10 @@ class SectionActivityC : BaseActivity<SectionMvp.Presenter>(), SectionMvp.View, 
 
     }
 
+    override fun onPostSuccessMostRead(posts: List<Post>) {
+
+    }
+
     override fun onPostSuccessCorona(corona: List<Post>) {
             pageNum++
             loaded = true

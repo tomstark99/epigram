@@ -8,10 +8,15 @@ interface ArticleMvp : BaseMvp {
     interface View : BaseMvp.View {
         fun onPostSuccess(posts: List<Post>)
         fun onPostError()
+        fun onKeywordSuccess(keywords: List<String>)
         fun setClickables()
+        fun setViewCount(views: String)
     }
 
     interface Presenter : BaseMvp.Presenter {
         fun load(tag: String)
+        fun loadViews(path: String)
+        fun loadKeywords(title: String)
+        fun updateKeywords()
     }
 }
