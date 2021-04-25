@@ -2,18 +2,19 @@ package com.epigram.android.data.managers
 
 import com.epigram.android.BuildConfig
 import com.epigram.android.data.api.epigram.EpigramService
+import com.epigram.android.data.arch.PreferenceModule
 import com.epigram.android.data.model.Post
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.schedulers.Schedulers
-import timber.log.Timber
 import java.util.*
 import kotlin.collections.ArrayList
 
 class PostManagerImpl (val service: EpigramService) : PostManager{
 
     private val KEY = BuildConfig.API_KEY
+    private val personalisationId = PreferenceModule.advancedForYou.get()
 
     override fun getPosts(page: Int, filter: String?): Single<List<Post>> {
         var tagFilter: String? = null
@@ -138,7 +139,7 @@ class PostManagerImpl (val service: EpigramService) : PostManager{
                 body.posts.filter { post -> keywords.any { post.title.toLowerCase().split(" ").contains(it) } }.map { it.id } //&& tags.any { tag -> if(post.tags.isNullOrEmpty()) emptyList<String>().contains(tag) else post.tags.map { it.name }.contains(tag) } }.map { it.id }
 
             }.flatMap { ids ->
-                if(ids.isEmpty()) {
+                if(ids.isEmpty() || personalisationId == 0) {
                     service
                         .getPostsFilter(KEY,
                             "tags,authors",

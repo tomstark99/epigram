@@ -6,7 +6,6 @@ import com.epigram.android.BuildConfig
 import com.epigram.android.data.model.Post
 import com.f2prateek.rx.preferences2.Preference
 import io.reactivex.Single
-import timber.log.Timber
 import kotlin.math.ln
 import kotlin.time.TimedValue
 

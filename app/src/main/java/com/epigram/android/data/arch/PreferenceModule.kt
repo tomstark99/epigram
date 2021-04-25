@@ -26,6 +26,10 @@ object PreferenceModule {
         rxSharedPrefs.getInteger("layout.int", 1)
     }
 
+    val advancedForYou by lazy {
+        rxSharedPrefs.getInteger("foryou.int", 1)
+    }
+
     val latestNotification by lazy {
         rxSharedPrefs.getString("latest_notification.string")
     }

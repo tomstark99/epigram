@@ -13,7 +13,6 @@ import com.google.android.gms.tasks.CancellationTokenSource
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.schedulers.Schedulers
-import timber.log.Timber
 
 class ArticlePresenter (view: ArticleMvp.View,
                         private val postManager: PostManager = DataModule.postManager,
@@ -42,14 +41,14 @@ class ArticlePresenter (view: ArticleMvp.View,
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ updatedKeywords ->
-                updatedKeywords.forEach { Timber.d("keyword %s", it) }
+//                updatedKeywords.forEach { Timber.d("keyword %s", it) }
 
                 val keywordSet = HashSet(keywords.get())
                 keywordSet.clear()
                 keywordSet.addAll(updatedKeywords)
                 keywords.set(keywordSet)
             }, { e ->
-                Timber.e(e, "error generating keywords")
+//                Timber.e(e, "error generating keywords")
             }).addTo(subscription)
     }
 
@@ -117,7 +116,7 @@ class ArticlePresenter (view: ArticleMvp.View,
             .subscribe({ keywords ->
                 view?.onKeywordSuccess(keywords)
             }, { e ->
-                Timber.e("something went wrong generating keywords from the title", e)
+//                Timber.e("something went wrong generating keywords from the title", e)
             }).addTo(subscription)
     }
 }

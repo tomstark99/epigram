@@ -31,6 +31,7 @@ class MainActivity : BaseActivity<MainActivityMvp.Presenter>(),
     NavigationView.OnNavigationItemSelectedListener, MainActivityMvp.View {
 
     private var l: Int = PreferenceModule.layoutMode.get()
+    private var fy: Int = PreferenceModule.advancedForYou.get()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -172,8 +173,9 @@ class MainActivity : BaseActivity<MainActivityMvp.Presenter>(),
 
     override fun onResume() {
         super.onResume()
-        if(l != PreferenceModule.layoutMode.get()) {
+        if(l != PreferenceModule.layoutMode.get() || fy != PreferenceModule.advancedForYou.get()) {
             l = PreferenceModule.layoutMode.get()
+            fy = PreferenceModule.advancedForYou.get()
             this.recreate()
         }
     }

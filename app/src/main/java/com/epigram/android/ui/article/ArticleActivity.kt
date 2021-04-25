@@ -33,7 +33,6 @@ import com.epigram.android.ui.adapters.AdapterBreaking
 import kotlinx.android.synthetic.main.activity_article_view.*
 import org.sufficientlysecure.htmltextview.HtmlHttpImageGetter
 import org.sufficientlysecure.htmltextview.HtmlTextView
-import timber.log.Timber
 import java.util.*
 import kotlin.collections.HashSet
 
@@ -194,7 +193,7 @@ class ArticleActivity : BaseActivity<ArticleMvp.Presenter>(), ArticleMvp.View, L
     }
 
     override fun onKeywordSuccess(keywords: List<String>) {
-        keywords.forEach { Timber.d("keyword %s", it) }
+//        keywords.forEach { Timber.d("keyword %s", it) }
     }
 
     override fun onPostError() {
