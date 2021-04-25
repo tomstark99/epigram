@@ -91,7 +91,6 @@
                     android:fontFamily="sans-serif-condensed-medium"
                     android:textStyle="bold"
                     android:textColor="@color/black"/>
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -103,6 +102,11 @@
                         android:orientation="horizontal"
                         android:layout_gravity="center"
                         android:clipToPadding="false"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="@dimen/tiny_padding">
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -119,7 +123,27 @@
                             android:layout_marginStart="@dimen/baby_padding"
                             android:layout_gravity="center"
                             tools:text="June 10, 2019"
-                            android:textSize="11dp"
+                            android:textSize="12dp"
+                            android:fontFamily="sans-serif-condensed-medium"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="@dimen/element_padding">
+                        <ImageView
+                            android:layout_width="12dp"
+                            android:layout_height="12dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_visibility_24px"/>
+                        <TextView
+                            android:id="@+id/article_views"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/baby_padding"
+                            android:layout_gravity="center"
+                            tools:text="4321 reads"
+                            android:textSize="12dp"
                             android:fontFamily="sans-serif-condensed-medium"/>
                     </LinearLayout>
                 </LinearLayout>
@@ -151,7 +175,7 @@
                     <LinearLayout
                         android:id="@+id/save_frame"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent">
+                        android:layout_height="wrap_content">
                         <CheckBox
                             android:id="@+id/save"
                             android:layout_width="wrap_content"

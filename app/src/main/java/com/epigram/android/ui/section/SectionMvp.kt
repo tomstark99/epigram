@@ -7,6 +7,7 @@ interface SectionMvp : BaseMvp {
 
     interface View : BaseMvp.View {
         fun onPostSuccess(posts: List<Post>)
+        fun onPostSuccessMostRead(posts: List<Post>)
         fun onPostSuccessCorona(corona: List<Post>)
         fun onPostError()
         fun setClickables()
@@ -14,6 +15,7 @@ interface SectionMvp : BaseMvp {
 
     interface Presenter : BaseMvp.Presenter {
         fun load(pageNum: Int, section: String)
+        fun loadMR(count: Int)
         fun loadC(pageNum: Int, section: String)
     }
 }

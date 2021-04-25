@@ -31,6 +31,7 @@ class SectionActivity : BaseActivity<SectionMvp.Presenter>(), SectionMvp.View, L
 
         const val ARG_SECTION = "section.object"
         const val ARG_SECTION_TAG = "tag.object"
+        const val ARG_MOST_READ = "weeklytop"
 
         const val FIRST_INDEX = 1
 
@@ -65,12 +66,20 @@ class SectionActivity : BaseActivity<SectionMvp.Presenter>(), SectionMvp.View, L
         swipe_refresh.setOnRefreshListener {
             pageNum = FIRST_INDEX
             section_something_wrong.visibility = View.GONE
-            presenter.load(pageNum, tag1)
+            if(tag1 != ARG_MOST_READ) {
+                presenter.load(pageNum, tag1)
+            } else {
+                presenter.loadMR(20)
+            }
         }
 
         presenter = SectionPresenter(this)
         section_something_wrong.visibility = View.GONE
-        presenter.load(pageNum, tag1)
+        if(tag1 != ARG_MOST_READ) {
+            presenter.load(pageNum, tag1)
+        } else {
+            presenter.loadMR(20)
+        }
     }
 
     override fun setClickables() {
@@ -87,16 +96,29 @@ class SectionActivity : BaseActivity<SectionMvp.Presenter>(), SectionMvp.View, L
     }
 
     override fun onPostSuccess(posts: List<Post>) {
-            pageNum++
-            loaded = true
-            swipe_refresh.isRefreshing = false
-            if (adapter == null) {
-                adapter = AdapterArticles(this, posts.toMutableList(), this, 0)
-                recycler_view_section.adapter = adapter
-            } else {
-                if (pageNum == FIRST_INDEX + 1) (adapter as AdapterArticles).clear()
-                adapter!!.addPosts(posts)
-            }
+        pageNum++
+        loaded = true
+        swipe_refresh.isRefreshing = false
+        if (adapter == null) {
+            adapter = AdapterArticles(this, posts.toMutableList(), this, 0)
+            recycler_view_section.adapter = adapter
+        } else {
+            if (pageNum == FIRST_INDEX + 1) (adapter as AdapterArticles).clear()
+            adapter!!.addPosts(posts)
+        }
+    }
+
+    override fun onPostSuccessMostRead(posts: List<Post>) {
+        pageNum++
+        loaded = true
+        swipe_refresh.isRefreshing = false
+        if (adapter == null) {
+            adapter = AdapterArticles(this, posts.toMutableList(), this, 0)
+            recycler_view_section.adapter = adapter
+        } else {
+            if (pageNum == FIRST_INDEX + 1) (adapter as AdapterArticles).clear()
+            adapter!!.addPosts(posts)
+        }
     }
 
     override fun onPostSuccessCorona(corona: List<Post>) {
@@ -116,7 +138,9 @@ class SectionActivity : BaseActivity<SectionMvp.Presenter>(), SectionMvp.View, L
         else {
             loaded = false
             section_something_wrong.visibility = View.GONE
-            presenter.load(pageNum, tag1)
+            if(tag1 != ARG_MOST_READ) {
+                presenter.load(pageNum, tag1)
+            }
         }
     }
 

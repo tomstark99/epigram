@@ -181,6 +181,47 @@
                 android:paddingBottom="@dimen/tiny_padding"
                 android:paddingStart="@dimen/small_padding"
                 android:paddingEnd="@dimen/small_padding"
+                android:text="ADVANCED"
+                android:textSize="10sp"
+                android:textColor="@color/black"
+                android:letterSpacing="0.2"/>
+            <LinearLayout
+                android:id="@+id/for_you_setting"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/medium_padding"
+                android:paddingEnd="@dimen/medium_padding"
+                android:paddingTop="@dimen/element_padding"
+                android:paddingBottom="@dimen/element_padding"
+                android:background="?android:selectableItemBackground"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="For You page"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"/>
+                <TextView
+                    android:id="@+id/for_you_request"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/button_tint"
+                    tools:text="Advanced Personalisation (Beta)"
+                    android:textSize="16sp"/>
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="@dimen/small_padding"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/tiny_padding"
+                android:paddingBottom="@dimen/tiny_padding"
+                android:paddingStart="@dimen/small_padding"
+                android:paddingEnd="@dimen/small_padding"
                 android:text="ADDITIONAL INFORMATION"
                 android:textSize="10sp"
                 android:textColor="@color/black"

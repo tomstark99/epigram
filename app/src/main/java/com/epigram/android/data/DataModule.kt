@@ -1,11 +1,21 @@
 package com.epigram.android.data
 
 import com.epigram.android.data.api.ApiModule
+import com.epigram.android.data.managers.KeywordManagerImpl
 import com.epigram.android.data.managers.PostManagerImpl
+import com.epigram.android.data.managers.ViewManagerImpl
 
 object DataModule {
 
     val postManager by lazy {
-        PostManagerImpl(ApiModule.apiService)
+        PostManagerImpl(ApiModule.apiServiceEpigram)
+    }
+
+    val gaManager by lazy {
+        ViewManagerImpl(ApiModule.apiServiceGa, ApiModule.apiServiceEpigram)
+    }
+
+    val keywordManager by lazy {
+        KeywordManagerImpl(ApiModule.apiServiceEpigram)
     }
 }
