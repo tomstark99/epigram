@@ -75,5 +75,6 @@ data class Authors(
 data class SearchResult(
     val id: String,
     val title: String,
-    val primary_author: Authors
+    val primary_author: Authors,
+    val tags: List<Tags>?
 )

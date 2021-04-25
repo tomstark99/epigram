@@ -97,6 +97,7 @@ class ArticleActivity : BaseActivity<ArticleMvp.Presenter>(), ArticleMvp.View, L
         post = intent.getSerializableExtra(ARG_POST) as Post
 
         presenter.loadViews(post.url.split("/")[post.url.split("/").lastIndex-1])
+//        presenter.loadKeywords(post.title)
 
         recyclerView = findViewById(R.id.recycler_view_tag)
         val layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
@@ -176,6 +177,8 @@ class ArticleActivity : BaseActivity<ArticleMvp.Presenter>(), ArticleMvp.View, L
             liked.set(likedPosts)
             tags.set(likedTags)
             authors.set(likedAuthors)
+
+            presenter.updateKeywords()
         }
     }
 
@@ -187,6 +190,10 @@ class ArticleActivity : BaseActivity<ArticleMvp.Presenter>(), ArticleMvp.View, L
             related.visibility = View.GONE
             recycler_related.visibility = View.GONE
         }
+    }
+
+    override fun onKeywordSuccess(keywords: List<String>) {
+//        keywords.forEach { Timber.d("keyword %s", it) }
     }
 
     override fun onPostError() {
@@ -210,7 +217,11 @@ class ArticleActivity : BaseActivity<ArticleMvp.Presenter>(), ArticleMvp.View, L
     }
 
     override fun setViewCount(views: String) {
-        article_views.text = "$views reads"
+        article_views.text = resources.getQuantityString(
+            R.plurals.views,
+            views.toInt(),
+            views.toInt()
+        )
     }
 
     companion object {

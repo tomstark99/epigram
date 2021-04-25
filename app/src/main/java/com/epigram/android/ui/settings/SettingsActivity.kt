@@ -36,6 +36,13 @@ class SettingsActivity : BaseActivity<SettingsMvp.Presenter>(), SettingsMvp.View
     lateinit var ly_compact: RadioButton
     lateinit var ly_current: RadioButton
 
+    lateinit var fy_m: Dialog
+    lateinit var fy_no: Button
+    lateinit var fy_rg: RadioGroup
+    lateinit var fy_default: RadioButton
+    lateinit var fy_advanced: RadioButton
+    lateinit var fy_current: RadioButton
+
     enum class Theme(val id: Int, @StringRes val theme: Int, @IdRes val rb: Int){
         LIGHT(0, R.string.light, R.id.light),
         DARK(1, R.string.dark, R.id.dark),
@@ -47,12 +54,18 @@ class SettingsActivity : BaseActivity<SettingsMvp.Presenter>(), SettingsMvp.View
         COMPACT(1, R.string.compact_layout, R.id.compact_layout)
     }
 
+    enum class ForYou(val id: Int, @StringRes val personalisation: Int, @IdRes val rb: Int) {
+        DEFAULT(0, R.string.default_personalisation, R.id.for_you_default),
+        ADVANCED(1, R.string.advanced_personalisation, R.id.for_you_advanced)
+    }
+
     private var map = mutableMapOf<Int, Int>(MODE_NIGHT_NO to 0,
                                             MODE_NIGHT_YES to 1,
                                             MODE_NIGHT_FOLLOW_SYSTEM to 2)
 
     private var th_buttonMap = mutableMapOf<RadioButton, Int>()
     private var ly_buttonMap = mutableMapOf<RadioButton, Int>()
+    private var fy_buttonMap = mutableMapOf<RadioButton, Int>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -75,6 +88,12 @@ class SettingsActivity : BaseActivity<SettingsMvp.Presenter>(), SettingsMvp.View
         ly_m.setContentView(R.layout.element_dialog_layout)
         ly_m.window!!.setLayout(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT)
 
+        fy_m = Dialog(this, R.style.SubmitTheme)
+        fy_m.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        fy_m.setCancelable(true)
+        fy_m.setContentView(R.layout.element_dialog_for_you)
+        fy_m.window!!.setLayout(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT)
+
         th_no = th_m.findViewById(R.id.btNegative) as Button
         th_rg = th_m.findViewById(R.id.theme_group) as RadioGroup
         th_light = th_m.findViewById(R.id.light) as RadioButton
@@ -88,6 +107,12 @@ class SettingsActivity : BaseActivity<SettingsMvp.Presenter>(), SettingsMvp.View
         ly_compact = ly_m.findViewById(R.id.compact_layout) as RadioButton
         ly_current = ly_m.findViewById(Layout.values()[PreferenceModule.layoutMode.get()].rb) as RadioButton
 
+        fy_no = fy_m.findViewById(R.id.btNegative) as Button
+        fy_rg = fy_m.findViewById(R.id.for_you_group) as RadioGroup
+        fy_default = fy_m.findViewById(R.id.for_you_default) as RadioButton
+        fy_advanced = fy_m.findViewById(R.id.for_you_advanced) as RadioButton
+        fy_current = fy_m.findViewById(ForYou.values()[PreferenceModule.advancedForYou.get()].rb) as RadioButton
+
         th_buttonMap[th_light] = MODE_NIGHT_NO
         th_buttonMap[th_dark] = MODE_NIGHT_YES
         th_buttonMap[th_followDevice] = MODE_NIGHT_FOLLOW_SYSTEM
@@ -95,17 +120,22 @@ class SettingsActivity : BaseActivity<SettingsMvp.Presenter>(), SettingsMvp.View
         ly_buttonMap[ly_default] = 0
         ly_buttonMap[ly_compact] = 1
 
+        fy_buttonMap[fy_default] = 0
+        fy_buttonMap[fy_advanced] = 1
+
         val typeFace = Typeface.createFromAsset(getAssets(), "fonts/lora_bold.ttf")
         settings_title.typeface = typeFace
         build.text = getString(R.string.build, BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE.toString(), BuildConfig.BUILD_TIME.toString())
         theme_request.setText(Theme.values()[map[PreferenceModule.darkMode.get()]!!].theme)
         layout_request.setText(Layout.values()[PreferenceModule.layoutMode.get()].layout)
+        for_you_request.setText(ForYou.values()[PreferenceModule.advancedForYou.get()].personalisation)
     }
 
     override fun setClickables() {
         settings_back.setOnClickListener{ finish() }
         theme_setting.setOnClickListener { th_m.show() }
         layout_setting.setOnClickListener { ly_m.show() }
+        for_you_setting.setOnClickListener { fy_m.show() }
         build_button.setOnClickListener {  }
 
         th_no.setOnClickListener { th_m.cancel() }
@@ -130,6 +160,18 @@ class SettingsActivity : BaseActivity<SettingsMvp.Presenter>(), SettingsMvp.View
                 presenter.setLayout(ly_buttonMap[c]!!)
                 layout_request.setText(Layout.values()[PreferenceModule.layoutMode.get()].layout)
                 ly_m.cancel()
+            }
+        }
+
+        fy_no.setOnClickListener { fy_m.cancel() }
+        fy_current.isChecked = true
+        fy_current.setOnClickListener { fy_m.cancel() }
+        fy_rg.setOnCheckedChangeListener { group, i ->
+            var c = group.findViewById(i) as RadioButton
+            if(c.isChecked) {
+                presenter.setPersonalisation(fy_buttonMap[c]!!)
+                for_you_request.setText(ForYou.values()[PreferenceModule.advancedForYou.get()].personalisation)
+                fy_m.cancel()
             }
         }
     }

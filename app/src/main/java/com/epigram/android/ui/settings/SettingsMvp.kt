@@ -11,6 +11,7 @@ interface SettingsMvp : BaseMvp {
         fun onCreate()
         fun setTheme(i: Int)
         fun setLayout(i: Int)
+        fun setPersonalisation(i: Int)
         fun reload()
     }
 }

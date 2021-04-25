@@ -1,16 +1,24 @@
 package com.epigram.android.ui.article
 
+import android.provider.ContactsContract
 import android.util.Log
 import com.epigram.android.data.DataModule
+import com.epigram.android.data.arch.PreferenceModule
 import com.epigram.android.data.arch.android.BasePresenter
+import com.epigram.android.data.managers.KeywordManager
 import com.epigram.android.data.managers.PostManager
 import com.epigram.android.data.managers.ViewManager
+import com.f2prateek.rx.preferences2.Preference
 import com.google.android.gms.tasks.CancellationTokenSource
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.schedulers.Schedulers
 
-class ArticlePresenter (view: ArticleMvp.View, private val postManager: PostManager = DataModule.postManager, private val gaManager: ViewManager = DataModule.gaManager) : BasePresenter<ArticleMvp.View>(view), ArticleMvp.Presenter {
+class ArticlePresenter (view: ArticleMvp.View,
+                        private val postManager: PostManager = DataModule.postManager,
+                        private val gaManager: ViewManager = DataModule.gaManager,
+                        private val keywords: Preference<MutableSet<String>> = PreferenceModule.keywords,
+                        private val keywordManager: KeywordManager = DataModule.keywordManager) : BasePresenter<ArticleMvp.View>(view), ArticleMvp.Presenter {
 
     private var token = ""
     private lateinit var path: String
@@ -26,6 +34,26 @@ class ArticlePresenter (view: ArticleMvp.View, private val postManager: PostMana
             getAccessToken()
         }
         else getPostViews(token)
+    }
+
+    override fun updateKeywords() {
+        keywordManager.generateKeywordsFromLiked()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({ updatedKeywords ->
+//                updatedKeywords.forEach { Timber.d("keyword %s", it) }
+
+                val keywordSet = HashSet(keywords.get())
+                keywordSet.clear()
+                keywordSet.addAll(updatedKeywords)
+                keywords.set(keywordSet)
+            }, { e ->
+//                Timber.e(e, "error generating keywords")
+            }).addTo(subscription)
+    }
+
+    override fun loadKeywords(title: String) {
+        getArticleKeyWords(title)
     }
 
     fun getPosts(tag: String) {
@@ -81,14 +109,14 @@ class ArticlePresenter (view: ArticleMvp.View, private val postManager: PostMana
             }).addTo(subscription)
     }
 
-    fun getMostRead(token: String) {
-        gaManager.getMostRead(10,token)
+    fun getArticleKeyWords(title: String) {
+        keywordManager.generateKeywordsFromTitle(title)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({ posts ->
-                Log.d("posts", "posts")
+            .subscribe({ keywords ->
+                view?.onKeywordSuccess(keywords)
             }, { e ->
-                Log.e("most read error", "something went wrong loading most read posts", e)
+//                Timber.e("something went wrong generating keywords from the title", e)
             }).addTo(subscription)
     }
 }
