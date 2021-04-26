@@ -4,7 +4,31 @@
 
 The mobile Android App for the University of Bristol's Student Newspaper, built from the ground up using Kotlin with a Model View presenter design pattern. The app has many features all tied together with a beautiful user interface.
 
-## Latest Release - 16/12/2020
+## Latest Release - 26/04/2021
+
+### Version 1.10
+Google Analytics for article view count and most read, liked articles based on keywords
+
+- Added Google Analytics request pipeline for requesting article views and top viewed articles
+- article now displays the number of reads
+- fixed some issues where the posts were not sorted for most read
+- fixed a crash due to api request being made before post variable set
+- using TF and IDF scores to weight and extract keywords from titles of posts saved by users
+- changed framework for keyword pipeline by routing through epigram api service with its own manager flatmaping onto the list of posts to generate the keywords
+- Only extracts keywords that have a higher score than base value
+- articles can extract keywords from their title (to use for new related section)
+- added plurals to reads
+- Implemented loading getMostRead from gaManager if tag in section activity is equal to weekly top. Semi hacky implementation, could make its own activity or streamline covid activity into section since redundant code (switch statement)
+- updated copyright string
+- added keyword list preference
+- migrated to androidx sharedprefs
+- changed liked posts to load based on ids filtered by keywords
+- fixed an issue where posts would show without keywords
+- for you posts are given a score based on how many elements they contain that you have liked
+- Optimised scoring by associating score to id rather than the post object
+- choose between default and advanced personalisation
+
+## Previous Releases
 
 ### Version 1.9
 Like and save articles
@@ -31,8 +55,6 @@ Like and save articles
 - extracted author tags to its own adapter
 - dispose only being called for posts loaded with TabFragment
 - slightly increased tag text size
-
-## Previous Releases
 
 ### Version 1.8.1
 
