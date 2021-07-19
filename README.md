@@ -2,7 +2,9 @@
 
 ## About
 
-The mobile Android App for the University of Bristol's Student Newspaper, built from the ground up using Kotlin with a Model View presenter design pattern. The app has many features all tied together with a beautiful user interface.
+The Android App for the University of Bristol's Student Newspaper, built from the ground up using Kotlin with a Model View presenter design pattern. 
+
+<!-- The app has many features all tied together with a beautiful user interface. -->
 
 ## Latest Release - 26/04/2021
 
@@ -195,3 +197,7 @@ Release build of epigram features include:
 - Read articles
 - Search for articles and authors
 - Filter articles by tag or section
+
+---
+
+© tomstark99 2021
