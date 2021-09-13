@@ -77,7 +77,7 @@ class AdapterSearch (var context: Context, posts: List<Post>, var loadNext: Load
 
     override fun onViewDetachedFromWindow(holder: ViewHolder) {
         super.onViewDetachedFromWindow(holder)
-        holder.disposable?.let { disposable -> disposable.dispose() }
+        holder.disposable?.dispose()
     }
 
     fun initPosts(newPosts: List<Post>) {

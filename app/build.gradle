@@ -15,8 +15,8 @@ android {
         applicationId "com.epigram.android"
         minSdkVersion 23
         targetSdkVersion 29
-        versionCode 22
-        versionName "1.10"
+        versionCode 23
+        versionName "1.10.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
 
@@ -82,7 +82,7 @@ dependencies {
     implementation 'com.f2prateek.rx.preferences2:rx-preferences:2.0.0-RC3'
 
     implementation 'com.jakewharton.rxbinding2:rxbinding:2.1.1'
-    implementation 'org.sufficientlysecure:html-textview:3.9'
+    implementation 'org.sufficientlysecure:html-textview:4.0'
     implementation("com.squareup.okhttp3:logging-interceptor:3.14.2")
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.6.0'
     implementation 'com.google.firebase:firebase-core:17.4.4'

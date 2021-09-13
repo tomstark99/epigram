@@ -89,26 +89,16 @@ class AdapterCorona(context: Context, posts: MutableList<Post>, loadNext: LoadNe
 
     inner class MyViewHolder(l: LinearLayout) : RecyclerView.ViewHolder(l) {
 
-        var title: TextView?
-        var articleImage: ImageView?
-        var tags: RecyclerView?
-        var date: TextView?
+        var title: TextView? = l.findViewById(R.id.post_title)
+        var articleImage: ImageView? = l.findViewById(R.id.post_image)
+        var tags: RecyclerView? = l.findViewById(R.id.recycler_view_tag)
+        var date: TextView? = l.findViewById(R.id.post_date_alternate)
 
-        var firstElementText: TextView?
+        private var firstElementText: TextView? = l.findViewById(R.id.search_results_number)
         var imageLoaded = false
-        var linearLayout: LinearLayout
+        var linearLayout: LinearLayout = l
         var disposable: Disposable? = null
 
-        init {
-            title = l.findViewById(R.id.post_title)
-            articleImage = l.findViewById(R.id.post_image)
-            date = l.findViewById(R.id.post_date_alternate)
-            tags = l.findViewById(R.id.recycler_view_tag)
-
-            firstElementText = l.findViewById(R.id.search_results_number)
-
-            linearLayout = l
-        }
     }
 
 

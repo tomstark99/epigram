@@ -33,6 +33,7 @@ import com.jakewharton.rxbinding2.view.RxView
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
+import io.reactivex.rxkotlin.addTo
 import java.util.concurrent.TimeUnit
 import kotlin.collections.ArrayList
 
@@ -59,32 +60,32 @@ class AdapterArticlesHome(context: Context, posts: MutableList<Post>, var breaki
         POSITION_ONE(0, R.layout.element_news_article_breaking_list),
         POSITION_THR(1, R.layout.element_news_article_first),
         POSITION_MRE(2, R.layout.element_news_article),
-        POSITION_CMP(3, R.layout.element_news_article_new),
-        POSITION_MAS(4, R.layout.element_corona_mask)
+        POSITION_CMP(3, R.layout.element_news_article_new)
+//        POSITION_MAS(4, R.layout.element_corona_mask)
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
+//        if (position == 0) {
+//            if(mask) {
+//                mask = false
+//                holder.maskLayout!!.visibility = View.VISIBLE
+////                holder.staySafe!!.setBackgroundResource(0) // ACTIVATE THESE TWO
+////                holder.staySafe!!.setTextColor(context.getColor(R.color.black)) // TWO
+//                holder.maskCLoseIc!!.animate().rotationBy(180f).start()
+//            }
+//        }
         if (position == 0) {
-            if(mask) {
-                mask = false
-                holder.maskLayout!!.visibility = View.VISIBLE
-//                holder.staySafe!!.setBackgroundResource(0) // ACTIVATE THESE TWO
-//                holder.staySafe!!.setTextColor(context.getColor(R.color.black)) // TWO
-                holder.maskCLoseIc!!.animate().rotationBy(180f).start()
-            }
-        }
-        else if (position == 1) {
             val snapHelper = SnapHelperOne()
             holder.breaking!!.onFlingListener = null
             snapHelper.attachToRecyclerView(holder.breaking!!)
             holder.breaking!!.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             holder.breaking!!.adapter = AdapterBreaking(context, breakingPosts, loadNextPage)
         }
-        else if(position > 1) {
+        else if(position > 0) {
             holder.tags!!.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
             holder.tags!!.itemAnimator = DefaultItemAnimator()
-            holder.tags!!.adapter = AdapterTag(posts[position-2].tags)
-            setPost(holder, position-2)
+            holder.tags!!.adapter = AdapterTag(posts[position-1].tags)
+            setPost(holder, position-1)
         }
     }
 
@@ -96,11 +97,11 @@ class AdapterArticlesHome(context: Context, posts: MutableList<Post>, var breaki
     }
 
     override fun getItemViewType(position: Int): Int {
-        if(position == 0) {
-            return 4
-        }
-        else if(position == 1) return 0
-        else if(position == 2) return 1
+//        if(position == 0) {
+//            return 4
+//        }
+        if(position == 0) return 0
+        else if(position == 1) return 1
         return if(l.get() == 1) 3 else 2
     }
 
@@ -148,42 +149,42 @@ class AdapterArticlesHome(context: Context, posts: MutableList<Post>, var breaki
             .throttleFirst(500, TimeUnit.MILLISECONDS)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe { empty ->
-                if (holder.adapterPosition > 1) {
+                if (holder.adapterPosition > 0) {
                     holder.articleImage!!.setTransitionName("article_header")
                     loadNextPage.onPostClicked(
-                        posts[holder.adapterPosition-2],
+                        posts[holder.adapterPosition-1],
                         if (holder.imageLoaded) holder.articleImage else null
                     )
                 }
             }
-        if (holder.adapterPosition == 0) {
-            RxView.clicks(holder.maskClose!!)
-                .throttleFirst(500, TimeUnit.MILLISECONDS)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { empty ->
-                    if(holder.maskLayout!!.visibility == View.VISIBLE) {
-                        holder.maskLayout!!.visibility = View.GONE
-//                        holder.staySafe!!.setBackgroundResource(R.drawable.tab_c_background) // ACTIVATE THESE TWO
-//                        holder.staySafe!!.setTextColor(context.getColor(R.color.red_to_white)) // TWO
-                        holder.maskCLoseIc!!.animate().rotationBy(-180f).start()
+//        if (holder.adapterPosition == 0) {
+//            RxView.clicks(holder.maskClose!!)
+//                .throttleFirst(500, TimeUnit.MILLISECONDS)
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe { empty ->
+//                    if(holder.maskLayout!!.visibility == View.VISIBLE) {
 //                        holder.maskLayout!!.visibility = View.GONE
-//                        holder.staySafe!!.visibility = View.VISIBLE
+////                        holder.staySafe!!.setBackgroundResource(R.drawable.tab_c_background) // ACTIVATE THESE TWO
+////                        holder.staySafe!!.setTextColor(context.getColor(R.color.red_to_white)) // TWO
 //                        holder.maskCLoseIc!!.animate().rotationBy(-180f).start()
-                    } else {
-                        holder.maskLayout!!.visibility = View.VISIBLE
-//                        holder.staySafe!!.setBackgroundResource(0) // ACTIVATE THESE TWO
-//                        holder.staySafe!!.setTextColor(context.getColor(R.color.black)) // TWO
-                        holder.maskCLoseIc!!.animate().rotationBy(180f).start()
-//                        holder.staySafe!!.visibility = View.GONE
+////                        holder.maskLayout!!.visibility = View.GONE
+////                        holder.staySafe!!.visibility = View.VISIBLE
+////                        holder.maskCLoseIc!!.animate().rotationBy(-180f).start()
+//                    } else {
 //                        holder.maskLayout!!.visibility = View.VISIBLE
+////                        holder.staySafe!!.setBackgroundResource(0) // ACTIVATE THESE TWO
+////                        holder.staySafe!!.setTextColor(context.getColor(R.color.black)) // TWO
 //                        holder.maskCLoseIc!!.animate().rotationBy(180f).start()
-                    }
-                    if(only_one && c.get() == 0) {
-                        only_one = false
-                        c.set(c.get() + 2)
-                    }
-                }
-        }
+////                        holder.staySafe!!.visibility = View.GONE
+////                        holder.maskLayout!!.visibility = View.VISIBLE
+////                        holder.maskCLoseIc!!.animate().rotationBy(180f).start()
+//                    }
+//                    if(only_one && c.get() == 0) {
+//                        only_one = false
+//                        c.set(c.get() + 2)
+//                    }
+//                }
+//        }
     }
 
     override fun onViewDetachedFromWindow(holder: MyViewHolder) {
@@ -198,19 +199,19 @@ class AdapterArticlesHome(context: Context, posts: MutableList<Post>, var breaki
         Observable.fromIterable(posts2)
             .distinct({it.id})
             .toList()
-            .subscribe({it -> posts = it})
+            .subscribe { it -> posts = it}
         notifyDataSetChanged()
     }
 
     fun setPost(holder: MyViewHolder, position: Int){
-//        if(position == 0 && posts[position].date.plusWeeks(1).isBeforeNow && posts[position].tags!!.contains("breaking news") && (!posts[position].title.contains("coronavirus") || !posts[position].title.contains("corona"))) {
-//            holder.itemView.visibility = View.GONE
-//            holder.itemView.layoutParams =  RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,1)
-//        } else {
+        if(position == 0 && posts[position].date.plusWeeks(1).isBeforeNow && posts[position].tags.second.orEmpty().contains("breaking-news")) {
+            holder.itemView.visibility = View.GONE
+            holder.itemView.layoutParams =  RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,1)
+        } else {
             holder.itemView.visibility = View.VISIBLE
             holder.itemView.layoutParams =  RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT)
-//        }
-        holder.title!!.text = posts[position].title
+        }
+        holder.title!!.text = if (posts[position].title.split(" ").size >= 15) posts[position].title.split(" ").take(15).joinToString(" ") + "..." else posts[position].title
         holder.date!!.text = Utils.dateText(posts[position].date)//posts[position].date.toString("MMM d, yyyy")
         Glide.with(holder.articleImage!!)
             .load(posts[position].image)
@@ -231,7 +232,7 @@ class AdapterArticlesHome(context: Context, posts: MutableList<Post>, var breaki
                 }
             ).into(holder.articleImage!!)
 
-        if(position > itemCount - 4) {
+        if(position > itemCount - 3) {
 //            posts.add
             loadNextPage.bottomReached()
         }

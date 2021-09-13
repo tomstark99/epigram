@@ -31,12 +31,9 @@ class AdapterAuthorTag(tags: Triple<List<String>?, List<String>?, List<String>?>
 
     inner class MyViewHolder(var linearLayout: LinearLayout) : RecyclerView.ViewHolder(linearLayout) {
 
-        var tag: TextView
+        var tag: TextView = linearLayout.findViewById(R.id.article_tag_text)
         var disposable: Disposable? = null
 
-        init {
-            tag = linearLayout.findViewById(R.id.article_tag_text)
-        }
     }
 
     override fun onViewDetachedFromWindow(holder: MyViewHolder) {
@@ -81,7 +78,7 @@ class AdapterAuthorTag(tags: Triple<List<String>?, List<String>?, List<String>?>
         setTag(holder, position)
     }
 
-    fun setTag(holder: MyViewHolder, position: Int) {
+    private fun setTag(holder: MyViewHolder, position: Int) {
         holder.tag.text = tags[position].toUpperCase()
     }
 
