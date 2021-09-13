@@ -3,6 +3,7 @@ package com.epigram.android.ui.adapters
 import android.app.Activity
 import android.content.Context
 import android.os.Debug
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.LinearLayout
@@ -13,12 +14,10 @@ import com.epigram.android.ui.section.SectionActivity
 import com.jakewharton.rxbinding2.view.RxView
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
-import timber.log.Timber
 
 import java.util.ArrayList
 import java.util.Arrays
 import java.util.concurrent.TimeUnit
-import java.util.logging.Logger
 
 class AdapterTag(tags: Pair<List<String>?, List<String>?>) :
     RecyclerView.Adapter<AdapterTag.MyViewHolder>() {
@@ -67,7 +66,7 @@ class AdapterTag(tags: Pair<List<String>?, List<String>?>) :
                         slugs[holder.adapterPosition]
                     )
                 }
-            }, { e -> Timber.e(e, "Tag: ${slugs[holder.adapterPosition]} is already loaded") })
+            }, { e -> Log.e("Tag: ${slugs[holder.adapterPosition]} is already loaded", e.message.orEmpty()) })
     }
 
     init {
