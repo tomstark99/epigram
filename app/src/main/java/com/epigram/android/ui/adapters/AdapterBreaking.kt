@@ -43,7 +43,7 @@ class AdapterBreaking(var context: Context, var posts: MutableList<Post>, var lo
 
 
 
-    fun setImage(holder: ViewHolder, position: Int){
+    private fun setImage(holder: ViewHolder, position: Int){
         Glide.with(holder.image)
             .load(posts[position].image)
             .diskCacheStrategy(DiskCacheStrategy.NONE)
@@ -76,7 +76,7 @@ class AdapterBreaking(var context: Context, var posts: MutableList<Post>, var lo
 
     override fun onViewAttachedToWindow(holder: ViewHolder) {
         super.onViewAttachedToWindow(holder)
-        holder.disposable?.let { disposable -> disposable.dispose() }
+        holder.disposable?.dispose()
         holder.disposable = RxView.clicks(holder.view)
             .throttleFirst(500, TimeUnit.MILLISECONDS)
             .observeOn(AndroidSchedulers.mainThread())
@@ -91,7 +91,7 @@ class AdapterBreaking(var context: Context, var posts: MutableList<Post>, var lo
 
     override fun onViewDetachedFromWindow(holder: ViewHolder) {
         super.onViewDetachedFromWindow(holder)
-        holder.disposable?.let { disposable -> disposable.dispose() }
+        holder.disposable?.dispose()
     }
 
     override fun getItemCount(): Int {
@@ -104,6 +104,7 @@ class AdapterBreaking(var context: Context, var posts: MutableList<Post>, var lo
         val date = view.post_date_alternate
         val tags = view.recycler_view_tag
         val view = view
+
         var disposable: Disposable? = null
         var imgLoaded = false
     }
