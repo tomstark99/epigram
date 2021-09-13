@@ -34,17 +34,14 @@ class AdapterTag(tags: Pair<List<String>?, List<String>?>) :
 
     inner class MyViewHolder(var linearLayout: LinearLayout) : RecyclerView.ViewHolder(linearLayout) {
 
-        var tag: TextView
+        var tag: TextView = linearLayout.findViewById(R.id.article_tag_text)
         var disposable: Disposable? = null
 
-        init {
-            tag = linearLayout.findViewById(R.id.article_tag_text)
-        }
     }
 
     override fun onViewDetachedFromWindow(holder: MyViewHolder) {
         super.onViewDetachedFromWindow(holder)
-        holder.disposable?.let { disposable -> disposable.dispose() }
+        holder.disposable?.dispose()
     }
 
 //    override fun onViewAttachedToWindow(holder: MyViewHolder) {
@@ -57,7 +54,7 @@ class AdapterTag(tags: Pair<List<String>?, List<String>?>) :
 
     override fun onViewAttachedToWindow(holder: MyViewHolder) {
         super.onViewAttachedToWindow(holder)
-        holder.disposable?.let { disposable -> disposable.dispose() }
+        holder.disposable?.dispose()
         holder.disposable = RxView.clicks(holder.linearLayout)
             .throttleFirst(500, TimeUnit.MILLISECONDS)
             .observeOn(AndroidSchedulers.mainThread())
