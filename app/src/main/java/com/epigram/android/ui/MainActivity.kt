@@ -137,7 +137,7 @@ class MainActivity : BaseActivity<MainActivityMvp.Presenter>(),
             //case R.id.nav_home :
             //    break;
             R.id.nav_most_read -> SectionActivity.start(this, menuItem.toString(), getString(R.string.menu_most_read_tag))
-            R.id.nav_covid_19 -> SectionActivityC.start(this, menuItem.toString(), getString(R.string.menu_covid_19_tag))
+//            R.id.nav_covid_19 -> SectionActivityC.start(this, menuItem.toString(), getString(R.string.menu_covid_19_tag))
 //            R.id.nav_for_you -> RecommendedActivity.start(this, menuItem.toString())
             R.id.nav_news -> SectionActivity.start(this, menuItem.toString(), getString(R.string.menu_news_tag))
             R.id.nav_features -> SectionActivity.start(this, menuItem.toString(), getString(R.string.menu_features_tag))

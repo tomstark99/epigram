@@ -20,9 +20,10 @@ import kotlinx.android.synthetic.main.app_bar_section.*
 
 class SectionActivity : BaseActivity<SectionMvp.Presenter>(), SectionMvp.View, LoadNextPage {
 
+    var tag1: String = ""
+
     private var pageNum = FIRST_INDEX
     private var section: String = ""
-    private var tag1: String = ""
     private var adapter: AdapterArticles? = null
     private var loaded = false
 
