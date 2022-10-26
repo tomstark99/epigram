@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.DecodeFormat
 import com.bumptech.glide.load.MultiTransformation
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.engine.GlideException
@@ -22,6 +23,7 @@ import com.epigram.android.R
 import com.epigram.android.data.arch.utils.LoadNextPage
 import com.epigram.android.data.arch.utils.Utils
 import com.epigram.android.data.model.Post
+import com.epigram.android.ui.adapters.AdapterTag.Companion.trimTags
 import com.jakewharton.rxbinding2.view.RxView
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -35,20 +37,21 @@ class AdapterBreaking(var context: Context, var posts: MutableList<Post>, var lo
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.tags.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         holder.tags.itemAnimator = DefaultItemAnimator()
-        holder.tags.adapter = AdapterTag(posts[position].tags)
+        holder.tags.adapter = AdapterTag(trimTags(posts[position].tags))
         holder.title.text = posts[position].title
         holder.date.text = Utils.dateText(posts[position].date)//posts[position].date.toString("MMM d, yyyy")
         setImage(holder, position)
     }
-
-
 
     private fun setImage(holder: ViewHolder, position: Int){
         Glide.with(holder.image)
             .load(posts[position].image)
             .diskCacheStrategy(DiskCacheStrategy.NONE)
             .placeholder(R.drawable.placeholder_background)
-            .apply(RequestOptions.bitmapTransform(multiTransformation))
+            .thumbnail(0.25f)
+            .apply(RequestOptions
+                .bitmapTransform(multiTransformation)
+                .format(DecodeFormat.PREFER_RGB_565))
             .listener(
                 object : RequestListener<Drawable> {
                     override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {

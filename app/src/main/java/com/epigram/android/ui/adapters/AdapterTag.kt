@@ -98,6 +98,16 @@ class AdapterTag(tags: Pair<List<String>?, List<String>?>) :
         return tags.size
     }
 
+    companion object {
+        fun trimTags(tags: Pair<List<String>?, List<String>?>): Pair<List<String>?, List<String>?> {
+            val first = tags.first ?: emptyList()
+            val second = tags.second ?: emptyList()
+            require(first.size == second.size)
+            return if (first.size > 3) first.subList(0, 3) to second.subList(0,3) else tags
+
+        }
+    }
+
 }
 
 

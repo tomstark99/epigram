@@ -5,7 +5,8 @@
     android:orientation="vertical"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:paddingEnd="@dimen/baby_padding">
+    android:paddingEnd="@dimen/baby_padding"
+    android:paddingBottom="4dp">
     <TextView
         android:id="@+id/article_tag_text"
         android:layout_width="wrap_content"

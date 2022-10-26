@@ -87,6 +87,7 @@ dependencies {
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.6.0'
     implementation 'com.google.firebase:firebase-core:17.4.4'
     implementation 'com.google.firebase:firebase-messaging:20.2.3'
+    implementation 'com.google.android:flexbox:1.0.0'
 
     debugImplementation "com.willowtreeapps.hyperion:hyperion-core:$hyperionVer"
     debugImplementation "com.willowtreeapps.hyperion:hyperion-attr:$hyperionVer"

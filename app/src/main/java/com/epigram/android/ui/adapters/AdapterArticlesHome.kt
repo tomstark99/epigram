@@ -28,6 +28,7 @@ import com.epigram.android.data.arch.utils.LoadNextPage
 import com.epigram.android.data.arch.utils.SnapHelperOne
 import com.epigram.android.data.arch.utils.Utils
 import com.epigram.android.data.model.Post
+import com.epigram.android.ui.adapters.AdapterTag.Companion.trimTags
 import com.f2prateek.rx.preferences2.Preference
 import com.jakewharton.rxbinding2.view.RxView
 import io.reactivex.Observable
@@ -84,7 +85,7 @@ class AdapterArticlesHome(context: Context, posts: MutableList<Post>, var breaki
         else if(position > 0) {
             holder.tags!!.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
             holder.tags!!.itemAnimator = DefaultItemAnimator()
-            holder.tags!!.adapter = AdapterTag(posts[position-1].tags)
+            holder.tags!!.adapter = AdapterTag(trimTags(posts[position-1].tags))
             setPost(holder, position-1)
         }
     }

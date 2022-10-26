@@ -25,6 +25,7 @@ import com.epigram.android.data.arch.PreferenceModule
 import com.epigram.android.data.arch.utils.LoadNextPage
 import com.epigram.android.data.arch.utils.Utils
 import com.epigram.android.data.model.Post
+import com.epigram.android.ui.adapters.AdapterTag.Companion.trimTags
 import com.f2prateek.rx.preferences2.Preference
 import com.jakewharton.rxbinding2.view.RxView
 import io.reactivex.Observable
@@ -56,8 +57,7 @@ class AdapterArticles(context: Context, posts: MutableList<Post>, loadNext: Load
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         holder.tags.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
         holder.tags.itemAnimator = DefaultItemAnimator()
-        holder.tags.adapter =
-            AdapterTag(posts[position].tags)
+        holder.tags.adapter = AdapterTag(trimTags(posts[position].tags))
         setPost(holder, position)
     }
 

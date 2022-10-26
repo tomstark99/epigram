@@ -30,6 +30,9 @@ import com.epigram.android.data.arch.utils.Utils
 import com.epigram.android.data.model.Post
 import com.epigram.android.ui.adapters.AdapterAuthorTag
 import com.epigram.android.ui.adapters.AdapterBreaking
+import com.google.android.flexbox.FlexDirection
+import com.google.android.flexbox.FlexboxLayoutManager
+import com.google.android.flexbox.JustifyContent
 import kotlinx.android.synthetic.main.activity_article_view.*
 import org.sufficientlysecure.htmltextview.HtmlHttpImageGetter
 import org.sufficientlysecure.htmltextview.HtmlTextView
@@ -100,13 +103,16 @@ class ArticleActivity : BaseActivity<ArticleMvp.Presenter>(), ArticleMvp.View, L
 //        presenter.loadKeywords(post.title)
 
         recyclerView = findViewById(R.id.recycler_view_tag)
-        val layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+//        val layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        val layoutManager = FlexboxLayoutManager(this, FlexDirection.ROW)
+        layoutManager.justifyContent = JustifyContent.FLEX_START
         recyclerView!!.layoutManager = layoutManager
         recyclerView!!.itemAnimator = DefaultItemAnimator()
         recyclerView!!.adapter = AdapterTag(post.tags)
 
-        val layout = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        recycler_view_author!!.layoutManager = layout
+        val layoutManagerAuthor = FlexboxLayoutManager(this, FlexDirection.ROW)
+        layoutManagerAuthor.justifyContent = JustifyContent.FLEX_START
+        recycler_view_author!!.layoutManager = layoutManagerAuthor
         recycler_view_author!!.itemAnimator = DefaultItemAnimator()
         recycler_view_author!!.adapter = AdapterAuthorTag(post.authors)
 
